@@ -90,7 +90,7 @@
     display: inline-block;
     float: left;
     border-radius: 4px;
-    background: #999999;
+    background: #f2f2f2;
     margin-right: 7px;
     padding: 2px;
   }

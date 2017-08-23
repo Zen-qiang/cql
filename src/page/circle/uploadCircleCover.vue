@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dinglian-upload-all">
     <div class="dinglian-createCirclePhoto-uploadPhoto">
       <input id="photo" accept="image/*" type="file" @change="uploadImg" ref="photo" />
       <label for="photo" v-show="isBlock"></label>
@@ -8,25 +8,34 @@
       </i>
     </div>
     <p>简介</p>
-    <mt-field placeholder="选择分类，让别人更好的找到你" type="textarea" rows="4" v-model="introduction"></mt-field>
+    <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder="选择分类，让别人更好的找到你"></textarea>
+    <!--<mt-field placeholder="选择分类，让别人更好的找到你" type="textarea" rows="4" v-model="introduction"></mt-field>-->
   </div>
 
 </template>
 <script>
   export default {
     data () {
-      return {}
+      return {
+        isBlock: '',
+        imgUrl: '',
+        introduction: ''
+      }
+    },
+    methods: {
+      uploadImg () {}
     }
   }
 
 </script>
 <style scoped>
-  .dinglian-createCirclePhoto-html {
-    padding-top: 65px;
+  .dinglian-upload-all {
+    position: relative;
   }
   .dinglian-createCirclePhoto-uploadPhoto {
     position: relative;
-    /*border: 1px solid red;*/
+    height: 180px;
+    /*border-bottom: 1px solid #999999;*/
   }
   .dinglian-createCirclePhoto-uploadPhoto > input {
     position: absolute;
@@ -41,19 +50,28 @@
     background: url(../../assets/images/createCircle.png) no-repeat center center;
     display: inline-block;
     width: 100%;
-    height: 200px;
+    height: 180px;
+    border-bottom: 1px solid #dddddd;
   }
   .dinglian-createCirclePhoto-background > img {
     width: 100%;
-    height: 200px;
+    height: 180px;
+    display: block;
   }
-  .dinglian-createCirclePhoto-html > p {
+  .dinglian-upload-all > p {
     background-color: #ffffff;
     margin-bottom: 0;
     text-align: left;
-    font-size: 20px;
+    font-size: 14px;
     padding: 15px;
     color: #333333;
+  }
+  .dinglian-upload-con {
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+    height: 157px;
+    padding: 15px;
+    font-size: 12px;
   }
 
 
