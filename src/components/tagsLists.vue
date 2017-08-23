@@ -1,11 +1,11 @@
 <template>
   <ul class="dinglian-tagsLists-all clearfix">
-    <li>桌游</li>
-    <li>桌游</li>
-    <li>桌游</li>
-    <li>桌游</li>
-    <li>桌游</li>
-    <li>桌游</li>
+    <li class="fs_9">桌游</li>
+    <li class="dinglian-tagsLists-active fs_9">桌游</li>
+    <li class="fs_9">桌游</li>
+    <li class="fs_9">桌游</li>
+    <li class="fs_9">桌游</li>
+    <li class="fs_9">桌游</li>
   </ul>
 </template>
 <script>
@@ -23,8 +23,18 @@
     float: left;
     border: 1px solid #999999;
     border-radius: 4px;
-    margin: 10px;
+    height: 22px;
+    padding: 0 10px;
+    margin: 10px 0;
+    margin-right: 10px;
+  }
+  .dinglian-tagsLists-all > li:first-of-type {
+    margin-left: 15px;
   }
 
+
+  .dinglian-tagsLists-active {
+    background: #ffd200;
+  }
 
 </style>

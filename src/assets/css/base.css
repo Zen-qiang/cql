@@ -10,6 +10,7 @@
   /*设置盒子宽度从边框计算*/
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  color: #333333;
 }
 .clearfix::before, .clearfix::after {
   content: '.';
@@ -28,4 +29,41 @@ input, textarea {
 }
 ul, ol, li {
   list-style: none;
+}
+.fs_11{
+  font-size:12px;
+  -webkit-transform-origin-x: 0;
+  transform-origin-x: 0;
+  -webkit-transform: scale(0.916);
+  transform: scale(0.916);
+}
+.fs_10{
+  font-size:12px;
+  -webkit-transform-origin-x: 0;
+  transform-origin-x: 0;
+  -webkit-transform: scale(0.83333);
+  transform: scale(0.83333);
+}
+.fs_9{
+  font-size:12px;
+  -webkit-transform-origin-x: 0;
+  transform-origin-x: 0;
+  -webkit-transform: scale(0.75);
+  transform: scale(0.75);
+}
+/*搜索框*/
+.dinglian-circle-all .mint-searchbar {
+  height: 45px;
+  background: #f2f2f2;
+}
+.dinglian-circle-all .mint-searchbar-inner {
+  height: 24px;
+  border-radius: 4px;
+}
+.dinglian-circle-all .mint-searchbar-inner .mint-searchbar-core {
+  text-align: center;
+}
+.dinglian-circle-all .mint-searchbar-cancel {
+  color: #333333;
+  font-size: 12px;
 }
