@@ -17,7 +17,9 @@
   }
 </script>
 <style scoped>
-  .dinglian-tagsLists-all {}
+  .dinglian-tagsLists-all {
+    padding: 15px;
+  }
   .dinglian-tagsLists-all > li {
     display: inline-block;
     float: left;
@@ -28,11 +30,6 @@
     margin: 10px 0;
     margin-right: 10px;
   }
-  .dinglian-tagsLists-all > li:first-of-type {
-    margin-left: 15px;
-  }
-
-
   .dinglian-tagsLists-active {
     background: #ffd200;
   }

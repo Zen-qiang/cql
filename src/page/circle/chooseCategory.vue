@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dinglian-choose-all">
     <h3>选择分类</h3>
     <p>选择分类，让别人更好的找到你</p>
     <mt-navbar v-model="selected">
@@ -29,24 +29,33 @@
     </div>
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
-        <ul class="dinglian-classification-tagList clearfix">
-          <li v-for="(myItem,id) in tagList" :class="{'dinglian-circle-tags':!myItem.show,'dinglian-circle-changetags':myItem.show}" @click="getMyTag(myItem,id)" >
-            <span>{{myItem.tagName}}</span>
-          </li>
+        <ul class="dinglian-choose-tags clearfix">
+          <li >街舞</li>
+          <li class="dinglian-choose-tags-li">街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
         </ul>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
-        <ul class="dinglian-classification-tagList clearfix">
-          <li v-for="(myItem,id) in tagList" :class="{'dinglian-circle-tags':!myItem.show,'dinglian-circle-changetags':myItem.show}" @click="getMyTag(myItem,id)" >
-            <span>{{myItem.tagName}}</span>
-          </li>
+        <ul class="dinglian-choose-tags clearfix">
+          <li >街舞</li>
+          <li class="dinglian-choose-tags-li">街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
         </ul>
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
-        <ul class="dinglian-classification-tagList clearfix">
-          <li v-for="(myItem,id) in tagList" :class="{'dinglian-circle-tags':!myItem.show,'dinglian-circle-changetags':myItem.show}" @click="getMyTag(myItem,id)" >
-            <span>{{myItem.tagName}}</span>
-          </li>
+        <ul class="dinglian-choose-tags clearfix">
+          <li >街舞</li>
+          <li class="dinglian-choose-tags-li">街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
+          <li >街舞</li>
         </ul>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -65,28 +74,12 @@
   }
 </script>
 <style scoped>
-  .dinglian-classification-body {
-    background-color: #ffffff;
-    padding-top: 6rem;
-  }
-  h3 {
-
-  }
   img {
     width: 50%;
   }
   .mint-navbar .mint-tab-item {
     width: 24px;
     text-align: -webkit-center;
-  }
-  .dinglian-circle-tagsHeader {
-    width: 94%;
-    text-align: left;
-    padding-top: 6rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    border-bottom: 1px solid #999999;
-    margin-left: 3%;
   }
   /*切换标签颜色 start*/
   .dinglian-circle-tags {
@@ -130,5 +123,53 @@
   img {
     width: 30%;
   }
+  /*主体*/
+  .dinglian-choose-all {
+    padding-top: 154px;
+  }
+  /*h3 标题*/
+ .dinglian-choose-all > h3 {
+   font-size: 24px;
+   font-weight: 300;
+   color: #666666;
 
+ }
+  .dinglian-choose-all >p {
+    font-size:11px;
+    color: #999999;
+    margin-bottom: 37px;
+  }
+  /*标签*/
+  .dinglian-circle-tagsHeader {
+    width: 94%;
+    text-align: left;
+    padding-top: 81px;
+    padding-bottom: 19px;
+    padding-left: 16px;
+    border-bottom: 1px solid #999999;
+    margin-left: 3%;
+    color: #333333;
+    font-size: 14px;
+  }
+  .dinglian-choose-tags {
+    padding: 5px 28px;
+    overflow: hidden;
+
+  }
+  .dinglian-choose-tags > li {
+    display: inline-block;
+    float: left;
+    height: 22px;
+    border: 1px solid #999999;
+    border-radius: 10px;
+    line-height: 22px;
+    font-size: 11px;
+    padding: 0 10px;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+  .dinglian-choose-tags-li {
+    background: #333333;
+    color: #ffffff;
+  }
 </style>
