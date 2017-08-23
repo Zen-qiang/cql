@@ -11,7 +11,7 @@ Vue.use(mint)
 import './assets/css/base.css'
 // 引入axios
 import axios from './http'
-Vue.use(axios)
+// Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 

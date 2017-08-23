@@ -1,11 +1,6 @@
 <template>
   <ul class="dinglian-tagsLists-all clearfix">
-    <li class="fs_9">桌游</li>
-    <li class="dinglian-tagsLists-active fs_9">桌游</li>
-    <li class="fs_9">桌游</li>
-    <li class="fs_9">桌游</li>
-    <li class="fs_9">桌游</li>
-    <li class="fs_9">桌游</li>
+    <li class="fs_9" :key="item.id" v-for="item of tagsList" @click="checkTag(item.id)">{{item.name}}</li>
   </ul>
 </template>
 <script>
@@ -13,6 +8,12 @@
     name: 'TagsLists',
     data () {
       return {}
+    },
+    props: ['tagsList'],
+    methods: {
+      checkTag (tagId) {
+        this.$emit('checkTag', tagId)
+      }
     }
   }
 </script>

@@ -1,40 +1,20 @@
 <template>
   <div>
     <ul class="dinglian-lists-ul">
-      <li class="clearfix dinglian-lists-con">
+      <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList">
         <div class="dinglian-lists-con-left">
-          <img src="../../assets/images/circle.jpg" alt="">
+          <img :src="basePicUrl + item.cover" alt="">
         </div>
         <div class="dinglian-lists-con-right">
-          <h3>全部的标题</h3>
+          <h3>{{item.name}}</h3>
           <div class="dinglian-lists-statistics clearfix">
-            <span class="fs_11">成员350</span>
-            <span class="fs_11">话题452</span>
-            <span class="fs_11">活动8</span>
+            <span class="fs_11">成员&nbsp;{{item.membersCnt}}</span>
+            <span class="fs_11">话题&nbsp;{{item.activityCnt}}</span>
           </div>
           <div class="dinglian-lists-tags clearfix">
-            <span class="fs_11">桌游</span>
-            <span class="fs_11">桌游</span>
+            <span class="fs_11" :key="tagName" v-for="tagName of item.tags">{{tagName}}</span>
           </div>
-          <p>单价你代付克罗米芬莱克罗米芬莱克罗米芬莱克罗米芬莱克斯大三大四的打顿你...</p>
-        </div>
-      </li>
-      <li class="clearfix dinglian-lists-con">
-        <div class="dinglian-lists-con-left">
-          <img src="../../assets/images/circle.jpg" alt="">
-        </div>
-        <div class="dinglian-lists-con-right">
-          <h3>全部的标题</h3>
-          <div class="dinglian-lists-statistics clearfix">
-            <span class="fs_11">成员350</span>
-            <span class="fs_11">话题452</span>
-            <span class="fs_11">活动8</span>
-          </div>
-          <div class="dinglian-lists-tags clearfix">
-            <span class="fs_11">桌游</span>
-            <span class="fs_11">桌游</span>
-          </div>
-          <p>单价你代付克罗米芬莱克罗米芬莱克罗米芬莱克罗米芬莱克斯大三大四的打顿你...</p>
+          <p>{{item.description}}</p>
         </div>
       </li>
     </ul>
@@ -45,8 +25,11 @@
   export default {
     name: 'CircleInfoLists',
     data () {
-      return {}
-    }
+      return {
+        basePicUrl: 'http://106.14.2.158:5080/chuqulang-resource/'
+      }
+    },
+    props: ['coterieList']
   }
 </script>
 <style scoped>
