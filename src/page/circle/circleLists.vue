@@ -43,7 +43,9 @@
         activityType: [],
         tagsList: [],
         coterieList: [],
+        // 一级标签
         flvTagId: null,
+        // 二级标签
         slvTagsArr: [],
         start: 0,
         pageSize: 999999
@@ -55,6 +57,7 @@
     },
     methods: {
       getActivityType () {
+        // 获取一级标签
         this.axios({
           method: 'get',
           url: 'getActivityType',
@@ -66,6 +69,7 @@
         }).catch()
       },
       getTagList (parentId) {
+        // 获取二级标签
         this.slvTagsArr = []
         let param = {}
         if (parentId) {
@@ -82,6 +86,7 @@
         }).catch()
       },
       getCoterieList () {
+        // 获取圈子列表
         let param = {}
         if (this.flvTagId) {
           param.firstLevelTagId = this.flvTagId
@@ -105,6 +110,7 @@
         }).catch()
       },
       checkTag (tagId) {
+        // 勾选二级标签
         let idx = this.slvTagsArr.indexOf(tagId)
         if (idx > -1) {
           this.slvTagsArr.splice(idx, 1)
@@ -115,6 +121,7 @@
         // console.log(this.slvTagsArr)
       },
       convertToStr (array) {
+        // 数组转字符串
         let data = ''
         for (var i in array) {
           data += array[i] + ','

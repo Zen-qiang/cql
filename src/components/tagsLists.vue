@@ -12,6 +12,7 @@
     props: ['tagsList'],
     methods: {
       checkTag (tagId) {
+        // 向父类传值
         this.$emit('checkTag', tagId)
       }
     }
