@@ -3,3 +3,8 @@
  */
 // 创建圈子
 export const CIRCLENAME = 'circleName'
+export const CIRCLETAGS = 'circleTags'
+export const CIRCLEID = 'circleId'
+
+// 活动
+export const ACTIVITYID = 'activityId'

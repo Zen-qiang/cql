@@ -6,7 +6,16 @@ const mutations = {
   // 创建圈子
   [types.CIRCLENAME]: (state, circleName) => {
     state.circleName = circleName
-    console.log('保存', state.circleName)
+    // console.log('保存', state.circleName)
+  },
+  [types.CIRCLETAGS]: (state, circleTags) => {
+    state.circleTags = circleTags
+  },
+  [types.CIRCLEID]: (state, circleId) => {
+    state.circleId = circleId
+  },
+  [types.ACTIVITYID]: (state, activityId) => {
+    state.activityId = activityId
   }
 }
 export default mutations

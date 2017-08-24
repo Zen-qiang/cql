@@ -1,66 +1,36 @@
 <template>
   <div>
     <ul class="dinglian-lists-ul">
-      <li>
+      <li :key="item.topicId" v-for="item of topicList">
         <div class="clearfix dinglian-lists-con">
           <div class="dinglian-lists-con-left">
-            <img src="../../assets/images/circle.jpg" alt="">
+            <img :src="domain.resourceUrl + item.activity.cover" alt="" @click="redirectActivityInfo(item.activity.activityId)">
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">
-              <h3>全部的标题</h3>
-              <span class="dinglian-lists-circleTag">金桥1圈</span>
+              <h3>{{item.activity.name}}</h3>
+              <span class="dinglian-lists-circleTag">{{item.activity.coterie.name}}</span>
             </div>
             <div class="dinglian-lists-tags clearfix">
-              <span class="fs_11">桌游</span>
-              <span class="fs_11">桌游</span>
+              <span class="fs_11" :key="tag" v-for="tag of item.activity.tags">{{tag}}</span>
             </div>
-            <div class="dinglian-lists-cost">免费</div>
+            <div class="dinglian-lists-cost">{{item.activity.charge}}</div>
             <div class="dinglian-lists-people clearfix">
-              <span>进行中</span>
-              <span> <i>3</i> /5~9人</span>
+              <span v-if="item.activity.status === '1'">进行中</span>
+              <span v-else-if="item.activity.status === '2'">正在报名</span>
+              <span v-else>已结束</span>
+              <span> <i>{{item.activity.userCount.currentCount}}</i> /{{item.activity.userCount.minCount}}~{{item.activity.userCount.maxCount}}人</span>
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
-              <span>门行路手术室</span>
+              <span>{{item.activity.address}}</span>
               <span>5.6km</span>
             </div>
           </div>
         </div>
 
         <div class="dinglian-lists-footer">
-          <span>15</span>
-          <span>343</span>
-        </div>
-      </li>
-      <li>
-        <div class="clearfix dinglian-lists-con">
-          <div class="dinglian-lists-con-left">
-            <img src="../../assets/images/circle.jpg" alt="">
-          </div>
-          <div class="dinglian-lists-con-right">
-            <div class="dinglian-lists-title clearfix">
-              <h3>全部的标题</h3>
-              <span class="dinglian-lists-circleTag">金桥1圈</span>
-            </div>
-            <div class="dinglian-lists-tags clearfix">
-              <span class="fs_11">桌游</span>
-              <span class="fs_11">桌游</span>
-            </div>
-            <div class="dinglian-lists-cost">免费</div>
-            <div class="dinglian-lists-people clearfix">
-              <span>进行中</span>
-              <span> <i>3</i> /5~9人</span>
-            </div>
-            <div class="dinglian-lists-people dinglian-lists-address clearfix">
-              <span>门行路手术室</span>
-              <span>5.6km</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dinglian-lists-footer">
-          <span>15</span>
-          <span>343</span>
+          <span>{{item.commentCnt}}</span>
+          <span @click="praiseTopic(item)">{{item.praiseCnt}}</span>
         </div>
       </li>
     </ul>
@@ -68,10 +38,40 @@
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
+  import { Toast } from 'mint-ui'
   export default {
     name: 'CircleEvents',
     data () {
       return {}
+    },
+    props: ['topicList'],
+    methods: {
+      redirectActivityInfo (activityId) {
+        // 跳转到活动详情
+        this.$store.commit(types.ACTIVITYID, activityId)
+        this.$router.push({'path': '/activityInfo'})
+      },
+      praiseTopic (topic) {
+        // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
+        if (!topic.hasPraise) {
+          this.axios({
+            method: 'get',
+            url: 'praiseTopic',
+            params: {
+              userId: 13,
+              topicId: topic.topicId
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              topic.hasPraise = true
+              topic.praiseCnt++
+            }
+          }).catch()
+        }
+      }
     }
   }
 </script>

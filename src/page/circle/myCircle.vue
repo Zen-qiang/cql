@@ -13,35 +13,85 @@
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
         <ul class="dinglian-myCircle-lists">
-          <li class="dinglian-myCircle-info">
-            <img src="../../assets/images/my_circle1.jpg" alt="">
-            <span>金桥街舞</span>
+          <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
+            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <span>{{item.name}}</span>
           </li>
           <li class="dinglian-myCircle-info">
-            <img src="../../assets/images/my_circle2.jpg" alt="">
-            <span>金桥街舞</span>
-          </li>
-          <li class="dinglian-myCircle-info">
-            <img src="../../assets/images/my_circle3.jpg" alt="">
+            <img :src="addCoterieImageUrl" alt="" @click="redirectCircleList">
             <span>找找兴趣</span>
           </li>
         </ul>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
-        2222
+        <ul class="dinglian-myCircle-lists">
+          <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
+            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <span>{{item.name}}</span>
+          </li>
+          <li class="dinglian-myCircle-info">
+            <img :src="addCoterieImageUrl" alt="" @click="redirectCircleList">
+            <span>找找兴趣</span>
+          </li>
+        </ul>
       </mt-tab-container-item>
       <mt-tab-container-item id="3">
-       333
+        <ul class="dinglian-myCircle-lists">
+          <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
+            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <span>{{item.name}}</span>
+          </li>
+          <li class="dinglian-myCircle-info">
+            <img :src="addCoterieImageUrl" alt="" @click="redirectCircleList">
+            <span>找找兴趣</span>
+          </li>
+        </ul>
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
-        selected: '1'
+        selected: '1',
+        addCoterieImageUrl: require('../../assets/images/my_circle3.jpg'),
+        coteries: []
+      }
+    },
+    created () {
+      // 获取我的圈子列表
+      this.getMyCircles(this.selected)
+    },
+    watch: {
+      selected: function (val, oldVal) {
+        this.getMyCircles(val)
+      }
+    },
+    methods: {
+      redirectCircleInfo (id) {
+        this.$store.commit(types.CIRCLEID, id)
+        this.$router.push({'path': '/circleDetails'})
+      },
+      redirectCircleList () {
+        // 跳转的所有圈子列表
+        this.$router.push({'path': '/circleLists'})
+      },
+      getMyCircles (dataType) {
+        // 获取我的圈子列表
+        let param = {
+          userId: 13,
+          dataType: dataType
+        }
+        this.axios({
+          method: 'get',
+          url: 'getMyCoteries',
+          params: param
+        }).then(res => {
+          this.coteries = res.data.data
+        }).catch()
       }
     }
   }

@@ -16,6 +16,10 @@ import axios from './http'
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 
+// 引入全局变量配置
+import domain from './domain.js'
+Vue.prototype.domain = domain
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

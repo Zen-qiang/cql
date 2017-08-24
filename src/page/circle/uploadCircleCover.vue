@@ -8,24 +8,30 @@
       </i>
     </div>
     <p>简介</p>
-    <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder="选择分类，让别人更好的找到你"></textarea>
-    <!--<mt-field placeholder="选择分类，让别人更好的找到你" type="textarea" rows="4" v-model="introduction"></mt-field>-->
+    <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder=""></textarea>
+    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
   </div>
 
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   export default {
     data () {
       return {
+        circleName: '',
+        circleTags: '',
         photoFile: '',
         isBlock: true,
         imgUrl: '',
         introduction: '',
-        dataUrl: []
+        dataUrl: ''
       }
     },
+    created () {
+      this.circleName = this.$store.state.circleName
+      this.circleTags = this.$store.state.circleTags
+    },
     methods: {
-//      上传图片
       uploadImg () {
         let self = this
         let files = this.$refs.photo.files
@@ -40,12 +46,34 @@
             reader.readAsDataURL(files[i])
             // 读取成功后的回调
             reader.onloadend = function () {
-              console.log(this.result)
-              self.dataUrl.push(this.result)
+              self.dataUrl = this.result
+              self.imgUrl = this.result
             }
           }
         }
-        console.log(this.dataUrl)
+      },
+      goNextStep () {
+        let data = {
+          // test
+          userId: 13,
+          name: this.circleName,
+          tags: this.circleTags,
+          description: this.introduction,
+          picture: this.dataUrl
+        }
+        this.axios({
+          method: 'post',
+          url: 'createCoterie',
+          data: data
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.message)
+          } else {
+            this.$router.push({'path': '/myCircle'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }

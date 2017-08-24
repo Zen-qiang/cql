@@ -3,7 +3,7 @@
     <ul class="dinglian-lists-ul">
       <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList">
         <div class="dinglian-lists-con-left">
-          <img :src="basePicUrl + item.cover" alt="">
+          <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.coterieId)">
         </div>
         <div class="dinglian-lists-con-right">
           <h3>{{item.name}}</h3>
@@ -22,14 +22,19 @@
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     name: 'CircleInfoLists',
     data () {
-      return {
-        basePicUrl: 'http://106.14.2.158:5080/chuqulang-resource/'
-      }
+      return {}
     },
-    props: ['coterieList']
+    props: ['coterieList'],
+    methods: {
+      redirectCircleInfo (id) {
+        this.$store.commit(types.CIRCLEID, id)
+        this.$router.push({'path': '/circleDetails'})
+      }
+    }
   }
 </script>
 <style scoped>

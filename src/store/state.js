@@ -3,6 +3,10 @@
  */
 const state = {
   // 创建圈子
-  circleName: ''
+  circleName: '',
+  circleTags: '',
+  circleId: '',
+  // 活动属性
+  activityId: ''
 }
 export default state

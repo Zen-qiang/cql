@@ -3,9 +3,10 @@
  */
 import axios from 'axios'
 import qs from 'querystring'
-// import { Toast } from 'mint-ui'
+import { Toast } from 'mint-ui'
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = 'http://106.14.2.158/api/'
+// axios.defaults.baseURL = 'http://106.14.2.158/api/'
+axios.defaults.baseURL = 'http://192.168.3.11:8081/dinglian/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 // http请求拦截器
 axios.interceptors.request.use(
@@ -31,6 +32,9 @@ axios.interceptors.response.use(
     return response
   },
   error => {
+    if (error.response.status === 400) {
+      Toast('参数不正确，请检查参数名称及类型')
+    }
     return Promise.reject(error)
   })
 

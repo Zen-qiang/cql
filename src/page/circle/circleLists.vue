@@ -16,7 +16,9 @@
     <!-- tab-container -->
     <mt-tab-container v-model="tagIndex">
       <mt-tab-container-item id="0">
-        <tags-lists :tagsList="tagsList" v-on:checkTag="checkTag"></tags-lists>
+        <ul class="dinglian-tagsLists-all clearfix">
+          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
+        </ul>
         <circle-info-lists :coterieList="coterieList"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item of activityType">
@@ -56,6 +58,10 @@
       this.getCoterieList()
     },
     methods: {
+      redirectCreateCoterie () {
+        // 跳转到创建圈子
+        this.$router.push({'path': '/createCircle'})
+      },
       getActivityType () {
         // 获取一级标签
         this.axios({
@@ -120,6 +126,9 @@
         this.getCoterieList()
         // console.log(this.slvTagsArr)
       },
+      isSelected (tagId) {
+        return this.slvTagsArr.indexOf(tagId) > -1
+      },
       convertToStr (array) {
         // 数组转字符串
         let data = ''
@@ -147,8 +156,26 @@
     height: 100%;
     object-fit: cover;
   }
-
-
+  .dinglian-tagsLists-all {
+    padding: 15px;
+  }
+  .dinglian-tagsLists-all > li {
+    display: inline-block;
+    float: left;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    height: 22px;
+    padding: 0 10px;
+    margin: 10px 0;
+    margin-right: 10px;
+  }
+  .dinglian-tagsLists-active {
+    background: #ffd200;
+  }
+  .dinglian-choose-tags-li {
+    background: #333333;
+    color: #ffffff;
+  }
 
 
 </style>
