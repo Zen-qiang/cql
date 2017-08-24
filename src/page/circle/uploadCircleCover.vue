@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-upload-all">
     <div class="dinglian-createCirclePhoto-uploadPhoto">
-      <input id="photo" accept="image/*" type="file" @change="uploadImg" ref="photo" />
+      <input id="photo" accept="image/*" type="file" @change="uploadImg" ref="photo" multiple />
       <label for="photo" v-show="isBlock"></label>
       <i class="dinglian-createCirclePhoto-background">
         <img :src="imgUrl" alt="" v-show="imgUrl">
@@ -17,13 +17,36 @@
   export default {
     data () {
       return {
-        isBlock: '',
+        photoFile: '',
+        isBlock: true,
         imgUrl: '',
-        introduction: ''
+        introduction: '',
+        dataUrl: []
       }
     },
     methods: {
-      uploadImg () {}
+//      上传图片
+      uploadImg () {
+        let self = this
+        let files = this.$refs.photo.files
+        for (var i = 0; i < files.length; i++) {
+          if (!files[i] || !window.FileReader) {
+            return
+          }
+          if (/^image/.test(files[i].type)) {
+            // 创建一个reader
+            let reader = new FileReader()
+            // 将图片将转成 base64 格式
+            reader.readAsDataURL(files[i])
+            // 读取成功后的回调
+            reader.onloadend = function () {
+              console.log(this.result)
+              self.dataUrl.push(this.result)
+            }
+          }
+        }
+        console.log(this.dataUrl)
+      }
     }
   }
 

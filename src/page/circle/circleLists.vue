@@ -59,13 +59,7 @@
     height: 100%;
     object-fit: cover;
   }
-  .mint-navbar .mint-tab-item.is-selected {
-    border-bottom: 3px solid #ffd200;
-    color: #333333;
-  }
-  a {
-    color: #333333;
-  }
+
 
 
 

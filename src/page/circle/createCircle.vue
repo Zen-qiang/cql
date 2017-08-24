@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     name: 'createCircle',
     data () {
@@ -21,6 +22,9 @@
     methods: {
 //        下一步
       goNextStep () {
+        console.log(this.$route)
+        this.$store.commit(types.CIRCLENAME, this.circleName)
+        this.$router.push({'path': '/chooseCategory'})
       }
     }
   }

@@ -112,12 +112,10 @@
     padding: 2px;
   }
   .dinglian-lists-con-right > p {
-    display: inline-block;
     margin-top: 17px;
     font-size: 12px;
     height: 29px;
     text-align: left;
     margin-right: 15px;
   }
-
 </style>

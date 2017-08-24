@@ -69,6 +69,10 @@
         selected: '1'
       }
     },
+    created () {
+      var name = this.$store.state.circleName
+      console.log(name)
+    },
     methods: {
     }
   }

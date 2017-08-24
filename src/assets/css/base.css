@@ -77,3 +77,11 @@ ul, ol, li {
   bottom: 0;
   left: 0;
 }
+/*修改navbar*/
+.mint-navbar .mint-tab-item.is-selected {
+  border-bottom: 3px solid #ffd200;
+  color: #333333;
+}
+a {
+  color: #333333;
+}

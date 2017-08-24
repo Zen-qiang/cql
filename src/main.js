@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 
 // 引入mint ui
 import mint from 'mint-ui'
@@ -22,6 +23,7 @@ new Vue({
   el: '#app',
   router,
   axios,
+  store,
   template: '<App/>',
   components: { App }
 })
