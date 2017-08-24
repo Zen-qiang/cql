@@ -10,7 +10,6 @@
   /*设置盒子宽度从边框计算*/
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  color: #333333;
 }
 .clearfix::before, .clearfix::after {
   content: '.';
@@ -25,7 +24,7 @@ input, textarea {
   outline: none;
   resize: none;
   /*特殊属性定义 清除浏览器给input自带的样式*/
-  -webkit-appearance: none;
+  /*-webkit-appearance: none;*/
 }
 ul, ol, li {
   list-style: none;
@@ -67,6 +66,7 @@ ul, ol, li {
   color: #333333;
   font-size: 12px;
 }
+/*按钮*/
 .dinglian-button {
   background: #ffd200;
   width: 100%;
@@ -77,6 +77,13 @@ ul, ol, li {
   bottom: 0;
   left: 0;
 }
+.edit-button {
+  margin: 10px 4%;
+  width: 92%;
+  background: #ffd200;
+  color: #333333;
+  font-size: 15px;
+}
 /*修改navbar*/
 .mint-navbar .mint-tab-item.is-selected {
   border-bottom: 3px solid #ffd200;
@@ -85,3 +92,9 @@ ul, ol, li {
 a {
   color: #333333;
 }
+/*切换switch*/
+.mint-switch-input:checked + .mint-switch-core {
+  border-color: #ffd200;
+  background-color: #ffd200;
+}
+

@@ -7,6 +7,8 @@
           <p>已有50人参加</p>
           <span>加入</span>
         </div>
+        <span class="dinglian-details-edit"></span>
+        <div class="dinglian-details-gray"></div>
       </div>
       <p>手机睡觉啊阿拉斯加阿萨卡就撒开卡哈安卡拉健身卡了大量叫大姐三卡三卡里打极乐世界大连市将辣椒</p>
     </header>
@@ -55,6 +57,7 @@
     left: 50%;
     margin-left: -90px;
     top: 90px;
+    z-index: 7;
   }
   .dinglian-details-join > h4 {
     color: #ffffff;
@@ -75,6 +78,27 @@
     background: #ffd200;
     border-radius: 4px;
     margin-top: 22px;
+  }
+  .dinglian-details-edit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url("../../assets/images/edit.svg") no-repeat center;
+    width: 40px;
+    height: 40px;
+    z-index: 8;
+    padding: 10px;
+    background-clip: content-box;
+    background-origin: content-box;
+  }
+  .dinglian-details-gray {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: gainsboro;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
   }
   header > p {
     width: 100%;

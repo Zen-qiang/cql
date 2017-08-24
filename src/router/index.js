@@ -8,6 +8,10 @@ import UploadCircleCover from '@/page/circle/uploadCircleCover.vue'
 import CircleLists from '@/page/circle/circleLists.vue'
 import CircleDetails from '@/page/circle/circleDetails.vue'
 import MyCircle from '@/page/circle/myCircle.vue'
+// 活动
+import MyActivity from '@/page/activity/myActivity.vue'
+import EditContent from '@/page/activity/editContent.vue'
+import ActivityLists from '@/page/activity/activityLists.vue'
 
 Vue.use(Router)
 
@@ -48,6 +52,22 @@ export default new Router({
       path: '/myCircle',
       name: 'MyCircle',
       component: MyCircle
+    },
+    // 活动
+    {
+      path: '/myActivity',
+      name: 'MyActivity',
+      component: MyActivity
+    },
+    {
+      path: '/editContent',
+      name: 'EditContent',
+      component: EditContent
+    },
+    {
+      path: '/activityLists',
+      name: 'ActivityLists',
+      component: ActivityLists
     }
   ]
 })

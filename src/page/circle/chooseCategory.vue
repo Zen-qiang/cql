@@ -4,20 +4,20 @@
     <p>选择分类，让别人更好的找到你</p>
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">
-        <img class="mui-media-object mui-pull-left" src="../../assets/images/dancing.png">
-        <div class="mui-media-body">
+        <img src="../../assets/images/dancing.png">
+        <div>
           街舞
         </div>
       </mt-tab-item>
       <mt-tab-item id="2" class="dinglian-classification-navbar">
-        <img class="mui-media-object mui-pull-left" src="../../assets/images/table.png">
-        <div class="mui-media-body">
+        <img src="../../assets/images/table.png">
+        <div>
           桌游
         </div>
       </mt-tab-item>
       <mt-tab-item id="3">
-        <img class="mui-media-object mui-pull-left" src="../../assets/images/basketball.png">
-        <div class="mui-media-body">
+        <img src="../../assets/images/basketball.png">
+        <div>
           其他
         </div>
       </mt-tab-item>
