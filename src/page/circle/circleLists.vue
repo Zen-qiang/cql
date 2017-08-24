@@ -1,13 +1,9 @@
 <template>
   <div class="dinglian-circle-all">
-    <mt-search v-model="keyword" placeholder="搜索" autofocus>
-      <mt-cell
-        :key="coterie.coterieId"
-        v-for="coterie in coterieList"
-        :title="coterie.name"
-        :value="coterie.coterieId">
-      </mt-cell>
-    </mt-search>
+    <div class="dinglian-circle-search">
+      <input type="search" placeholder="🔍 请输入圈子关键词">
+    </div>
+    <carousel :carouselList="carouselList"></carousel>
     <mt-navbar v-model="tagIndex" class="dinglian-circle-navbar">
       <mt-tab-item id="0" @click.native="getTagList(null)">全部</mt-tab-item>
       <mt-tab-item :id="item.id" :key="item.id" v-for="item of activityType" @click.native="getTagList(item.id)">{{item.name}}</mt-tab-item>
@@ -21,22 +17,27 @@
         </ul>
         <circle-info-lists :coterieList="coterieList"></circle-info-lists>
       </mt-tab-container-item>
-      <mt-tab-container-item :id="item.id" :key="item.id" v-for="item of activityType">
+      <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
         <tags-lists :tagsList="tagsList" v-on:checkTag="checkTag"></tags-lists>
         <circle-info-lists :coterieList="coterieList"></circle-info-lists>
       </mt-tab-container-item>
     </mt-tab-container>
+    <div class="dinglian-circle-createCircle">
+      创建圈子
+    </div>
   </div>
 
 </template>
 <script>
   import TagsLists from '../../components/tagsLists.vue'
   import CircleInfoLists from '../../components/baseCircle/circleInfoLists.vue'
+  import Carousel from '../../components/carousel.vue'
   // import { Toast } from 'mint-ui'
   export default {
     components: {
       TagsLists,
-      CircleInfoLists
+      CircleInfoLists,
+      Carousel
     },
     data () {
       return {
@@ -50,7 +51,14 @@
         // 二级标签
         slvTagsArr: [],
         start: 0,
-        pageSize: 999999
+        pageSize: 999999,
+        carouselList: [{
+          imageUrl: require('../../assets/images/carousel0.jpg')
+        }, {
+          imageUrl: require('../../assets/images/carousel1.jpg')
+        }, {
+          imageUrl: require('../../assets/images/carousel2.jpg')
+        }]
       }
     },
     created () {
@@ -141,6 +149,22 @@
   }
 </script>
 <style scoped>
+  /*搜索框*/
+  .dinglian-circle-search {
+    width: 100%;
+    height: 44px;
+    background: #f2f2f2;
+    padding: 10px 15px;
+  }
+  .dinglian-circle-search > input[type^=search] {
+    margin: 0 auto;
+    height: 24px;
+    width: 345px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #999999;
+    text-align: center;
+  }
   .mint-search {
     height: auto;
   }
@@ -176,6 +200,18 @@
     background: #333333;
     color: #ffffff;
   }
+  .dinglian-circle-createCircle {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    bottom: 10px;
+    right: 10px;
+    background: #ffd200;
+    border-radius: 40px;
+    font-size: 15px;
+  }
+
 
 
 </style>
