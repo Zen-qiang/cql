@@ -26,7 +26,7 @@ axios.interceptors.response.use(
     Toast('请求成功')
     if (response.data) {
       // 当用户ID为空时，需要跳转授权页面
-      Toast('跳转授权')
+      // Toast('跳转授权')
     }
     return response
   },
