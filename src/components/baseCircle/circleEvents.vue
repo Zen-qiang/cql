@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dinglian-lists-whole">
     <ul class="dinglian-lists-ul">
       <li :key="item.topicId" v-for="item of topicList">
         <div class="clearfix dinglian-lists-con">
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="dinglian-lists-footer">
+        <div class="dinglian-lists-footer clearfix">
           <span>{{item.commentCnt}}</span>
           <span @click="praiseTopic(item)">{{item.praiseCnt}}</span>
         </div>
@@ -76,6 +76,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-lists-whole {
+    padding-top: 2px;
+  }
   .dinglian-lists-ul {
     background: #f2f2f2;
     padding: 10px 0;
@@ -175,6 +178,7 @@
     color: #999999;
     display: inline-block;
     height: 100%;
+    float: left;
   }
   .dinglian-lists-footer span:first-of-type {
     margin-left: 41px;

@@ -153,7 +153,7 @@
   .dinglian-details-background {
     width: 100%;
     height: 195px;
-    background: url("../../assets/images/carousel0.jpg");
+    background: url("../../assets/images/carousel0.jpg") no-repeat center center;
     position: relative;
   }
   .dinglian-details-join {
