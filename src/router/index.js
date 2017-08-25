@@ -14,8 +14,10 @@ import EditContent from '@/page/activity/editContent.vue'
 import ActivityLists from '@/page/activity/activityLists.vue'
 import ActivitySuccess from '@/page/activity/activitySuccess.vue'
 import ActivityDetails from '@/page/activity/activityDetails.vue'
+import ChooseActivityTags from '@/page/activity/chooseActivityTags.vue'
 // 报名活动
 import SignUpActivity from '@/page/activity/signUpActivity.vue'
+import EditFriends from '@/page/activity/editFriends.vue'
 
 Vue.use(Router)
 
@@ -83,12 +85,21 @@ export default new Router({
       name: 'ActivityDetails',
       component: ActivityDetails
     },
+    {
+      path: '/chooseActivityTags',
+      name: 'ChooseActivityTags',
+      component: ChooseActivityTags
+    },
     // 报名活动
     {
       path: '/signUpActivity',
       name: 'SignUpActivity',
       component: SignUpActivity
+    },
+    {
+      path: '/editFriends',
+      name: 'EditFriends',
+      component: EditFriends
     }
-
   ]
 })

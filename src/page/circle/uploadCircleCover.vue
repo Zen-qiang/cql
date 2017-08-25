@@ -6,9 +6,13 @@
       <i class="dinglian-createCirclePhoto-background">
         <img :src="imgUrl" alt="" v-show="imgUrl">
       </i>
+      <div class="dinglian-createCirclePhoto-cover" v-show="cover">
+        <img src="../../assets/images/modify.png" alt="">
+      </div>
     </div>
     <p>简介</p>
     <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder=""></textarea>
+    <p>我同意<a>《出趣浪服务条款》</a></p>
     <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
   </div>
 
@@ -24,7 +28,8 @@
         isBlock: true,
         imgUrl: '',
         introduction: '',
-        dataUrl: ''
+        dataUrl: '',
+        cover: false
       }
     },
     created () {
@@ -51,6 +56,7 @@
             }
           }
         }
+        this.cover = true
       },
       goNextStep () {
         let data = {
@@ -109,6 +115,28 @@
     height: 180px;
     display: block;
   }
+  .dinglian-createCirclePhoto-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #dddddd;
+    opacity: 0.2;
+    z-index: 11;
+  }
+  .dinglian-createCirclePhoto-cover > img {
+    position: absolute;
+    width: 0.86rem;
+    height: 0.22rem;
+    bottom: 0.15rem;
+    right: 0;
+    z-index: 13;
+  }
+
+
+
+
   .dinglian-upload-all > p {
     background-color: #ffffff;
     margin-bottom: 0;
@@ -117,6 +145,17 @@
     padding: 15px;
     color: #333333;
   }
+  .dinglian-upload-all > p:last-of-type {
+    font-size: 11px;
+    text-align: center;
+    margin-top: -36px;
+    position: relative;
+  }
+  .dinglian-upload-all > p:last-of-type > a {
+    color: #1f88f3;
+    margin-top: 0;
+  }
+
   .dinglian-upload-con {
     width: 100%;
     border-bottom: 1px solid #dddddd;
