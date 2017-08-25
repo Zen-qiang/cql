@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background: #ffffff">
       <div class="clearfix dinglian-lists-con">
         <div class="dinglian-lists-con-left">
           <img src="../../assets/images/circle.jpg" alt="">

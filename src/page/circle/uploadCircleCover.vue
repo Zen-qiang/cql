@@ -1,13 +1,15 @@
 <template>
   <div class="dinglian-upload-all">
     <div class="dinglian-createCirclePhoto-uploadPhoto">
-      <input id="photo" accept="image/*" type="file" @change="uploadImg" ref="photo" multiple />
+      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple />
       <label for="photo" v-show="isBlock"></label>
       <i class="dinglian-createCirclePhoto-background">
         <img :src="imgUrl" alt="" v-show="imgUrl">
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
-        <img src="../../assets/images/modify.png" alt="">
+        <label for="photo">
+          <img src="../../assets/images/modify.png" alt="">
+        </label>
       </div>
     </div>
     <p>简介</p>
@@ -125,13 +127,21 @@
     opacity: 0.2;
     z-index: 11;
   }
-  .dinglian-createCirclePhoto-cover > img {
+  .dinglian-createCirclePhoto-cover > label {
     position: absolute;
-    width: 0.86rem;
-    height: 0.22rem;
+    width: 1rem;
+    height: 0.3rem;
     bottom: 0.15rem;
     right: 0;
+    left: auto;
+    top: auto;
     z-index: 13;
+  }
+  .dinglian-createCirclePhoto-cover  img {
+    width: 0.86rem;
+    height: 0.22rem;
+    position: absolute;
+    right: 0;
   }
 
 

@@ -15,9 +15,11 @@ import ActivityLists from '@/page/activity/activityLists.vue'
 import ActivitySuccess from '@/page/activity/activitySuccess.vue'
 import ActivityDetails from '@/page/activity/activityDetails.vue'
 import ChooseActivityTags from '@/page/activity/chooseActivityTags.vue'
+import ActivityMessage from '@/page/activity/activityMessage.vue'
 // 报名活动
 import SignUpActivity from '@/page/activity/signUpActivity.vue'
 import EditFriends from '@/page/activity/editFriends.vue'
+import PraiseMembers from '@/page/activity/praiseMembers.vue'
 
 Vue.use(Router)
 
@@ -90,6 +92,11 @@ export default new Router({
       name: 'ChooseActivityTags',
       component: ChooseActivityTags
     },
+    {
+      path: '/activityMessage',
+      name: 'ActivityMessage',
+      component: ActivityMessage
+    },
     // 报名活动
     {
       path: '/signUpActivity',
@@ -100,6 +107,11 @@ export default new Router({
       path: '/editFriends',
       name: 'EditFriends',
       component: EditFriends
+    },
+    {
+      path: '/praiseMembers',
+      name: 'PraiseMembers',
+      component: PraiseMembers
     }
   ]
 })
