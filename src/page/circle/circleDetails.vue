@@ -7,7 +7,7 @@
           <p>已有&nbsp;{{circle.membersCnt}}&nbsp;人参加</p>
           <span v-show="showButton" @click="joinCircle()">{{buttonText}}</span>
         </div>
-        <span class="dinglian-details-edit"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
@@ -31,6 +31,7 @@
 </template>
 <script>
   import CircleEvents from '../../components/baseCircle/circleEvents.vue'
+  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   export default {
     components: {
@@ -64,6 +65,10 @@
       this.loadCircleInfo(this.circleId)
     },
     methods: {
+      redirectEditCircle () {
+        this.$store.commit(types.CIRCLE, this.circle)
+        this.$router.push({'path': '/createCircle'})
+      },
       loadCircleInfo (circleId) {
         // 获取圈子详情
         let param = {
@@ -76,7 +81,7 @@
           params: param
         }).then(res => {
           this.circle = res.data.data
-          this.coverStyle.background = 'url(' + this.domain.resourceUrl + this.circle.cover + ')'
+          this.coverStyle.background = 'url(' + this.domain.resourceUrl + this.circle.cover + '?' + Math.random() + ')'
           this.initLayout(this.circle)
           this.getTopicList(this.selected)
         }).catch()

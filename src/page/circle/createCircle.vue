@@ -14,16 +14,25 @@
     name: 'createCircle',
     data () {
       return {
+        circle: null,
         circleName: ''
       }
     },
     created () {
+      this.circle = this.$store.state.circle || {}
+      if (this.circle) {
+        // 编辑圈子
+        this.circleName = this.circle.name
+      }
+      // console.log(this.circle)
     },
     methods: {
       goNextStep () {
         // 下一步
         // console.log(this.$route)
-        this.$store.commit(types.CIRCLENAME, this.circleName)
+        this.circle.name = this.circleName
+        this.$store.commit(types.CIRCLE, this.circle)
+        // this.$store.commit(types.CIRCLENAME, this.circleName)
         this.$router.push({'path': '/chooseCategory'})
       }
     }

@@ -22,7 +22,7 @@
         <circle-info-lists :coterieList="coterieList"></circle-info-lists>
       </mt-tab-container-item>
     </mt-tab-container>
-    <div class="dinglian-circle-createCircle">
+    <div class="dinglian-circle-createCircle" @click="redirectCreateCircle()">
       创建圈子
     </div>
   </div>
@@ -52,23 +52,27 @@
         slvTagsArr: [],
         start: 0,
         pageSize: 999999,
-        carouselList: [{
-          imageUrl: require('../../assets/images/carousel0.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel1.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel2.jpg')
-        }]
+        carouselList: []
       }
     },
     created () {
+      this.getCarouselPicture()
       this.getActivityType()
       this.getCoterieList()
     },
     methods: {
-      redirectCreateCoterie () {
+      redirectCreateCircle () {
         // 跳转到创建圈子
         this.$router.push({'path': '/createCircle'})
+      },
+      getCarouselPicture () {
+        this.axios({
+          method: 'get',
+          url: 'getCoterieCarouselPictures'
+        }).then(res => {
+          this.carouselList = res.data.data
+          console.log(this.carouselList)
+        }).catch()
       },
       getActivityType () {
         // 获取一级标签
@@ -113,7 +117,7 @@
         if (this.keyword) {
           param.keyword = this.keyword
         }
-        console.log(param)
+        // console.log(param)
         this.axios({
           method: 'get',
           url: 'getCoterieList',

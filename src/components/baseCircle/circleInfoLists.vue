@@ -3,7 +3,7 @@
     <ul class="dinglian-lists-ul">
       <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList">
         <div class="dinglian-lists-con-left">
-          <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.coterieId)">
+          <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectCircleInfo(item.coterieId)">
         </div>
         <div class="dinglian-lists-con-right">
           <h3>{{item.name}}</h3>
