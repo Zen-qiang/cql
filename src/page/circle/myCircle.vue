@@ -14,7 +14,7 @@
       <mt-tab-container-item id="1">
         <ul class="dinglian-myCircle-lists">
           <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
-            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectCircleInfo(item.id)">
             <span>{{item.name}}</span>
           </li>
           <li class="dinglian-myCircle-info">
@@ -26,7 +26,7 @@
       <mt-tab-container-item id="2">
         <ul class="dinglian-myCircle-lists">
           <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
-            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectCircleInfo(item.id)">
             <span>{{item.name}}</span>
           </li>
           <li class="dinglian-myCircle-info">
@@ -38,7 +38,7 @@
       <mt-tab-container-item id="3">
         <ul class="dinglian-myCircle-lists">
           <li class="dinglian-myCircle-info" :key="item.id" v-for="item of coteries">
-            <img :src="domain.resourceUrl + item.cover" alt="" @click="redirectCircleInfo(item.id)">
+            <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectCircleInfo(item.id)">
             <span>{{item.name}}</span>
           </li>
           <li class="dinglian-myCircle-info">

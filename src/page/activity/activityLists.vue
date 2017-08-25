@@ -3,8 +3,8 @@
     <div class="dinglian-circle-search">
       <input type="search" placeholder="🔍 请输入圈子关键词">
     </div>
-    <activity-info-lists :footer="false"></activity-info-lists>
-    <button class="dinglian-activityLists-release">
+    <activity-info-lists :footer="false" :activityLists="activityLists"></activity-info-lists>
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
       发布活动
     </button>
   </div>
@@ -17,7 +17,28 @@
       ActivityInfoLists
     },
     data () {
-      return {}
+      return {
+        keyword: '',
+        start: 0,
+        pageSize: 9999999,
+        activityLists: []
+      }
+    },
+    created () {
+      this.getActivityList()
+    },
+    methods: {
+      redirectCreateActivity () {
+        this.$router.push({'path': '/createActivity'})
+      },
+      getActivityList () {
+        this.axios({
+          method: 'get',
+          url: 'getActivityList'
+        }).then(res => {
+          this.activityLists = res.data.data
+        }).catch()
+      }
     }
   }
 </script>

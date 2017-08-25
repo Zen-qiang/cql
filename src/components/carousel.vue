@@ -3,7 +3,7 @@
   <div class="dinglian-home-carousel">
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(item, index) in carouselList" :key="index" @click="">
-        <img :src="item.imageUrl" >
+        <img :src="domain.resourceUrl + item.url + '?' + Math.random()" @click="redirect(item.redirectUrl)">
       </mt-swipe-item>
     </mt-swipe>
   </div>
@@ -17,7 +17,12 @@
     },
     props: ['carouselList'],
     created () {
-      console.log(this.carouselList[0].imageUrl)
+      // console.log(this.carouselList[0].imageUrl)
+    },
+    methods: {
+      redirect (redirectUrl) {
+        window.location.href = redirectUrl
+      }
     }
   }
 </script>

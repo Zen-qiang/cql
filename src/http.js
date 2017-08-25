@@ -4,7 +4,7 @@
 import axios from 'axios'
 import qs from 'querystring'
 import { Toast } from 'mint-ui'
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 30000
 // axios.defaults.baseURL = 'http://106.14.2.158/api/'
 axios.defaults.baseURL = 'http://192.168.3.11:8081/dinglian/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'

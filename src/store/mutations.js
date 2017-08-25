@@ -4,6 +4,9 @@
 import * as types from './mutation-types'
 const mutations = {
   // 创建圈子
+  [types.CIRCLE]: (state, circle) => {
+    state.circle = circle
+  },
   [types.CIRCLENAME]: (state, circleName) => {
     state.circleName = circleName
     // console.log('保存', state.circleName)

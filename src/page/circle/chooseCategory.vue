@@ -27,27 +27,32 @@
 
 </template>
 <script>
-  // import * as types from '../../store/mutation-types'
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
         selected: '1',
+        isEdit: false,
+        circle: {},
+        tags: [],
         activityType: [],
         tagsList: [],
         selectedTags: [],
-        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')],
-        circleName: ''
+        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')]
+        // circleName: ''
       }
     },
     created () {
+      this.circle = this.$store.state.circle
+      if (this.circle.coterieId) {
+        this.isEdit = true
+      }
       this.getActivityType()
-      this.circleName = this.$store.state.circleName
-      console.log(this.circleName)
     },
     methods: {
       goNextStep () {
-        // this.$store.commit(types.CIRCLETAGS, this.convertToStr(this.selectedTags))
-        console.log(window.sessionStorage.getItem('circleName'))
+        this.$store.commit(types.CIRCLE, this.circle)
+        this.$store.commit(types.CIRCLETAGS, this.convertToStr(this.selectedTags))
         this.$router.push({'path': '/uploadCircleCover'})
       },
       getActivityType () {
@@ -61,8 +66,14 @@
         }).then(res => {
           this.activityType = res.data.data
           if (this.activityType) {
-            this.getTagList(this.activityType[0].id)
-            this.selected = this.activityType[0].id
+            if (this.isEdit) {
+              // 编辑圈子选中原圈子标签
+              this.selected = this.circle.tags[0].id
+            } else {
+              // 新建圈子默认选中第一个分类
+              this.selected = this.activityType[0].id
+            }
+            this.getTagList(this.selected)
           }
         }).catch()
       },
@@ -78,8 +89,18 @@
           params: param
         }).then(res => {
           this.tagsList = res.data.data
-          this.selectedTags = []
-          this.checkTag(parentId)
+          if (this.isEdit) {
+            // 编辑圈子选中原圈子标签
+            this.selectedTags.push(parentId)
+            for (var i in this.circle.tags) {
+              this.selectedTags.push(this.circle.tags[i].id)
+            }
+            this.isEdit = false
+          } else {
+            // 新建圈子把分类标签添加到数组
+            this.selectedTags = []
+            this.checkTag(parentId)
+          }
         }).catch()
       },
       checkTag (tagId) {
@@ -91,6 +112,7 @@
         } else {
           this.selectedTags.push(tagId)
         }
+        // console.log(this.selectedTags)
       },
       isSelected (tagId) {
         return this.selectedTags.indexOf(tagId) > -1

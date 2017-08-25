@@ -3,6 +3,7 @@
  */
 const state = {
   // 创建圈子
+  circle: '',
   circleName: '',
   circleTags: '',
   circleId: '',

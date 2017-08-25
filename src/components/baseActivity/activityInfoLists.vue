@@ -1,27 +1,28 @@
 <template>
   <div>
     <ul class="dinglian-lists-ul">
-      <li>
+      <li :id="item.activityId" :key="item.activityId" v-for="item in activityLists">
         <div class="clearfix dinglian-lists-con">
           <div class="dinglian-lists-con-left">
-            <img src="../../assets/images/circle.jpg" alt="">
+            <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectActivityDetails(item.activityId)">
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">
-              <h3>全部的标题</h3>
-              <span class="dinglian-lists-circleTag">金桥1圈</span>
+              <h3>{{item.name}}</h3>
+              <span class="dinglian-lists-circleTag" @click="redirectCircleDetails(item.coterie.id)">{{item.coterie.name}}</span>
             </div>
             <div class="dinglian-lists-tags clearfix">
-              <span class="fs_11">桌游</span>
-              <span class="fs_11">桌游</span>
+              <span class="fs_11" :key="tagName" v-for="tagName of item.tags">{{tagName}}</span>
             </div>
-            <div class="dinglian-lists-cost">免费</div>
+            <div class="dinglian-lists-cost">{{item.charge}}</div>
             <div class="dinglian-lists-people clearfix">
-              <span>进行中</span>
-              <span> <i>3</i> /5~9人</span>
+              <span v-if="item.status === '1'">进行中</span>
+              <span v-else-if="item.status === '2'">正在报名</span>
+              <span v-else>已结束</span>
+              <span> <i>{{item.userCount.currentCount}}</i> /{{item.userCount.minCount}}~{{item.userCount.maxCount}}人</span>
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
-              <span>门行路手术室</span>
+              <span>{{item.address}}</span>
               <span>5.6km</span>
             </div>
           </div>
@@ -29,40 +30,7 @@
         <div class="dinglian-lists-footer" v-show="footer">
           <span>已取消</span>
           <div class="dinglian-lists-changeButton">
-            <span v-show="cancle">取消报名</span>
-            <span>修改信息</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="clearfix dinglian-lists-con">
-          <div class="dinglian-lists-con-left">
-            <img src="../../assets/images/circle.jpg" alt="">
-          </div>
-          <div class="dinglian-lists-con-right">
-            <div class="dinglian-lists-title clearfix">
-              <h3>全部的标题</h3>
-              <span class="dinglian-lists-circleTag">金桥1圈</span>
-            </div>
-            <div class="dinglian-lists-tags clearfix">
-              <span class="fs_11">桌游</span>
-              <span class="fs_11">桌游</span>
-            </div>
-            <div class="dinglian-lists-cost">免费</div>
-            <div class="dinglian-lists-people clearfix">
-              <span>进行中</span>
-              <span> <i>3</i> /5~9人</span>
-            </div>
-            <div class="dinglian-lists-people dinglian-lists-address clearfix">
-              <span>门行路手术室</span>
-              <span>5.6km</span>
-            </div>
-          </div>
-        </div>
-        <div class="dinglian-lists-footer" v-show="footer">
-          <span>已取消</span>
-          <div class="dinglian-lists-changeButton">
-            <span v-show="cancle">取消报名</span>
+            <span v-show="cancel">取消报名</span>
             <span>修改信息</span>
           </div>
         </div>
@@ -72,16 +40,30 @@
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     name: 'ActivityInfoLists',
     props: {
       footer: {
         type: Boolean
+      },
+      activityLists: {
+        type: Array
       }
     },
     data () {
       return {
-        cancle: true
+        cancel: true
+      }
+    },
+    methods: {
+      redirectActivityDetails (id) {
+        this.$store.commit(types.ACTIVITYID, id)
+        this.$router.push({'path': '/activityDetails'})
+      },
+      redirectCircleDetails (id) {
+        this.$store.commit(types.CIRCLEID, id)
+        this.$router.push({'path': '/circleDetails'})
       }
     }
   }

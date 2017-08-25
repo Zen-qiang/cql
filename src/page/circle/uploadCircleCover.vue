@@ -15,7 +15,7 @@
     <p>简介</p>
     <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder=""></textarea>
     <p>我同意<a>《出趣浪服务条款》</a></p>
-    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
+    <mt-button type="default" @click.native="createCircle" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
   </div>
 
 </template>
@@ -24,7 +24,8 @@
   export default {
     data () {
       return {
-        circleName: '',
+        circle: {},
+        isEdit: false,
         circleTags: '',
         photoFile: '',
         isBlock: true,
@@ -35,8 +36,15 @@
       }
     },
     created () {
-      this.circleName = this.$store.state.circleName
+      this.circle = this.$store.state.circle
+      // this.circleName = this.$store.state.circleName
       this.circleTags = this.$store.state.circleTags
+      if (this.circle.coterieId) {
+        this.isEdit = true
+        this.introduction = this.circle.description
+        this.imgUrl = this.domain.resourceUrl + this.circle.cover + '?' + Math.random()
+      }
+      // console.log(this.imgUrl)
     },
     methods: {
       uploadImg () {
@@ -60,18 +68,23 @@
         }
         this.cover = true
       },
-      goNextStep () {
+      createCircle () {
         let data = {
           // test
           userId: 13,
-          name: this.circleName,
+          name: this.circle.name,
           tags: this.circleTags,
-          description: this.introduction,
-          picture: this.dataUrl
+          description: this.introduction
+        }
+        if (this.$refs.photo.files.length > 0) {
+          data.picture = this.dataUrl
+        }
+        if (this.isEdit) {
+          data.coterieId = this.circle.coterieId
         }
         this.axios({
           method: 'post',
-          url: 'createCoterie',
+          url: this.isEdit ? 'editCoterie' : 'createCoterie',
           data: data
         }).then(res => {
           if (!res.data.success) {
