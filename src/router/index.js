@@ -12,6 +12,10 @@ import MyCircle from '@/page/circle/myCircle.vue'
 import MyActivity from '@/page/activity/myActivity.vue'
 import EditContent from '@/page/activity/editContent.vue'
 import ActivityLists from '@/page/activity/activityLists.vue'
+import ActivitySuccess from '@/page/activity/activitySuccess.vue'
+import ActivityDetails from '@/page/activity/activityDetails.vue'
+// 报名活动
+import SignUpActivity from '@/page/activity/signUpActivity.vue'
 
 Vue.use(Router)
 
@@ -68,6 +72,23 @@ export default new Router({
       path: '/activityLists',
       name: 'ActivityLists',
       component: ActivityLists
+    },
+    {
+      path: '/activitySuccess',
+      name: 'ActivitySuccess',
+      component: ActivitySuccess
+    },
+    {
+      path: '/activityDetails',
+      name: 'ActivityDetails',
+      component: ActivityDetails
+    },
+    // 报名活动
+    {
+      path: '/signUpActivity',
+      name: 'SignUpActivity',
+      component: SignUpActivity
     }
+
   ]
 })

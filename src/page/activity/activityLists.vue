@@ -53,5 +53,4 @@
     border-radius: 40px;
     line-height: 80px;
   }
-
 </style>
