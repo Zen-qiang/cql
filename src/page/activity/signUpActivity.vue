@@ -4,7 +4,7 @@
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
-        <input type="text" value="添加好友" disabled>
+        <span>添加好友</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">姓名</label>
@@ -16,7 +16,11 @@
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
-        <input type="text" v-model="sex">
+        <input type="text" v-model="sex" v-if="sex">
+        <div class="edit-radio" v-else="sex">
+          <label for=""><input type="radio" name="cost">男</label>
+          <label for=""><input type="radio" name="cost">女</label>
+        </div>
       </div>
     </div>
 
@@ -28,18 +32,30 @@
       <div class="dinglian-alone-users">
         <ul>
           <li></li>
-          <li><input type="text" value="张三"></li>
-          <li><input type="text" value="男"></li>
+          <li><input type="text" value="张三" disabled></li>
+          <li>
+            <input type="text" v-model="sex" v-if="sex" disabled>
+            <div class="edit-radio" v-else="sex">
+              <label for=""><input type="radio" name="cost">男</label>
+              <label for=""><input type="radio" name="cost">女</label>
+            </div>
+          </li>
         </ul>
-        <span>编辑</span>
+        <span></span>
       </div>
       <div class="dinglian-alone-users">
         <ul>
           <li></li>
-          <li><input type="text" value="张三"></li>
-          <li><input type="text" value="男"></li>
+          <li><input type="text" value="张三" disabled></li>
+          <li>
+            <input type="text" v-model="sex" v-if="sex" disabled>
+            <div class="edit-radio" v-else="sex">
+              <label for=""><input type="radio" name="cost">男</label>
+              <label for=""><input type="radio" name="cost">女</label>
+            </div>
+          </li>
         </ul>
-        <span>编辑</span>
+        <span></span>
       </div>
 
     </div>
@@ -88,8 +104,20 @@
   .dinglian-alone-color > label {
     color: #999999;
   }
-  .dinglian-alone-color > input {
+  .dinglian-alone-color > span {
     color: #e63832;
+    position: relative;
+
+  }
+  .dinglian-alone-color > span::before {
+    position: absolute;
+    content: " ";
+    width: 16px;
+    height:16px;
+    background: url("../../assets/images/add.svg") no-repeat center left;
+    top: 50%;
+    margin-top: -8px;
+    left: -26px;
   }
   .dinglian-alone-addUsers {
     background: #ffffff;
@@ -125,6 +153,15 @@
   .dinglian-alone-users > ul > li:nth-of-type(2) {
     padding-left: 0.25rem;
     width: 0.55rem;
+    margin-right: 30px;
+  }
+  .dinglian-alone-users > span {
+    display: inline-block;
+    background: url("../../assets/images/editBlack.svg") no-repeat center left;
+    width: 28px;
+    padding: 0 5px;
+    background-origin: content-box;
+    background-clip: content-box;
   }
   .dinglian-alone-button {
     background: #e63832;

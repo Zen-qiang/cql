@@ -15,7 +15,7 @@
           </div>
           <div class="dinglian-lists-cost">免费</div>
           <div class="dinglian-lists-people clearfix">
-            <span>进行中</span>
+            <span><em class="dinglian-lists-status"></em>进行中</span>
             <span> <i>3</i> /5~9人</span>
           </div>
           <div class="dinglian-lists-people dinglian-lists-address clearfix">
@@ -148,5 +148,14 @@
     background: url("../../assets/images/like.svg") no-repeat left center;
     background-size: 14px 14px;
     padding-left: 19px;
+  }
+  /*状态点*/
+  .dinglian-lists-status {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #ffd200;
+    margin-right: 5px;
   }
 </style>
