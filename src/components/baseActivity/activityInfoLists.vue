@@ -78,7 +78,7 @@
             method: 'post',
             url: 'signOut',
             data: {
-              userId: 13,
+              userId: this.$store.state.userId,
               activityId: activity.activityId
             }
           }).then(res => {

@@ -81,17 +81,19 @@
       },
       getMyCircles (dataType) {
         // 获取我的圈子列表
-        let param = {
-          userId: 13,
-          dataType: dataType
+        if (this.$store.state.userId) {
+          let param = {
+            userId: this.$store.state.userId,
+            dataType: dataType
+          }
+          this.axios({
+            method: 'get',
+            url: 'getMyCoteries',
+            params: param
+          }).then(res => {
+            this.coteries = res.data.data
+          }).catch()
         }
-        this.axios({
-          method: 'get',
-          url: 'getMyCoteries',
-          params: param
-        }).then(res => {
-          this.coteries = res.data.data
-        }).catch()
       }
     }
   }

@@ -22,6 +22,10 @@ const mutations = {
   },
   [types.ACTIVITYID]: (state, activityId) => {
     state.activityId = activityId
+  },
+  [types.USERID]: (state, userId) => {
+    sessionStorage.setItem('userId', userId)
+    state.userId = userId
   }
 }
 export default mutations

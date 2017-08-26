@@ -59,7 +59,7 @@
             method: 'get',
             url: 'praiseTopic',
             params: {
-              userId: 13,
+              userId: this.$store.state.userId,
               topicId: topic.topicId
             }
           }).then(res => {

@@ -72,7 +72,7 @@
       loadCircleInfo (circleId) {
         // 获取圈子详情
         let param = {
-          userId: 13,
+          userId: this.$store.state.userId,
           coterieId: circleId
         }
         this.axios({
@@ -88,13 +88,12 @@
       },
       getTopicList (dataType) {
         let param = {
-          userId: 13,
+          userId: this.$store.state.userId,
           coterieId: this.circleId,
           dataType: dataType,
           start: this.start,
           pageSize: this.pageSize
         }
-        // console.log(param)
         // 获取话题列表
         this.axios({
           method: 'get',
@@ -102,7 +101,6 @@
           params: param
         }).then(res => {
           this.topicList = res.data.data
-          // console.log(this.topicList)
         }).catch()
       },
       joinCircle () {
@@ -112,7 +110,7 @@
           method: 'post',
           url: 'joinCoterie',
           data: {
-            userId: 13,
+            userId: this.$store.state.userId,
             coterieId: this.circleId,
             isJoin: isJoin
           }
