@@ -22,14 +22,17 @@
     </div>
     <mt-datetime-picker
       ref="picker"
-      type="date"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日">
+      type="datetime"
+      year-format="{value}"
+      month-format="{value}"
+      date-format="{value}"
+      hour-Format="{value}"
+      minute-Format="{value}"
+      v-model="startTime">
     </mt-datetime-picker>
     <div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
-      <input type="text" v-model="pickerValue">
+      <input type="text" v-model="startTime">
     </div>
     <div class="dinglian-edit-address">
       <label for="">地址</label>
@@ -65,11 +68,11 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
         isEdit: false,
-        pickerValue: '',
         profilePicture: '',
         circles: [],
         circle: null,
@@ -97,16 +100,18 @@
       openPicker () {
         this.$refs.picker.open()
       },
+      handleConfirm (e) {
+
+      },
       checkCharge (val) {
         this.charge = val
       },
       goNextStep () {
-        // this.$router.push({'path': '/editContent'})
         let data = {
           userId: this.$store.state.userId,
           tags: this.$store.state.activityTags,
           name: this.activityName,
-          // startTime: this.startTime,
+          startTime: this.startTime,
           charge: this.charge,
           address: this.address,
           gps: this.gps,
@@ -136,7 +141,14 @@
           if (!res.data.success) {
             Toast(res.data.message)
           } else {
-            this.$router.push({'path': '/myActivity'})
+            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+            let circleObj = {
+              id: res.data.data.coterieId,
+              name: res.data.data.coterieName,
+              cover: res.data.data.coterieCover
+            }
+            this.$store.commit(types.CIRCLE, circleObj)
+            this.$router.push({'path': '/activitySuccess', 'params': '{isReleaseActivity: true}'})
           }
         }).catch(err => {
           console.log(err)
