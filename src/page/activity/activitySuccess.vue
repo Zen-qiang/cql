@@ -15,7 +15,11 @@
       <div>成员信息</div>
       <div><i>3</i>/6-10人</div>
     </div>
-    <div class="dinglian-success-peopleList"></div>
+    <div class="dinglian-success-peopleList">
+      <span>tou</span>
+      <span>tou</span>
+      <span>tou</span>
+    </div>
     <mt-button v-if="isReleaseActivity" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
     <mt-button v-else type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
   </div>
@@ -95,12 +99,24 @@
     padding: 0 15px;
     height: 50px;
     line-height: 50px;
+    font-size: 14px;
   }
   .dinglian-success-peopleList {
     border-top: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
     height: 50px;
     line-height: 50px;
+    font-size: 14px;
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    align-items: center;
+  }
+  .dinglian-success-peopleList > span {
+    margin-right: 10px ;
+    display: inline-block;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #dddddd;
   }
 
 </style>
