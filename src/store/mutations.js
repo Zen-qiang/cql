@@ -17,6 +17,9 @@ const mutations = {
   [types.CIRCLEID]: (state, circleId) => {
     state.circleId = circleId
   },
+  [types.ACTIVITY]: (state, activity) => {
+    state.activity = activity
+  },
   [types.ACTIVITYID]: (state, activityId) => {
     state.activityId = activityId
   }

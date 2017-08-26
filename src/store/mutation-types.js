@@ -8,4 +8,5 @@ export const CIRCLETAGS = 'circleTags'
 export const CIRCLEID = 'circleId'
 
 // 活动
+export const ACTIVITY = 'activity'
 export const ACTIVITYID = 'activityId'

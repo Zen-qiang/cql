@@ -29,12 +29,17 @@
     },
     methods: {
       redirectCreateActivity () {
-        this.$router.push({'path': '/createActivity'})
+        this.$router.push({'path': '/chooseActivityTags'})
       },
       getActivityList () {
         this.axios({
           method: 'get',
-          url: 'getActivityList'
+          url: 'getActivityList',
+          params: {
+            keyword: this.keyword,
+            start: this.start,
+            pageSize: this.pageSize
+          }
         }).then(res => {
           this.activityLists = res.data.data
         }).catch()

@@ -28,10 +28,12 @@
           </div>
         </div>
         <div class="dinglian-lists-footer" v-show="footer">
-          <span>已取消</span>
+          <span v-if="item.isSignUp">已报名</span>
+          <span v-else-if="!item.isSignUp">已取消</span>
           <div class="dinglian-lists-changeButton">
-            <span v-show="cancel">取消报名</span>
-            <span>修改信息</span>
+            <span v-if="item.isSignUp && item.status === '2'" @click="signOut(item)">取消报名</span>
+            <span v-if="item.isSignUp && item.status === '2'" @click="updateSignInfo(item)">修改信息</span>
+            <span v-else-if="!item.isSignUp && item.status === '2'" @click="updateSignInfo(item)">重新报名</span>
           </div>
         </div>
       </li>
@@ -41,6 +43,7 @@
 </template>
 <script>
   import * as types from '../../store/mutation-types'
+  import { MessageBox, Toast } from 'mint-ui'
   export default {
     name: 'ActivityInfoLists',
     props: {
@@ -57,6 +60,10 @@
       }
     },
     methods: {
+      updateSignInfo (activity) {
+        this.$store.commit(types.ACTIVITY, activity)
+        this.$router.push({'path': '/signUpActivity'})
+      },
       redirectActivityDetails (id) {
         this.$store.commit(types.ACTIVITYID, id)
         this.$router.push({'path': '/activityDetails'})
@@ -64,6 +71,27 @@
       redirectCircleDetails (id) {
         this.$store.commit(types.CIRCLEID, id)
         this.$router.push({'path': '/circleDetails'})
+      },
+      signOut (activity) {
+        MessageBox.confirm('确定取消报名?').then(action => {
+          this.axios({
+            method: 'post',
+            url: 'signOut',
+            data: {
+              userId: 13,
+              activityId: activity.activityId
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.message)
+            } else {
+              activity.isSignUp = false
+              Toast('取消成功')
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        })
       }
     }
   }
