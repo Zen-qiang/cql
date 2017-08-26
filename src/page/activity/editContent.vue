@@ -185,5 +185,8 @@
   .mint-datetime-picker {
     width: 100%;
   }
+  .dinglian-edit-time > input {
+    width: 100%;
+  }
 
 </style>

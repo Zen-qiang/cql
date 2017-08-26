@@ -18,12 +18,12 @@
     <div class="dinglian-details-status">
       <label for="">状态</label>
       <input type="text" v-model="status">
-      <span></span>
+      <mt-switch v-model="value" class="edit-switch"></mt-switch>
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
       <input type="text" v-model="organizer">
-      <span></span>
+      <span class="dinglian-details-mobile"></span>
     </div>
     <div class="dinglian-details-status">
       <label for="">时间</label>
@@ -33,7 +33,7 @@
     <div class="dinglian-details-status">
       <label for="">地址</label>
       <input type="text" v-model="address">
-      <span></span>
+      <span class="dinglian-details-address"></span>
     </div>
 
     <div class="dinglian-details-sign">
@@ -44,6 +44,14 @@
     <div class="dinglian-details-types">
       <label for="">类型</label>
       <input type="text" v-model="types">
+    </div>
+    <div class="dinglian-details-types">
+      <label for="">标签</label>
+      <ul class="dinglian-details-tags">
+        <li>狼人杀</li>
+        <li>狼人杀</li>
+        <li>狼人杀</li>
+      </ul>
     </div>
     <div class="dinglian-details-types">
       <label for="">费用</label>
@@ -235,5 +243,41 @@
     padding: 15px;
     padding-top: 0;
   }
+
+  .edit-switch {
+    padding-top: 9px;
+  }
+  .dinglian-details-mobile {
+    background: url("../../assets/images/mobile.svg") no-repeat left center;
+    padding: 10px;
+    background-clip: content-box;
+    background-origin: content-box;
+    margin-right: 5px;
+  }
+  .dinglian-details-address {
+    background: url("../../assets/images/address.svg") no-repeat left center;
+    padding: 10px;
+    background-clip: content-box;
+    background-origin: content-box;
+    margin-right: 5px;
+
+  }
+  .dinglian-details-tags {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    line-height: 50px;
+    align-items: center;
+  }
+  .dinglian-details-tags > li {
+    font-size: 11px;
+    height: 18px;
+    background-color: #999999;
+    line-height: 14px;
+    margin-right: 10px;
+    border-radius: 3px;
+    padding: 2px;
+  }
+
 
 </style>
