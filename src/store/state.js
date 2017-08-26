@@ -8,6 +8,7 @@ const state = {
   circleTags: '',
   circleId: '',
   // 活动属性
+  activity: {},
   activityId: ''
 }
 export default state
