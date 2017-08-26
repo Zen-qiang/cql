@@ -171,21 +171,6 @@
     top: 0;
     color: #ffd200;
   }
-  .edit-radio {
-    display: inline-block;
-  }
-  .edit-radio > label {
-    display: inline-block;
-    height: 100%;
-    margin-right: 15px;
-
-  }
-  .edit-radio input[type=radio] {
-    width: 18px;
-    height: 18px;
-    vertical-align:text-top;
-    margin-right: 5px;
-  }
   .dinglian-edit-note {
     margin-top: 10px;
     width: 100%;

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+// import Hello from '@/components/Hello'
 // 圈子
 import CreateCircle from '@/page/circle/createCircle.vue'
 import ChooseCategory from '@/page/circle/chooseCategory.vue'
@@ -26,11 +26,11 @@ import Authorization from '@/page/authorization/authorization.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      redirect: '/circleLists'
     },
     // 圈子
     {

@@ -1,6 +1,6 @@
 <template>
   <div class="dinglian-circle-all">
-    <div class="dinglian-circle-search">
+    <div class="dinglian-circle-search clearfix">
       <input type="search" placeholder="🔍 请输入圈子关键词">
     </div>
     <carousel :carouselList="carouselList"></carousel>
@@ -169,6 +169,7 @@
     font-size: 12px;
     color: #999999;
     text-align: center;
+    float: left;
   }
   .mint-search {
     height: auto;
