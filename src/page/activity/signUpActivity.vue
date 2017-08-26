@@ -1,6 +1,6 @@
 <template>
   <div class="dinglian-alone-whole">
-    <alone-activity :footer="false" style="background: #ffffff"></alone-activity>
+    <alone-activity :footer="false" style="background: #ffffff" :activity="activity"></alone-activity>
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
@@ -57,10 +57,15 @@
       return {
         username: '王好为',
         telphone: '18761800967',
-        sex: '男'
+        sex: '男',
+        activity: {}
       }
     },
+    created () {
+      this.activity = this.$store.state.activity
+    },
     methods: {
+
     }
   }
 </script>

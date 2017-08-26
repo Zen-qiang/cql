@@ -12,6 +12,8 @@ Vue.use(mint)
 import './assets/css/base.css'
 // 引入axios
 import axios from './http'
+import * as types from './store/mutation-types'
+
 // Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
@@ -21,6 +23,31 @@ import domain from './domain.js'
 Vue.prototype.domain = domain
 
 Vue.config.productionTip = false
+
+if (window.sessionStorage.getItem('user')) {
+  store.commit(types.USER, window.sessionStorage.getItem('user'))
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (store.state.user) {
+      next()
+    } else {
+      domain.setCookie('redirectUrl', to.fullPath)
+      axios({
+        method: 'get',
+        url: 'userAuthorization',
+        params: {
+          callbackUrl: encodeURI('http://' + window.location.host + '/authorization')
+        }
+      }).then(res => {
+        window.location.href = res.data
+      }).catch()
+    }
+  } else {
+    next()
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

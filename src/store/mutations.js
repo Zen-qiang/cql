@@ -22,6 +22,9 @@ const mutations = {
   },
   [types.ACTIVITYID]: (state, activityId) => {
     state.activityId = activityId
+  },
+  [types.USER]: (state, user) => {
+    state.user = user
   }
 }
 export default mutations

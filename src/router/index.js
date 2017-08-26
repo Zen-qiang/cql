@@ -20,6 +20,8 @@ import ActivityMessage from '@/page/activity/activityMessage.vue'
 import SignUpActivity from '@/page/activity/signUpActivity.vue'
 import EditFriends from '@/page/activity/editFriends.vue'
 import PraiseMembers from '@/page/activity/praiseMembers.vue'
+// 授权
+import Authorization from '@/page/authorization/authorization.vue'
 
 Vue.use(Router)
 
@@ -34,84 +36,137 @@ export default new Router({
     {
       path: '/createCircle',
       name: 'CreateCircle',
-      component: CreateCircle
+      component: CreateCircle,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/chooseCategory',
       name: 'ChooseCategory',
-      component: ChooseCategory
+      component: ChooseCategory,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/uploadCircleCover',
       name: 'UploadCircleCover',
-      component: UploadCircleCover
+      component: UploadCircleCover,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/circleLists',
       name: 'CircleLists',
-      component: CircleLists
+      component: CircleLists,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/circleDetails',
       name: 'CircleDetails',
-      component: CircleDetails
+      component: CircleDetails,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/myCircle',
       name: 'MyCircle',
-      component: MyCircle
+      component: MyCircle,
+      meta: {
+        requireAuth: true
+      }
     },
     // 活动
     {
       path: '/myActivity',
       name: 'MyActivity',
-      component: MyActivity
+      component: MyActivity,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/editContent',
       name: 'EditContent',
-      component: EditContent
+      component: EditContent,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/activityLists',
       name: 'ActivityLists',
-      component: ActivityLists
+      component: ActivityLists,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/activitySuccess',
       name: 'ActivitySuccess',
-      component: ActivitySuccess
+      component: ActivitySuccess,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/activityDetails',
       name: 'ActivityDetails',
-      component: ActivityDetails
+      component: ActivityDetails,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/chooseActivityTags',
       name: 'ChooseActivityTags',
-      component: ChooseActivityTags
+      component: ChooseActivityTags,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/activityMessage',
       name: 'ActivityMessage',
-      component: ActivityMessage
+      component: ActivityMessage,
+      meta: {
+        requireAuth: true
+      }
     },
     // 报名活动
     {
       path: '/signUpActivity',
       name: 'SignUpActivity',
-      component: SignUpActivity
+      component: SignUpActivity,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/editFriends',
       name: 'EditFriends',
-      component: EditFriends
+      component: EditFriends,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/praiseMembers',
       name: 'PraiseMembers',
-      component: PraiseMembers
+      component: PraiseMembers,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/authorization',
+      name: 'Authorization',
+      component: Authorization
     }
   ]
 })

@@ -9,6 +9,8 @@ const state = {
   circleId: '',
   // 活动属性
   activity: {},
-  activityId: ''
+  activityId: '',
+  // 用户
+  user: null
 }
 export default state

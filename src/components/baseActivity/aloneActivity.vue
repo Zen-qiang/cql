@@ -2,24 +2,25 @@
   <div style="background: #ffffff">
       <div class="clearfix dinglian-lists-con">
         <div class="dinglian-lists-con-left">
-          <img src="../../assets/images/circle.jpg" alt="">
+          <img :src="domain.resourceUrl + activity.cover + '?' + Math.random()" alt="" @click="redirectActivityDetails(activity.activityId)">
         </div>
         <div class="dinglian-lists-con-right">
           <div class="dinglian-lists-title clearfix">
-            <h3>全部的标题</h3>
-            <span class="dinglian-lists-circleTag">金桥1圈</span>
+            <h3>{{activity.name}}</h3>
+            <span class="dinglian-lists-circleTag" @click="redirectActivityDetails(activity.coterie.id)">{{activity.coterie.name}}</span>
           </div>
           <div class="dinglian-lists-tags clearfix">
-            <span class="fs_11">桌游</span>
-            <span class="fs_11">桌游</span>
+            <span class="fs_11" :key="tagName" v-for="tagName of activity.tags">{{tagName}}</span>
           </div>
-          <div class="dinglian-lists-cost">免费</div>
+          <div class="dinglian-lists-cost">{{activity.charge}}</div>
           <div class="dinglian-lists-people clearfix">
-            <span>进行中</span>
-            <span> <i>3</i> /5~9人</span>
+            <span v-if="activity.status === '1'">进行中</span>
+            <span v-else-if="activity.status === '2'">正在报名</span>
+            <span v-else>已结束</span>
+            <span> <i>{{activity.userCount.currentCount}}</i> /{{activity.userCount.minCount}}~{{activity.userCount.maxCount}}人</span>
           </div>
           <div class="dinglian-lists-people dinglian-lists-address clearfix">
-            <span>门行路手术室</span>
+            <span>{{activity.address}}</span>
             <span>5.6km</span>
           </div>
         </div>
@@ -31,15 +32,25 @@
   </div>
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     name: 'AloneActivity',
     props: {
       footer: {
         type: Boolean
+      },
+      activity: {
+        type: Array
       }
     },
     data () {
       return {}
+    },
+    methods: {
+      redirectActivityDetails (id) {
+        this.$store.commit(types.ACTIVITYID, id)
+        this.$router.push({'path': '/activityDetails'})
+      }
     }
   }
 </script>
