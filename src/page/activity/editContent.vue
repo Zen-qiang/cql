@@ -111,7 +111,7 @@
           userId: this.$store.state.userId,
           tags: this.$store.state.activityTags,
           name: this.activityName,
-          startTime: this.startTime,
+          // startTime: this.startTime,
           charge: this.charge,
           address: this.address,
           gps: this.gps,
@@ -132,7 +132,7 @@
         if (this.pictures.length > 0) {
           data.pictures = this.pictures
         }
-        console.log(data)
+        // console.log(data)
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editActivity' : 'launchActivity',
@@ -145,10 +145,11 @@
             let circleObj = {
               id: res.data.data.coterieId,
               name: res.data.data.coterieName,
-              cover: res.data.data.coterieCover
+              cover: res.data.data.coterieCover,
+              isRelease: true
             }
             this.$store.commit(types.CIRCLE, circleObj)
-            this.$router.push({'path': '/activitySuccess', 'params': '{isReleaseActivity: true}'})
+            this.$router.push({'path': '/activitySuccess'})
           }
         }).catch(err => {
           console.log(err)

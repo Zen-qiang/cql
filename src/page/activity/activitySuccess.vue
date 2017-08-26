@@ -11,17 +11,17 @@
       </div>
       <p>{{circle.name}}</p>
     </div>
-    <div class="dinglian-success-joinPeople" v-show="isReleaseActivity">
+    <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
       <div><i>3</i>/6-10人</div>
     </div>
-    <div class="dinglian-success-peopleList">
+    <div class="dinglian-success-peopleList" v-show="!isRelease">
       <span>tou</span>
       <span>tou</span>
       <span>tou</span>
     </div>
-    <mt-button v-if="isReleaseActivity" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
-    <mt-button v-else type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
+    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
+    <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
   </div>
 
 </template>
@@ -32,14 +32,13 @@
       return {
         activityId: '',
         circle: '',
-        isReleaseActivity: false
+        isRelease: false
       }
     },
     created () {
       this.activityId = this.$store.state.activityId
       this.circle = this.$store.state.circle
-      this.isReleaseActivity = this.$route.params.isReleaseActivity
-      console.log(this.isReleaseActivity)
+      this.isRelease = this.circle.isRelease
     },
     methods: {
       redirectMyActivity () {
