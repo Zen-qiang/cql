@@ -30,7 +30,7 @@
 
         <div class="dinglian-lists-footer clearfix">
           <span>{{item.commentCnt}}</span>
-          <span @click="praiseTopic(item)">{{item.praiseCnt}}</span>
+          <span @click="praiseTopic(item)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">{{item.praiseCnt}}</span>
         </div>
       </li>
     </ul>
@@ -186,9 +186,15 @@
     background-size: 14px 14px;
     padding-left: 19px;
   }
-  .dinglian-lists-footer span:last-of-type {
+  .dinglian-lists-footer-like {
     margin-left: 75px;
     background: url("../../assets/images/like.svg") no-repeat left center;
+    background-size: 14px 14px;
+    padding-left: 19px;
+  }
+  .dinglian-lists-footer .dinglian-lists-footer-likeActive {
+    margin-left: 75px;
+    background: url("../../assets/images/likeActive.svg") no-repeat left center;
     background-size: 14px 14px;
     padding-left: 19px;
   }

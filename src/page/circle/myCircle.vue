@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dinglian-circle-search">
+    <div class="dinglian-circle-search clearfix">
       <input type="search" placeholder="🔍 请输入圈子关键词">
     </div>
     <mt-navbar v-model="selected">
@@ -114,6 +114,7 @@
     font-size: 12px;
     color: #999999;
     text-align: center;
+    float: left;
   }
   /*圈子列表*/
   .dinglian-myCircle-lists {

@@ -22,12 +22,14 @@
     </div>
     <mt-datetime-picker
       ref="picker"
-      type="time"
-      v-model="pickerValue">
+      type="date"
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日">
     </mt-datetime-picker>
     <div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
-      <input type="text">
+      <input type="text" v-model="pickerValue">
     </div>
     <div class="dinglian-edit-address">
       <label for="">地址</label>
@@ -172,7 +174,8 @@
 <style scoped>
   .edit-all {
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    margin-bottom: 40px;
   }
   div[class^="dinglian"] {
     width: 100%;
@@ -182,7 +185,7 @@
     line-height: 50px;
     text-align: left;
   }
-  .edit-all > div > :first-child {
+  .edit-all > div > label:first-of-type {
     margin-left: 15px;
     width: 80px;
     display: inline-block;
@@ -193,6 +196,7 @@
     height: 69px;
     line-height: 69px;
     overflow: hidden;
+    padding-left: 15px;
   }
   .dinglian-edit-title  img {
     display: inline-block;
@@ -228,6 +232,7 @@
     height: 100%;
     padding-right: 10px;
     padding-top: 12px;
+    padding-left: 15px;
   }
   .dinglian-edit-circleLists > ul > li {
     display: inline-block;
@@ -267,6 +272,9 @@
     width: 100%;
     padding: 15px;
     border-bottom: 1px solid #dddddd;
+  }
+  .mint-datetime-picker {
+    width: 100%;
   }
 
 </style>
