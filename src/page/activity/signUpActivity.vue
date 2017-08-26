@@ -1,5 +1,29 @@
 <template>
   <div class="dinglian-alone-whole">
+    <!--绑定手机号 start-->
+    <div class="dinglian-alone-cover" v-show="bindPhone">
+      <div class="dinglian-alone-bindtel">
+        <div class="dinglian-alone-bind-header">
+          <h4>
+            绑定手机号
+            <span></span>
+          </h4>
+        </div>
+        <div class="dinglian-alone-bind-body clearfix">
+          <input type="text" placeholder="请输入手机号">
+          <input type="text" placeholder="请输入验证码">
+          <span>发送验证码</span>
+        </div>
+        <div class="dinglian-alone-bind-footer">
+          <div>
+            <mt-button type="default" class="dinglian-alone-bind-button">立即绑定</mt-button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!--绑定手机号 end-->
     <alone-activity :footer="false" style="background: #ffffff"></alone-activity>
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
@@ -12,7 +36,9 @@
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
-        <input type="text" v-model="telphone">
+        <span v-if="telphone">1822882882</span>
+        <span v-else-if="!telphone">请绑定手机</span>
+        <input type="text" v-model="telphone" v-else="telphone">
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
@@ -72,8 +98,9 @@
     data () {
       return {
         username: '王好为',
-        telphone: '18761800967',
-        sex: '男'
+        telphone: '',
+        sex: '男',
+        bindPhone: false
       }
     },
     methods: {
@@ -84,6 +111,7 @@
   .dinglian-alone-whole {
     height: 100%;
     background: #f2f2f2;
+    position: relative;
   }
   .dinglian-alone-sign {
     margin: 10px 0;
@@ -167,6 +195,112 @@
     background: #e63832;
     color: #ffffff;
     font-size: 15px;
+  }
+  /*绑定手机号*/
+  .dinglian-alone-cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    background: #dddddd;
+    /*opacity: 0.1;*/
+  }
+  .dinglian-alone-bindtel {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 80%;
+    background: #ffffff;
+    border-radius: 4px;
+  }
+  .dinglian-alone-bind-header {
+    font-size: 17px;
+    margin: 0 auto;
+    background: #ffd200;
+    height: 0.45rem;
+  }
+  .dinglian-alone-bind-header > h4 {
+    line-height: 0.45rem;
+    width: 100%;
+    height: 100%;
+    font-weight: 400;
+    text-align: center;
+    position: relative;
+  }
+  .dinglian-alone-bind-header > h4 > span {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.15rem;
+    width: 0.15rem;
+    height: 0.15rem;
+    background: #e63832;
+  }
+  .dinglian-alone-bind-body {
+    height: 1.35rem;
+    background: #f2f2f2;
+    padding: 0.11rem 0.2rem;
+    position: relative;
+
+  }
+  .dinglian-alone-bind-body > span {
+    font-size: 14px;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    width: 0.87rem;
+    position: absolute;
+    bottom: 0.21rem;
+    right: 0.28rem;
+    background: #ffd200;
+    border-radius: 4px;
+
+  }
+  .dinglian-alone-bind-body > input {
+    width: 100%;
+    background: #ffffff;
+    float: left;
+    height: 0.44rem;
+    margin: 0 auto;
+    margin-top: 0.11rem;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+  }
+  .dinglian-alone-bind-body > input:first-of-type {
+    background: url("../../assets/images/people.svg") no-repeat left center;
+    background-size: 25px;
+    background-position: 5px;
+    background-color: #ffffff;
+    padding: 0 35px;
+  }
+  .dinglian-alone-bind-body > input:last-of-type {
+    background: url("../../assets/images/people.svg") no-repeat left center;
+    background-size: 25px;
+    background-position: 5px;
+    background-color: #ffffff;
+    padding: 0 35px;
+    padding-right: 1.3rem;
+  }
+  .dinglian-alone-bind-footer {
+    height: 0.8rem;
+    background: #f2f2f2;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 0 0.2rem;
+    padding-top: 0.05rem;
+  }
+  .dinglian-alone-bind-footer > div {
+    border-top: 1px solid #dddddd;
+    height: 100%;
+    position: relative;
+  }
+  .dinglian-alone-bind-button {
+    position: absolute;
+    top: 0.15rem;
+    left: 0;
+    width: 100%;
+    background: #dddddd;
+    color: #999999;
   }
 
 </style>

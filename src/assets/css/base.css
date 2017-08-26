@@ -94,8 +94,8 @@ a {
 }
 /*切换switch*/
 .mint-switch-input:checked + .mint-switch-core {
-  border-color: #ffd200;
-  background-color: #ffd200;
+  border-color: #60ce5e;
+  background-color: #60ce5e;
 }
 /*选择性别*/
 .edit-radio {

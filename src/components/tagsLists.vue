@@ -28,6 +28,7 @@
     border: 1px solid #999999;
     border-radius: 4px;
     height: 22px;
+    line-height: 20px;
     padding: 0 10px;
     margin: 10px 0;
     margin-right: 10px;
