@@ -43,19 +43,20 @@
         this.$router.push({'path': '/chooseActivityTags'})
       },
       getMyActivityList () {
-        this.axios({
-          method: 'get',
-          url: 'getMyActivityList',
-          params: {
-            userId: 13,
-            dataType: this.selected,
-            start: this.start,
-            pageSize: this.pageSize
-          }
-        }).then(res => {
-          this.activityLists = res.data.data
-          console.log(this.activityLists)
-        }).catch()
+        if (this.$store.state.userId) {
+          this.axios({
+            method: 'get',
+            url: 'getMyActivityList',
+            params: {
+              userId: this.$store.state.userId,
+              dataType: this.selected,
+              start: this.start,
+              pageSize: this.pageSize
+            }
+          }).then(res => {
+            this.activityLists = res.data.data
+          }).catch()
+        }
       }
     }
   }

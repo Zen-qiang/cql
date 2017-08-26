@@ -12,4 +12,4 @@ export const ACTIVITY = 'activity'
 export const ACTIVITYID = 'activityId'
 
 // 用户
-export const USER = 'user'
+export const USERID = 'userId'

@@ -71,7 +71,7 @@
       createCircle () {
         let data = {
           // test
-          userId: 13,
+          userId: this.$store.state.userId,
           name: this.circle.name,
           tags: this.circleTags,
           description: this.introduction

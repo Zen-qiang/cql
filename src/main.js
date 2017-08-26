@@ -13,6 +13,7 @@ import './assets/css/base.css'
 // 引入axios
 import axios from './http'
 import * as types from './store/mutation-types'
+import cookie from './utils/cookie'
 
 // Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
@@ -24,16 +25,17 @@ Vue.prototype.domain = domain
 
 Vue.config.productionTip = false
 
-if (window.sessionStorage.getItem('user')) {
-  store.commit(types.USER, window.sessionStorage.getItem('user'))
+if (window.sessionStorage.getItem('userId')) {
+  store.commit(types.USERID, window.sessionStorage.getItem('userId'))
 }
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.user) {
+    if (store.state.userId) {
       next()
     } else {
-      domain.setCookie('redirectUrl', to.fullPath)
+      console.log('get user authorization')
+      cookie.setCookie('redirectUrl', to.fullPath)
       axios({
         method: 'get',
         url: 'userAuthorization',

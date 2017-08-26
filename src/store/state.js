@@ -11,6 +11,6 @@ const state = {
   activity: {},
   activityId: '',
   // 用户
-  user: null
+  userId: null
 }
 export default state
