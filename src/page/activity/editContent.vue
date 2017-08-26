@@ -2,22 +2,19 @@
   <div class="edit-all">
     <div class="dinglian-edit-title">
       <div>
-        <img src="../../assets/images/like.svg" alt="">
+        <img :src="profilePicture" alt="">
       </div>
-      <input type="text" placeholder="输入活动名称">
+      <input type="text" placeholder="输入活动名称" v-model="activityName">
     </div>
     <div class="dinglian-edit-belongsCircle">
       <label for="">所属圈子</label>
-      <span>金桥街舞1圈</span>
+      <span v-if="circle">{{circle.name}}</span>
+      <span v-else></span>
     </div>
     <div class="dinglian-edit-circleLists">
       <ul>
         <li>以活动之名创建</li>
-        <li>街舞一圈</li>
-        <li>街舞一圈</li>
-        <li>街舞一圈</li>
-        <li>街舞一圈</li>
-        <li>街舞一圈</li>
+        <li :key="item.id" v-for="item of circles" @click="checkCircle(item)">{{item.name}}</li>
       </ul>
     </div>
     <div class="dinglian-edit-photo">
@@ -28,52 +25,146 @@
       type="time"
       v-model="pickerValue">
     </mt-datetime-picker>
-    <div @click="openPicker" class="dinglian-edit-time">
+    <div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
       <input type="text">
     </div>
     <div class="dinglian-edit-address">
       <label for="">地址</label>
-      <input type="text" placeholder="自定义位置">
+      <input type="text" placeholder="自定义位置" v-model="address">
     </div>
     <div class="dinglian-edit-people">
       <label for="">人数</label>
-      <input type="tel">&nbsp;至
-      <input type="tel">&nbsp;人
+      <input type="tel" v-model="minCount">&nbsp;至
+      <input type="tel"v-model="maxCount">&nbsp;人
     </div>
     <div class="dinglian-edit-cost">
       <label for="">费用</label>
       <div class="edit-radio">
-        <label for=""><input type="radio" name="cost" />我请客</label>
-        <label for=""><input type="radio" name="cost">现场AA</label>
+        <label for="" @click="checkCharge('free')"><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
+        <label for="" @click="checkCharge('dutch')"><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
       </div>
     </div>
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
-      <input type="tel" placeholder="请输入电话号码">
+      <input type="tel" placeholder="请输入电话号码" v-model="phoneNo">
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
-      <mt-switch v-model="value" class="edit-switch"></mt-switch>
+      <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
     </div>
-    <div class="dinglian-edit-psw">
+    <div class="dinglian-edit-psw" v-show="!isOpen">
       <label for="">输入密码</label>
-      <input type="password" placeholder="请输入密码">
+      <input type="password" placeholder="请输入密码" v-model="password">
     </div>
-    <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注"></textarea>
-    <mt-button type="default" class="edit-button">创建新活动</mt-button>
+    <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注" v-model="description"></textarea>
+    <mt-button type="default" class="edit-button" @click.native="goNextStep">创建新活动</mt-button>
   </div>
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   export default {
     data () {
       return {
-        pickerValue: ''
+        isEdit: false,
+        pickerValue: '',
+        profilePicture: '',
+        circles: [],
+        circle: null,
+        activityName: '',
+        startTime: null,
+        address: '',
+        gps: '',
+        minCount: '',
+        maxCount: '',
+        charge: '',
+        phoneNo: '',
+        isOpen: true,
+        password: '',
+        description: '',
+        pictures: []
       }
+    },
+    created () {
+      if (this.$store.state.userPicture) {
+        this.profilePicture = this.domain.resourceUrl + this.$store.state.userPicture + '?' + Math.random()
+      }
+      this.getMyCircles()
     },
     methods: {
       openPicker () {
         this.$refs.picker.open()
+      },
+      checkCharge (val) {
+        this.charge = val
+      },
+      goNextStep () {
+        // this.$router.push({'path': '/editContent'})
+        let data = {
+          userId: this.$store.state.userId,
+          tags: this.$store.state.activityTags,
+          name: this.activityName,
+          // startTime: this.startTime,
+          charge: this.charge,
+          address: this.address,
+          gps: this.gps,
+          minCount: this.minCount,
+          maxCount: this.maxCount,
+          isOpen: this.isOpen,
+          description: this.description
+        }
+        if (this.circle) {
+          data.coterieId = this.circle.id
+        }
+        if (this.phoneNo) {
+          data.phoneNo = this.phoneNo
+        }
+        if (!this.isOpen && this.password) {
+          data.password = this.password
+        }
+        if (this.pictures.length > 0) {
+          data.pictures = this.pictures
+        }
+        console.log(data)
+        this.axios({
+          method: 'post',
+          url: this.isEdit ? 'editActivity' : 'launchActivity',
+          data: data
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.message)
+          } else {
+            this.$router.push({'path': '/myActivity'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      getMyCircles () {
+        // 获取我的圈子列表
+        if (this.$store.state.userId) {
+          let param = {
+            userId: this.$store.state.userId,
+            dataType: '1',
+            showLastCoterie: true
+          }
+          this.axios({
+            method: 'get',
+            url: 'getMyCoteries',
+            params: param
+          }).then(res => {
+            this.circles = res.data.data
+            for (var i in this.circles) {
+              if (this.circles[i].isLastCoterie) {
+                this.circle = this.circles[i]
+                break
+              }
+            }
+          }).catch()
+        }
+      },
+      checkCircle (circle) {
+        this.circle = circle
       }
     }
   }

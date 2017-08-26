@@ -27,28 +27,27 @@
 
 </template>
 <script>
-  // import * as types from '../../store/mutation-types'
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
         selected: '1',
+        isEdit: false,
+        activity: null,
         activityType: [],
         tagsList: [],
         selectedTags: [],
-        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')],
-        circleName: ''
+        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')]
       }
     },
     created () {
       this.getActivityType()
-      this.circleName = this.$store.state.circleName
-      console.log(this.circleName)
+      this.activity = this.$store.state.activity || {}
     },
     methods: {
       goNextStep () {
-        // this.$store.commit(types.CIRCLETAGS, this.convertToStr(this.selectedTags))
-        console.log(window.sessionStorage.getItem('circleName'))
-        this.$router.push({'path': '/uploadCircleCover'})
+        this.$store.commit(types.ACTIVITYTAGS, this.convertToStr(this.selectedTags))
+        this.$router.push({'path': '/editContent'})
       },
       getActivityType () {
         // 获取一级标签
