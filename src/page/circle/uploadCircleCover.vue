@@ -21,6 +21,7 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  import {compressPic} from '../../assets/js/compressPicture'
   export default {
     data () {
       return {
@@ -47,7 +48,8 @@
       // console.log(this.imgUrl)
     },
     methods: {
-      uploadImg () {
+      uploadImg (e) {
+        compressPic(e)
         let self = this
         let files = this.$refs.photo.files
         for (var i = 0; i < files.length; i++) {
