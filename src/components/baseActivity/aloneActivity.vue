@@ -40,7 +40,7 @@
         type: Boolean
       },
       activity: {
-        type: Array
+        type: Object
       }
     },
     data () {

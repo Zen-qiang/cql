@@ -1,28 +1,54 @@
 <template>
   <div class="dinglian-edit-whole">
-    <div class="dinglian-edit-alternative">代友报名</div>
-    <div class="dinglian-edit-friends">
-      <input type="text" value="张三" placeholder="参加者姓名">
+    <div class="dinglian-edit-alternative" @click="addItem()">代友报名</div>
+    <div class="dinglian-edit-friends" :key="index" v-for="(item, index) in friends">
+      <input type="text" value="张三" placeholder="参加者姓名" v-model="item.name">
       <div class="edit-radio">
-        <label for=""><input type="radio" name="cost" />男</label>
-        <label for=""><input type="radio" name="cost">女</label>
+        <label for="" @click="checkGender(item, '1')"><input type="radio" name="item.gender" value="1" v-model="item.gender">男</label>
+        <label for="" @click="checkGender(item, '2')"><input type="radio" name="item.gender" value="2" v-model="item.gender">女</label>
       </div>
-      <span></span>
+      <span @click="removeItem(index)"></span>
     </div>
-    <div class="dinglian-edit-friends">
-      <input type="text" placeholder="参加者姓名">
-      <div class="edit-radio">
-        <label for=""><input type="radio" name="cost" />男</label>
-        <label for=""><input type="radio" name="cost">女</label>
-      </div>
-      <span></span>
-    </div>
+    <mt-button type="default" @click.native="confirm" style="margin-top: 10px" class="dinglian-button">添加完成</mt-button>
   </div>
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
-    data () {}
+    data () {
+      return {
+        paramData: {},
+        friends: []
+      }
+    },
+    created () {
+      this.$store.commit(types.ACTIVITY, this.$store.state.activity)
+      this.paramData = this.$store.state.paramData
+      if (this.paramData && this.paramData.friends.length > 0) {
+        this.friends = this.paramData.friends
+      }
+    },
+    methods: {
+      addItem () {
+        let friend = {
+          name: '张三',
+          gender: '1'
+        }
+        this.friends.push(friend)
+      },
+      removeItem (index) {
+        this.friends.splice(index, 1)
+      },
+      checkGender (item, val) {
+        item.gender = val
+      },
+      confirm () {
+        this.paramData.friends = this.friends
+        this.$store.commit(types.PARAMDATA, this.paramData)
+        console.log(this.friends)
+      }
+    }
   }
 </script>
 <style scoped>

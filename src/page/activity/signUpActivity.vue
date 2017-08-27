@@ -4,22 +4,22 @@
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
-        <span>添加好友</span>
+        <span @click="showAddFriend">添加好友</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">姓名</label>
-        <input type="text" v-model="username">
+        <input type="text" v-model="userName">
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
-        <input type="text" v-model="telphone">
+        <input type="text" v-model="telphone" v-show="!needBind">
+        <span v-show="needBind" @click="bindPhoneNo">绑定（仅组织者可见）</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
-        <input type="text" v-model="sex" v-if="sex">
-        <div class="edit-radio" v-else="sex">
-          <label for=""><input type="radio" name="cost">男</label>
-          <label for=""><input type="radio" name="cost">女</label>
+        <div class="edit-radio">
+          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender">男</label>
+          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender">女</label>
         </div>
       </div>
     </div>
@@ -27,61 +27,73 @@
     <div class="dinglian-alone-addUsers">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
-        <span>1</span>
+        <span>{{friends.length}}</span>
       </div>
-      <div class="dinglian-alone-users">
+      <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
         <ul>
-          <li></li>
-          <li><input type="text" value="张三" disabled></li>
+          <li @click="removeItem(index)"></li>
+          <li><input type="text" v-model="item.name" disabled></li>
           <li>
-            <input type="text" v-model="sex" v-if="sex" disabled>
-            <div class="edit-radio" v-else="sex">
-              <label for=""><input type="radio" name="cost">男</label>
-              <label for=""><input type="radio" name="cost">女</label>
-            </div>
+            <span>{{item.gender}}</span>
           </li>
         </ul>
-        <span></span>
+        <span @click="showAddFriend"></span>
       </div>
-      <div class="dinglian-alone-users">
-        <ul>
-          <li></li>
-          <li><input type="text" value="张三" disabled></li>
-          <li>
-            <input type="text" v-model="sex" v-if="sex" disabled>
-            <div class="edit-radio" v-else="sex">
-              <label for=""><input type="radio" name="cost">男</label>
-              <label for=""><input type="radio" name="cost">女</label>
-            </div>
-          </li>
-        </ul>
-        <span></span>
-      </div>
-
     </div>
-
-    <mt-button type="default" class="dinglian-button dinglian-alone-button">立即报名</mt-button>
+    <mt-button type="default" class="dinglian-button dinglian-alone-button" @click.native="signUp">立即报名</mt-button>
   </div>
 </template>
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
+  import * as types from '../../store/mutation-types'
   export default {
     components: {
       AloneActivity
     },
     data () {
       return {
-        username: '王好为',
-        telphone: '18761800967',
-        sex: '男',
-        activity: {}
+        gender: '1',
+        userName: '',
+        needBind: false,
+        telphone: '',
+        activity: {},
+        friends: [{
+          name: '张三',
+          gender: '1'
+        }]
       }
     },
     created () {
       this.activity = this.$store.state.activity
+      this.userName = this.$store.state.userName
+      if (this.$store.state.userPhoneNo) {
+        this.telphone = this.$store.state.userPhoneNo
+      } else {
+        this.needBind = true
+      }
     },
     methods: {
-
+      removeItem (index) {
+        this.friends.splice(index, 1)
+      },
+      bindPhoneNo () {
+        alert(1)
+      },
+      checkGender (val) {
+        this.gender = val
+      },
+      signUp () {},
+      showAddFriend () {
+        let paramData = {
+          userName: this.userName,
+          gender: this.gender,
+          telphone: this.telphone,
+          friends: this.friends
+        }
+        this.$store.commit(types.PARAMDATA, paramData)
+        this.$store.commit(types.ACTIVITY, this.activity)
+        this.$router.push({'path': '/editFriends'})
+      }
     }
   }
 </script>
