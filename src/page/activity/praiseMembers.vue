@@ -1,50 +1,59 @@
 <template>
   <div class="dinglian-mem-whole">
     <ul>
-      <li>
+      <li :key="index" v-for="(item, index) in activityMembers">
         <div class="dinglian-mem-firstMember">
-          <img src="../../assets/images/circle.jpg" alt="">
+          <img :src="domain.resourceUrl + item.picture + '?' + Math.random()">
           <div class="clearfix">
-            <h4>tike 男</h4>
-            <span>报名时间</span>
+            <h4 v-if="item.gender === 1">{{item.name}} 男</h4>
+            <h4 v-else>{{item.name}} 女</h4>
+            <span>报名时间: {{item.signUpTime | formatDate}}</span>
           </div>
-          <span></span>
+          <span>{{item.phoneNo}}</span>
         </div>
-        <ul class="dinglian-mem-proxy">
-          <li>
-            <img src="../../assets/images/circle.jpg" alt="">
-            <span>tike</span>
-            <span>男</span>
+        <ul class="dinglian-mem-proxy" v-show="activityMembers">
+          <li :key="idx" v-for="(retinue, idx) in activityMembers.retinues">
+            <span>{{retinue.name}}</span>
+            <span>{{retinue.gender}}</span>
             <span>dai</span>
           </li>
-          <li>
-            <img src="../../assets/images/circle.jpg" alt="">
-            <span>tike</span>
-            <span>男</span>
-            <span>dai</span>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <div class="dinglian-mem-firstMember">
-          <img src="../../assets/images/circle.jpg" alt="">
-          <div class="clearfix">
-            <h4>tike 男</h4>
-            <span>报名时间</span>
-          </div>
-          <span></span>
-        </div>
-        <ul class="dinglian-mem-proxy">
-
         </ul>
       </li>
     </ul>
   </div>
 </template>
 <script>
+  import { formatDate } from '../../utils/date.js'
   export default {
+    filters: {
+      formatDate (time) {
+        var date = new Date(time)
+        return formatDate(date, 'yyyy-MM-dd hh:mm')
+      }
+    },
     data () {
-      return {}
+      return {
+        activityId: '',
+        activityMembers: []
+      }
+    },
+    created () {
+      this.activityId = this.$store.state.activityId
+      this.getActivityMembers()
+    },
+    methods: {
+      getActivityMembers () {
+        this.axios({
+          method: 'get',
+          url: 'getActivityMembers',
+          params: {
+            userId: this.$store.state.userId,
+            activityId: this.activityId
+          }
+        }).then(res => {
+          this.activityMembers = res.data.data
+        }).catch()
+      }
     }
   }
 </script>

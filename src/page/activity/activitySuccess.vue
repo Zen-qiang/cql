@@ -13,12 +13,12 @@
     </div>
     <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
-      <div><i>3</i>/6-10人</div>
+      <div> <i>{{circle.userCount.currentCount}}</i> /{{circle.userCount.minCount}}~{{circle.userCount.maxCount}}人</div>
     </div>
-    <div class="dinglian-success-peopleList" v-show="!isRelease">
-      <span>tou</span>
-      <span>tou</span>
-      <span>tou</span>
+    <div class="dinglian-success-peopleList" v-show="!isRelease" @click="redirectActivityMembers">
+      <span :key="index" v-for="(item, index) in circle.activityMembers">
+        <img :src="domain.resourceUrl + item.picture + '?' + Math.random()">
+      </span>
     </div>
     <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
     <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
@@ -41,6 +41,10 @@
       this.isRelease = this.circle.isRelease
     },
     methods: {
+      redirectActivityMembers () {
+        this.$store.commit(types.ACTIVITYID, this.activityId)
+        this.$router.push({'path': '/praiseMembers'})
+      },
       redirectMyActivity () {
         this.$router.push({'path': '/myActivity'})
       },

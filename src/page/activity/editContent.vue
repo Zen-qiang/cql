@@ -139,7 +139,7 @@
           data: data
         }).then(res => {
           if (!res.data.success) {
-            Toast(res.data.message)
+            Toast(res.data.error.message)
           } else {
             this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
             let circleObj = {

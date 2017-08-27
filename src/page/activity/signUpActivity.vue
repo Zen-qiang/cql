@@ -6,22 +6,20 @@
         <div class="dinglian-alone-bind-header">
           <h4>
             绑定手机号
-            <span></span>
+            <span @click="hiddenBind()"></span>
           </h4>
         </div>
         <div class="dinglian-alone-bind-body clearfix">
-          <input type="text" placeholder="请输入手机号">
-          <input type="text" placeholder="请输入验证码">
-          <span>发送验证码</span>
+          <input type="text" placeholder="请输入手机号" v-model="telphone">
+          <input type="text" placeholder="请输入验证码" v-model="verifyNo">
+          <span @click="sendCode()">发送验证码</span>
         </div>
         <div class="dinglian-alone-bind-footer">
           <div>
-            <mt-button type="default" class="dinglian-alone-bind-button">立即绑定</mt-button>
+            <mt-button type="default" class="dinglian-alone-bind-button" @click.native="bindConfirm()">立即绑定</mt-button>
           </div>
         </div>
-
       </div>
-
     </div>
     <!--绑定手机号 end-->
 
@@ -38,7 +36,7 @@
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
         <input type="text" v-model="telphone" v-show="!needBind">
-        <span v-show="needBind" @click="bindPhoneNo">绑定（仅组织者可见）</span>
+        <span v-show="needBind" @click="showBind()">绑定（仅组织者可见）</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
@@ -59,7 +57,8 @@
           <li @click="removeItem(index)"></li>
           <li><input type="text" v-model="item.name" disabled></li>
           <li>
-            <span>{{item.gender}}</span>
+            <span v-if="item.gender === 1">男</span>
+            <span v-else>女</span>
           </li>
         </ul>
         <span @click="showAddFriend"></span>
@@ -71,16 +70,21 @@
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
   import * as types from '../../store/mutation-types'
+  import { Toast, MessageBox } from 'mint-ui'
   export default {
     components: {
       AloneActivity
     },
     data () {
       return {
+        isEditSignUp: false,
         gender: '1',
         userName: '',
         needBind: false,
+        bindPhone: false,
         telphone: '',
+        verifyNo: '',
+        password: '',
         activity: {},
         friends: [{
           name: '张三',
@@ -96,18 +100,82 @@
       } else {
         this.needBind = true
       }
+      if (this.activity.signUpInfo) {
+        this.userName = this.activity.signUpInfo.realName
+        this.telphone = this.activity.signUpInfo.phoneNo
+        this.gender = this.activity.signUpInfo.gender
+        let retinues = this.activity.signUpInfo.retinues
+        if (retinues) {
+          this.friends = retinues
+        }
+      }
+      if (this.activity.isEditSignUp) {
+        this.isEditSignUp = this.activity.isEditSignUp
+      }
     },
     methods: {
       removeItem (index) {
         this.friends.splice(index, 1)
       },
-      bindPhoneNo () {
-        alert(1)
+      showBind () {
+        this.bindPhone = true
+      },
+      hiddenBind () {
+        this.bindPhone = false
       },
       checkGender (val) {
         this.gender = val
       },
-      signUp () {},
+      confirm (data) {
+        this.axios({
+          method: 'post',
+          url: 'signUp',
+          data: data
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.error.message)
+          } else {
+            console.log(res.data.data)
+            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+            let circleObj = {
+              id: res.data.data.coterie.id,
+              name: res.data.data.coterie.name,
+              cover: res.data.data.coterie.cover,
+              isRelease: false
+            }
+            if (res.data.data.activityMembers) {
+              circleObj.activityMembers = res.data.data.activityMembers
+            }
+            if (res.data.data.userCount) {
+              circleObj.userCount = res.data.data.userCount
+            }
+            this.$store.commit(types.CIRCLE, circleObj)
+            this.$router.push({'path': '/activitySuccess'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      signUp () {
+        let data = {
+          activityId: this.activity.activityId,
+          userId: this.$store.state.userId,
+          realName: this.userName,
+          phoneNo: this.telphone,
+          gender: this.gender,
+          isEditSignUp: this.isEditSignUp,
+          friends: JSON.stringify(this.friends)
+        }
+        if (!this.activity.isOpen) {
+          MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+            this.password = value
+            data.password = this.password
+            this.confirm(data)
+          })
+        } else {
+          this.confirm(data)
+        }
+      },
       showAddFriend () {
         let paramData = {
           userName: this.userName,
@@ -118,6 +186,55 @@
         this.$store.commit(types.PARAMDATA, paramData)
         this.$store.commit(types.ACTIVITY, this.activity)
         this.$router.push({'path': '/editFriends'})
+      },
+      sendCode () {
+        if (this.needBind) {
+          if (!this.telphone) {
+            Toast('手机号码不能为空')
+            return
+          }
+          this.axios({
+            method: 'get',
+            url: 'sendCode',
+            params: {
+              phoneno: this.telphone
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            }
+          }).catch()
+        }
+      },
+      bindConfirm () {
+        // 提交绑定
+        if (this.needBind) {
+          if (!this.telphone) {
+            Toast('手机号码不能为空')
+            return
+          }
+          if (!this.verifyNo) {
+            Toast('验证码不能为空')
+            return
+          }
+          this.axios({
+            method: 'get',
+            url: 'bindPhoneNo',
+            params: {
+              userId: this.$store.state.userId,
+              phoneNo: this.telphone,
+              verifyNo: this.verifyNo
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.hiddenBind()
+              this.needBind = false
+              this.$store.commit(types.USERPHONENO, this.telphone)
+            }
+          }).catch()
+        }
       }
     }
   }
