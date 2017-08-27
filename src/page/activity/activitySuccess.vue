@@ -7,27 +7,51 @@
     <p>去活动的圈子看看吧～～</p>
     <div class="dinglian-success-title">
       <div>
-        <img src="../../assets/images/circle.jpg" alt="">
+        <img :src="domain.resourceUrl + circle.cover + '?' + Math.random()" alt="" @click="redirectCircleDetails">
       </div>
-      <p>金桥街舞1圈</p>
+      <p>{{circle.name}}</p>
     </div>
-    <div class="dinglian-success-joinPeople">
+    <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
       <div><i>3</i>/6-10人</div>
     </div>
-    <div class="dinglian-success-peopleList">
+    <div class="dinglian-success-peopleList" v-show="!isRelease">
       <span>tou</span>
       <span>tou</span>
       <span>tou</span>
     </div>
-    <mt-button type="default" class="edit-button">查看我的活动</mt-button>
+    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
+    <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
   </div>
 
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   export default {
     data () {
-      return {}
+      return {
+        activityId: '',
+        circle: '',
+        isRelease: false
+      }
+    },
+    created () {
+      this.activityId = this.$store.state.activityId
+      this.circle = this.$store.state.circle
+      this.isRelease = this.circle.isRelease
+    },
+    methods: {
+      redirectMyActivity () {
+        this.$router.push({'path': '/myActivity'})
+      },
+      redirectCircleDetails () {
+        this.$store.commit(types.CIRCLEID, this.circle.id)
+        this.$router.push({'path': '/circleDetails'})
+      },
+      redirectActivityDetails () {
+        this.$store.commit(types.ACTIVITYID, this.activityId)
+        this.$router.push({'path': '/activityDetails'})
+      }
     }
   }
 </script>

@@ -23,9 +23,16 @@ const mutations = {
   [types.ACTIVITYID]: (state, activityId) => {
     state.activityId = activityId
   },
+  [types.ACTIVITYTAGS]: (state, activityTags) => {
+    state.activityTags = activityTags
+  },
   [types.USERID]: (state, userId) => {
     sessionStorage.setItem('userId', userId)
     state.userId = userId
+  },
+  [types.USERPICTURE]: (state, userPicture) => {
+    sessionStorage.setItem('userPicture', userPicture)
+    state.userPicture = userPicture
   }
 }
 export default mutations

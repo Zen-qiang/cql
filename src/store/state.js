@@ -10,7 +10,9 @@ const state = {
   // 活动属性
   activity: {},
   activityId: '',
+  activityTags: '',
   // 用户
-  userId: null
+  userId: null,
+  userPicture: ''
 }
 export default state

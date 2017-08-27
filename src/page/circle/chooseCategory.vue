@@ -34,7 +34,6 @@
         selected: '1',
         isEdit: false,
         circle: {},
-        tags: [],
         activityType: [],
         tagsList: [],
         selectedTags: [],
