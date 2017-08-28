@@ -106,7 +106,7 @@
           data: data
         }).then(res => {
           if (!res.data.success) {
-            Toast(res.data.message)
+            Toast(res.data.error.message)
           } else {
             this.$router.push({'path': '/myCircle'})
           }

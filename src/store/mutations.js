@@ -33,6 +33,17 @@ const mutations = {
   [types.USERPICTURE]: (state, userPicture) => {
     sessionStorage.setItem('userPicture', userPicture)
     state.userPicture = userPicture
+  },
+  [types.USERPHONENO]: (state, userPhoneNo) => {
+    sessionStorage.setItem('userPhoneNo', userPhoneNo)
+    state.userPhoneNo = userPhoneNo
+  },
+  [types.USERNAME]: (state, userName) => {
+    sessionStorage.setItem('userName', userName)
+    state.userName = userName
+  },
+  [types.PARAMDATA]: (state, paramData) => {
+    state.paramData = paramData
   }
 }
 export default mutations

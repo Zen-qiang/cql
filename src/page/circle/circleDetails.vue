@@ -116,7 +116,7 @@
           }
         }).then(res => {
           if (!res.data.success) {
-            Toast(res.data.message)
+            Toast(res.data.error.message)
           } else {
             this.circle.isJoined = isJoin
             if (isJoin) {

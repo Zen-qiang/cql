@@ -21,7 +21,7 @@
           </div>
           <div class="dinglian-lists-people dinglian-lists-address clearfix">
             <span>{{activity.address}}</span>
-            <span>5.6km</span>
+            <span v-show="activity.distance">5.6km</span>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
         type: Boolean
       },
       activity: {
-        type: Array
+        type: Object
       }
     },
     data () {

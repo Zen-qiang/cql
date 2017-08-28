@@ -14,4 +14,9 @@ export const ACTIVITYTAGS = 'activityTags'
 
 // 用户
 export const USERID = 'userId'
+export const USERNAME = 'userName'
 export const USERPICTURE = 'userPicture'
+export const USERPHONENO = 'userPhoneNo'
+
+export const PARAMDATA = 'paramData'
+

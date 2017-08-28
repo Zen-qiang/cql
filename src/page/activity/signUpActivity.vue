@@ -6,22 +6,20 @@
         <div class="dinglian-alone-bind-header">
           <h4>
             绑定手机号
-            <span></span>
+            <span @click="hiddenBind()"></span>
           </h4>
         </div>
         <div class="dinglian-alone-bind-body clearfix">
-          <input type="text" placeholder="请输入手机号">
-          <input type="text" placeholder="请输入验证码">
-          <span>发送验证码</span>
+          <input type="text" placeholder="请输入手机号" v-model="telphone">
+          <input type="text" placeholder="请输入验证码" v-model="verifyNo">
+          <span @click="sendCode()">发送验证码</span>
         </div>
         <div class="dinglian-alone-bind-footer">
           <div>
-            <mt-button type="default" class="dinglian-alone-bind-button">立即绑定</mt-button>
+            <mt-button type="default" class="dinglian-alone-bind-button" @click.native="bindConfirm()">立即绑定</mt-button>
           </div>
         </div>
-
       </div>
-
     </div>
     <!--绑定手机号 end-->
 
@@ -29,24 +27,22 @@
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
-        <span>添加好友</span>
+        <span @click="showAddFriend">添加好友</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">姓名</label>
-        <input type="text" v-model="username">
+        <input type="text" v-model="userName">
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
-        <span v-if="telphone">1822882882</span>
-        <span v-else-if="!telphone">请绑定手机</span>
-        <input type="text" v-model="telphone" v-else="telphone">
+        <input type="text" v-model="telphone" v-show="!needBind">
+        <span v-show="needBind" @click="showBind()">绑定（仅组织者可见）</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
-        <input type="text" v-model="sex" v-if="sex">
-        <div class="edit-radio" v-else="sex">
-          <label for=""><input type="radio" name="cost">男</label>
-          <label for=""><input type="radio" name="cost">女</label>
+        <div class="edit-radio">
+          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender">男</label>
+          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender">女</label>
         </div>
       </div>
     </div>
@@ -54,62 +50,192 @@
     <div class="dinglian-alone-addUsers">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
-        <span>1</span>
+        <span>{{friends.length}}</span>
       </div>
-      <div class="dinglian-alone-users">
+      <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
         <ul>
-          <li></li>
-          <li><input type="text" value="张三" disabled></li>
+          <li @click="removeItem(index)"></li>
+          <li><input type="text" v-model="item.name" disabled></li>
           <li>
-            <input type="text" v-model="sex" v-if="sex" disabled>
-            <div class="edit-radio" v-else="sex">
-              <label for=""><input type="radio" name="cost">男</label>
-              <label for=""><input type="radio" name="cost">女</label>
-            </div>
+            <span v-if="item.gender === 1">男</span>
+            <span v-else>女</span>
           </li>
         </ul>
-        <span></span>
+        <span @click="showAddFriend"></span>
       </div>
-      <div class="dinglian-alone-users">
-        <ul>
-          <li></li>
-          <li><input type="text" value="张三" disabled></li>
-          <li>
-            <input type="text" v-model="sex" v-if="sex" disabled>
-            <div class="edit-radio" v-else="sex">
-              <label for=""><input type="radio" name="cost">男</label>
-              <label for=""><input type="radio" name="cost">女</label>
-            </div>
-          </li>
-        </ul>
-        <span></span>
-      </div>
-
     </div>
-
-    <mt-button type="default" class="dinglian-button dinglian-alone-button">立即报名</mt-button>
+    <mt-button type="default" class="dinglian-button dinglian-alone-button" @click.native="signUp">立即报名</mt-button>
   </div>
 </template>
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
+  import * as types from '../../store/mutation-types'
+  import { Toast, MessageBox } from 'mint-ui'
   export default {
     components: {
       AloneActivity
     },
     data () {
       return {
-        username: '王好为',
-        telphone: '',
-        sex: '男',
+        isEditSignUp: false,
+        gender: '1',
+        userName: '',
+        needBind: false,
         bindPhone: false,
-        activity: {}
+        telphone: '',
+        verifyNo: '',
+        password: '',
+        activity: {},
+        friends: [{
+          name: '张三',
+          gender: '1'
+        }]
       }
     },
     created () {
       this.activity = this.$store.state.activity
+      this.userName = this.$store.state.userName
+      if (this.$store.state.userPhoneNo) {
+        this.telphone = this.$store.state.userPhoneNo
+      } else {
+        this.needBind = true
+      }
+      if (this.activity.signUpInfo) {
+        this.userName = this.activity.signUpInfo.realName
+        this.telphone = this.activity.signUpInfo.phoneNo
+        this.gender = this.activity.signUpInfo.gender
+        let retinues = this.activity.signUpInfo.retinues
+        if (retinues) {
+          this.friends = retinues
+        }
+      }
+      if (this.activity.isEditSignUp) {
+        this.isEditSignUp = this.activity.isEditSignUp
+      }
     },
     methods: {
-
+      removeItem (index) {
+        this.friends.splice(index, 1)
+      },
+      showBind () {
+        this.bindPhone = true
+      },
+      hiddenBind () {
+        this.bindPhone = false
+      },
+      checkGender (val) {
+        this.gender = val
+      },
+      confirm (data) {
+        this.axios({
+          method: 'post',
+          url: 'signUp',
+          data: data
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.error.message)
+          } else {
+            console.log(res.data.data)
+            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+            let circleObj = {
+              id: res.data.data.coterie.id,
+              name: res.data.data.coterie.name,
+              cover: res.data.data.coterie.cover,
+              isRelease: false
+            }
+            if (res.data.data.activityMembers) {
+              circleObj.activityMembers = res.data.data.activityMembers
+            }
+            if (res.data.data.userCount) {
+              circleObj.userCount = res.data.data.userCount
+            }
+            this.$store.commit(types.CIRCLE, circleObj)
+            this.$router.push({'path': '/activitySuccess'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      signUp () {
+        let data = {
+          activityId: this.activity.activityId,
+          userId: this.$store.state.userId,
+          realName: this.userName,
+          phoneNo: this.telphone,
+          gender: this.gender,
+          isEditSignUp: this.isEditSignUp,
+          friends: JSON.stringify(this.friends)
+        }
+        if (!this.activity.isOpen) {
+          MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+            this.password = value
+            data.password = this.password
+            this.confirm(data)
+          })
+        } else {
+          this.confirm(data)
+        }
+      },
+      showAddFriend () {
+        let paramData = {
+          userName: this.userName,
+          gender: this.gender,
+          telphone: this.telphone,
+          friends: this.friends
+        }
+        this.$store.commit(types.PARAMDATA, paramData)
+        this.$store.commit(types.ACTIVITY, this.activity)
+        this.$router.push({'path': '/editFriends'})
+      },
+      sendCode () {
+        if (this.needBind) {
+          if (!this.telphone) {
+            Toast('手机号码不能为空')
+            return
+          }
+          this.axios({
+            method: 'get',
+            url: 'sendCode',
+            params: {
+              phoneno: this.telphone
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            }
+          }).catch()
+        }
+      },
+      bindConfirm () {
+        // 提交绑定
+        if (this.needBind) {
+          if (!this.telphone) {
+            Toast('手机号码不能为空')
+            return
+          }
+          if (!this.verifyNo) {
+            Toast('验证码不能为空')
+            return
+          }
+          this.axios({
+            method: 'get',
+            url: 'bindPhoneNo',
+            params: {
+              userId: this.$store.state.userId,
+              phoneNo: this.telphone,
+              verifyNo: this.verifyNo
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.hiddenBind()
+              this.needBind = false
+              this.$store.commit(types.USERPHONENO, this.telphone)
+            }
+          }).catch()
+        }
+      }
     }
   }
 </script>

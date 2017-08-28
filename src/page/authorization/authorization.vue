@@ -32,7 +32,9 @@
           }).then(res => {
             if (res.data.data) {
               this.$store.commit(types.USERID, res.data.data.userId)
+              this.$store.commit(types.USERNAME, res.data.data.nickName)
               this.$store.commit(types.USERPICTURE, res.data.data.picture)
+              this.$store.commit(types.USERPHONENO, res.data.data.phoneNo)
               this.$router.push({'path': cookie.readCookie('redirectUrl')})
             }
           }).catch()

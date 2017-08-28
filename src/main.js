@@ -27,7 +27,9 @@ Vue.config.productionTip = false
 
 if (window.sessionStorage.getItem('userId')) {
   store.commit(types.USERID, window.sessionStorage.getItem('userId'))
+  store.commit(types.USERNAME, window.sessionStorage.getItem('userName'))
   store.commit(types.USERPICTURE, window.sessionStorage.getItem('userPicture'))
+  store.commit(types.USERPHONENO, window.sessionStorage.getItem('userPhoneNo'))
 }
 
 router.beforeEach((to, from, next) => {

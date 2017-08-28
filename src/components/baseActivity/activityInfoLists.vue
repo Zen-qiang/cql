@@ -14,7 +14,10 @@
             <div class="dinglian-lists-tags clearfix">
               <span class="fs_11" :key="tagName" v-for="tagName of item.tags">{{tagName}}</span>
             </div>
-            <div class="dinglian-lists-cost">{{item.charge}}</div>
+            <div class="dinglian-lists-cost">
+              <span v-if="item.charge === 'free'">免费</span>
+              <span v-else>AA制</span>
+            </div>
             <div class="dinglian-lists-people clearfix">
               <span v-if="item.status === '1'"><em class="dinglian-lists-status"></em>进行中</span>
               <span v-else-if="item.status === '2'"><em class="dinglian-lists-status"></em>正在报名</span>
@@ -23,7 +26,7 @@
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
               <span>{{item.address}}</span>
-              <span>5.6km</span>
+              <span v-show="item.distance">5.6km</span>
             </div>
           </div>
         </div>
@@ -61,8 +64,19 @@
     },
     methods: {
       updateSignInfo (activity) {
-        this.$store.commit(types.ACTIVITY, activity)
-        this.$router.push({'path': '/signUpActivity'})
+        this.axios({
+          method: 'get',
+          url: 'getSignInfo',
+          params: {
+            userId: this.$store.state.userId,
+            activityId: activity.activityId
+          }
+        }).then(res => {
+          activity.signUpInfo = res.data.data
+          activity.isEditSignUp = true
+          this.$store.commit(types.ACTIVITY, activity)
+          this.$router.push({'path': '/signUpActivity'})
+        }).catch()
       },
       redirectActivityDetails (id) {
         this.$store.commit(types.ACTIVITYID, id)
@@ -83,7 +97,7 @@
             }
           }).then(res => {
             if (!res.data.success) {
-              Toast(res.data.message)
+              Toast(res.data.error.message)
             } else {
               activity.isSignUp = false
               Toast('取消成功')

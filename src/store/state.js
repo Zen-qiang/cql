@@ -13,6 +13,10 @@ const state = {
   activityTags: '',
   // 用户
   userId: null,
-  userPicture: ''
+  userName: '',
+  userPicture: '',
+  userPhoneNo: '',
+  // 参数
+  paramData: {}
 }
 export default state
