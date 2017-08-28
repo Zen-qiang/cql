@@ -9,7 +9,7 @@
             <h4 v-else>{{item.name}} 女</h4>
             <span>报名时间: {{item.signUpTime | formatDate}}</span>
           </div>
-          <span>{{item.phoneNo}}</span>
+          <span><a :href="'tel:' + item.phoneNo">拨打电话</a></span>
         </div>
         <ul class="dinglian-mem-proxy" v-show="activityMembers">
           <li :key="idx" v-for="(retinue, idx) in activityMembers.retinues">
