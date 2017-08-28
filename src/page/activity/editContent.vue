@@ -17,9 +17,15 @@
         <li :key="item.id" v-for="item of circles" @click="checkCircle(item)">{{item.name}}</li>
       </ul>
     </div>
+    <!--上传图片 start-->
     <div class="dinglian-edit-photo">
-
+      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadPhoto" multiple />
+      <label for="photo" style="width: 100%"></label>
+      <i class="dinglian-edit-photoShow">
+        <img :src="photo" alt="" v-for="photo in imgLists">
+      </i>
     </div>
+    <!--上传图片 end-->
     <mt-datetime-picker
       ref="picker"
       type="datetime"
@@ -32,7 +38,8 @@
     </mt-datetime-picker>
     <div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
-      <input type="text" v-model="startTime">
+      <span>{{startTime | moment}}</span>
+      <!--<input type="text" v-model="startTime">-->
     </div>
     <div class="dinglian-edit-address">
       <label for="">地址</label>
@@ -69,7 +76,16 @@
 <script>
   import { Toast } from 'mint-ui'
   import * as types from '../../store/mutation-types'
+  import lrz from '../../../static/lrz/lrz.bundle'
+  import moment from 'moment'
+  import 'moment/locale/zh-cn'
+  moment.locale('zh-cn')
   export default {
+    filters: {
+      moment (val) {
+        return moment(val).format('YYYY-MM-DD HH:mm')
+      }
+    },
     data () {
       return {
         isEdit: false,
@@ -87,7 +103,8 @@
         isOpen: true,
         password: '',
         description: '',
-        pictures: []
+        pictures: [],
+        imgLists: []
       }
     },
     created () {
@@ -97,6 +114,23 @@
       this.getMyCircles()
     },
     methods: {
+//      上传图片
+      uploadPhoto (e) {
+        let vm = this
+        var files = e.target.files || e.dataTransfer.files
+        if (files.length >= 1 && files.length <= 3) {
+          for (let i = 0; i < files.length; i++) {
+            lrz(files[i], {width: 450}).then(res => {
+              res.base64 = res.base64 + ''
+              vm.imgLists.push(res.base64)
+            }).always(function () {
+              e.target.value = null
+            })
+          }
+        } else {
+          Toast('不允许上传图片超过3张！')
+        }
+      },
       openPicker () {
         this.$refs.picker.open()
       },
@@ -111,7 +145,7 @@
           userId: this.$store.state.userId,
           tags: this.$store.state.activityTags,
           name: this.activityName,
-          // startTime: this.startTime,
+          startTime: this.startTime,
           charge: this.charge,
           address: this.address,
           gps: this.gps,
@@ -259,10 +293,41 @@
     margin-right: 7px;
     padding: 0 10px;
   }
-
+/*上传图片*/
   .edit-all .dinglian-edit-photo {
     height: 110px;
+    position: relative;
+    background: url("../../assets/images/upload.png") no-repeat left center;
+    background-size: 100% 110px;
   }
+  .dinglian-edit-photo > input[type=file] {
+    position: absolute;
+    left: -9999px;
+  }
+  .dinglian-edit-photo > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+  }
+  .dinglian-edit-photoShow {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    background-color: #ffffff;
+  }
+  .dinglian-edit-photoShow > img {
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-left: 10px;
+  }
+
   .dinglian-edit-people > input {
     width: 78px;
     height: 30px;
