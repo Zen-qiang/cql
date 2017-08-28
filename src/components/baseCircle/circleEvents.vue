@@ -4,7 +4,7 @@
       <li :key="item.topicId" v-for="item of topicList">
         <div class="clearfix dinglian-lists-con">
           <div class="dinglian-lists-con-left">
-            <img :src="domain.resourceUrl + item.activity.cover + '?' + Math.random()" alt="" @click="redirectActivityInfo(item.activity.activityId)">
+            <img :src="item.activity.cover" alt="" @click="redirectActivityInfo(item.activity.activityId)">
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">

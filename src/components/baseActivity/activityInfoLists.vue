@@ -4,7 +4,7 @@
       <li :id="item.activityId" :key="item.activityId" v-for="item in activityLists">
         <div class="clearfix dinglian-lists-con">
           <div class="dinglian-lists-con-left">
-            <img :src="domain.resourceUrl + item.cover + '?' + Math.random()" alt="" @click="redirectActivityDetails(item.activityId)">
+            <img :src="item.cover" alt="" @click="redirectActivityDetails(item.activityId)">
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">

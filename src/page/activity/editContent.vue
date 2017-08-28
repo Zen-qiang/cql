@@ -92,7 +92,7 @@
     },
     created () {
       if (this.$store.state.userPicture) {
-        this.profilePicture = this.domain.resourceUrl + this.$store.state.userPicture + '?' + Math.random()
+        this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
     },

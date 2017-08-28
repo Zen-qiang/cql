@@ -3,7 +3,7 @@
     <ul>
       <li :key="index" v-for="(item, index) in activityMembers">
         <div class="dinglian-mem-firstMember">
-          <img :src="domain.resourceUrl + item.picture + '?' + Math.random()">
+          <img :src="item.picture">
           <div class="clearfix">
             <h4 v-if="item.gender === 1">{{item.name}} 男</h4>
             <h4 v-else>{{item.name}} 女</h4>

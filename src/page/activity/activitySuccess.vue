@@ -7,7 +7,7 @@
     <p>去活动的圈子看看吧～～</p>
     <div class="dinglian-success-title">
       <div>
-        <img :src="domain.resourceUrl + circle.cover + '?' + Math.random()" alt="" @click="redirectCircleDetails">
+        <img :src="circle.cover" alt="" @click="redirectCircleDetails">
       </div>
       <p>{{circle.name}}</p>
     </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="dinglian-success-peopleList" v-show="!isRelease" @click="redirectActivityMembers">
       <span :key="index" v-for="(item, index) in circle.activityMembers">
-        <img :src="domain.resourceUrl + item.picture + '?' + Math.random()">
+        <img :src="item.picture">
       </span>
     </div>
     <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>

@@ -43,7 +43,7 @@
       if (this.circle.coterieId) {
         this.isEdit = true
         this.introduction = this.circle.description
-        this.imgUrl = this.domain.resourceUrl + this.circle.cover + '?' + Math.random()
+        this.imgUrl = this.circle.cover
       }
       // console.log(this.imgUrl)
     },
