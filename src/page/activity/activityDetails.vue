@@ -2,37 +2,40 @@
   <div class="dinglian-details-all">
     <carousel :carouselList="carouselList"></carousel>
     <div class="dinglian-details-title clearfix">
-      <input type="text" v-model="name">
+      <input type="text" v-model="activityInfo.name">
       <span>金桥街舞1圈</span>
     </div>
     <div class="dinglian-details-chat clearfix">
       <img src="../../assets/images/circle.jpg" alt="">
       <div class="dinglian-details-chatNews">
         <div class="dinglian-details-chatNewsTop">
-          <h4>上海潮爆了</h4>
-          <span>10:10</span>
+          <h4>留言板</h4>
+          <span>{{topic.lastCommentTime | moment}}</span>
         </div>
-        <p>[30条] 我就是那个残山剩水</p>
+        <p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>
       </div>
     </div>
-    <div class="dinglian-details-status">
+    <div class="dinglian-details-status dinglian-status">
       <label for="">状态</label>
-      <input type="text" v-model="status">
-      <mt-switch v-model="value" class="edit-switch"></mt-switch>
+      <span v-if="activityInfo.status === '1'">进行中</span>
+      <span v-else-if="activityInfo.status === '2'">正在报名</span>
+      <span v-else>已结束</span>
+      <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
-      <input type="text" v-model="organizer">
+      <input type="text" v-model="nickName" disabled>
       <span class="dinglian-details-mobile"></span>
     </div>
-    <div class="dinglian-details-status">
+    <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
-      <input type="text" v-model="time">
+      <!--<input type="text" v-model="time">-->
+      <span>{{activityInfo.startTime | moment}}</span>
       <span></span>
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
-      <input type="text" v-model="address">
+      <input type="text" v-model="address" disabled>
       <span class="dinglian-details-address"></span>
     </div>
 
@@ -41,38 +44,51 @@
       <span></span>
       <div></div>
     </div>
+    <div class="dinglian-edit-people dinglian-details-types">
+      <label for="">人数</label>
+      <input type="tel" v-model="minCount">&nbsp;至
+      <input type="tel"v-model="maxCount">&nbsp;人
+    </div>
     <div class="dinglian-details-types">
       <label for="">类型</label>
-      <input type="text" v-model="types">
+      <span>{{typesTags.name}}</span>
     </div>
     <div class="dinglian-details-types">
       <label for="">标签</label>
       <ul class="dinglian-details-tags">
-        <li>狼人杀</li>
-        <li>狼人杀</li>
-        <li>狼人杀</li>
+        <li v-for="item in tags">{{item.name}}</li>
       </ul>
     </div>
     <div class="dinglian-details-types">
       <label for="">费用</label>
-      <input type="text" v-model="cost" style="color: red">
+      <input type="text" v-model="activityInfo.charge" style="color: red" disabled>
     </div>
     <div class="dinglian-details-types">
       <label for="">报名权限</label>
-      <input type="text" v-model="authority">
+      <!--<input type="text" v-model="isOpen" disabled>-->
+     <span>{{isOpen ? '公开':'非公开' }}</span>
     </div>
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
     <textarea name="" id="" cols="30" rows="10" class="dinglian-details-textarea">
-      是北京啊看看哪看看就撒DJ阿萨可能的
+      {{activityInfo.description}}
     </textarea>
-    <mt-button type="default" style="margin-top: 10px" class="dinglian-button">报名参加</mt-button>
+    <mt-button type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">{{isCreator ? '取消活动' : '参加活动'}}</mt-button>
   </div>
 </template>
 <script>
   import Carousel from '../../components/carousel.vue'
+  import moment from 'moment'
+  import 'moment/locale/zh-cn'
+  moment.locale('zh-cn')
+//  import { Toast } from 'mint-ui'
   export default {
+    filters: {
+      moment (val) {
+        return moment(val).format('YYYY-MM-DD HH:mm')
+      }
+    },
     components: {
       Carousel
     },
@@ -85,14 +101,81 @@
         }, {
           imageUrl: require('../../assets/images/carousel2.jpg')
         }],
-        name: '上海曹宝莉4人双人大',
-        status: '报名中',
-        organizer: '曹老板',
-        time: '11：11：11',
         address: '漕宝路112号',
         types: '羽毛球',
-        cost: 'AA制',
-        authority: '非公开'
+        activityInfo: '',
+        isOpen: '',
+        status: '',
+        nickName: '',
+        topic: '',
+        typesTags: '',
+        isCreator: '',
+        minCount: '',
+        maxCount: '',
+        tags: [],
+        signActivity: ''
+      }
+    },
+    created () {
+      console.log(11)
+      this.getActivityInfo()
+    },
+    watch: {
+    },
+    methods: {
+//        获取活动详情
+      getActivityInfo () {
+        this.axios({
+          method: 'get',
+          url: '/getActivityInfo',
+          params: {
+            userId: this.$store.state.userId,
+            activityId: this.$store.state.activityId
+          }
+        }).then(res => {
+          this.activityInfo = res.data.data
+          this.isOpen = res.data.data.isOpen
+          this.topic = res.data.data.topic
+          this.nickName = res.data.data.organizer.nickName
+          this.minCount = res.data.data.userCount.minCount
+          this.maxCount = res.data.data.userCount.maxCount
+          this.typesTags = res.data.data.tags[0]
+          this.tags = res.data.data.tags.splice(1)
+          this.isCreator = res.data.data.isCreator
+        }).catch()
+      },
+//      参加活动
+      singnUpActivity () {
+        if (this.isCreator) {
+          this.axios({
+            method: 'get',
+            url: '/closeActivity',
+            params: {
+              activityId: this.$store.state.activityId
+            }
+          }).then(res => {
+            if (res.data.success) {
+              this.$router.push({'path': '/activityLists'})
+            }
+            console.log(res)
+          }).catch()
+        } else {
+          this.axios({
+            method: 'post',
+            url: '/signUp',
+            data: {
+              userId: this.$store.state.userId,
+              activityId: this.$store.state.activityId,
+              gender: '1',
+              isEditSignUp: false
+            }
+          }).then(res => {
+            if (res.data.success) {
+              this.$router.push({'path': '/signUpActivity'})
+            }
+            console.log(res)
+          }).catch()
+        }
       }
     }
   }
@@ -195,6 +278,9 @@
     width: 45px;
     display: inline-block;
   }
+  .dinglian-status > span {
+    flex: 2;
+  }
   .dinglian-details-sign {
     margin-top: 10px;
     width: 100%;
@@ -278,6 +364,19 @@
     border-radius: 3px;
     padding: 2px;
   }
-
+  .dinglian-details-time > span:first-of-type {
+    flex: 2;
+  }
+  .dinglian-edit-people {
+    font-size: 14px;
+    align-items: center;
+  }
+  .dinglian-edit-people > input {
+    width: 78px;
+    height: 30px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding-left: 10px;
+  }
 
 </style>
