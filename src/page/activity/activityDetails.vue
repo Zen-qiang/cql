@@ -63,7 +63,8 @@
     </div>
     <div class="dinglian-details-types">
       <label for="">费用</label>
-      <input type="text" v-model="activityInfo.charge" style="color: red" disabled>
+      <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color: red" disabled>
+      <input type="text" v-else value="AA制" style="color: red" disabled>
     </div>
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
@@ -104,13 +105,7 @@
     },
     data () {
       return {
-        carouselList: [{
-          imageUrl: require('../../assets/images/carousel0.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel1.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel2.jpg')
-        }],
+        carouselList: [],
         address: '漕宝路112号',
         types: '羽毛球',
         activityInfo: '',
@@ -155,16 +150,22 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
-          this.isOpen = this.activityInfo.isOpen
+          this.isOpen = res.data.data.isOpen
           this.allowSignUp = this.activityInfo.allowSignUp
-          this.topic = this.activityInfo.topic
-          this.nickName = this.activityInfo.organizer.nickName
-          this.minCount = this.activityInfo.userCount.minCount
-          this.maxCount = this.activityInfo.userCount.maxCount
-          this.typesTags = this.activityInfo.tags[0]
-          this.tags = this.activityInfo.tags.splice(1)
-          this.isCreator = this.activityInfo.isCreator
+          this.topic = res.data.data.topic
+          this.nickName = res.data.data.organizer.nickName
+          this.minCount = res.data.data.userCount.minCount
+          this.maxCount = res.data.data.userCount.maxCount
+          this.typesTags = res.data.data.tags[0]
+          this.tags = res.data.data.tags.splice(1)
+          this.isCreator = res.data.data.isCreator
           this.topicId = this.activityInfo.topic.topicId
+          let pics = res.data.data.pictures
+          if (pics) {
+            for (var i in pics) {
+              this.carouselList.push({url: pics[i]})
+            }
+          }
         }).catch()
       },
 //      参加活动

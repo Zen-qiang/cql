@@ -70,7 +70,7 @@
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
   import * as types from '../../store/mutation-types'
-  import { Toast, MessageBox } from 'mint-ui'
+  import { Toast } from 'mint-ui'
   export default {
     components: {
       AloneActivity
@@ -166,15 +166,7 @@
           isEditSignUp: this.isEditSignUp,
           friends: JSON.stringify(this.friends)
         }
-        if (!this.activity.isOpen) {
-          MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
-            this.password = value
-            data.password = this.password
-            this.confirm(data)
-          })
-        } else {
-          this.confirm(data)
-        }
+        this.confirm(data)
       },
       showAddFriend () {
         let paramData = {
