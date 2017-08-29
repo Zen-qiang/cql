@@ -21,7 +21,7 @@
     <div class="dinglian-edit-photo">
       <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadPhoto" multiple />
       <label for="photo" style="width: 100%"></label>
-      <i class="dinglian-edit-photoShow">
+      <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
     </div>
@@ -29,11 +29,10 @@
     <mt-datetime-picker
       ref="picker"
       type="datetime"
-      year-format="{value}"
-      month-format="{value}"
-      date-format="{value}"
-      hour-Format="{value}"
-      minute-Format="{value}"
+      month-format="{value} 月"
+      date-format="{value} 日"
+      hour-Format="{value} 点"
+      minute-Format="{value} 分"
       v-model="startTime">
     </mt-datetime-picker>
     <div @click="$refs.picker.open()" class="dinglian-edit-time">
