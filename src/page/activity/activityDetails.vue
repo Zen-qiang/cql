@@ -1,6 +1,6 @@
 <template>
   <div class="dinglian-details-all">
-    <span class="dinglian-details-editIcon" @click.stop="editActivityInfo" v-show="isCreator">
+    <span class="dinglian-details-editIcon" @click.stop="editActivityInfo"  v-show="isCreator">
       {{edit}}
     </span>
     <carousel :carouselList="carouselList"></carousel>
@@ -11,11 +11,11 @@
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
       <div class="dinglian-details-chatNews">
-        <div class="dinglian-details-chatNewsTop">
-          <h4>留言板</h4>
-          <span>{{topic.lastCommentTime | moment}}</span>
-        </div>
-        <p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>
+        <!--<div class="dinglian-details-chatNewsTop">-->
+          <!--<h4>留言板</h4>-->
+          <!--<span>{{topic.lastCommentTime | moment}}</span>-->
+        <!--</div>-->
+        <!--<p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>-->
       </div>
     </div>
     <div class="dinglian-details-status dinglian-status">
@@ -73,7 +73,7 @@
       <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
       <!--<mt-switch v-model="isOpen" class="edit-switch" @change="preventSwitch" ></mt-switch>-->
     </div>
-    <div class="dinglian-details-types" v-show="!isOpen">
+    <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
@@ -114,7 +114,7 @@
         nickName: '',
         topic: '',
         typesTags: '',
-        isCreator: '',
+        isCreator: false,
         minCount: '',
         maxCount: '',
         tags: [],
@@ -128,7 +128,7 @@
       }
     },
     created () {
-      this.activityId = this.$store.state.activityId
+//      this.activityId = this.$store.state.activityId
       this.getActivityInfo()
     },
     methods: {
@@ -153,15 +153,17 @@
         }).then(res => {
           this.activityInfo = res.data.data
           this.isOpen = res.data.data.isOpen
-          this.allowSignUp = this.activityInfo.allowSignUp
-          this.topic = res.data.data.topic
+          this.allowSignUp = res.data.data.allowSignUp
           this.nickName = res.data.data.organizer.nickName
           this.minCount = res.data.data.userCount.minCount
           this.maxCount = res.data.data.userCount.maxCount
           this.typesTags = res.data.data.tags[0]
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
-          this.topicId = this.activityInfo.topic.topicId
+          this.topic = res.data.data.topic
+          if (this.topic) {
+            this.topicId = res.data.data.topic.topicId
+          }
           let pics = res.data.data.pictures
           if (pics) {
             for (var i in pics) {
@@ -195,7 +197,6 @@
           } else {
             this.$router.push({'path': '/signUpActivity'})
           }
-//          this.$router.push({'path': '/signUpActivity'})
         }
       },
       validPassword (activityId, password) {
