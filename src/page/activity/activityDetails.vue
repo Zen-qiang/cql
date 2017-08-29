@@ -61,7 +61,8 @@
     </div>
     <div class="dinglian-details-types">
       <label for="">费用</label>
-      <input type="text" v-model="activityInfo.charge" style="color: red" disabled>
+      <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color: red" disabled>
+      <input type="text" v-else value="AA制" style="color: red" disabled>
     </div>
     <div class="dinglian-details-types">
       <label for="">报名权限</label>
@@ -94,13 +95,7 @@
     },
     data () {
       return {
-        carouselList: [{
-          imageUrl: require('../../assets/images/carousel0.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel1.jpg')
-        }, {
-          imageUrl: require('../../assets/images/carousel2.jpg')
-        }],
+        carouselList: [],
         address: '漕宝路112号',
         types: '羽毛球',
         activityInfo: '',
@@ -117,7 +112,6 @@
       }
     },
     created () {
-      console.log(11)
       this.getActivityInfo()
     },
     watch: {
@@ -133,6 +127,7 @@
             activityId: this.$store.state.activityId
           }
         }).then(res => {
+          console.log(res.data.data)
           this.activityInfo = res.data.data
           this.isOpen = res.data.data.isOpen
           this.topic = res.data.data.topic
@@ -142,6 +137,12 @@
           this.typesTags = res.data.data.tags[0]
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
+          let pics = res.data.data.pictures
+          if (pics) {
+            for (var i in pics) {
+              this.carouselList.push({url: pics[i]})
+            }
+          }
         }).catch()
       },
 //      参加活动

@@ -63,7 +63,23 @@
       }
     },
     methods: {
-      updateSignInfo (activity) {
+      validPassword (activity, password) {
+        this.axios({
+          method: 'get',
+          url: 'validActivityPassword',
+          params: {
+            activityId: activity.activityId,
+            password: password
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.goSingUp(activity)
+          } else {
+            Toast('活动密码错误')
+          }
+        }).catch()
+      },
+      goSingUp (activity) {
         this.axios({
           method: 'get',
           url: 'getSignInfo',
@@ -77,6 +93,15 @@
           this.$store.commit(types.ACTIVITY, activity)
           this.$router.push({'path': '/signUpActivity'})
         }).catch()
+      },
+      updateSignInfo (activity) {
+        if (!activity.isOpen) {
+          MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+            this.validPassword(activity, value)
+          })
+        } else {
+          this.goSingUp(activity)
+        }
       },
       redirectActivityDetails (id) {
         this.$store.commit(types.ACTIVITYID, id)

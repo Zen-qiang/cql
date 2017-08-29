@@ -21,7 +21,9 @@
     },
     methods: {
       redirect (redirectUrl) {
-        window.location.href = redirectUrl
+        if (redirectUrl) {
+          window.location.href = redirectUrl
+        }
       }
     }
   }
