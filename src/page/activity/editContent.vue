@@ -13,7 +13,6 @@
     </div>
     <div class="dinglian-edit-circleLists">
       <ul>
-        <li>以活动之名创建</li>
         <li :key="item.id" v-for="item of circles" @click="checkCircle(item)">{{item.name}}</li>
       </ul>
     </div>
@@ -166,7 +165,7 @@
         if (this.pictures.length > 0) {
           data.pictures = this.pictures
         }
-        // console.log(data)
+        console.log(data)
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editActivity' : 'launchActivity',

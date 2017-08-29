@@ -11,8 +11,8 @@
           </div>
           <span><a :href="'tel:' + item.phoneNo">拨打电话</a></span>
         </div>
-        <ul class="dinglian-mem-proxy" v-show="activityMembers">
-          <li :key="idx" v-for="(retinue, idx) in activityMembers.retinues">
+        <ul class="dinglian-mem-proxy" v-show="item">
+          <li :key="idx" v-for="(retinue, idx) in item.retinues">
             <span>{{retinue.name}}</span>
             <span>{{retinue.gender}}</span>
             <span>dai</span>
@@ -52,6 +52,7 @@
           }
         }).then(res => {
           this.activityMembers = res.data.data
+          console.log(this.activityMembers)
         }).catch()
       }
     }

@@ -61,20 +61,26 @@
         this.cover = true
       },
       createCircle () {
-        let data = {
-          userId: this.$store.state.userId,
-          name: this.circle.name,
-          tags: this.circleTags,
-          description: this.introduction,
-          picture: this.imgFile
-        }
+        let formData = this.imgFile
+        formData.append('userId', this.$store.state.userId)
+        formData.append('name', this.circle.name)
+        formData.append('tags', this.circleTags)
+        formData.append('description', this.introduction)
+        // let data = {
+        //   userId: this.$store.state.userId,
+        //   name: this.circle.name,
+        //   tags: this.circleTags,
+        //   description: this.introduction,
+        //   picture: this.imgFile
+        // }
         if (this.isEdit) {
-          data.coterieId = this.circle.coterieId
+          // data.coterieId = this.circle.coterieId
+          formData.append('coterieId', this.circle.coterieId)
         }
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editCoterie' : 'createCoterie',
-          data: data
+          data: formData
         }).then(res => {
           if (!res.data.success) {
             Toast(res.data.error.message)
