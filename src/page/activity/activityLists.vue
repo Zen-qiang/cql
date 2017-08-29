@@ -70,7 +70,7 @@
     height: 100%;
   }
   .dinglian-activityLists-release {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     width: 80px;
