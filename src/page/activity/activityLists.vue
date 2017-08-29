@@ -36,7 +36,6 @@
           method: 'get',
           url: 'getActivityList',
           params: {
-            keyword: this.keyword,
             start: this.start,
             pageSize: this.pageSize
           }
