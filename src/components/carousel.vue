@@ -3,7 +3,7 @@
   <div class="dinglian-home-carousel">
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(item, index) in carouselList" :key="index" @click="">
-        <img :src="domain.resourceUrl + item.url + '?' + Math.random()" @click="redirect(item.redirectUrl)">
+        <img :src="item.url" @click="redirect(item.redirectUrl)">
       </mt-swipe-item>
     </mt-swipe>
   </div>

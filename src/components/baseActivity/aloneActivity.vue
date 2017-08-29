@@ -2,7 +2,7 @@
   <div style="background: #ffffff">
       <div class="clearfix dinglian-lists-con">
         <div class="dinglian-lists-con-left">
-          <img :src="domain.resourceUrl + activity.cover + '?' + Math.random()" alt="" @click="redirectActivityDetails(activity.activityId)">
+          <img :src="activity.cover" alt="" @click="redirectActivityDetails(activity.activityId)">
         </div>
         <div class="dinglian-lists-con-right">
           <div class="dinglian-lists-title clearfix">

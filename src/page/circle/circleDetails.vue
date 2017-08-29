@@ -81,7 +81,7 @@
           params: param
         }).then(res => {
           this.circle = res.data.data
-          this.coverStyle.background = 'url(' + this.domain.resourceUrl + this.circle.cover + '?' + Math.random() + ')'
+          this.coverStyle.background = 'url(' + this.circle.cover + ')'
           this.initLayout(this.circle)
           this.getTopicList(this.selected)
         }).catch()
