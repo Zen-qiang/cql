@@ -10,7 +10,7 @@
             <span class="dinglian-lists-circleTag" @click="redirectActivityDetails(activity.coterie.id)">{{activity.coterie.name}}</span>
           </div>
           <div class="dinglian-lists-tags clearfix">
-            <span class="fs_11" :key="tagName" v-for="tagName of activity.tags">{{tagName}}</span>
+            <span class="fs_11" :key="tagName" v-for="tagName of activity.tags">{{tagName.name}}</span>
           </div>
           <div class="dinglian-lists-cost">{{activity.charge}}</div>
           <div class="dinglian-lists-people clearfix">

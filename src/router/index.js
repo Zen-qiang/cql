@@ -131,7 +131,7 @@ export default new Router({
       }
     },
     {
-      path: '/activityMessage',
+      path: '/activityMessage/:id',
       name: 'ActivityMessage',
       component: ActivityMessage,
       meta: {

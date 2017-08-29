@@ -4,55 +4,119 @@
       <div class="dinglian-message-avatar">
         <img src="../../assets/images/circle.jpg" alt="">
         <div class="dinglian-message-title">
-          <h3>街舞</h3>
-          <span>g广东 深证</span>
+          <h3>{{messageLists.user.nickName}}</h3>
+          <span></span>
         </div>
-        <span> 10-19 10:10</span>
+        <span>{{messageLists.topicCreateTime | moment}}</span>
       </div>
-      <p>快来报名呀，一起触发</p>
+      <!--<p>快来报名呀，一起触发</p>-->
     </div>
-    <alone-activity :footer="true"></alone-activity>
+    <alone-activity :footer="true" :activity="activity"></alone-activity>
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
-        <span>共有28人点过赞</span>
+        <span>共有{{messageLists.praiseCnt}}人点过赞</span>
         <ul>
-          <li></li>
+          <li v-for="item in messageLists.praise">
+            {{item.nickName}}
+          </li>
           <li>more > </li>
         </ul>
       </div>
       <div class="dinglian-message-comment-tit">全部评论</div>
-      <div class="dinglian-message-avatar">
+      <div class="dinglian-message-avatar" v-for="topics in topicCommentList">
         <img src="../../assets/images/circle.jpg" alt="">
         <div class="dinglian-message-title">
-          <h3>街舞</h3>
-          <span>g广东 深证</span>
+          <h3>{{topics.user.nickName}}</h3>
+          <span>{{topics.comment}}</span>
         </div>
-        <span> 10-19 10:10</span>
+        <span>{{topics.commentTime | moment}}</span>
       </div>
-      <div class="dinglian-message-avatar">
-        <img src="../../assets/images/circle.jpg" alt="">
-        <div class="dinglian-message-title">
-          <h3>街舞</h3>
-          <span>g广东 深证</span>
-        </div>
-        <span> 10-19 10:10</span>
-      </div>
+      <!--<div class="dinglian-message-avatar">-->
+        <!--<img src="../../assets/images/circle.jpg" alt="">-->
+        <!--<div class="dinglian-message-title">-->
+          <!--<h3>街舞</h3>-->
+          <!--<span>g广东 深证</span>-->
+        <!--</div>-->
+        <!--<span> 10-19 10:10</span>-->
+      <!--</div>-->
 
     </div>
     <div class="dinglian-message-chat">
-      <input type="text">
-      <span class="dinglian-message-chat-button">发送</span>
+      <input type="text" v-model="description">
+      <span class="dinglian-message-chat-button" @click="createActivityTopic">发送</span>
     </div>
   </div>
 </template>
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
+  import moment from 'moment'
+  import 'moment/locale/zh-cn'
+  import {Toast} from 'mint-ui'
+  moment.locale('zh-cn')
   export default {
+    filters: {
+      moment (val) {
+        return moment(val).format('YYYY-MM-DD HH:mm')
+      }
+    },
     components: {
       AloneActivity
     },
+    created () {
+      this.getActivityTopic()
+      this.getTopicCommentList()
+    },
     data () {
-      return {}
+      return {
+        activity: {},
+        messageLists: '',
+        topicCommentList: '',
+        description: ''
+      }
+    },
+    methods: {
+//        发送评论
+      createActivityTopic () {
+        this.axios({
+          method: 'post',
+          url: '/createActivityTopic',
+          data: {
+            userId: this.$store.state.userId,
+            activityId: this.$store.state.activityId,
+            description: this.description
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.topicCommentList = []
+            this.getTopicCommentList()
+            Toast('评论成功！')
+          }
+        })
+      },
+      getActivityTopic () {
+        this.axios({
+          method: 'get',
+          url: '/getActivityTopic',
+          params: {
+            topicId: this.$route.params.id
+          }
+        }).then(res => {
+          this.messageLists = res.data.data
+          this.activity = res.data.data.activity
+        }).catch()
+      },
+//      获取评论列表
+      getTopicCommentList () {
+        this.axios({
+          method: 'get',
+          url: '/getTopicCommentList',
+          params: {
+            topicId: this.$route.params.id
+          }
+        }).then(res => {
+          this.topicCommentList = res.data.data
+        }).catch()
+      }
     }
   }
 </script>
@@ -63,7 +127,7 @@
   }
   .dinglian-message-header {
     background: #ffffff;
-    height: 0.9rem;
+    /*height: 0.9rem;*/
   }
   .dinglian-message-header > p {
     font-size: 13px;
@@ -127,6 +191,10 @@
     line-height: 0.4rem;
     padding: 0 15px;
     color: #999999;
+  }
+  .dinglian-message-comment-order > ul {
+    display: flex;
+    flex-flow: row nowrap;
   }
   .dinglian-message-chat {
     position: fixed;

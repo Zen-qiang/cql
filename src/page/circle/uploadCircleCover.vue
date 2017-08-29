@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-upload-all">
     <div class="dinglian-createCirclePhoto-uploadPhoto">
-      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" />
+      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>
       <label for="photo" v-show="isBlock"></label>
       <i class="dinglian-createCirclePhoto-background">
         <img :src="imgUrl" alt="" v-show="imgUrl">
@@ -40,55 +40,28 @@
     },
     created () {
       this.circle = this.$store.state.circle
-      // this.circleName = this.$store.state.circleName
       this.circleTags = this.$store.state.circleTags
       if (this.circle.coterieId) {
         this.isEdit = true
         this.introduction = this.circle.description
         this.imgUrl = this.domain.resourceUrl + this.circle.cover + '?' + Math.random()
       }
-      // console.log(this.imgUrl)
     },
     methods: {
       uploadImg (e) {
         let vm = this
         var files = e.target.files || e.dataTransfer.files
-        lrz(files[0], {width: 450}).then(res => {
-          res.base64 = res.base64 + ''
-          vm.dataUrl = res.base64
-          vm.imgUrl = res.base64
+        lrz(files[0], {width: 750}).then(rst => {
+          rst.base64 = rst.base64 + ''
+          vm.dataUrl = rst.base64
+          vm.imgUrl = rst.base64
         }).always(function () {
           e.target.value = null
         })
-//        compressPic(e, [])
-//        var fileLists = compressPic(e, [])
-//        console.log(222)
-//        console.log(fileLists[0])
-//        this.dataUrl = fileLists
-//        this.imgUrl = fileLists
-//        let self = this
-//        let files = this.$refs.photo.files
-//        for (var i = 0; i < files.length; i++) {
-//          if (!files[i] || !window.FileReader) {
-//            return
-//          }
-//          if (/^image/.test(files[i].type)) {
-//            // 创建一个reader
-//            let reader = new FileReader()
-//            // 将图片将转成 base64 格式
-//            reader.readAsDataURL(files[i])
-//            // 读取成功后的回调
-//            reader.onloadend = function () {
-//              self.dataUrl = this.result
-//              self.imgUrl = this.result
-//            }
-//          }
-//        }
         this.cover = true
       },
       createCircle () {
         let data = {
-          // test
           userId: this.$store.state.userId,
           name: this.circle.name,
           tags: this.circleTags,
