@@ -13,7 +13,7 @@
     </div>
     <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
-      <div> <i>{{circle.userCount.currentCount}}</i> /{{circle.userCount.minCount}}~{{circle.userCount.maxCount}}人</div>
+      <div> <i>{{userCount.currentCount}}</i> /{{userCount.minCount}}~{{userCount.maxCount}}人</div>
     </div>
     <div class="dinglian-success-peopleList" v-show="!isRelease" @click="redirectActivityMembers">
       <span :key="index" v-for="(item, index) in circle.activityMembers">
@@ -32,13 +32,17 @@
       return {
         activityId: '',
         circle: '',
-        isRelease: false
+        isRelease: false,
+        userCount: {}
       }
     },
     created () {
       this.activityId = this.$store.state.activityId
       this.circle = this.$store.state.circle
       this.isRelease = this.circle.isRelease
+      if (this.circle.userCount) {
+        this.userCount = this.circle.userCount
+      }
     },
     methods: {
       redirectActivityMembers () {
