@@ -32,8 +32,8 @@
         photoFile: '',
         isBlock: true,
         imgUrl: '',
+        imgFile: '',
         introduction: '',
-        dataUrl: '',
         cover: false,
         lists: []
       }
@@ -53,8 +53,8 @@
         var files = e.target.files || e.dataTransfer.files
         lrz(files[0], {width: 750}).then(rst => {
           rst.base64 = rst.base64 + ''
-          vm.dataUrl = rst.base64
           vm.imgUrl = rst.base64
+          vm.imgFile = rst.formData
         }).always(function () {
           e.target.value = null
         })
@@ -65,10 +65,8 @@
           userId: this.$store.state.userId,
           name: this.circle.name,
           tags: this.circleTags,
-          description: this.introduction
-        }
-        if (this.$refs.photo.files.length > 0) {
-          data.picture = this.dataUrl
+          description: this.introduction,
+          picture: this.imgFile
         }
         if (this.isEdit) {
           data.coterieId = this.circle.coterieId
@@ -118,7 +116,7 @@
   }
   .dinglian-createCirclePhoto-background > img {
     width: 100%;
-    height: 180px;
+    height: 1.8rem;
     display: block;
   }
   .dinglian-createCirclePhoto-cover {
