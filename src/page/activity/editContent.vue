@@ -19,7 +19,7 @@
     <!--上传图片 start-->
     <div class="dinglian-edit-photo">
       <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadPhoto" multiple />
-      <label for="photo" style="width: 100%"></label>
+      <label for="photo" style="width: 100%;margin-left: 0"></label>
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
@@ -28,11 +28,15 @@
     <mt-datetime-picker
       ref="picker"
       type="datetime"
+      year-format="{value}"
       month-format="{value} 月"
       date-format="{value} 日"
       hour-Format="{value} 点"
       minute-Format="{value} 分"
-      v-model="startTime">
+      v-model="startTime"
+      :startDate="startDate"
+      :endDate="endDate"
+    >
     </mt-datetime-picker>
     <div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
@@ -86,6 +90,8 @@
     },
     data () {
       return {
+        startDate: new Date(),
+        endDate: new Date('2018-12-12'),
         isEdit: false,
         profilePicture: '',
         circles: [],
@@ -102,7 +108,8 @@
         password: '',
         description: '',
         pictures: [],
-        imgLists: []
+        imgLists: [],
+        imgFilesList: []
       }
     },
     created () {
@@ -115,12 +122,15 @@
 //      上传图片
       uploadPhoto (e) {
         let vm = this
+        vm.imgLists = []
+        vm.imgFilesList = []
         var files = e.target.files || e.dataTransfer.files
         if (files.length >= 1 && files.length <= 3) {
           for (let i = 0; i < files.length; i++) {
             lrz(files[i], {width: 450}).then(res => {
               res.base64 = res.base64 + ''
               vm.imgLists.push(res.base64)
+              vm.imgFilesList.push(res.file)
             }).always(function () {
               e.target.value = null
             })
@@ -139,36 +149,51 @@
         this.charge = val
       },
       goNextStep () {
-        let data = {
-          userId: this.$store.state.userId,
-          tags: this.$store.state.activityTags,
-          name: this.activityName,
-          startTime: this.startTime,
-          charge: this.charge,
-          address: this.address,
-          gps: this.gps,
-          minCount: this.minCount,
-          maxCount: this.maxCount,
-          isOpen: this.isOpen,
-          description: this.description
-        }
+        let formdata = new FormData()
+        formdata.append('userId', this.$store.state.userId)
+        formdata.append('tags', this.$store.state.activityTags)
+        formdata.append('name', this.activityName)
+        formdata.append('startTime', this.startTime.valueOf())
+        formdata.append('charge', this.charge)
+        formdata.append('address', this.address)
+        formdata.append('gps', this.gps)
+        formdata.append('minCount', this.minCount)
+        formdata.append('maxCount', this.maxCount)
+        formdata.append('isOpen', this.isOpen)
+        formdata.append('description', this.description)
+        formdata.append('pictures', this.imgFilesList)
+//        let data = {
+//          userId: this.$store.state.userId,
+//          tags: this.$store.state.activityTags,
+//          name: this.activityName,
+//          startTime: this.startTime,
+//          charge: this.charge,
+//          address: this.address,
+//          gps: this.gps,
+//          minCount: this.minCount,
+//          maxCount: this.maxCount,
+//          isOpen: this.isOpen,
+//          description: this.description
+//        }
         if (this.circle) {
-          data.coterieId = this.circle.id
+//          data.coterieId = this.circle.id
+          formdata.append('coterieId', this.circle.id)
         }
         if (this.phoneNo) {
-          data.phoneNo = this.phoneNo
+//          data.phoneNo = this.phoneNo
+          formdata.append('phoneNo', this.phoneNo)
         }
         if (!this.isOpen && this.password) {
-          data.password = this.password
+//          data.password = this.password
+          formdata.append('password', this.password)
         }
-        if (this.pictures.length > 0) {
-          data.pictures = this.pictures
-        }
-        console.log(data)
+//        if (this.pictures.length > 0) {
+//          data.pictures = this.pictures
+//        }
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editActivity' : 'launchActivity',
-          data: data
+          data: formdata
         }).then(res => {
           if (!res.data.success) {
             Toast(res.data.error.message)
@@ -221,6 +246,7 @@
     width: 100%;
     /*overflow: hidden;*/
     margin-bottom: 40px;
+    position: relative;
   }
   div[class^="dinglian"] {
     width: 100%;
