@@ -121,7 +121,7 @@
     border-bottom: 1px solid #dddddd;
   }
   .dinglian-createCirclePhoto-background > img {
-    width: 100%;
+    width: 3.75rem;
     height: 1.8rem;
     display: block;
   }

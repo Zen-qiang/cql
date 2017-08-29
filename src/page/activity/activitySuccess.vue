@@ -64,8 +64,11 @@
   }
 </script>
 <style scoped>
+  .dinglian-success-all {
+    height: 100%;
+  }
   .dinglian-success-icon {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
 
   }
   .dinglian-success-icon > img {
@@ -78,16 +81,16 @@
   .dinglian-success-all > h3 {
     font-size: 19px;
     font-weight: 400;
-    margin-top: 25px;
+    margin-top: 0.25rem;
   }
   .dinglian-success-all > p {
     font-size: 11px;
     color: #999999;
-    margin-top: 10px;
+    margin-top: 0.1rem;
   }
   .dinglian-success-title {
-    padding-top: 50px;
-    padding-bottom: 45px;
+    /*padding-top: 0.5rem;*/
+    /*padding-bottom: 0.45rem;*/
   }
   .dinglian-success-title img {
     display: inline-block;
@@ -121,9 +124,14 @@
   .dinglian-success-peopleList > span {
     margin-right: 10px ;
     display: inline-block;
-    width: 50px;
+    width: 40px;
     border-radius: 50%;
     background-color: #dddddd;
+  }
+  .dinglian-success-peopleList > span > img {
+    display: block;
+    width: 40px;
+    border-radius: 50%;
   }
 
 </style>

@@ -88,12 +88,12 @@
   </div>
 </template>
 <script>
+  import { MessageBox, Toast } from 'mint-ui'
   import Carousel from '../../components/carousel.vue'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import * as types from '../../store/mutation-types'
-  import { Toast } from 'mint-ui'
   export default {
     filters: {
       moment (val) {
@@ -123,10 +123,12 @@
         disabled: true,
         password: '',
         allowSignUp: '',
-        topicId: ''
+        topicId: '',
+        activityId: ''
       }
     },
     created () {
+      this.activityId = this.$store.state.activityId
       this.getActivityInfo()
     },
     methods: {
@@ -186,8 +188,31 @@
         } else {
           this.activityInfo.cover = this.activityInfo.pictures[0]
           this.$store.commit(types.ACTIVITY, this.activityInfo)
-          this.$router.push({'path': '/signUpActivity'})
+          if (!this.isOpen) {
+            MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+              this.validPassword(this.activityId, value)
+            })
+          } else {
+            this.$router.push({'path': '/signUpActivity'})
+          }
+//          this.$router.push({'path': '/signUpActivity'})
         }
+      },
+      validPassword (activityId, password) {
+        this.axios({
+          method: 'get',
+          url: 'validActivityPassword',
+          params: {
+            activityId: activityId,
+            password: password
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.$router.push({'path': '/signUpActivity'})
+          } else {
+            Toast('活动密码错误')
+          }
+        }).catch()
       },
 //      编辑活动信息
       editActivityInfo () {
