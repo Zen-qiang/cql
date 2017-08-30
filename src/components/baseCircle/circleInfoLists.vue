@@ -1,5 +1,10 @@
 <template>
   <div>
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom"
+                 :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
+                 :distanceIndex="1"
+                 ref="loadmore">
+
     <ul class="dinglian-lists-ul">
       <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList">
         <div class="dinglian-lists-con-left">
@@ -18,21 +23,34 @@
         </div>
       </li>
     </ul>
-  </div>
 
+    </mt-loadmore>
+  </div>
 </template>
 <script>
   import * as types from '../../store/mutation-types'
   export default {
     name: 'CircleInfoLists',
     data () {
-      return {}
+      return {
+        allLoaded: false,
+        autoLill: false
+      }
     },
     props: ['coterieList'],
     methods: {
       redirectCircleInfo (id) {
         this.$store.commit(types.CIRCLEID, id)
         this.$router.push({'path': '/circleDetails'})
+      },
+      loadTop () {
+        console.log('刷新')
+        this.$refs.loadmore.onTopLoaded()
+      },
+      loadBottom () {
+        console.log('加载')
+        this.$emit('pullUpCircle')
+        this.$refs.loadmore.onBottomLoaded()
       }
     }
   }

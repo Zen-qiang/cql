@@ -1,8 +1,8 @@
 <template>
   <div class="dinglian-circle-all">
-    <div class="dinglian-circle-search clearfix">
-      <input type="search" placeholder="🔍 请输入圈子关键词">
-    </div>
+    <form class="dinglian-circle-search clearfix" onsubmit="return false;">
+      <input type="search" placeholder="🔍 请输入圈子关键词" @search="searchCircle" v-model="keyword">
+    </form>
     <carousel :carouselList="carouselList"></carousel>
     <mt-navbar v-model="tagIndex" class="dinglian-circle-navbar">
       <mt-tab-item id="0" @click.native="getTagList(null)">全部</mt-tab-item>
@@ -15,7 +15,7 @@
         <ul class="dinglian-tagsLists-all clearfix">
           <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
         </ul>
-        <circle-info-lists :coterieList="coterieList"></circle-info-lists>
+        <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
         <tags-lists :tagsList="tagsList" v-on:checkTag="checkTag"></tags-lists>
@@ -61,6 +61,15 @@
       this.getCoterieList()
     },
     methods: {
+//      上拉加载
+      pullUpCircle () {
+        console.log('fuxin')
+      },
+//      搜索圈子
+      searchCircle () {
+        this.coterieList = []
+        this.getCoterieList()
+      },
       redirectCreateCircle () {
         // 跳转到创建圈子
         this.$router.push({'path': '/createCircle'})
@@ -124,7 +133,6 @@
           params: param
         }).then(res => {
           this.coterieList = res.data.data
-          // console.log(this.coterieList)
         }).catch()
       },
       checkTag (tagId) {

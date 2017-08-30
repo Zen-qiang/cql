@@ -1,19 +1,99 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Hello from '@/components/Hello'
+import { Indicator } from 'mint-ui'
+import Hello from '@/components/Hello'
+// import CreateCircle from '@/page/circle/createCircle.vue'
+// import ChooseCategory from '@/page/circle/chooseCategory.vue'
+// import UploadCircleCover from '@/page/circle/uploadCircleCover.vue'
+// import CircleLists from '@/page/circle/circleLists.vue'
+// import CircleDetails from '@/page/circle/circleDetails.vue'
+// import MyCircle from '@/page/circle/myCircle.vue'
+
 // 圈子
-import CreateCircle from '@/page/circle/createCircle.vue'
-import ChooseCategory from '@/page/circle/chooseCategory.vue'
-import UploadCircleCover from '@/page/circle/uploadCircleCover.vue'
-import CircleLists from '@/page/circle/circleLists.vue'
-import CircleDetails from '@/page/circle/circleDetails.vue'
-import MyCircle from '@/page/circle/myCircle.vue'
+const CreateCircle = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/createCircle.vue'], () => {
+    r(require('@/page/circle/createCircle.vue'))
+    Indicator.close()
+  }, 'createCircle')
+}
+const ChooseCategory = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/chooseCategory.vue'], () => {
+    r(require('@/page/circle/chooseCategory.vue'))
+    Indicator.close()
+  }, 'chooseCategory')
+}
+const UploadCircleCover = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/uploadCircleCover.vue'], () => {
+    r(require('@/page/circle/uploadCircleCover.vue'))
+    Indicator.close()
+  }, 'uploadCircleCover')
+}
+const CircleLists = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/circleLists.vue'], () => {
+    r(require('@/page/circle/circleLists.vue'))
+    Indicator.close()
+  }, 'circleLists')
+}
+const CircleDetails = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/circleDetails.vue'], () => {
+    r(require('@/page/circle/circleDetails.vue'))
+    Indicator.close()
+  }, 'circleDetails')
+}
+const MyCircle = r => {
+  Indicator.open()
+  require.ensure(['@/page/circle/myCircle.vue'], () => {
+    r(require('@/page/circle/myCircle.vue'))
+    Indicator.close()
+  }, 'myCircle')
+}
+// import ActivityLists from '@/page/activity/activityLists.vue'
+// import ActivityDetails from '@/page/activity/activityDetails.vue'
+// import MyActivity from '@/page/activity/myActivity.vue'
+// import EditContent from '@/page/activity/editContent.vue'
+// import ActivitySuccess from '@/page/activity/ActivitySuccess.vue'
+
 // 活动
-import MyActivity from '@/page/activity/myActivity.vue'
-import EditContent from '@/page/activity/editContent.vue'
-import ActivityLists from '@/page/activity/activityLists.vue'
-import ActivitySuccess from '@/page/activity/activitySuccess.vue'
-import ActivityDetails from '@/page/activity/activityDetails.vue'
+const MyActivity = r => {
+  Indicator.open()
+  require.ensure(['@/page/activity/myActivity.vue'], () => {
+    r(require('@/page/activity/myActivity.vue'))
+    Indicator.close()
+  }, 'myActivity')
+}
+const EditContent = r => {
+  Indicator.open()
+  require.ensure(['@/page/activity/editContent.vue'], () => {
+    r(require('@/page/activity/editContent.vue'))
+    Indicator.close()
+  }, 'editContent')
+}
+const ActivityLists = r => {
+  Indicator.open()
+  require.ensure(['@/page/activity/activityLists.vue'], () => {
+    r(require('@/page/activity/activityLists.vue'))
+    Indicator.close()
+  }, 'activityLists')
+}
+const ActivitySuccess = r => {
+  Indicator.open()
+  require.ensure(['@/page/activity/ActivitySuccess.vue'], () => {
+    r(require('@/page/activity/ActivitySuccess.vue'))
+    Indicator.close()
+  }, 'ActivitySuccess')
+}
+const ActivityDetails = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/activity/activityDetails.vue'], () => {
+    r(require('@/page/activity/activityDetails.vue'))
+    Indicator.close()
+  }, 'activityDetails')
+}
 import ChooseActivityTags from '@/page/activity/chooseActivityTags.vue'
 import ActivityMessage from '@/page/activity/activityMessage.vue'
 // 报名活动
@@ -31,6 +111,11 @@ export default new Router({
     {
       path: '/',
       redirect: '/circleLists'
+    },
+    {
+      path: '/Hello',
+      name: 'Hello',
+      component: Hello
     },
     // 圈子
     {

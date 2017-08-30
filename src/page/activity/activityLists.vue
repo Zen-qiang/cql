@@ -1,8 +1,8 @@
 <template>
   <div class="dinglian-activityLists-all">
-    <div class="dinglian-circle-search clearfix">
-      <input type="search" placeholder="🔍 请输入圈子关键词">
-    </div>
+    <form class="dinglian-circle-search clearfix" onsubmit="return false;">
+      <input type="search" placeholder="🔍 请输入圈子关键词" v-model="keyword" @search="searchActivity">
+    </form>
     <activity-info-lists :footer="false" :activityLists="activityLists"></activity-info-lists>
     <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
       发布活动
@@ -31,6 +31,13 @@
       redirectCreateActivity () {
         this.$router.push({'path': '/chooseActivityTags'})
       },
+//      搜索
+      searchActivity () {
+//        console.log(navigator.userAgent)
+        this.activityLists = []
+        this.getActivityList()
+      },
+//      获取活动列表
       getActivityList () {
         this.axios({
           method: 'get',
@@ -51,14 +58,14 @@
   /*搜索框*/
   .dinglian-circle-search {
     width: 100%;
-    height: 44px;
+    height: 0.44rem;
     background: #f2f2f2;
-    padding: 10px 15px;
+    padding: 0.1rem 0.15rem;
   }
   .dinglian-circle-search > input[type^=search] {
     margin: 0 auto;
-    height: 24px;
-    width: 345px;
+    height: 0.24rem;
+    width: 3.45rem;
     border-radius: 4px;
     font-size: 12px;
     color: #999999;

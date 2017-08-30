@@ -173,15 +173,17 @@
     color: #ffffff;
   }
   .dinglian-details-join > span {
+    position: absolute;
     text-decoration: none;
-    display: inline-block;
-    width: 58px;
-    height: 24px;
-    line-height: 24px;
+    width: 0.58rem;
+    height: 0.24rem;
+    line-height: 0.24rem;
     font-size: 12px;
     background: #ffd200;
     border-radius: 4px;
-    margin-top: 22px;
+    margin-top: 0.22rem;
+    right: 50%;
+    margin-right: -0.29rem;
   }
   .dinglian-details-edit {
     position: absolute;
