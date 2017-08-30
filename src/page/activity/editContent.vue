@@ -130,7 +130,8 @@
             lrz(files[i], {width: 450}).then(res => {
               res.base64 = res.base64 + ''
               vm.imgLists.push(res.base64)
-              vm.imgFilesList.push(res.file)
+              // vm.imgFilesList.push(res.file)
+              vm.imgFilesList.push(res.formData.get('file'))
             }).always(function () {
               e.target.value = null
             })
@@ -161,7 +162,10 @@
         formdata.append('maxCount', this.maxCount)
         formdata.append('isOpen', this.isOpen)
         formdata.append('description', this.description)
-        formdata.append('pictures', this.imgFilesList)
+        for (var i in this.imgFilesList) {
+          let idx = parseInt(i) + 1
+          formdata.append('pic' + idx, this.imgFilesList[i])
+        }
 //        let data = {
 //          userId: this.$store.state.userId,
 //          tags: this.$store.state.activityTags,

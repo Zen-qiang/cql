@@ -45,6 +45,7 @@
         this.isEdit = true
         this.introduction = this.circle.description
         this.imgUrl = this.circle.cover
+        this.cover = true
       }
     },
     methods: {
