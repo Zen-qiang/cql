@@ -11,11 +11,11 @@
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
       <div class="dinglian-details-chatNews">
-        <!--<div class="dinglian-details-chatNewsTop">-->
-          <!--<h4>留言板</h4>-->
-          <!--<span>{{topic.lastCommentTime | moment}}</span>-->
-        <!--</div>-->
-        <!--<p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>-->
+        <div class="dinglian-details-chatNewsTop">
+          <h4>留言板</h4>
+          <span>{{topic.lastCommentTime | moment}}</span>
+        </div>
+        <p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>
       </div>
     </div>
     <div class="dinglian-details-status dinglian-status">
