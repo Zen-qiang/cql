@@ -1,4 +1,7 @@
 <template>
+  <mt-loadmore :top-method="loadTop"
+               :distanceIndex="1"
+               ref="loadTop">
   <div>
     <header>
       <div class="coverStyle" :style="coverStyle">
@@ -20,14 +23,14 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="all">
-        <circle-events :topicList="topicList"></circle-events>
+        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded"></circle-events>
       </mt-tab-container-item>
       <mt-tab-container-item id="histroy">
         <circle-events :topicList="topicList"></circle-events>
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
-
+  </mt-loadmore>
 </template>
 <script>
   import CircleEvents from '../../components/baseCircle/circleEvents.vue'
@@ -45,14 +48,16 @@
         buttonText: '',
         showButton: false,
         start: 0,
-        pageSize: 999999,
+        pageSize: 10,
         topicList: [],
         coverStyle: {
           width: '100%',
           height: '195px',
           background: 'url(' + require('../../assets/images/carousel0.jpg') + ')',
           position: 'relative'
-        }
+        },
+        page: 1,
+        allLoaded: false
       }
     },
     watch: {
@@ -65,6 +70,16 @@
       this.loadCircleInfo(this.circleId)
     },
     methods: {
+//        下拉刷新
+      loadTop () {
+        this.$refs.loadTop.onTopLoaded()
+      },
+//      上拉加载
+      pullUpEvents () {
+        this.page ++
+        this.start = (this.page - 1) * this.pageSize
+        this.getTopicList()
+      },
       redirectEditCircle () {
         this.$store.commit(types.CIRCLE, this.circle)
         this.$router.push({'path': '/createCircle'})
@@ -100,7 +115,14 @@
           url: 'getTopicList',
           params: param
         }).then(res => {
-          this.topicList = res.data.data
+          if (res.data.data.length > 0) {
+            for (let item in res.data.data) {
+              this.topicList.push(res.data.data[item])
+            }
+          } else {
+            this.allLoaded = true
+          }
+//          this.topicList = res.data.data
         }).catch()
       },
       joinCircle () {

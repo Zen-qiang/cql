@@ -3,7 +3,7 @@
     <div class="dinglian-success-icon">
       <img src="../../assets/images/success.svg" alt="">
     </div>
-    <h3>恭喜您报名成功</h3>
+    <h3>{{title}}</h3>
     <p>去活动的圈子看看吧～～</p>
     <div class="dinglian-success-title">
       <div>
@@ -33,13 +33,19 @@
         activityId: '',
         circle: '',
         isRelease: false,
-        userCount: {}
+        userCount: {},
+        title: ''
       }
     },
     created () {
       this.activityId = this.$store.state.activityId
       this.circle = this.$store.state.circle
       this.isRelease = this.circle.isRelease
+      if (this.isRelease) {
+        this.title = '恭喜您创建成功'
+      } else {
+        this.title = '恭喜您报名成功'
+      }
       if (this.circle.userCount) {
         this.userCount = this.circle.userCount
       }

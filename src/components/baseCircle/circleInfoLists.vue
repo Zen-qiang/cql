@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom"
+    <mt-loadmore :bottom-method="loadBottom"
                  :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
                  :distanceIndex="1"
                  ref="loadmore">
@@ -33,19 +33,14 @@
     name: 'CircleInfoLists',
     data () {
       return {
-        allLoaded: false,
         autoLill: false
       }
     },
-    props: ['coterieList'],
+    props: ['coterieList', 'allLoaded'],
     methods: {
       redirectCircleInfo (id) {
         this.$store.commit(types.CIRCLEID, id)
         this.$router.push({'path': '/circleDetails'})
-      },
-      loadTop () {
-        console.log('刷新')
-        this.$refs.loadmore.onTopLoaded()
       },
       loadBottom () {
         console.log('加载')

@@ -1,4 +1,8 @@
 <template>
+  <mt-loadmore :bottom-method="loadBottom"
+               :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
+               :distanceIndex="1"
+               ref="loadmore">
   <div class="dinglian-lists-whole">
     <ul class="dinglian-lists-ul">
       <li :key="item.topicId" v-for="item of topicList">
@@ -35,6 +39,7 @@
       </li>
     </ul>
   </div>
+  </mt-loadmore>
 
 </template>
 <script>
@@ -43,10 +48,18 @@
   export default {
     name: 'CircleEvents',
     data () {
-      return {}
+      return {
+        autoLill: false
+      }
     },
-    props: ['topicList'],
+    props: ['topicList', 'allLoaded'],
     methods: {
+//      上拉加载
+      loadBottom () {
+        console.log('加载')
+        this.$emit('pullUpEvents')
+        this.$refs.loadmore.onBottomLoaded()
+      },
       redirectActivityInfo (activityId) {
         // 跳转到活动详情
         this.$store.commit(types.ACTIVITYID, activityId)

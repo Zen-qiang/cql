@@ -1,9 +1,13 @@
 <template>
   <div class="dinglian-activityLists-all">
+    <mt-loadmore :top-method="loadTop"
+                 :distanceIndex="1"
+                 ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
       <input type="search" placeholder="🔍 请输入圈子关键词" v-model="keyword" @search="searchActivity">
     </form>
-    <activity-info-lists :footer="false" :activityLists="activityLists"></activity-info-lists>
+    <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
+  </mt-loadmore>
     <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
       发布活动
     </button>
@@ -20,14 +24,28 @@
       return {
         keyword: '',
         start: 0,
-        pageSize: 9999999,
-        activityLists: []
+        pageSize: 10,
+        activityLists: [],
+        page: 1,
+        allLoaded: false
       }
     },
     created () {
       this.getActivityList()
     },
     methods: {
+      //        下拉刷新
+      loadTop () {
+        this.activityLists = []
+        this.getActivityList()
+        this.$refs.loadTop.onTopLoaded()
+      },
+      //      上拉加载
+      pullUpActivity () {
+        this.page ++
+        this.start = (this.page - 1) * this.pageSize
+        this.getActivityList()
+      },
       redirectCreateActivity () {
         this.$router.push({'path': '/chooseActivityTags'})
       },
@@ -47,7 +65,14 @@
             pageSize: this.pageSize
           }
         }).then(res => {
-          this.activityLists = res.data.data
+          if (res.data.data.length > 0) {
+            for (let item in res.data.data) {
+              this.activityLists.push(res.data.data[item])
+            }
+          } else {
+            this.allLoaded = true
+          }
+//          this.activityLists = res.data.data
         }).catch()
       }
     }

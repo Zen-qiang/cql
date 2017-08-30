@@ -1,5 +1,9 @@
 <template>
   <div>
+    <mt-loadmore :bottom-method="loadBottom"
+                 :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
+                 :distanceIndex="1"
+                 ref="loadmore">
     <ul class="dinglian-lists-ul">
       <li :id="item.activityId" :key="item.activityId" v-for="item in activityLists">
         <div class="clearfix dinglian-lists-con">
@@ -41,6 +45,7 @@
         </div>
       </li>
     </ul>
+    </mt-loadmore>
   </div>
 
 </template>
@@ -55,14 +60,23 @@
       },
       activityLists: {
         type: Array
+      },
+      allLoaded: {
+        type: Boolean
       }
     },
     data () {
       return {
-        cancel: true
+        cancel: true,
+        autoLill: false
       }
     },
     methods: {
+      loadBottom () {
+        console.log('加载')
+        this.$emit('pullUpActivity')
+        this.$refs.loadmore.onBottomLoaded()
+      },
       validPassword (activity, password) {
         this.axios({
           method: 'get',

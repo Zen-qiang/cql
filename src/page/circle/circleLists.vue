@@ -1,5 +1,9 @@
 <template>
+
   <div class="dinglian-circle-all">
+    <mt-loadmore :top-method="loadTop"
+                 :distanceIndex="1"
+                 ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
       <input type="search" placeholder="🔍 请输入圈子关键词" @search="searchCircle" v-model="keyword">
     </form>
@@ -15,13 +19,14 @@
         <ul class="dinglian-tagsLists-all clearfix">
           <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
         </ul>
-        <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle"></circle-info-lists>
+        <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
         <tags-lists :tagsList="tagsList" v-on:checkTag="checkTag"></tags-lists>
-        <circle-info-lists :coterieList="coterieList"></circle-info-lists>
+        <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
     </mt-tab-container>
+    </mt-loadmore>
     <div class="dinglian-circle-createCircle" @click="redirectCreateCircle()">
       创建圈子
     </div>
@@ -51,8 +56,10 @@
         // 二级标签
         slvTagsArr: [],
         start: 0,
-        pageSize: 999999,
-        carouselList: []
+        pageSize: 10,
+        page: 1,
+        carouselList: [],
+        allLoaded: false
       }
     },
     created () {
@@ -61,9 +68,16 @@
       this.getCoterieList()
     },
     methods: {
+//        下拉刷新
+      loadTop () {
+        this.coterieList = []
+        this.getCoterieList()
+        this.$refs.loadTop.onTopLoaded()
+      },
 //      上拉加载
       pullUpCircle () {
-        console.log('fuxin')
+        this.page ++
+        this.getCoterieList()
       },
 //      搜索圈子
       searchCircle () {
@@ -80,7 +94,6 @@
           url: 'getCoterieCarouselPictures'
         }).then(res => {
           this.carouselList = res.data.data
-          console.log(this.carouselList)
         }).catch()
       },
       getActivityType () {
@@ -121,7 +134,7 @@
         if (this.slvTagsArr.length !== 0) {
           param.secondLevelTagIds = this.convertToStr(this.slvTagsArr)
         }
-        param.start = this.start
+        param.start = (this.page - 1) * this.pageSize
         param.pageSize = this.pageSize
         if (this.keyword) {
           param.keyword = this.keyword
@@ -132,7 +145,16 @@
           url: 'getCoterieList',
           params: param
         }).then(res => {
-          this.coterieList = res.data.data
+//          let temporary = res.data.data
+//          this.coterieList = res.data.data
+          if (res.data.data.length > 0) {
+            for (let item in res.data.data) {
+              this.coterieList.push(res.data.data[item])
+            }
+          } else {
+            this.allLoaded = true
+            console.log('end')
+          }
         }).catch()
       },
       checkTag (tagId) {
@@ -144,7 +166,6 @@
           this.slvTagsArr.push(tagId)
         }
         this.getCoterieList()
-        // console.log(this.slvTagsArr)
       },
       isSelected (tagId) {
         return this.slvTagsArr.indexOf(tagId) > -1
@@ -225,6 +246,7 @@
     background: #ffd200;
     border-radius: 40px;
     font-size: 15px;
+    z-index: 8;
   }
 
 
