@@ -1,22 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom"
+                 :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
+                 :distanceIndex="1"
+                 ref="loadmore">
+      <ul style="height: 300px;background-color: #999999;display: block">
+        <li v-for="item in items">{{item}}</li>
+      </ul>
+    </mt-loadmore>
   </div>
 </template>
 
@@ -25,7 +16,21 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      items: [1],
+      allLoaded: false,
+      autoLill: false
+    }
+  },
+  methods: {
+    loadTop () {
+      console.log('刷新')
+      this.$refs.loadmore.onTopLoaded()
+    },
+    loadBottom () {
+      console.log('加载')
+      console.log(1111)
+      this.$refs.loadmore.onBottomLoaded()
     }
   }
 }
@@ -33,21 +38,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  div {
+    font-size: 12px;
+  }
 </style>

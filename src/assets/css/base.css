@@ -113,3 +113,11 @@ a {
   vertical-align:text-top;
   margin-right: 5px;
 }
+/*更改过载动画*/
+.mint-indicator-wrapper {
+  font-size: 12px;
+}
+/*上拉刷新*/
+.mint-loadmore-text {
+  font-size: 12px;
+}
