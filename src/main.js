@@ -35,33 +35,35 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
-  axios({
-    method: 'get',
-    url: '/getWxConfig',
-    params: {
-      // url: 'http://www.dingliantech.com:8080/circleLists'
-      url: location.href.split('#')[0]
-    }
-  }).then(res => {
-    console.log(res.data)
-    wx.config({
-      debug: false,
-      appId: res.data.data.appId,
-      timestamp: res.data.data.timestamp,
-      nonceStr: res.data.data.nonceStr,
-      signature: res.data.data.signature,
-      jsApiList: [
-        'onMenuShareTimeline',
-        'onMenuShareAppMessage',
-        'onMenuShareQQ',
-        'onMenuShareWeibo',
-        'onMenuShareQZone'
-      ]
+  if (to.fullPath !== '/authorization') {
+    axios({
+      method: 'get',
+      url: '/getWxConfig',
+      params: {
+        // url: 'http://www.dingliantech.com:8080/circleLists'
+        url: location.href.split('#')[0]
+      }
+    }).then(res => {
+      console.log(res.data)
+      wx.config({
+        debug: false,
+        appId: res.data.data.appId,
+        timestamp: res.data.data.timestamp,
+        nonceStr: res.data.data.nonceStr,
+        signature: res.data.data.signature,
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo',
+          'onMenuShareQZone'
+        ]
+      })
+      wx.ready(function () {
+        console.log('wwwwwww')
+      })
     })
-    wx.ready(function () {
-      console.log('wwwwwww')
-    })
-  })
+  }
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.userId) {
       next()
@@ -72,7 +74,7 @@ router.beforeEach((to, from, next) => {
         method: 'get',
         url: 'userAuthorization',
         params: {
-          callbackUrl: encodeURI('http://' + window.location.host + '/authorization')
+          callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
         }
       }).then(res => {
         window.location.href = res.data
