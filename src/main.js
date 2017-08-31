@@ -23,6 +23,8 @@ Vue.prototype.axios = axios
 import domain from './domain.js'
 Vue.prototype.domain = domain
 
+// 引入微信jssdk
+import wx from 'weixin-js-sdk'
 Vue.config.productionTip = false
 
 if (window.sessionStorage.getItem('userId')) {
@@ -33,6 +35,30 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
+  console.log(window.location.href)
+  axios({
+    method: 'get',
+    url: '/getWxConfig',
+    params: {
+      // url: 'http://www.dingliantech.com:8080/circleLists'
+      url: 'http://www.dingliantech:8080/activityLists'
+    }
+  }).then(res => {
+    console.log(res.data)
+    wx.config({
+      appId: res.data.data.appId,
+      timestamp: res.data.data.timestamp,
+      nonceStr: res.data.data.nonceStr,
+      signature: res.data.data.signature,
+      jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'onMenuShareQZone'
+      ]
+    })
+  })
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.userId) {
       next()

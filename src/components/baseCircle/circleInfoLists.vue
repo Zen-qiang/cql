@@ -33,14 +33,15 @@
     name: 'CircleInfoLists',
     data () {
       return {
-        autoLill: false
+        autoLill: false,
+        uid: this.$store.state.userId
       }
     },
     props: ['coterieList', 'allLoaded'],
     methods: {
       redirectCircleInfo (id) {
         this.$store.commit(types.CIRCLEID, id)
-        this.$router.push({'path': '/circleDetails'})
+        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
       },
       loadBottom () {
         console.log('加载')

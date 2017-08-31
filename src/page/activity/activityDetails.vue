@@ -124,7 +124,8 @@
         password: '',
         allowSignUp: '',
         topicId: '',
-        activityId: ''
+        activityId: '',
+        uid: this.$route.params.uid
       }
     },
     created () {
@@ -147,8 +148,8 @@
           method: 'get',
           url: '/getActivityInfo',
           params: {
-            userId: this.$store.state.userId,
-            activityId: this.$store.state.activityId
+            userId: this.uid,
+            activityId: this.$route.params.aid
           }
         }).then(res => {
           this.activityInfo = res.data.data
@@ -225,7 +226,7 @@
             method: 'post',
             url: '/updateActivityInfo',
             data: {
-              activityId: this.$store.state.activityId,
+              activityId: this.$route.params.aid,
               minCount: this.minCount,
               maxCount: this.maxCount,
               allowSignUp: this.isOpen

@@ -43,7 +43,7 @@
     data () {
       return {
         selected: 'all',
-        circleId: 0,
+        circleId: this.$route.params.cid,
         circle: '',
         buttonText: '',
         showButton: false,
@@ -57,7 +57,8 @@
           position: 'relative'
         },
         page: 1,
-        allLoaded: false
+        allLoaded: false,
+        uid: this.$route.params.uid
       }
     },
     watch: {
@@ -66,7 +67,6 @@
       }
     },
     created () {
-      this.circleId = this.$store.state.circleId
       this.loadCircleInfo(this.circleId)
     },
     methods: {
@@ -87,7 +87,7 @@
       loadCircleInfo (circleId) {
         // 获取圈子详情
         let param = {
-          userId: this.$store.state.userId,
+          userId: this.uid,
           coterieId: circleId
         }
         this.axios({
@@ -103,7 +103,7 @@
       },
       getTopicList (dataType) {
         let param = {
-          userId: this.$store.state.userId,
+          userId: this.uid,
           coterieId: this.circleId,
           dataType: dataType,
           start: this.start,
@@ -132,7 +132,7 @@
           method: 'post',
           url: 'joinCoterie',
           data: {
-            userId: this.$store.state.userId,
+            userId: this.uid,
             coterieId: this.circleId,
             isJoin: isJoin
           }

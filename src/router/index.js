@@ -151,7 +151,7 @@ export default new Router({
       }
     },
     {
-      path: '/circleDetails',
+      path: '/circleDetails/:uid/:cid',
       name: 'CircleDetails',
       component: CircleDetails,
       meta: {
@@ -200,7 +200,7 @@ export default new Router({
       }
     },
     {
-      path: '/activityDetails',
+      path: '/activityDetails/:uid/:aid',
       name: 'ActivityDetails',
       component: ActivityDetails,
       meta: {

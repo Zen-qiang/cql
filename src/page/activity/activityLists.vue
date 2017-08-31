@@ -1,10 +1,11 @@
 <template>
   <div class="dinglian-activityLists-all">
     <mt-loadmore :top-method="loadTop"
-                 :distanceIndex="1"
+                 :distanceIndex="2"
+                 :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="🔍 请输入圈子关键词" v-model="keyword" @search="searchActivity">
+      <input type="search" placeholder="🔍 请输入活动关键词" v-model="keyword" @search="searchActivity">
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
   </mt-loadmore>
@@ -16,6 +17,7 @@
 </template>
 <script>
   import ActivityInfoLists from '../../components/baseActivity/activityInfoLists.vue'
+  import { Indicator } from 'mint-ui'
   export default {
     components: {
       ActivityInfoLists
@@ -37,6 +39,7 @@
       //        下拉刷新
       loadTop () {
         this.activityLists = []
+        Indicator.open()
         this.getActivityList()
         this.$refs.loadTop.onTopLoaded()
       },
@@ -72,6 +75,7 @@
           } else {
             this.allLoaded = true
           }
+          Indicator.close()
 //          this.activityLists = res.data.data
         }).catch()
       }

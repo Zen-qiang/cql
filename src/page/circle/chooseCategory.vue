@@ -179,7 +179,7 @@
   }
   /*主体*/
   .dinglian-choose-all {
-    padding-top: 154px;
+    padding-top: 0.8rem;
   }
   /*h3 标题*/
  .dinglian-choose-all > h3 {
