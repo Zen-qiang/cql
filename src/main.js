@@ -35,7 +35,6 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(window.location.href)
   axios({
     method: 'get',
     url: '/getWxConfig',
@@ -46,6 +45,7 @@ router.beforeEach((to, from, next) => {
   }).then(res => {
     console.log(res.data)
     wx.config({
+      debug: true,
       appId: res.data.data.appId,
       timestamp: res.data.data.timestamp,
       nonceStr: res.data.data.nonceStr,
@@ -57,6 +57,9 @@ router.beforeEach((to, from, next) => {
         'onMenuShareWeibo',
         'onMenuShareQZone'
       ]
+    })
+    wx.ready(function () {
+      console.log('wwwwwww')
     })
   })
   if (to.matched.some(r => r.meta.requireAuth)) {

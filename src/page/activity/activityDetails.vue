@@ -253,7 +253,11 @@
     top: 0;
     z-index: 10;
     background-color: #ffd200;
-    font-size: 12px;
+    font-size: 14px;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    opacity: 0.8;
   }
   div {
     height: 50px;
