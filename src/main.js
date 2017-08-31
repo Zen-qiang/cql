@@ -35,7 +35,7 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
-  if (to.fullPath !== '/authorization') {
+  if (to.fullPath !== '/authorization' || to.fullPath.indexOf('/api/authorization') > 0) {
     axios({
       method: 'get',
       url: '/getWxConfig',
