@@ -221,15 +221,15 @@
   /*搜索框*/
   .dinglian-circle-search {
     width: 100%;
-    height: 44px;
+    height: 0.44rem;
     background: #f2f2f2;
-    padding: 10px 15px;
+    padding: 0.1rem 0.15rem;
   }
   .dinglian-circle-search > input[type^=search] {
     margin: 0 auto;
-    height: 24px;
-    line-height: 24px;
-    width: 345px;
+    height: 0.24rem;
+    line-height: 0.24rem;
+    width: 3.45rem;
     border-radius: 4px;
     font-size: 12px;
     color: #999999;

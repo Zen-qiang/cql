@@ -6,19 +6,19 @@
       </div>
       <input type="text" placeholder="输入活动名称" v-model="activityName">
     </div>
-    <div class="dinglian-edit-belongsCircle">
+    <div class="dinglian-edit-belongsCircle" @click.stop="belongCircle">
       <label for="">所属圈子</label>
       <span v-if="circle">{{circle.name}}</span>
       <span v-else></span>
     </div>
-    <div class="dinglian-edit-circleLists">
+    <div class="dinglian-edit-circleLists" v-show="chooseCircle">
       <ul>
-        <li :key="item.id" v-for="item of circles" @click="checkCircle(item)">{{item.name}}</li>
+        <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>
       </ul>
     </div>
     <!--上传图片 start-->
     <div class="dinglian-edit-photo">
-      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadPhoto" multiple />
+      <input id="photo" accept="image/*" :capture="capture" type="file" @change.prevent="uploadPhoto" multiple />
       <label for="photo" style="width: 100%;margin-left: 0"></label>
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
@@ -109,16 +109,38 @@
         description: '',
         pictures: [],
         imgLists: [],
-        imgFilesList: []
+        imgFilesList: [],
+        chooseCircle: false,
+        capture: 'camera'
       }
     },
     created () {
+      this.judgmentIos()
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
     },
     methods: {
+//        判断移动设备
+      judgmentIos () {
+        let u = navigator.userAgent
+        let isIos = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+        if (isIos) {
+          this.capture = false
+        } else {
+          this.capture = 'camera'
+        }
+      },
+//        选择圈子
+      belongCircle () {
+        console.log(1111)
+        if (!this.chooseCircle) {
+          this.chooseCircle = true
+        } else {
+          this.chooseCircle = false
+        }
+      },
 //      上传图片
       uploadPhoto (e) {
         let vm = this
@@ -241,6 +263,7 @@
       },
       checkCircle (circle) {
         this.circle = circle
+        this.chooseCircle = false
       }
     }
   }
@@ -249,34 +272,34 @@
   .edit-all {
     width: 100%;
     /*overflow: hidden;*/
-    margin-bottom: 40px;
+    margin-bottom: 0.4rem;
     position: relative;
   }
   div[class^="dinglian"] {
     width: 100%;
-    height: 50px;
+    height: 0.5rem;
     border-bottom: 1px solid #dddddd;
     font-size: 14px;
-    line-height: 50px;
+    line-height: 0.5rem;
     text-align: left;
   }
   .edit-all > div > label:first-of-type {
     margin-left: 15px;
-    width: 80px;
+    width: 0.8rem;
     display: inline-block;
     color: #999999;
   }
   /*标题*/
   .edit-all .dinglian-edit-title {
-    height: 69px;
-    line-height: 69px;
+    height: 0.69rem;
+    line-height: 0.69rem;
     overflow: hidden;
-    padding-left: 15px;
+    padding-left: 0.15rem;
   }
   .dinglian-edit-title  img {
     display: inline-block;
-    width: 44px;
-    height: 44px;
+    width: 0.44rem;
+    height: 0.44rem;
     vertical-align:middle;
   }
   .dinglian-edit-title > div {
@@ -295,30 +318,31 @@
   }
   /*圈子列表*/
   .edit-all .dinglian-edit-circleLists {
-    height: 84px;
+    height: 1rem;
   }
-  .dinglian-edit-circleLists {
-    width: 100%;
-  }
+  /*.dinglian-edit-circleLists {*/
+    /*width: 100%;*/
+  /*}*/
   .edit-all .dinglian-edit-circleLists > ul {
     display: flex;
     flex-flow: row wrap;
     width: 100%;
-    height: 100%;
-    padding-right: 10px;
-    padding-top: 12px;
-    padding-left: 15px;
+    /*height: 100%;*/
+    padding-right: 0.1rem;
+    padding-top: 0.12rem;
+    padding-left: 0.15rem;
   }
   .dinglian-edit-circleLists > ul > li {
     display: inline-block;
-    height: 24px;
-    line-height: 24px;
+    height: 0.24rem;
+    line-height: 0.24rem;
     font-size: 11px;
     color: #333333;
     float: left;
     background: #ffd200;
     border-radius: 5px;
     margin-right: 7px;
+    margin-bottom: 5px;
     padding: 0 10px;
   }
 /*上传图片*/
@@ -384,6 +408,15 @@
   }
   .dinglian-edit-time > input {
     width: 100%;
+  }
+  .dinglian-edit-tel > input {
+    height: 0.4rem;
+  }
+  .dinglian-edit-address > input {
+    height: 0.4rem;
+  }
+  .dinglian-edit-psw > input {
+    height: 0.4rem;
   }
 
 </style>

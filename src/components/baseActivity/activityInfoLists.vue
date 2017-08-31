@@ -120,11 +120,11 @@
         }
       },
       redirectActivityDetails (id) {
-        this.$store.commit(types.ACTIVITYID, id)
+//        this.$store.commit(types.ACTIVITYID, id)
         this.$router.push({'path': '/activityDetails/' + this.uid + '/' + id})
       },
       redirectCircleDetails (id) {
-        this.$store.commit(types.CIRCLEID, id)
+//        this.$store.commit(types.CIRCLEID, id)
         this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
       },
       signOut (activity) {

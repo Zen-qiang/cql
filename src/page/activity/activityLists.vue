@@ -93,6 +93,7 @@
   .dinglian-circle-search > input[type^=search] {
     margin: 0 auto;
     height: 0.24rem;
+    line-height: 0.24rem;
     width: 3.45rem;
     border-radius: 4px;
     font-size: 12px;
