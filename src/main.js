@@ -35,13 +35,13 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(window.location.href)
+  // console.log(window.location.href)
   axios({
     method: 'get',
     url: '/getWxConfig',
     params: {
       // url: 'http://www.dingliantech.com:8080/circleLists'
-      url: 'http://www.dingliantech:8080/activityLists'
+      url: location.href.split('#')[0]
     }
   }).then(res => {
     console.log(res.data)
