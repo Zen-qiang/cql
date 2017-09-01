@@ -35,13 +35,14 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
+  console.log(to.fullPath)
   if (to.fullPath !== '/authorization' || to.fullPath.indexOf('/api/authorization') > 0) {
     axios({
       method: 'get',
       url: '/getWxConfig',
       params: {
-        // url: 'http://www.dingliantech.com:8080/circleLists'
-        url: location.href.split('#')[0]
+        url: 'http://www.dingliantech.com' + to.fullPath
+        // url: location.href.split('#')[0]
       }
     }).then(res => {
       console.log(res.data)
@@ -69,12 +70,14 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       console.log('get user authorization')
+      console.log(to.pullPath)
       cookie.setCookie('redirectUrl', to.fullPath)
       axios({
         method: 'get',
         url: 'userAuthorization',
         params: {
-          callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
+          // callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
+          callbackUrl: encodeURI('http://www.dingliantech.com/authorization')
         }
       }).then(res => {
         window.location.href = res.data

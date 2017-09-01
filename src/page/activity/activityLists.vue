@@ -18,6 +18,7 @@
 <script>
   import ActivityInfoLists from '../../components/baseActivity/activityInfoLists.vue'
   import { Indicator } from 'mint-ui'
+//  import wx from 'weixin-js-sdk'
   export default {
     components: {
       ActivityInfoLists

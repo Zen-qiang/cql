@@ -10,6 +10,7 @@
 
 <script>
   import * as types from '../../store/mutation-types'
+  import { Toast } from 'mint-ui'
   export default {
     name: 'createCircle',
     data () {
@@ -24,16 +25,19 @@
         // 编辑圈子
         this.circleName = this.circle.name
       }
-      // console.log(this.circle)
     },
     methods: {
       goNextStep () {
         // 下一步
-        // console.log(this.$route)
         this.circle.name = this.circleName
-        this.$store.commit(types.CIRCLE, this.circle)
-        // this.$store.commit(types.CIRCLENAME, this.circleName)
-        this.$router.push({'path': '/chooseCategory'})
+        if (this.circleName.length > 0 && this.circleName.length <= 12) {
+          this.$store.commit(types.CIRCLE, this.circle)
+          this.$router.push({'path': '/chooseCategory'})
+        } else if (this.circleName.length > 12) {
+          Toast('圈子的名称不能超过12字！')
+        } else {
+          Toast('圈子的名称不能为空！')
+        }
       }
     }
   }

@@ -30,6 +30,7 @@
               openId: params.openId
             }
           }).then(res => {
+            console.log(1111)
             if (res.data.data) {
               this.$store.commit(types.USERID, res.data.data.userId)
               this.$store.commit(types.USERNAME, res.data.data.nickName)
