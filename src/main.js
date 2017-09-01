@@ -74,8 +74,8 @@ router.beforeEach((to, from, next) => {
         method: 'get',
         url: 'userAuthorization',
         params: {
-          callbackUrl: encodeURI('http://www.dingliantech.com/authorization')
-          // callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
+          // callbackUrl: encodeURI('http://www.dingliantech.com/authorization')
+          callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
         }
       }).then(res => {
         window.location.href = res.data
