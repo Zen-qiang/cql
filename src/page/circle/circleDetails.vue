@@ -36,6 +36,7 @@
   import CircleEvents from '../../components/baseCircle/circleEvents.vue'
   import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
+  import wx from 'weixin-js-sdk'
   export default {
     components: {
       CircleEvents
@@ -65,6 +66,38 @@
       selected: function (val, oldVal) {
         this.getTopicList(val)
       }
+    },
+    mounted () {
+      wx.ready(function () {
+        wx.showAllNonBaseMenuItem()
+//        朋友圈
+        wx.onMenuShareTimeline({
+          title: this.circle.name, // 分享标题
+          link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: '', // 分享图标
+          success: function () {
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        })
+//        朋友
+        wx.onMenuShareAppMessage({
+          title: this.circle.name, // 分享标题
+          desc: this.circle.description, // 分享描述
+          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: '', // 分享图标
+          type: '', // 分享类型,music、video或link，不填默认为link
+          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          success: function () {
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        })
+      })
     },
     created () {
       this.loadCircleInfo(this.circleId)
