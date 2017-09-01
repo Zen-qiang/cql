@@ -134,12 +134,7 @@
           success: function (res) {
             this.localIds = res.localIds
             Toast(this.localIds)
-            wx.getLocalImgData({
-              localId: this.localIds[0], // 图片的localID
-              success: function (res) {
-                Toast(res.localData)
-              }
-            })
+            Toast(res.localIds)
           }
         })
       },

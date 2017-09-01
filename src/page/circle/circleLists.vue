@@ -1,5 +1,4 @@
 <template>
-
   <div class="dinglian-circle-all">
     <mt-loadmore :top-method="loadTop"
                  :distanceIndex="4"
@@ -31,7 +30,6 @@
     <div class="dinglian-circle-createCircle" @click="redirectCreateCircle()">
       创建圈子
     </div>
-    <button @click="share">share</button>
   </div>
 
 </template>
@@ -40,7 +38,7 @@
   import CircleInfoLists from '../../components/baseCircle/circleInfoLists.vue'
   import Carousel from '../../components/carousel.vue'
   // import { Toast } from 'mint-ui'
-  import wx from 'weixin-js-sdk'
+//  import wx from 'weixin-js-sdk'
   export default {
     components: {
       TagsLists,
@@ -71,58 +69,8 @@
       this.getCoterieList()
     },
     mounted () {
-      wx.ready(function () {
-        console.log('woowowwo')
-        wx.onMenuShareTimeline({
-          title: 'test', // 分享标题
-          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: '', // 分享图标
-          success: function () {
-            // 用户确认分享后执行的回调函数
-            console.log('分享成功')
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-            console.log('分享失败')
-          }
-        })
-        wx.onMenuShareAppMessage({
-          title: 'test2', // 分享标题
-          desc: 'test22222', // 分享描述
-          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: '', // 分享图标
-          type: '', // 分享类型,music、video或link，不填默认为link
-          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-          success: function () {
-            // 用户确认分享后执行的回调函数
-            console.log('分享成功2')
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-            console.log('分享失败2')
-          }
-        })
-      })
     },
     methods: {
-      share () {
-        wx.onMenuShareAppMessage({
-          title: 'test2', // 分享标题
-          desc: 'test22222', // 分享描述
-          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: '', // 分享图标
-          type: '', // 分享类型,music、video或link，不填默认为link
-          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-          success: function () {
-            // 用户确认分享后执行的回调函数
-            console.log('分享成功2')
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-            console.log('分享失败2')
-          }
-        })
-      },
 //        下拉刷新
       loadTop () {
         this.coterieList = []

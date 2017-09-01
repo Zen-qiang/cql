@@ -44,7 +44,6 @@ router.beforeEach((to, from, next) => {
         url: location.href.split('#')[0]
       }
     }).then(res => {
-      console.log(res.data)
       wx.config({
         debug: false,
         appId: res.data.data.appId,
@@ -58,11 +57,13 @@ router.beforeEach((to, from, next) => {
           'onMenuShareWeibo',
           'onMenuShareQZone',
           'chooseImage',
-          'downloadImage'
+          'downloadImage',
+          'hideAllNonBaseMenuItem'
         ]
       })
       wx.ready(function () {
-        console.log('wwwwwww')
+        // 隐藏所有非基础按钮接口
+        wx.hideAllNonBaseMenuItem()
       })
     })
   }
