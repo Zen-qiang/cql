@@ -1,10 +1,11 @@
 <template>
   <div class="edit-all">
+    <button @click="paizhao">拍照</button>
     <div class="dinglian-edit-title">
       <div>
         <img :src="profilePicture" alt="">
       </div>
-      <input type="text" placeholder="输入活动名称" v-model="activityName">
+      <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
     </div>
     <div class="dinglian-edit-belongsCircle" @click.stop="belongCircle">
       <label for="">所属圈子</label>
@@ -82,6 +83,7 @@
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
+  import wx from 'weixin-js-sdk'
   export default {
     filters: {
       moment (val) {
@@ -111,7 +113,9 @@
         imgLists: [],
         imgFilesList: [],
         chooseCircle: false,
-        capture: 'camera'
+        capture: 'camera',
+        activityNameSuccess: '',
+        localIds: ''
       }
     },
     created () {
@@ -122,6 +126,22 @@
       this.getMyCircles()
     },
     methods: {
+      paizhao () {
+        wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            this.localIds = res.localIds
+            wx.getLocalImgData({
+              localId: this.localIds[0], // 图片的localID
+              success: function (res) {
+                alert(res.localData)
+              }
+            })
+          }
+        })
+      },
 //        判断移动设备
       judgmentIos () {
         let u = navigator.userAgent
@@ -134,7 +154,6 @@
       },
 //        选择圈子
       belongCircle () {
-        console.log(1111)
         if (!this.chooseCircle) {
           this.chooseCircle = true
         } else {
@@ -418,5 +437,4 @@
   .dinglian-edit-psw > input {
     height: 0.4rem;
   }
-
 </style>
