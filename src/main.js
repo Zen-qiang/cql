@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
       method: 'get',
       url: '/getWxConfig',
       params: {
-        // url: 'http://www.dingliantech.com' + to.fullPath
+        // url: 'http://mp.dingliantech.com' + to.fullPath
         url: location.href.split('#')[0]
       }
     }).then(res => {
@@ -74,8 +74,8 @@ router.beforeEach((to, from, next) => {
         method: 'get',
         url: 'userAuthorization',
         params: {
-          // callbackUrl: encodeURI('http://www.dingliantech.com/authorization')
-          callbackUrl: encodeURI('http://' + window.location.href + '/authorization')
+          // callbackUrl: encodeURI('http://mp.dingliantech.com/authorization')
+          callbackUrl: encodeURI(window.location.href + 'authorization')
         }
       }).then(res => {
         window.location.href = res.data
