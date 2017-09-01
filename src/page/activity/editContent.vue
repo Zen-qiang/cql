@@ -17,19 +17,19 @@
       </ul>
     </div>
     <!--上传图片 start-->
-    <!--<div class="dinglian-edit-photo">
-      <input id="photo" accept="image/*" :capture="capture" type="file" @change.prevent="uploadPhoto" multiple />
+    <div class="dinglian-edit-photo">
+      <input id="photo" accept="image/*" :capture="capture" type="file" @change="uploadPhoto" multiple />
       <label for="photo" style="width: 100%;margin-left: 0"></label>
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
-    </div>-->
-    <div class="dinglian-edit-photo">
+    </div>
+    <!--<div class="dinglian-edit-photo">
       <label for="" @click="takePictures"></label>
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
-    </div>
+    </div>-->
     <!--上传图片 end-->
     <mt-datetime-picker
       ref="picker"
@@ -88,7 +88,7 @@
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
-  import wx from 'weixin-js-sdk'
+//  import wx from 'weixin-js-sdk'
   export default {
     filters: {
       moment (val) {
@@ -131,26 +131,26 @@
       this.getMyCircles()
     },
     methods: {
-      takePictures () {
-        wx.ready(function () {
-          wx.chooseImage({
-            count: 3, // 默认9
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              this.localIds = res.localIds
-              for (let i = 0; i < this.localIds.length; i++) {
-                wx.getLocalImgData({
-                  localId: this.localIds[i], // 图片的localID
-                  success: function (res) {
-                    this.imgLists.push(res.localData)
-                  }
-                })
-              }
-            }
-          })
-        })
-      },
+//      takePictures () {
+//        wx.ready(function () {
+//          wx.chooseImage({
+//            count: 3, // 默认9
+//            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+//            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+//            success: function (res) {
+//              this.localIds = res.localIds
+//              for (let i = 0; i < this.localIds.length; i++) {
+//                wx.getLocalImgData({
+//                  localId: this.localIds[i], // 图片的localID
+//                  success: function (res) {
+//                    this.imgLists.push(res.localData)
+//                  }
+//                })
+//              }
+//            }
+//          })
+//        })
+//      },
 //        判断移动设备
       judgmentIos () {
         let u = navigator.userAgent
@@ -200,6 +200,22 @@
         this.charge = val
       },
       goNextStep () {
+        if (!this.activityName) {
+          Toast('标题不能为空')
+          return false
+        }
+        if (!this.address) {
+          Toast('地址不能为空')
+          return false
+        }
+        if (!this.minCount && !this.maxCount && !(this.minCount < this.maxCount)) {
+          Toast('人数错误')
+          return false
+        }
+        if (!this.description) {
+          Toast('备注不能为空')
+          return false
+        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
