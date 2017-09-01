@@ -94,6 +94,7 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import * as types from '../../store/mutation-types'
+  import wx from 'weixin-js-sdk'
   export default {
     filters: {
       moment (val) {
@@ -131,6 +132,11 @@
     created () {
 //      this.activityId = this.$store.state.activityId
       this.getActivityInfo()
+    },
+    mounted () {
+      wx.ready(function () {
+        wx.closeWindow()
+      })
     },
     methods: {
       preventSwitch () {

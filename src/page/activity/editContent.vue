@@ -133,10 +133,11 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             this.localIds = res.localIds
+            Toast(this.localIds)
             wx.getLocalImgData({
               localId: this.localIds[0], // 图片的localID
               success: function (res) {
-                alert(res.localData)
+                Toast(res.localData)
               }
             })
           }
