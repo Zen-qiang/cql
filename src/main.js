@@ -56,7 +56,9 @@ router.beforeEach((to, from, next) => {
           'onMenuShareAppMessage',
           'onMenuShareQQ',
           'onMenuShareWeibo',
-          'onMenuShareQZone'
+          'onMenuShareQZone',
+          'chooseImage',
+          'downloadImage'
         ]
       })
       wx.ready(function () {

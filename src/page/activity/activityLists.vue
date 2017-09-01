@@ -40,6 +40,7 @@
       //        下拉刷新
       loadTop () {
         this.activityLists = []
+        this.page = 1
         Indicator.open()
         this.getActivityList()
         this.$refs.loadTop.onTopLoaded()

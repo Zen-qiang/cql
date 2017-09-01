@@ -126,6 +126,7 @@
 //        下拉刷新
       loadTop () {
         this.coterieList = []
+        this.page = 1
         this.getCoterieList()
         this.$refs.loadTop.onTopLoaded()
       },
