@@ -166,6 +166,7 @@
     },
     methods: {
       takePictures () {
+        var _this = this
         if (this.ready) {
           wx.chooseImage({
             count: 3, // 默认9
@@ -173,7 +174,7 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               var localIds = res.localIds
-              this.localImgs = res.localIds
+              _this.localImgs = res.localIds
               let serverIds = []
               localIds.forEach(li => {
                 wx.uploadImage({
@@ -185,7 +186,7 @@
                   }
                 })
               })
-              this.serverIds = serverIds
+              _this.serverIds = serverIds
             }
           })
         }
