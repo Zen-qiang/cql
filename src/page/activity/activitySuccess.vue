@@ -34,7 +34,8 @@
         circle: '',
         isRelease: false,
         userCount: {},
-        title: ''
+        title: '',
+        uid: this.$store.state.userId
       }
     },
     created () {
@@ -59,12 +60,12 @@
         this.$router.push({'path': '/myActivity'})
       },
       redirectCircleDetails () {
-        this.$store.commit(types.CIRCLEID, this.circle.id)
-        this.$router.push({'path': '/circleDetails'})
+//        this.$store.commit(types.CIRCLEID, this.circle.id)
+        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + this.circle.id})
       },
       redirectActivityDetails () {
-        this.$store.commit(types.ACTIVITYID, this.activityId)
-        this.$router.push({'path': '/activityDetails'})
+//        this.$store.commit(types.ACTIVITYID, this.activityId)
+        this.$router.push({'path': '/activityDetails/' + this.uid + '/' + this.activityId})
       }
     }
   }

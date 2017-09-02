@@ -160,12 +160,15 @@
     methods: {
       takePictures () {
         var _this = this
+        alert('开始点')
         if (this.ready) {
+          alert('ready')
           wx.chooseImage({
             count: 3, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
+              alert('success')
               _this.localImgs = res.localIds
               let localIds = res.localIds
               localIds.forEach(li => {
@@ -230,8 +233,6 @@
         this.charge = val
       },
       goNextStep () {
-        alert(this.localImgs)
-        alert(this.serverIds)
         if (!this.activityName) {
           Toast('标题不能为空')
           return false
@@ -462,6 +463,9 @@
   }
 
   .dinglian-edit-people > input {
+    border: 0;
+    outline: none;
+    -webkit-appearance: none;
     width: 78px;
     height: 30px;
     border: 1px solid #dddddd;
