@@ -1,5 +1,6 @@
 <template>
   <div class="edit-all">
+    <button v-on:click="ceshi">测试按钮</button>
     <div class="dinglian-edit-title">
       <div>
         <img :src="profilePicture" alt="">
@@ -158,6 +159,18 @@
       })
     },
     methods: {
+      ceshi () {
+        wx.ready(function () {
+          wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              alert(res.localIds)
+            }
+          })
+        })
+      },
       takePictures () {
         var _this = this
         alert('开始点')
@@ -170,16 +183,16 @@
             success: function (res) {
               alert('success')
               _this.localImgs = res.localIds
-//              let localIds = res.localIds
-//              localIds.forEach(li => {
-//                wx.uploadImage({
-//                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
-//                  isShowProgressTips: 1, // 默认为1，显示进度提示
-//                  success: function (res) {
-//                    _this.serverIds.push(res.serverId)
-//                  }
-//                })
-//              })
+              let localIds = res.localIds
+              localIds.forEach(li => {
+                wx.uploadImage({
+                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
+                  isShowProgressTips: 1, // 默认为1，显示进度提示
+                  success: function (res) {
+                    _this.serverIds.push(res.serverId)
+                  }
+                })
+              })
             }
           })
         }
