@@ -147,8 +147,9 @@
                   localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
-                    alert(res)
-                    this.serverIds.push(res.serverId)
+                    let imgsServer = []
+                    imgsServer.push(res.serverId)
+                    this.serverIds = imgsServer
                   }
                 })
               })
