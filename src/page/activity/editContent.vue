@@ -119,9 +119,8 @@
         chooseCircle: false,
         capture: 'camera',
         activityNameSuccess: '',
-        localIds: [],
-        serverIds: [],
-        isSelected: false
+        localIds: '',
+        serverIds: []
       }
     },
     created () {
@@ -130,26 +129,6 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
-    },
-    watch: {
-      isSelected: function (cVal, oVal) {
-        if (cVal) {
-          wx.ready(function () {
-            for (var i in this.localIds) {
-              wx.uploadImage({
-                localId: this.localIds[i],
-                isShowProgressTips: 1,
-                success: function (res) {
-                  let imgsServer = []
-                  imgsServer.push(res.serverId)
-                  this.serverIds = imgsServer
-                  alert(this.serverIds)
-                }
-              })
-            }
-          })
-        }
-      }
     },
     methods: {
       takePictures () {
@@ -163,7 +142,6 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               this.localIds = res.localIds
-              this.isSelected = true
 //              this.localIds.forEach(li => {
 //                wx.uploadImage({
 //                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
