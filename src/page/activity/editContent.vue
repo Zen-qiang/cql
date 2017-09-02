@@ -166,8 +166,6 @@
     },
     methods: {
       takePictures () {
-        this.localIds = []
-        this.serverIds = []
         if (this.ready) {
           wx.chooseImage({
             count: 3, // 默认9
@@ -175,13 +173,13 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               this.localIds = res.localIds
-              Toast(res.localIds)
+              Toast(this.localIds + '1')
               this.localIds.forEach(li => {
                 wx.uploadImage({
                   localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
-                    Toast(res.serverId)
+                    Toast(res.serverId + '2')
                     let imgsServer = []
                     imgsServer.push(res.serverId)
                     this.serverIds = imgsServer
