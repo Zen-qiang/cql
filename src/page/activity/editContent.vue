@@ -24,7 +24,7 @@
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
     </div>-->
-    <div class="dinglian-edit-photo" id="takePictures">
+    <div class="dinglian-edit-photo" v-on:click="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localIds.length">
         <img :src="localId" alt="选择图片" v-for="localId in localIds">
       </i>
@@ -120,7 +120,8 @@
         capture: 'camera',
         activityNameSuccess: '',
         localIds: [],
-        serverIds: []
+        serverIds: [],
+        isSelected: false
       }
     },
     created () {
@@ -129,19 +130,25 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
-      wx.ready(function () {
-        document.querySelector('#chooseImage').onclick = function () {
-          wx.chooseImage({
-            count: 3, // 默认9
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              this.localIds = res.localIds
-              alert('已选择 ' + res.localIds.length + ' 张图片')
+    },
+    watch: {
+      isSelected: function (cVal, oVal) {
+        if (cVal) {
+          wx.ready(function () {
+            for (var i in this.localIds) {
+              wx.uploadImage({
+                localId: this.localIds[i],
+                isShowProgressTips: 1,
+                success: function (res) {
+                  let imgsServer = []
+                  imgsServer.push(res.serverId)
+                  this.serverIds = imgsServer
+                }
+              })
             }
           })
         }
-      })
+      }
     },
     methods: {
       takePictures () {
@@ -155,6 +162,7 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               this.localIds = res.localIds
+              this.isSelected = true
 //              this.localIds.forEach(li => {
 //                wx.uploadImage({
 //                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
