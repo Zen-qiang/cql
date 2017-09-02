@@ -156,6 +156,8 @@
             }
           })
         })
+        console.log(this.localIds)
+        console.log(this.serverIds)
       },
 //        判断移动设备
 //      judgmentIos () {
