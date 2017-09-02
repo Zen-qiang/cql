@@ -17,19 +17,18 @@
       </ul>
     </div>
     <!--上传图片 start-->
-    <div class="dinglian-edit-photo">
+    <!--<div class="dinglian-edit-photo">
       <input id="photo" accept="image/*" :capture="capture" type="file" @change="uploadPhoto" multiple />
       <label for="photo" style="width: 100%;margin-left: 0"></label>
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
-    </div>
-    <!--<div class="dinglian-edit-photo">
-      <label for="" @click="takePictures"></label>
+    </div>-->
+    <div class="dinglian-edit-photo" @click="takePictures">
       <i class="dinglian-edit-photoShow"v-show="imgLists.length">
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
-    </div>-->
+    </div>
     <!--上传图片 end-->
     <mt-datetime-picker
       ref="picker"
@@ -88,7 +87,7 @@
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
-//  import wx from 'weixin-js-sdk'
+  import wx from 'weixin-js-sdk'
   export default {
     filters: {
       moment (val) {
@@ -131,26 +130,27 @@
       this.getMyCircles()
     },
     methods: {
-//      takePictures () {
-//        wx.ready(function () {
-//          wx.chooseImage({
-//            count: 3, // 默认9
-//            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-//            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-//            success: function (res) {
-//              this.localIds = res.localIds
-//              for (let i = 0; i < this.localIds.length; i++) {
-//                wx.getLocalImgData({
-//                  localId: this.localIds[i], // 图片的localID
-//                  success: function (res) {
-//                    this.imgLists.push(res.localData)
-//                  }
-//                })
-//              }
-//            }
-//          })
-//        })
-//      },
+      takePictures () {
+        wx.ready(function () {
+          wx.chooseImage({
+            count: 3, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              this.localIds = res.localIds
+              for (var i = 0; i < this.localIds.length; i++) {
+                wx.uploadImage({
+                  localId: this.localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
+                  isShowProgressTips: 1, // 默认为1，显示进度提示
+                  success: function (res) {
+                    console.log(res.serverId)
+                  }
+                })
+              }
+            }
+          })
+        })
+      },
 //        判断移动设备
       judgmentIos () {
         let u = navigator.userAgent
