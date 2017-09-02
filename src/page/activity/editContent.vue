@@ -172,12 +172,13 @@
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-              this.localIds = res.localIds
-              this.localIds.forEach(li => {
+              let localIds = res.localIds
+              localIds.forEach(li => {
                 wx.uploadImage({
                   localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
+                    alert(res.serverId)
                     this.serverIds.push(res.serverId)
                   }
                 })
