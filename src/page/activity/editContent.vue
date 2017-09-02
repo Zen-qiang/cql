@@ -1,6 +1,6 @@
 <template>
   <div class="edit-all">
-    <button v-on:click="ceshi">测试按钮</button>
+    <button v-on:click="ceshi" style="width: 40px;height: 40px">测试按钮</button>
     <div class="dinglian-edit-title">
       <div>
         <img :src="profilePicture" alt="">
@@ -160,16 +160,18 @@
     },
     methods: {
       ceshi () {
-        wx.ready(function () {
-          wx.chooseImage({
-            count: 1, // 默认9
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              alert(res.localIds)
-            }
+        if (this.ready) {
+          wx.ready(function () {
+            wx.chooseImage({
+              count: 1, // 默认9
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                alert(res.localIds)
+              }
+            })
           })
-        })
+        }
       },
       takePictures () {
         var _this = this
