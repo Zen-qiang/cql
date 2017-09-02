@@ -142,23 +142,18 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               this.localIds = res.localIds
-              this.pullServerId()
+              this.localIds.forEach(li => {
+                wx.uploadImage({
+                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
+                  isShowProgressTips: 1, // 默认为1，显示进度提示
+                  success: function (res) {
+                    alert(res)
+                    this.serverIds.push(res.serverId)
+                  }
+                })
+              })
             }
           })
-        })
-      },
-      pullServerId () {
-        wx.ready(function () {
-          for (var i = 0; i < this.localIds.length; i++) {
-            wx.uploadImage({
-              localId: this.localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
-              isShowProgressTips: 1, // 默认为1，显示进度提示
-              success: function (res) {
-                let vm = this
-                vm.serverIds.push(res.serverId)
-              }
-            })
-          }
         })
       },
 //        判断移动设备
