@@ -132,6 +132,7 @@
     },
     methods: {
       takePictures () {
+        Toast('ssss')
         this.localIds = []
         this.serverIds = []
         wx.ready(function () {
@@ -146,13 +147,16 @@
                   localId: this.localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
-                    this.serverIds.push(res.serverId)
+                    this.pullServerId(res.serverId)
                   }
                 })
               }
             }
           })
         })
+      },
+      pullServerId (e) {
+        this.serverIds.push(e)
       },
 //        判断移动设备
 //      judgmentIos () {
