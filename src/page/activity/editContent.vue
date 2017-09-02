@@ -121,8 +121,7 @@
         activityNameSuccess: '',
         localImgs: '',
         serverIds: [],
-        ready: false,
-        isServer: ''
+        ready: false
       }
     },
     created () {
@@ -175,19 +174,18 @@
             success: function (res) {
               var localIds = res.localIds
               this.localImgs = res.localIds
+              let serverIds = []
               localIds.forEach(li => {
                 wx.uploadImage({
                   localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
                     alert(res.serverId)
-                    var serverId = res.serverId
-                    this.serverIds.push(serverId)
-                    alert(this.serverIds)
-                    this.isServer = true
+                    serverIds.push(res.serverId)
                   }
                 })
               })
+              this.serverIds = serverIds
             }
           })
         }
@@ -243,7 +241,6 @@
       goNextStep () {
         alert(this.localImgs)
         Toast(this.serverIds)
-        alert(this.isServer)
         if (!this.activityName) {
           Toast('标题不能为空')
           return false
