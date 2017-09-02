@@ -14,12 +14,12 @@
     </div>-->
     <div class="dinglian-createCirclePhoto-uploadPhoto">
       <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
-      <label v-show="!cover" @click.stop="takePictures"></label>
+      <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
         <img :src="serverId" alt="" v-show="serverId">
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
-        <label @click.stop="takePictures">
+        <label v-on:click.stop="takePictures">
           <img src="../../assets/images/modify.png" alt="">
         </label>
       </div>
