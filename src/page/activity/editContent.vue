@@ -1,6 +1,6 @@
 <template>
   <div class="edit-all">
-    <button v-on:click="ceshi" style="width: 40px;height: 40px">测试按钮</button>
+    <!--<button v-on:click="ceshi" style="width: 40px;height: 40px">测试按钮</button>-->
     <div class="dinglian-edit-title">
       <div>
         <img :src="profilePicture" alt="">
