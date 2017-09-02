@@ -157,13 +157,6 @@
         this.ready = false
       })
     },
-    watch: {
-      localIds: function () {
-        if (this.localIds.length > 0) {
-          Toast('wogaibian')
-        }
-      }
-    },
     methods: {
       takePictures () {
         var _this = this

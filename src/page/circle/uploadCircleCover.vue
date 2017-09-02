@@ -16,7 +16,7 @@
       <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
-        <img :src="serverId" alt="" v-show="serverId">
+        <img :src="localId" alt="" v-show="localIds.length" v-for="localId in localIds" >
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
         <label v-on:click.stop="takePictures">
@@ -45,11 +45,12 @@
         photoFile: '',
         isBlock: true,
         imgUrl: '',
-        imgFile: '',
         introduction: '',
         cover: false,
         lists: [],
-        serverId: ''
+        serverId: '',
+        ready: '',
+        localIds: ''
       }
     },
     created () {
@@ -61,6 +62,32 @@
         this.imgUrl = this.circle.cover
         this.cover = true
       }
+    },
+    mounted () {
+      this.axios({
+        method: 'get',
+        url: '/getWxConfig',
+        params: {
+          url: location.href.split('#')[0]
+        }
+      }).then(res => {
+        wx.config({
+          debug: false,
+          appId: res.data.data.appId,
+          timestamp: res.data.data.timestamp,
+          nonceStr: res.data.data.nonceStr,
+          signature: res.data.data.signature,
+          jsApiList: [
+            'chooseImage',
+            'downloadImage',
+            'uploadImage'
+          ]
+        })
+        this.ready = true
+      }).catch(error => {
+        Toast(error)
+        this.ready = false
+      })
     },
     methods: {
 //      uploadImg (e) {
@@ -77,26 +104,29 @@
 //      },
 //      上传图片
       takePictures () {
-        wx.ready(function () {
+        var _this = this
+        if (this.ready) {
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
+              _this.localIds = res.localIds
               wx.uploadImage({
                 localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
-                  this.serverId = res.serverId
-                  this.cover = true
+                  _this.serverId = res.serverId
+                  _this.cover = true
                 }
               })
             }
           })
-        })
+        }
       },
       createCircle () {
-        let formData = this.imgFile
+        let formData = new FormData()
+        formData.append('serverId', this.serverId)
         formData.append('userId', this.$store.state.userId)
         formData.append('name', this.circle.name)
         formData.append('tags', this.circleTags)
