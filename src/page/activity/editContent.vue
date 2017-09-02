@@ -24,7 +24,7 @@
         <img :src="photo" alt="" v-for="photo in imgLists">
       </i>
     </div>-->
-    <div class="dinglian-edit-photo" v-on:click="takePictures">
+    <div class="dinglian-edit-photo" id="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localIds.length">
         <img :src="localId" alt="选择图片" v-for="localId in localIds">
       </i>
@@ -119,7 +119,7 @@
         chooseCircle: false,
         capture: 'camera',
         activityNameSuccess: '',
-        localIds: '',
+        localIds: [],
         serverIds: []
       }
     },
@@ -129,6 +129,19 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
+      wx.ready(function () {
+        document.querySelector('#chooseImage').onclick = function () {
+          wx.chooseImage({
+            count: 3, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              this.localIds = res.localIds
+              alert('已选择 ' + res.localIds.length + ' 张图片')
+            }
+          })
+        }
+      })
     },
     methods: {
       takePictures () {
