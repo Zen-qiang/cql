@@ -143,6 +143,7 @@
                   let imgsServer = []
                   imgsServer.push(res.serverId)
                   this.serverIds = imgsServer
+                  alert(this.serverIds)
                 }
               })
             }
