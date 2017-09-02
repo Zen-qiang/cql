@@ -25,8 +25,8 @@
       </i>
     </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
-      <i class="dinglian-edit-photoShow"v-show="imgLists.length">
-        <img :src="photo" alt="" v-for="photo in imgLists">
+      <i class="dinglian-edit-photoShow"v-show="localIds.length">
+        <img :src="localId" alt="选择图片" v-for="localId in localIds">
       </i>
     </div>
     <!--上传图片 end-->
@@ -83,7 +83,7 @@
 <script>
   import { Toast } from 'mint-ui'
   import * as types from '../../store/mutation-types'
-  import lrz from '../../../static/lrz/lrz.bundle'
+//  import lrz from '../../../static/lrz/lrz.bundle'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
@@ -105,7 +105,7 @@
         activityName: '',
         startTime: null,
         address: '',
-        gps: '',
+        gps: ' ',
         minCount: '',
         maxCount: '',
         charge: '',
@@ -119,11 +119,12 @@
         chooseCircle: false,
         capture: 'camera',
         activityNameSuccess: '',
-        localIds: ''
+        localIds: '',
+        serverIds: []
       }
     },
     created () {
-      this.judgmentIos()
+//      this.judgmentIos()
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
@@ -131,6 +132,8 @@
     },
     methods: {
       takePictures () {
+        this.localIds = []
+        this.serverIds = []
         wx.ready(function () {
           wx.chooseImage({
             count: 3, // 默认9
@@ -143,8 +146,7 @@
                   localId: this.localIds[i], // 需要上传的图片的本地ID，由chooseImage接口获得
                   isShowProgressTips: 1, // 默认为1，显示进度提示
                   success: function (res) {
-                    console.log(res.serverId)
-                    alert(res.serverId)
+                    this.serverIds.push(res.serverId)
                   }
                 })
               }
@@ -153,15 +155,15 @@
         })
       },
 //        判断移动设备
-      judgmentIos () {
-        let u = navigator.userAgent
-        let isIos = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
-        if (isIos) {
-          this.capture = false
-        } else {
-          this.capture = 'camera'
-        }
-      },
+//      judgmentIos () {
+//        let u = navigator.userAgent
+//        let isIos = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+//        if (isIos) {
+//          this.capture = false
+//        } else {
+//          this.capture = 'camera'
+//        }
+//      },
 //        选择圈子
       belongCircle () {
         if (!this.chooseCircle) {
@@ -171,26 +173,26 @@
         }
       },
 //      上传图片
-      uploadPhoto (e) {
-        let vm = this
-        vm.imgLists = []
-        vm.imgFilesList = []
-        var files = e.target.files || e.dataTransfer.files
-        if (files.length >= 1 && files.length <= 3) {
-          for (let i = 0; i < files.length; i++) {
-            lrz(files[i], {width: 450}).then(res => {
-              res.base64 = res.base64 + ''
-              vm.imgLists.push(res.base64)
-              // vm.imgFilesList.push(res.file)
-              vm.imgFilesList.push(res.formData.get('file'))
-            }).always(function () {
-              e.target.value = null
-            })
-          }
-        } else {
-          Toast('不允许上传图片超过3张！')
-        }
-      },
+//      uploadPhoto (e) {
+//        let vm = this
+//        vm.imgLists = []
+//        vm.imgFilesList = []
+//        var files = e.target.files || e.dataTransfer.files
+//        if (files.length >= 1 && files.length <= 3) {
+//          for (let i = 0; i < files.length; i++) {
+//            lrz(files[i], {width: 450}).then(res => {
+//              res.base64 = res.base64 + ''
+//              vm.imgLists.push(res.base64)
+//              // vm.imgFilesList.push(res.file)
+//              vm.imgFilesList.push(res.formData.get('file'))
+//            }).always(function () {
+//              e.target.value = null
+//            })
+//          }
+//        } else {
+//          Toast('不允许上传图片超过3张！')
+//        }
+//      },
       openPicker () {
         this.$refs.picker.open()
       },
@@ -217,6 +219,10 @@
           Toast('备注不能为空')
           return false
         }
+        if (this.serverIds.length === 0) {
+          Toast('图片不能为空')
+          return false
+        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
@@ -229,10 +235,11 @@
         formdata.append('maxCount', this.maxCount)
         formdata.append('isOpen', this.isOpen)
         formdata.append('description', this.description)
-        for (var i in this.imgFilesList) {
-          let idx = parseInt(i) + 1
-          formdata.append('pic' + idx, this.imgFilesList[i])
-        }
+        formdata.append('serverIds', this.serverIds)
+//        for (var i in this.imgFilesList) {
+//          let idx = parseInt(i) + 1
+//          formdata.append('pic' + idx, this.imgFilesList[i])
+//        }
 //        let data = {
 //          userId: this.$store.state.userId,
 //          tags: this.$store.state.activityTags,

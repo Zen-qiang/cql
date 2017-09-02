@@ -1,6 +1,6 @@
 <template>
   <div class="dinglian-upload-all">
-    <div class="dinglian-createCirclePhoto-uploadPhoto">
+    <!--<div class="dinglian-createCirclePhoto-uploadPhoto">
       <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>
       <label for="photo" v-show="isBlock"></label>
       <i class="dinglian-createCirclePhoto-background">
@@ -8,6 +8,18 @@
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
         <label for="photo">
+          <img src="../../assets/images/modify.png" alt="">
+        </label>
+      </div>
+    </div>-->
+    <div class="dinglian-createCirclePhoto-uploadPhoto">
+      <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
+      <label v-show="!cover" @click="takePictures"></label>
+      <i class="dinglian-createCirclePhoto-background">
+        <img :src="serverId" alt="" v-show="serverId">
+      </i>
+      <div class="dinglian-createCirclePhoto-cover" v-show="cover">
+        <label @click.stop="takePictures">
           <img src="../../assets/images/modify.png" alt="">
         </label>
       </div>
@@ -20,9 +32,10 @@
 
 </template>
 <script>
-  import { Toast } from 'mint-ui'
-  import lrz from '../../../static/lrz/lrz.bundle'
+//  import lrz from '../../../static/lrz/lrz.bundle'
 //  import {compressPic} from '../../assets/js/compressPicture'
+  import { Toast } from 'mint-ui'
+  import wx from 'weixin-js-sdk'
   export default {
     data () {
       return {
@@ -35,7 +48,8 @@
         imgFile: '',
         introduction: '',
         cover: false,
-        lists: []
+        lists: [],
+        serverId: ''
       }
     },
     created () {
@@ -49,17 +63,37 @@
       }
     },
     methods: {
-      uploadImg (e) {
-        let vm = this
-        var files = e.target.files || e.dataTransfer.files
-        lrz(files[0], {width: 750}).then(rst => {
-          rst.base64 = rst.base64 + ''
-          vm.imgUrl = rst.base64
-          vm.imgFile = rst.formData
-        }).always(function () {
-          e.target.value = null
+//      uploadImg (e) {
+//        let vm = this
+//        var files = e.target.files || e.dataTransfer.files
+//        lrz(files[0], {width: 750}).then(rst => {
+//          rst.base64 = rst.base64 + ''
+//          vm.imgUrl = rst.base64
+//          vm.imgFile = rst.formData
+//        }).always(function () {
+//          e.target.value = null
+//        })
+//        this.cover = true
+//      },
+//      上传图片
+      takePictures () {
+        wx.ready(function () {
+          wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              wx.uploadImage({
+                localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                  this.serverId = res.serverId
+                  this.cover = true
+                }
+              })
+            }
+          })
         })
-        this.cover = true
       },
       createCircle () {
         let formData = this.imgFile
