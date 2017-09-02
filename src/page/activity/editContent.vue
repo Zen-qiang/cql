@@ -25,8 +25,8 @@
       </i>
     </div>-->
     <div class="dinglian-edit-photo" v-on:click="takePictures">
-      <i class="dinglian-edit-photoShow" v-show="localIds.length">
-        <img :src="localId" alt="选择图片" v-for="localId in localIds">
+      <i class="dinglian-edit-photoShow" v-show="localImgs.length">
+        <img :src="localId" alt="选择图片" v-for="localId in localImgs">
       </i>
     </div>
     <!--上传图片 end-->
