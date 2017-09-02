@@ -119,7 +119,7 @@
         chooseCircle: false,
         capture: 'camera',
         activityNameSuccess: '',
-        localIds: '',
+        localImgs: '',
         serverIds: [],
         ready: false,
         isServer: ''
@@ -174,6 +174,7 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               var localIds = res.localIds
+              this.localImgs = res.localIds
               localIds.forEach(li => {
                 wx.uploadImage({
                   localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -240,6 +241,7 @@
         this.charge = val
       },
       goNextStep () {
+        alert(this.localImgs)
         Toast(this.serverIds)
         alert(this.isServer)
         if (!this.activityName) {
