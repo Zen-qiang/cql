@@ -120,7 +120,8 @@
         capture: 'camera',
         activityNameSuccess: '',
         localIds: '',
-        serverIds: []
+        serverIds: [],
+        ready: false
       }
     },
     created () {
@@ -130,12 +131,44 @@
       }
       this.getMyCircles()
     },
+    mounted () {
+      this.axios({
+        method: 'get',
+        url: '/getWxConfig',
+        params: {
+          url: location.href.split('#')[0]
+        }
+      }).then(res => {
+        wx.config({
+          debug: false,
+          appId: res.data.data.appId,
+          timestamp: res.data.data.timestamp,
+          nonceStr: res.data.data.nonceStr,
+          signature: res.data.data.signature,
+          jsApiList: [
+            'chooseImage',
+            'downloadImage',
+            'uploadImage'
+          ]
+        })
+        this.ready = true
+      }).catch(error => {
+        Toast(error)
+        this.ready = false
+      })
+    },
+    watch: {
+      localIds: function () {
+        if (this.localIds.length > 0) {
+          Toast('wogaibian')
+        }
+      }
+    },
     methods: {
       takePictures () {
-        Toast('ssss')
         this.localIds = []
         this.serverIds = []
-        wx.ready(function () {
+        if (this.ready) {
           wx.chooseImage({
             count: 3, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -155,9 +188,7 @@
 //              })
             }
           })
-        })
-        console.log(this.localIds)
-        console.log(this.serverIds)
+        }
       },
 //        判断移动设备
 //      judgmentIos () {
