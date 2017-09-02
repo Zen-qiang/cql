@@ -58,6 +58,7 @@ router.beforeEach((to, from, next) => {
           'onMenuShareQZone',
           'chooseImage',
           'downloadImage',
+          'uploadImage',
           'hideAllNonBaseMenuItem'
         ]
       })
