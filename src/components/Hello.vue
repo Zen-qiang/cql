@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     ceshi () {
+      var _this = this
       wx.chooseImage({
         count: 1, // 默认9
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -50,6 +51,17 @@ export default {
         success: function (res) {
           var localIds = res.localIds
           alert(localIds)
+          _this.shangchuan(localIds[0])
+        }
+      })
+    },
+    shangchuan (e) {
+      wx.uploadImage({
+        localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+          var serverId = res.serverId
+          alert(serverId)
         }
       })
     }
