@@ -53,20 +53,22 @@ export default {
           success: function (res) {
             var localIds = res.localIds
             alert(localIds)
-            _this.shangchuan(localIds[0])
+            _this.shangchuan(localIds)
           }
         })
       }
     },
     shangchuan (e) {
-      wx.uploadImage({
-        localId: e, // 需要上传的图片的本地ID，由chooseImage接口获得
-        isShowProgressTips: 1, // 默认为1，显示进度提示
-        success: function (res) {
-          var serverId = res.serverId
-          alert(serverId)
-        }
-      })
+      for (let item in e) {
+        wx.uploadImage({
+          localId: e[item], // 需要上传的图片的本地ID，由chooseImage接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+          success: function (res) {
+            var serverId = res.serverId
+            alert(serverId)
+          }
+        })
+      }
     }
   }
 }
