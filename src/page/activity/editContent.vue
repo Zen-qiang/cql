@@ -161,9 +161,7 @@
     methods: {
       takePictures () {
         var _this = this
-        alert('开始点')
         if (this.ready) {
-          alert('ready')
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
