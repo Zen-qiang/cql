@@ -117,7 +117,7 @@
         imgLists: [],
         imgFilesList: [],
         chooseCircle: false,
-        capture: 'camera',
+//        capture: 'camera',
         activityNameSuccess: '',
         localImgs: '',
         serverIds: [],
@@ -156,6 +156,14 @@
         Toast(error)
         this.ready = false
       })
+    },
+    beforeRouteEnter (to, from, next) {
+      let u = navigator.userAgent
+      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
+        location.assign(to.fullPath)
+      } else {
+        next()
+      }
     },
     methods: {
       takePictures () {
