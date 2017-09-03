@@ -25,8 +25,9 @@
       </i>
     </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
-      <i class="dinglian-edit-photoShow" v-show="localImgs.length">
+      <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
         <img :src="localId" alt="选择图片" v-for="localId in localImgs">
+        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
       </i>
     </div>
     <!--上传图片 end-->
@@ -119,7 +120,8 @@
         chooseCircle: false,
 //        capture: 'camera',
         activityNameSuccess: '',
-        localImgs: '',
+        localImgs: [],
+        ioslocIds: [],
         serverIds: [],
         ready: false
       }
@@ -168,44 +170,68 @@
     methods: {
       takePictures () {
         var _this = this
+        var imglen = _this.localImgs.length
         if (_this.ready) {
           wx.chooseImage({
-            count: 3, // 默认9
+            count: 3 - imglen, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-//              _this.localImgs = res.localIds
-              _this.uploadImg(res.localIds)
-            }
-          })
-        }
-      },
-      uploadImg (e) {
-        var vm = this
-        if (window.__wxjs_is_wkwebview) {
-          e.forEach(imgs => {
-            wx.getLocalImgData({
-              localId: imgs, // 图片的localID
-              success: function (res) {
-                var localData = res.localData
-                localData.replace('jgp', 'jpeg')
-                vm.localImgs.push(localData)
+              _this.localImgs = _this.localImgs.concat(res.localIds)
+              console.log(_this.localImgs)
+              // 判断ios是不是用的 wkwebview 内核
+              if (window.__wxjs_is_wkwebview) {
+                for (var i = 0; i < _this.localImgs.length; i++) {
+                  wx.getLocalImgData({
+                    localId: _this.localImgs[i], // 图片的localID
+                    success: function (res) {
+                      var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
+                      localData = localData.replace('jgp', 'jpeg')
+                      _this.ioslocIds.push(localData)
+                    }
+                  })
+                }
               }
-            })
-          })
-        } else {
-          vm.localImgs = e
-        }
-        e.forEach(li => {
-          wx.uploadImage({
-            localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
-            isShowProgressTips: 1, // 默认为1，显示进度提示
-            success: function (res) {
-              vm.serverIds.push(res.serverId)
+              for (var l = 0; l < res.localIds.length; l++) {
+                wx.uploadImage({
+                  localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
+                  isShowProgressTips: 1, // 默认为1，显示进度提示
+                  success: function (res) {
+                    _this.serverIds.push(res.serverId)
+                    console.log(_this.serverIds)
+                  }
+                })
+              }
             }
           })
-        })
+        }
       },
+//      uploadImg (e) {
+//        var vm = this
+//        if (window.__wxjs_is_wkwebview) {
+//          e.forEach(imgs => {
+//            wx.getLocalImgData({
+//              localId: imgs, // 图片的localID
+//              success: function (res) {
+//                var localData = res.localData
+//                localData.replace('jgp', 'jpeg')
+//                vm.localImgs.push(localData)
+//              }
+//            })
+//          })
+//        } else {
+//          vm.localImgs = e
+//        }
+//        e.forEach(li => {
+//          wx.uploadImage({
+//            localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
+//            isShowProgressTips: 1, // 默认为1，显示进度提示
+//            success: function (res) {
+//              vm.serverIds.push(res.serverId)
+//            }
+//          })
+//        })
+//      },
 //        判断移动设备
 //      judgmentIos () {
 //        let u = navigator.userAgent
