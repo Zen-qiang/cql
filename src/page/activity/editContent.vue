@@ -182,7 +182,7 @@
         }
       },
       uploadImg (e) {
-        let vm = this
+        var vm = this
         let equipment = navigator.userAgent
         let isIos = !!equipment.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
         if (isIos) {
