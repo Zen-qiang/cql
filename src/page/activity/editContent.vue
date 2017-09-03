@@ -174,7 +174,7 @@
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-              _this.localImgs = res.localIds
+//              _this.localImgs = res.localIds
               _this.uploadImg(res.localIds)
             }
           })
@@ -182,6 +182,20 @@
       },
       uploadImg (e) {
         let vm = this
+        let equipment = navigator.userAgent
+        let isIos = !!equipment.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+        if (isIos) {
+          e.forEach(imgs => {
+            wx.getLocalImgData({
+              localId: imgs, // 图片的localID
+              success: function (res) {
+                vm.localImgs.push(res.localData)
+              }
+            })
+          })
+        } else {
+          vm.localImgs = e
+        }
         e.forEach(li => {
           wx.uploadImage({
             localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
