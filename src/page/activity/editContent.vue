@@ -161,15 +161,16 @@
     methods: {
       takePictures () {
         var _this = this
-        if (this.ready) {
+        if (_this.ready) {
           wx.chooseImage({
-            count: 1, // 默认9
+            count: 3, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-              alert('success')
-              _this.localImgs = res.localIds
-//              _this.uploadImg(res.localIds)
+//              _this.localImgs = res.localIds
+//              alert(_this.localImgs)
+              var localIds = res.localIds
+              alert(localIds)
             }
           })
         }
