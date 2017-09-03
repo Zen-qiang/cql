@@ -186,17 +186,16 @@
         let equipment = navigator.userAgent
         let isIos = !!equipment.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
         if (isIos) {
-          Toast('ios')
           e.forEach(imgs => {
             wx.getLocalImgData({
               localId: imgs, // 图片的localID
               success: function (res) {
+                Toast(res.localData)
                 vm.localImgs.push(res.localData)
               }
             })
           })
         } else {
-          Toast('anzhuo')
           vm.localImgs = e
         }
         e.forEach(li => {
@@ -258,6 +257,7 @@
         this.charge = val
       },
       goNextStep () {
+        Toast(this.localImgs)
         if (!this.activityName) {
           Toast('标题不能为空')
           return false
