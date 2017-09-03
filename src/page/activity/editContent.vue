@@ -148,8 +148,7 @@
           jsApiList: [
             'chooseImage',
             'downloadImage',
-            'uploadImage',
-            'getLocalImgData'
+            'uploadImage'
           ]
         })
         this.ready = true
@@ -183,15 +182,14 @@
       },
       uploadImg (e) {
         var vm = this
-        let equipment = navigator.userAgent
-        let isIos = !!equipment.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
-        if (isIos) {
+        if (window.__wxjs_is_wkwebview) {
           e.forEach(imgs => {
             wx.getLocalImgData({
               localId: imgs, // 图片的localID
               success: function (res) {
-                Toast(res.localData)
-                vm.localImgs.push(res.localData)
+                var localData = res.localData
+                localData.replace('jgp', 'jpeg')
+                vm.localImgs.push(localData)
               }
             })
           })
