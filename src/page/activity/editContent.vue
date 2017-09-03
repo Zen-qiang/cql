@@ -148,7 +148,8 @@
           jsApiList: [
             'chooseImage',
             'downloadImage',
-            'uploadImage'
+            'uploadImage',
+            'getLocalImgData'
           ]
         })
         this.ready = true
@@ -185,6 +186,7 @@
         let equipment = navigator.userAgent
         let isIos = !!equipment.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
         if (isIos) {
+          Toast('ios')
           e.forEach(imgs => {
             wx.getLocalImgData({
               localId: imgs, // 图片的localID
@@ -194,6 +196,7 @@
             })
           })
         } else {
+          Toast('anzhuo')
           vm.localImgs = e
         }
         e.forEach(li => {
