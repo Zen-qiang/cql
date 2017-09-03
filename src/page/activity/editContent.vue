@@ -171,19 +171,22 @@
             success: function (res) {
               alert('success')
               _this.localImgs = res.localIds
-              let localIds = res.localIds
-              localIds.forEach(li => {
-                wx.uploadImage({
-                  localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
-                  isShowProgressTips: 1, // 默认为1，显示进度提示
-                  success: function (res) {
-                    _this.serverIds.push(res.serverId)
-                  }
-                })
-              })
+              _this.uploadImg(res.localIds)
             }
           })
         }
+      },
+      uploadImg (e) {
+        let vm = this
+        e.forEach(li => {
+          wx.uploadImage({
+            localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+              vm.serverIds.push(res.serverId)
+            }
+          })
+        })
       },
 //        判断移动设备
 //      judgmentIos () {
