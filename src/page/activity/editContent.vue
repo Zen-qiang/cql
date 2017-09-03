@@ -171,7 +171,7 @@
             success: function (res) {
               alert('success')
               _this.localImgs = res.localIds
-              _this.uploadImg(res.localIds)
+//              _this.uploadImg(res.localIds)
             }
           })
         }
