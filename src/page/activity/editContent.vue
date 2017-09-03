@@ -1,8 +1,5 @@
 <template>
   <div class="edit-all">
-    <div @click="takePictures">
-      测试拍照
-    </div>
     <div class="dinglian-edit-title">
       <div>
         <img :src="profilePicture" alt="">
@@ -28,9 +25,9 @@
       </i>
     </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
-      <!--<i class="dinglian-edit-photoShow" v-show="localImgs.length">-->
-        <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs">-->
-      <!--</i>-->
+      <i class="dinglian-edit-photoShow" v-show="localImgs.length">
+        <img :src="localId" alt="选择图片" v-for="localId in localImgs">
+      </i>
     </div>
     <!--上传图片 end-->
     <mt-datetime-picker
@@ -169,10 +166,8 @@
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-//              _this.localImgs = res.localIds
-//              alert(_this.localImgs)
-              var localIds = res.localIds
-              alert(localIds)
+              _this.localImgs = res.localIds
+              _this.uploadImg(res.localIds)
             }
           })
         }
