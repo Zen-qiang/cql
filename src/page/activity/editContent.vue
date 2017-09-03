@@ -302,6 +302,10 @@
           Toast('图片不能为空')
           return false
         }
+        if (this.$store.state.activityTags === 0) {
+          Toast('标签不能为空')
+          return false
+        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
