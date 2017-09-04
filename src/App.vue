@@ -30,7 +30,12 @@ export default {
         nonceStr: res.data.data.nonceStr,
         signature: res.data.data.signature,
         jsApiList: [
+          'closeWindow'
         ]
+      })
+      wx.ready(function () {
+//        wx.hideAllNonBaseMenuItem()
+        wx.closeWindow()
       })
     }).catch(error => {
       Toast(error)

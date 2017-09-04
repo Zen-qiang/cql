@@ -26,8 +26,8 @@
     </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
-        <img :src="localId" alt="选择图片" v-for="localId in localImgs">
-        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
+        <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="localImgs.length">
+        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds" v-show="ioslocIds.length">
       </i>
     </div>
     <!--上传图片 end-->
@@ -134,29 +134,38 @@
       this.getMyCircles()
     },
     mounted () {
-      this.axios({
-        method: 'get',
-        url: '/getWxConfig',
-        params: {
-          url: location.href.split('#')[0]
-        }
-      }).then(res => {
-        wx.config({
-          debug: false,
-          appId: res.data.data.appId,
-          timestamp: res.data.data.timestamp,
-          nonceStr: res.data.data.nonceStr,
-          signature: res.data.data.signature,
-          jsApiList: [
+//      this.axios({
+//        method: 'get',
+//        url: '/getWxConfig',
+//        params: {
+//          url: location.href.split('#')[0]
+//        }
+//      }).then(res => {
+//        wx.config({
+//          debug: false,
+//          appId: res.data.data.appId,
+//          timestamp: res.data.data.timestamp,
+//          nonceStr: res.data.data.nonceStr,
+//          signature: res.data.data.signature,
+//          jsApiList: [
+//            'chooseImage',
+//            'downloadImage',
+//            'uploadImage'
+//          ]
+//        })
+//        this.ready = true
+//      }).catch(error => {
+//        Toast(error)
+//        this.ready = false
+//      })
+      wx.ready(function () {
+        wx.showMenuItems({
+          menuList: [
             'chooseImage',
             'downloadImage',
             'uploadImage'
-          ]
+          ] // 要显示的菜单项，所有menu项见附录3
         })
-        this.ready = true
-      }).catch(error => {
-        Toast(error)
-        this.ready = false
       })
     },
     beforeRouteEnter (to, from, next) {

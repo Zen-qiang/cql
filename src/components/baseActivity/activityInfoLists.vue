@@ -155,6 +155,7 @@
   .dinglian-lists-ul {
     background: #f2f2f2;
     padding: 10px 0;
+    padding-top: 0;
   }
   .dinglian-lists-ul > li {
     margin-bottom: 10px;
@@ -237,6 +238,13 @@
   }
   .dinglian-lists-address {
     margin-top: 9px;
+  }
+  .dinglian-lists-address > span {
+    height: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 40%;
+    white-space: nowrap;
   }
   /*底部点赞*/
   .dinglian-lists-footer {
