@@ -124,7 +124,7 @@
     flex-flow: row wrap;
   }
   .dinglian-myCircle-info {
-    float: left;
+    /*float: left;*/
     width: 109px;
     height: 128px;
     margin-right: 9px;
@@ -133,12 +133,20 @@
     margin-bottom: 10px;
   }
   .dinglian-myCircle-info > img {
-    display: inline-block;
+    display: block;
     width: 100%;
-    border-radius: 4px;
+    height: 80%;
+    border: 0;
+    /*border-radius: 4px;*/
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
   }
   .dinglian-myCircle-info > span {
     font-size: 11px;
+    height: 20%;
+    display: block;
+    line-height: 0.25rem;
   }
 
 </style>

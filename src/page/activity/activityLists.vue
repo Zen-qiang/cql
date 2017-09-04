@@ -56,7 +56,7 @@
       },
 //      搜索
       searchActivity () {
-//        console.log(navigator.userAgent)
+        this.page = 1
         this.activityLists = []
         this.getActivityList()
       },
