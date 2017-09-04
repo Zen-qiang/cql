@@ -383,6 +383,7 @@
     color: #999999;
   }
   .dinglian-details-status > input {
+    background-color: #ffffff;
     flex: 2;
   }
   .dinglian-details-status > span {
@@ -440,6 +441,7 @@
     text-align: left;
     padding: 15px;
     padding-top: 0;
+    background-color: #ffffff;
   }
 
   .edit-switch {
@@ -489,6 +491,7 @@
     border: 1px solid #dddddd;
     border-radius: 4px;
     padding-left: 10px;
+    background-color: #ffffff;
   }
   .dinglian-details-psd {
     justify-content: space-between;
