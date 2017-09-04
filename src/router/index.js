@@ -103,6 +103,8 @@ import PraiseMembers from '@/page/activity/praiseMembers.vue'
 // 授权
 import Authorization from '@/page/authorization/authorization.vue'
 
+const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
+
 Vue.use(Router)
 
 export default new Router({
@@ -253,6 +255,11 @@ export default new Router({
       path: '/authorization',
       name: 'Authorization',
       component: Authorization
+    },
+    {
+      path: '*',
+      name: '404',
+      component: nopage
     }
   ]
 })
