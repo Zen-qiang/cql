@@ -15,6 +15,8 @@ import axios from './http'
 import * as types from './store/mutation-types'
 import cookie from './utils/cookie'
 
+import 'vconsole'
+
 // Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
