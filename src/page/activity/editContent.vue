@@ -134,30 +134,30 @@
       this.getMyCircles()
     },
     mounted () {
-//      this.axios({
-//        method: 'get',
-//        url: '/getWxConfig',
-//        params: {
-//          url: location.href.split('#')[0]
-//        }
-//      }).then(res => {
-//        wx.config({
-//          debug: false,
-//          appId: res.data.data.appId,
-//          timestamp: res.data.data.timestamp,
-//          nonceStr: res.data.data.nonceStr,
-//          signature: res.data.data.signature,
-//          jsApiList: [
-//            'chooseImage',
-//            'downloadImage',
-//            'uploadImage'
-//          ]
-//        })
-//        this.ready = true
-//      }).catch(error => {
-//        Toast(error)
-//        this.ready = false
-//      })
+      this.axios({
+        method: 'get',
+        url: '/getWxConfig',
+        params: {
+          url: location.href.split('#')[0]
+        }
+      }).then(res => {
+        wx.config({
+          debug: false,
+          appId: res.data.data.appId,
+          timestamp: res.data.data.timestamp,
+          nonceStr: res.data.data.nonceStr,
+          signature: res.data.data.signature,
+          jsApiList: [
+            'chooseImage',
+            'downloadImage',
+            'uploadImage'
+          ]
+        })
+        this.ready = true
+      }).catch(error => {
+        Toast(error)
+        this.ready = false
+      })
       wx.ready(function () {
         wx.showMenuItems({
           menuList: [
@@ -168,14 +168,14 @@
         })
       })
     },
-    beforeRouteEnter (to, from, next) {
-      let u = navigator.userAgent
-      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
-        location.assign(to.fullPath)
-      } else {
-        next()
-      }
-    },
+//    beforeRouteEnter (to, from, next) {
+//      let u = navigator.userAgent
+//      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
+//        location.assign(to.fullPath)
+//      } else {
+//        next()
+//      }
+//    },
     methods: {
       takePictures () {
         var _this = this
