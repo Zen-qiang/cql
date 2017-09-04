@@ -11,6 +11,7 @@
           <span v-show="showButton" @click="joinCircle()">{{buttonText}}</span>
         </div>
         <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
+        <span class="dinglian-details-qrcode"></span>
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
@@ -240,7 +241,7 @@
     right: 50%;
     margin-right: -0.29rem;
   }
-  .dinglian-details-edit {
+  .dinglian-details-edit,.dinglian-details-qrcode {
     position: absolute;
     right: 0;
     top: 0;
@@ -251,6 +252,10 @@
     padding: 10px;
     background-clip: content-box;
     background-origin: content-box;
+  }
+  .dinglian-details-qrcode {
+    background-color: #ffd200;
+    left: 0;
   }
   .dinglian-details-gray {
     position: absolute;
