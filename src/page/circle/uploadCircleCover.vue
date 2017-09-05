@@ -42,14 +42,14 @@
         circle: {},
         isEdit: false,
         circleTags: '',
-        photoFile: '',
+        // photoFile: '',
         isBlock: true,
-        imgUrl: '',
+        // imgUrl: '',
         introduction: '',
         cover: false,
         lists: [],
         serverId: '',
-        ready: '',
+        // ready: '',
         previewImg: ''
       }
     },
@@ -59,7 +59,7 @@
       if (this.circle.coterieId) {
         this.isEdit = true
         this.introduction = this.circle.description
-        this.imgUrl = this.circle.cover
+        this.previewImg = this.circle.cover
         this.cover = true
       }
     },
