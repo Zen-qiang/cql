@@ -43,7 +43,7 @@
 
 </template>
 <script>
-  import * as types from '../../store/mutation-types'
+//  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   export default {
     name: 'CircleEvents',
@@ -62,8 +62,8 @@
       },
       redirectActivityInfo (activityId) {
         // 跳转到活动详情
-        this.$store.commit(types.ACTIVITYID, activityId)
-        this.$router.push({'path': '/activityInfo'})
+//        this.$store.commit(types.ACTIVITYID, activityId)
+        this.$router.push({'path': '/activityDetails/' + activityId})
       },
       praiseTopic (topic) {
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红

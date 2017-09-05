@@ -82,6 +82,10 @@
     text-align: left;
     height: 15px;
     line-height: 15px;
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-statistics {
     text-align: left;

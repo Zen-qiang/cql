@@ -16,7 +16,8 @@
       <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
-        <img :src="localId" alt="" v-show="localIds.length" v-for="localId in localIds" >
+        <img :src="localId" alt="" v-show="!isIos" v-for="localId in localIds" >
+        <img :src="ioslocIds" alt="" v-show="isIos">
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
         <label v-on:click.stop="takePictures">
@@ -50,7 +51,9 @@
         lists: [],
         serverId: '',
         ready: '',
-        localIds: ''
+        localIds: '',
+        ioslocIds: '',
+        isIos: window.__wxjs_is_wkwebview
       }
     },
     created () {
@@ -112,6 +115,15 @@
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
               _this.localIds = res.localIds
+              // 判断ios是不是用的 wkwebview 内核
+              if (window.__wxjs_is_wkwebview) {
+                wx.getLocalImgData({
+                  localId: _this.localImgs[0], // 图片的localID
+                  success: function (res) {
+                    _this.ioslocIds = res.localData
+                  }
+                })
+              }
               wx.uploadImage({
                 localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示

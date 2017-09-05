@@ -51,7 +51,12 @@ router.beforeEach((to, from, next) => {
         nonceStr: res.data.data.nonceStr,
         signature: res.data.data.signature,
         jsApiList: [
-          'hideAllNonBaseMenuItem'
+          'hideAllNonBaseMenuItem',
+          'chooseImage',
+          'downloadImage',
+          'uploadImage',
+          'showMenuItems',
+          'scanQRCode'
         ]
       })
       wx.ready(function () {

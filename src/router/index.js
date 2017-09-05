@@ -108,7 +108,7 @@ import QrCode from '@/page/circle/qrCode.vue'
 const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
 
 Vue.use(Router)
-
+let requireAuth = false
 export default new Router({
   mode: 'hash',
   routes: [
@@ -127,7 +127,7 @@ export default new Router({
       name: 'CreateCircle',
       component: CreateCircle,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -135,7 +135,7 @@ export default new Router({
       name: 'ChooseCategory',
       component: ChooseCategory,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -143,7 +143,7 @@ export default new Router({
       name: 'UploadCircleCover',
       component: UploadCircleCover,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -151,7 +151,7 @@ export default new Router({
       name: 'CircleLists',
       component: CircleLists,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -159,7 +159,7 @@ export default new Router({
       name: 'CircleDetails',
       component: CircleDetails,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -167,7 +167,7 @@ export default new Router({
       name: 'MyCircle',
       component: MyCircle,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     // 活动
@@ -176,7 +176,7 @@ export default new Router({
       name: 'MyActivity',
       component: MyActivity,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -184,7 +184,7 @@ export default new Router({
       name: 'EditContent',
       component: EditContent,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -192,7 +192,7 @@ export default new Router({
       name: 'ActivityLists',
       component: ActivityLists,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -200,7 +200,7 @@ export default new Router({
       name: 'ActivitySuccess',
       component: ActivitySuccess,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -208,7 +208,7 @@ export default new Router({
       name: 'ActivityDetails',
       component: ActivityDetails,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -216,7 +216,7 @@ export default new Router({
       name: 'ChooseActivityTags',
       component: ChooseActivityTags,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -224,7 +224,7 @@ export default new Router({
       name: 'ActivityMessage',
       component: ActivityMessage,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     // 报名活动
@@ -233,7 +233,7 @@ export default new Router({
       name: 'SignUpActivity',
       component: SignUpActivity,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -241,7 +241,7 @@ export default new Router({
       name: 'EditFriends',
       component: EditFriends,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
@@ -249,7 +249,7 @@ export default new Router({
       name: 'PraiseMembers',
       component: PraiseMembers,
       meta: {
-        requireAuth: true
+        requireAuth: requireAuth
       }
     },
     {
