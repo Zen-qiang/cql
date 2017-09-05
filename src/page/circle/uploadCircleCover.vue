@@ -16,8 +16,7 @@
       <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
-        <img :src="localId" alt="" v-show="!isIos" v-for="localId in localIds" >
-        <img :src="ioslocIds" alt="" v-show="isIos">
+        <img :src="previewImg" alt="" v-show="previewImg">
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
         <label v-on:click.stop="takePictures">
@@ -51,9 +50,7 @@
         lists: [],
         serverId: '',
         ready: '',
-        localIds: '',
-        ioslocIds: '',
-        isIos: window.__wxjs_is_wkwebview
+        previewImg: ''
       }
     },
     created () {
@@ -66,32 +63,32 @@
         this.cover = true
       }
     },
-    mounted () {
-      this.axios({
-        method: 'get',
-        url: '/getWxConfig',
-        params: {
-          url: location.href.split('#')[0]
-        }
-      }).then(res => {
-        wx.config({
-          debug: false,
-          appId: res.data.data.appId,
-          timestamp: res.data.data.timestamp,
-          nonceStr: res.data.data.nonceStr,
-          signature: res.data.data.signature,
-          jsApiList: [
-            'chooseImage',
-            'downloadImage',
-            'uploadImage'
-          ]
-        })
-        this.ready = true
-      }).catch(error => {
-        Toast(error)
-        this.ready = false
-      })
-    },
+    // mounted () {
+    //   this.axios({
+    //     method: 'get',
+    //     url: '/getWxConfig',
+    //     params: {
+    //       url: location.href.split('#')[0]
+    //     }
+    //   }).then(res => {
+    //     wx.config({
+    //       debug: false,
+    //       appId: res.data.data.appId,
+    //       timestamp: res.data.data.timestamp,
+    //       nonceStr: res.data.data.nonceStr,
+    //       signature: res.data.data.signature,
+    //       jsApiList: [
+    //         'chooseImage',
+    //         'downloadImage',
+    //         'uploadImage'
+    //       ]
+    //     })
+    //     this.ready = true
+    //   }).catch(error => {
+    //     Toast(error)
+    //     this.ready = false
+    //   })
+    // },
     methods: {
 //      uploadImg (e) {
 //        let vm = this
@@ -108,33 +105,36 @@
 //      上传图片
       takePictures () {
         var _this = this
-        if (this.ready) {
-          wx.chooseImage({
-            count: 1, // 默认9
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              _this.localIds = res.localIds
-              // 判断ios是不是用的 wkwebview 内核
-              if (window.__wxjs_is_wkwebview) {
-                wx.getLocalImgData({
-                  localId: _this.localImgs[0], // 图片的localID
-                  success: function (res) {
-                    _this.ioslocIds = res.localData
-                  }
-                })
-              }
-              wx.uploadImage({
-                localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
+        // if (this.ready) {
+        wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            // _this.localIds = res.localIds
+            let localId = res.localIds[0]
+            // 判断ios是不是用的 wkwebview 内核
+            if (window.__wxjs_is_wkwebview) {
+              wx.getLocalImgData({
+                localId: localId, // 图片的localID
                 success: function (res) {
-                  _this.serverId = res.serverId
-                  _this.cover = true
+                  _this.previewImg = res.localData
                 }
               })
+            } else {
+              _this.previewImg = localId
             }
-          })
-        }
+            wx.uploadImage({
+              localId: localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function (res) {
+                _this.serverId = res.serverId
+                _this.cover = true
+              }
+            })
+          }
+        })
+        // }
       },
       createCircle () {
         let formData = new FormData()
