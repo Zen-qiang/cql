@@ -132,6 +132,7 @@
     created () {
 //      this.activityId = this.$store.state.activityId
       this.getActivityInfo()
+      alert('created' + this.activityInfo.name)
     },
     mounted () {
       var _this = this
@@ -149,6 +150,7 @@
         imgUrl: '', // 分享图标
         success: function () {
           // 用户确认分享后执行的回调函数
+          alert(_this.activityInfo.name + '朋友圈')
         },
         cancel: function () {
           // 用户取消分享后执行的回调函数
@@ -164,7 +166,7 @@
         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
         success: function () {
           // 用户确认分享后执行的回调函数
-          alert(_this.activityInfo.name)
+          alert(_this.activityInfo.name + '朋友')
         },
         cancel: function (error) {
           // 用户取消分享后执行的回调函数
