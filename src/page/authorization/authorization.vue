@@ -47,7 +47,7 @@
             this.$store.commit(types.USERPICTURE, res.data.data.picture)
             this.$store.commit(types.USERPHONENO, res.data.data.phoneNo)
             // this.$router.push({'path': cookie.readCookie('redirectUrl')})
-            location.assign(location.origin + cookie.readCookie('redirectUrl'))
+            location.assign(location.origin + '#' + cookie.readCookie('redirectUrl'))
           }
         }).catch()
       }
