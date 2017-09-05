@@ -252,7 +252,7 @@ export default new Router({
       }
     },
     {
-      path: '/authorization',
+      path: '/authorization/:openId',
       name: 'Authorization',
       component: Authorization
     },
