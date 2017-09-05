@@ -11,10 +11,11 @@
           <span v-show="showButton" @click="joinCircle()">{{buttonText}}</span>
         </div>
         <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
-        <span class="dinglian-details-qrcode"></span>
+        <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
+      <vue-qr :text="qrcodeContent" size="300" dotScale="1" whiteMargin="true" v-show="showed"></vue-qr>
     </header>
     <mt-navbar v-model="selected">
       <mt-tab-item id="all">所有活动</mt-tab-item>
@@ -38,9 +39,11 @@
   import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   import wx from 'weixin-js-sdk'
+  import VueQr from 'vue-qr'
   export default {
     components: {
-      CircleEvents
+      CircleEvents,
+      VueQr
     },
     data () {
       return {
@@ -60,7 +63,9 @@
         },
         page: 1,
         allLoaded: false,
-        uid: this.$route.params.uid
+        uid: this.$route.params.uid,
+        qrcodeContent: '',
+        showed: false
       }
     },
     watch: {
@@ -107,8 +112,12 @@
     },
     created () {
       this.loadCircleInfo(this.circleId)
+      this.qrcodeContent = window.location.href
     },
     methods: {
+      showQRCode () {
+        this.showed = !this.showed
+      },
 //        下拉刷新
       loadTop () {
         this.$refs.loadTop.onTopLoaded()

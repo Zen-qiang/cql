@@ -13,17 +13,17 @@
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">
-              <h3>{{item.name}}</h3>
+              <h3 @click="redirectActivityDetails(item.activityId)">{{item.name}}</h3>
               <span class="dinglian-lists-circleTag" @click="redirectCircleDetails(item.coterie.id)">{{item.coterie.name}}</span>
             </div>
-            <div class="dinglian-lists-tags clearfix">
+            <div class="dinglian-lists-tags clearfix" @click="redirectActivityDetails(item.activityId)">
               <span class="fs_11" :key="tagName" v-for="tagName of item.tags">{{tagName}}</span>
             </div>
-            <div class="dinglian-lists-cost">
+            <div class="dinglian-lists-cost" @click="redirectActivityDetails(item.activityId)">
               <span v-if="item.charge === 'free'">免费</span>
               <span v-else>AA制</span>
             </div>
-            <div class="dinglian-lists-people clearfix">
+            <div class="dinglian-lists-people clearfix" @click="redirectActivityDetails(item.activityId)">
               <span v-if="item.status === '1'"><em class="dinglian-lists-status"></em>进行中</span>
               <span v-else-if="item.status === '2'"><em class="dinglian-lists-status"></em>正在报名</span>
               <span v-else><em class="dinglian-lists-status"></em>已结束</span>
