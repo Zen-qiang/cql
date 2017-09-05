@@ -185,9 +185,10 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             _this.localImgs = _this.localImgs.concat(res.localIds)
-            alert(_this.localImgs)
+            alert(_this.localImgs.length)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
+              alert('进入ios判断')
               for (var i = 0; i < _this.localImgs.length; i++) {
                 wx.getLocalImgData({
                   localId: _this.localImgs[i], // 图片的localID
@@ -201,6 +202,7 @@
               }
             }
             for (var l = 0; l < res.localIds.length; l++) {
+              alert(res.localIds.length)
               wx.uploadImage({
                 localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
