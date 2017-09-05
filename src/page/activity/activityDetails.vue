@@ -195,6 +195,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          alert('hanshu' + this.activityInfo.name)
           this.isOpen = res.data.data.isOpen
           this.allowSignUp = res.data.data.allowSignUp
           this.nickName = res.data.data.organizer.nickName
