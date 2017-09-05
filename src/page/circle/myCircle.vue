@@ -72,7 +72,7 @@
     },
     methods: {
       redirectCircleInfo (id) {
-        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
+        this.$router.push({'path': '/circleDetails/' + id})
       },
       redirectCircleList () {
         // 跳转的所有圈子列表

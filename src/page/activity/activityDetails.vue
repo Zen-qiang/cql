@@ -126,7 +126,7 @@
         allowSignUp: '',
         topicId: '',
         activityId: '',
-        uid: this.$route.params.uid
+        uid: this.$store.state.userId
       }
     },
     created () {

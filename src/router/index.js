@@ -102,6 +102,8 @@ import EditFriends from '@/page/activity/editFriends.vue'
 import PraiseMembers from '@/page/activity/praiseMembers.vue'
 // 授权
 import Authorization from '@/page/authorization/authorization.vue'
+// 二维码
+import QrCode from '@/page/circle/qrCode.vue'
 
 const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
 
@@ -153,7 +155,7 @@ export default new Router({
       }
     },
     {
-      path: '/circleDetails/:uid/:cid',
+      path: '/circleDetails/:cid',
       name: 'CircleDetails',
       component: CircleDetails,
       meta: {
@@ -202,7 +204,7 @@ export default new Router({
       }
     },
     {
-      path: '/activityDetails/:uid/:aid',
+      path: '/activityDetails/:aid',
       name: 'ActivityDetails',
       component: ActivityDetails,
       meta: {
@@ -254,6 +256,12 @@ export default new Router({
       path: '/authorization',
       name: 'Authorization',
       component: Authorization
+    },
+    // 二维码
+    {
+      path: '/qrCode',
+      name: 'QrCode',
+      component: QrCode
     },
     {
       path: '*',

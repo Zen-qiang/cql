@@ -19,4 +19,6 @@ export const USERPICTURE = 'userPicture'
 export const USERPHONENO = 'userPhoneNo'
 
 export const PARAMDATA = 'paramData'
+// 二维码
+export const QRCODE = 'qrCode'
 

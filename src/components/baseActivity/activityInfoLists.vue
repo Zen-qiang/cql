@@ -121,11 +121,11 @@
       },
       redirectActivityDetails (id) {
 //        this.$store.commit(types.ACTIVITYID, id)
-        this.$router.push({'path': '/activityDetails/' + this.uid + '/' + id})
+        this.$router.push({'path': '/activityDetails/' + id})
       },
       redirectCircleDetails (id) {
 //        this.$store.commit(types.CIRCLEID, id)
-        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
+        this.$router.push({'path': '/circleDetails/' + id})
       },
       signOut (activity) {
         MessageBox.confirm('确定取消报名?').then(action => {

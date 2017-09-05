@@ -17,6 +17,8 @@ const state = {
   userPicture: '',
   userPhoneNo: '',
   // 参数
-  paramData: {}
+  paramData: {},
+  // 二维码
+  qrCode: ''
 }
 export default state

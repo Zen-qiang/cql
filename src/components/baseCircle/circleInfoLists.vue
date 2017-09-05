@@ -41,7 +41,7 @@
     methods: {
       redirectCircleInfo (id) {
         this.$store.commit(types.CIRCLEID, id)
-        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
+        this.$router.push({'path': '/circleDetails/' + id})
       },
       loadBottom () {
         console.log('加载')
