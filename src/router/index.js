@@ -108,7 +108,7 @@ import QrCode from '@/page/circle/qrCode.vue'
 const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
 
 Vue.use(Router)
-let requireAuth = false
+let requireAuth = true
 export default new Router({
   mode: 'hash',
   routes: [
