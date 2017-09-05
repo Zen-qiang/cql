@@ -135,9 +135,9 @@
     },
     mounted () {
       var _this = this
+      alert(_this.activityInfo.name)
       wx.ready(function () {
         alert(_this.activityInfo.name)
-        alert(window.location.href)
         wx.showMenuItems({
           menuList: [
             'onMenuShareTimeline',
@@ -146,7 +146,7 @@
         })
 //        朋友圈
         wx.onMenuShareTimeline({
-          title: _this.activityInfo.name, // 分享标题
+          title: 'test', // 分享标题
           link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: '', // 分享图标
           success: function () {
