@@ -75,6 +75,7 @@
     },
     mounted () {
       wx.ready(function () {
+        var _this = this
         wx.showMenuItems({
           menuList: [
             'onMenuShareTimeline',
@@ -83,8 +84,8 @@
         })
 //        朋友圈
         wx.onMenuShareTimeline({
-          title: this.circle.name, // 分享标题
-          link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          title: _this.circle.name, // 分享标题
+          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: '', // 分享图标
           success: function () {
             // 用户确认分享后执行的回调函数
@@ -95,8 +96,8 @@
         })
 //        朋友
         wx.onMenuShareAppMessage({
-          title: this.circle.name, // 分享标题
-          desc: this.circle.description, // 分享描述
+          title: _this.circle.name, // 分享标题
+          desc: _this.circle.description, // 分享描述
           link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: '', // 分享图标
           type: '', // 分享类型,music、video或link，不填默认为link

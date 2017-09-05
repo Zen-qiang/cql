@@ -185,7 +185,7 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             _this.localImgs = _this.localImgs.concat(res.localIds)
-            console.log(_this.localImgs)
+            alert(_this.localImgs)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
               for (var i = 0; i < _this.localImgs.length; i++) {
@@ -195,6 +195,7 @@
                     var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
                     localData = localData.replace('jgp', 'jpeg')
                     _this.ioslocIds.push(localData)
+                    alert(_this.ioslocIds)
                   }
                 })
               }
@@ -205,7 +206,7 @@
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverIds.push(res.serverId)
-                  console.log(_this.serverIds)
+                  alert(_this.serverIds)
                 }
               })
             }

@@ -134,6 +134,7 @@
       this.getActivityInfo()
     },
     mounted () {
+      var _this = this
       wx.ready(function () {
         wx.showMenuItems({
           menuList: [
@@ -143,7 +144,7 @@
         })
 //        朋友圈
         wx.onMenuShareTimeline({
-          title: this.activityInfo.name, // 分享标题
+          title: _this.activityInfo.name, // 分享标题
           link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: '', // 分享图标
           success: function () {
@@ -155,8 +156,8 @@
         })
 //        朋友
         wx.onMenuShareAppMessage({
-          title: this.activityInfo.name, // 分享标题
-          desc: this.activityInfo.description, // 分享描述
+          title: _this.activityInfo.name, // 分享标题
+          desc: _this.activityInfo.description, // 分享描述
           link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: '', // 分享图标
           type: '', // 分享类型,music、video或link，不填默认为link
