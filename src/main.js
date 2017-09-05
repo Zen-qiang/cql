@@ -72,15 +72,14 @@ router.beforeEach((to, from, next) => {
     if (store.state.userId) {
       next()
     } else {
-      console.log('get user authorization')
+      // console.log('get user authorization')
       cookie.setCookie('redirectUrl', to.fullPath)
       axios({
         method: 'get',
-        url: 'userAuthorization',
-        params: {
-          // callbackUrl: encodeURI('http://mp.dingliantech.com/authorization')
-          callbackUrl: encodeURI('http://' + window.location.hostname + '/authorization')
-        }
+        url: 'userAuthorization'
+        // params: {
+        //   callbackUrl: encodeURI(location.href + 'authorization')
+        // }
       }).then(res => {
         window.location.href = res.data
       }).catch()
