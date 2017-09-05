@@ -41,6 +41,7 @@
       loadTop () {
         this.activityLists = []
         this.page = 1
+        this.start = 0
         Indicator.open()
         this.getActivityList()
         this.$refs.loadTop.onTopLoaded()

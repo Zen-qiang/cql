@@ -44,6 +44,9 @@ const mutations = {
   },
   [types.PARAMDATA]: (state, paramData) => {
     state.paramData = paramData
+  },
+  [types.QRCODE]: (state, qrCode) => {
+    state.qrCode = qrCode
   }
 }
 export default mutations

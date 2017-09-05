@@ -2,7 +2,7 @@
   <mt-loadmore :top-method="loadTop"
                :distanceIndex="1"
                ref="loadTop">
-  <div>
+  <div class="dinglian-details-whole">
     <header>
       <div class="coverStyle" :style="coverStyle">
         <div class="dinglian-details-join">
@@ -15,7 +15,7 @@
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
-      <vue-qr :text="qrcodeContent" size="300" dotScale="1" whiteMargin="true" v-show="showed"></vue-qr>
+      <!--<vue-qr :text="qrcodeContent" size="200" dotScale="1" whiteMargin="true" colorLight="red" v-show="showed" class="dinglian-vueqr"></vue-qr>-->
     </header>
     <mt-navbar v-model="selected">
       <mt-tab-item id="all">所有活动</mt-tab-item>
@@ -63,7 +63,7 @@
         },
         page: 1,
         allLoaded: false,
-        uid: this.$route.params.uid,
+        uid: this.$store.state.userId,
         qrcodeContent: '',
         showed: false
       }
@@ -116,7 +116,8 @@
     },
     methods: {
       showQRCode () {
-        this.showed = !this.showed
+        this.$store.commit(types.QRCODE, this.qrcodeContent)
+        this.$router.push({'path': '/qrCode'})
       },
 //        下拉刷新
       loadTop () {
@@ -270,6 +271,9 @@
   .dinglian-details-qrcode {
     background-color: #ffd200;
     left: 0;
+    background: url("../../assets/images/qr.svg") no-repeat center;
+    background-clip: content-box;
+    background-origin: content-box;
   }
   .dinglian-details-gray {
     position: absolute;
@@ -286,5 +290,18 @@
     text-align: left;
     font-size: 12px;
   }
-
+  /*二维码*/
+  header {
+    position: relative;
+    width: 100%;
+  }
+  .dinglian-vueqr {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 14;
+    border: 1px solid red;
+    top: 0.5rem;
+    height: 202px;
+  }
 </style>
