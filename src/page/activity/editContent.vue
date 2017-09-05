@@ -185,18 +185,18 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             _this.localImgs = _this.localImgs.concat(res.localIds)
-            alert(_this.localImgs.length)
+            alert('1=====' + _this.localImgs.length)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
               alert('进入ios判断')
-              for (var i = 0; i < _this.localImgs.length; i++) {
+              for (var i = 0; i < res.localIds.length; i++) {
                 wx.getLocalImgData({
-                  localId: _this.localImgs[i], // 图片的localID
+                  localId: res.localIds[i], // 图片的localID
                   success: function (res) {
                     var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
                     localData = localData.replace('jgp', 'jpeg')
                     _this.ioslocIds.push(localData)
-                    alert(_this.ioslocIds)
+                    alert('2=======')
                   }
                 })
               }
@@ -208,7 +208,7 @@
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverIds.push(res.serverId)
-                  alert(_this.serverIds)
+                  alert('3=====' + _this.serverIds.length)
                 }
               })
             }
