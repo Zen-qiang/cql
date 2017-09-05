@@ -4,8 +4,8 @@
     <div class="dinglian-edit-friends" :key="index" v-for="(item, index) in friends">
       <input type="text" value="张三" placeholder="参加者姓名" v-model="item.name">
       <div class="edit-radio">
-        <label for="" @click="checkGender(item, '1')"><input type="radio" name="item.gender" value="1" v-model="item.gender">男</label>
-        <label for="" @click="checkGender(item, '2')"><input type="radio" name="item.gender" value="2" v-model="item.gender">女</label>
+        <label for="" @click="checkGender(item, '1')"><input type="radio"  value="1" v-model="item.gender">男</label>
+        <label for="" @click="checkGender(item, '2')"><input type="radio"  value="2" v-model="item.gender">女</label>
       </div>
       <span @click="removeItem(index)"></span>
     </div>
@@ -46,7 +46,7 @@
       confirm () {
         this.paramData.friends = this.friends
         this.$store.commit(types.PARAMDATA, this.paramData)
-        console.log(this.friends)
+        this.$router.push({'path': '/signUpActivity'})
       }
     }
   }

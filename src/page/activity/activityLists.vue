@@ -56,7 +56,7 @@
       },
 //      搜索
       searchActivity () {
-//        console.log(navigator.userAgent)
+        this.page = 1
         this.activityLists = []
         this.getActivityList()
       },
@@ -67,7 +67,8 @@
           url: 'getActivityList',
           params: {
             start: this.start,
-            pageSize: this.pageSize
+            pageSize: this.pageSize,
+            keyword: this.keyword
           }
         }).then(res => {
           if (res.data.data.length > 0) {
@@ -102,6 +103,7 @@
     color: #999999;
     text-align: center;
     float: left;
+    padding-right: 10px;
   }
   .dinglian-activityLists-all {
     position: relative;

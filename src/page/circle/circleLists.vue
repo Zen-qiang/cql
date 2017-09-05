@@ -203,6 +203,7 @@
     color: #999999;
     text-align: center;
     float: left;
+    padding-right: 10px;
   }
   .mint-search {
     height: auto;

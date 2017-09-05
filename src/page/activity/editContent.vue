@@ -26,8 +26,8 @@
     </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
-        <img :src="localId" alt="选择图片" v-for="localId in localImgs">
-        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
+        <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="localImgs.length">
+        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds" v-show="ioslocIds.length">
       </i>
     </div>
     <!--上传图片 end-->
@@ -158,15 +158,24 @@
         Toast(error)
         this.ready = false
       })
+      wx.ready(function () {
+        wx.showMenuItems({
+          menuList: [
+            'chooseImage',
+            'downloadImage',
+            'uploadImage'
+          ] // 要显示的菜单项，所有menu项见附录3
+        })
+      })
     },
-    beforeRouteEnter (to, from, next) {
-      let u = navigator.userAgent
-      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
-        location.assign(to.fullPath)
-      } else {
-        next()
-      }
-    },
+//    beforeRouteEnter (to, from, next) {
+//      let u = navigator.userAgent
+//      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
+//        location.assign(to.fullPath)
+//      } else {
+//        next()
+//      }
+//    },
     methods: {
       takePictures () {
         var _this = this
