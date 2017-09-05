@@ -56,7 +56,9 @@ router.beforeEach((to, from, next) => {
           'downloadImage',
           'uploadImage',
           'showMenuItems',
-          'scanQRCode'
+          'scanQRCode',
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage'
         ]
       })
       wx.ready(function () {
