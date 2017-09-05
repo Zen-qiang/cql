@@ -102,7 +102,6 @@ import EditFriends from '@/page/activity/editFriends.vue'
 import PraiseMembers from '@/page/activity/praiseMembers.vue'
 // 授权
 import Authorization from '@/page/authorization/authorization.vue'
-import AccessToken from '@/page/authorization/accessToken.vue'
 
 const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
 
@@ -252,14 +251,9 @@ export default new Router({
       }
     },
     {
-      path: '/authorization/:openId',
+      path: '/authorization',
       name: 'Authorization',
       component: Authorization
-    },
-    {
-      path: '/accessToken',
-      name: 'AccessToken',
-      component: AccessToken
     },
     {
       path: '*',
