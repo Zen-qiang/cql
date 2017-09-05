@@ -47,7 +47,7 @@
     methods: {
       goNextStep () {
         this.$store.commit(types.ACTIVITYTAGS, this.convertToStr(this.selectedTags))
-        this.$router.push({'path': '/editContent'})
+        this.$router.replace({'path': '/editContent'})
       },
       getActivityType () {
         // 获取一级标签
