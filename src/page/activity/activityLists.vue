@@ -62,14 +62,17 @@
       },
 //      获取活动列表
       getActivityList () {
+        let params = {
+          start: this.start,
+          pageSize: this.pageSize
+        }
+        if (this.keyword) {
+          params.keyword = this.keyword
+        }
         this.axios({
           method: 'get',
           url: 'getActivityList',
-          params: {
-            start: this.start,
-            pageSize: this.pageSize,
-            keyword: this.keyword
-          }
+          params: params
         }).then(res => {
           if (res.data.data.length > 0) {
             for (let item in res.data.data) {

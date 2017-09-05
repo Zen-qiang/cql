@@ -52,13 +52,13 @@
 
 </template>
 <script>
-  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
         selected: '1',
         addCoterieImageUrl: require('../../assets/images/my_circle3.jpg'),
-        coteries: []
+        coteries: [],
+        uid: this.$store.state.userId
       }
     },
     created () {
@@ -72,8 +72,7 @@
     },
     methods: {
       redirectCircleInfo (id) {
-        this.$store.commit(types.CIRCLEID, id)
-        this.$router.push({'path': '/circleDetails'})
+        this.$router.push({'path': '/circleDetails/' + this.uid + '/' + id})
       },
       redirectCircleList () {
         // 跳转的所有圈子列表
@@ -124,7 +123,6 @@
     flex-flow: row wrap;
   }
   .dinglian-myCircle-info {
-    /*float: left;*/
     width: 109px;
     height: 128px;
     margin-right: 9px;
@@ -137,7 +135,6 @@
     width: 100%;
     height: 80%;
     border: 0;
-    /*border-radius: 4px;*/
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
@@ -148,5 +145,4 @@
     display: block;
     line-height: 0.25rem;
   }
-
 </style>
