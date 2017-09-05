@@ -16,8 +16,7 @@
       <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
-        <img :src="localId" alt="" v-show="!isIos" v-for="localId in localIds" >
-        <img :src="ioslocIds" alt="" v-show="isIos">
+        <img :src="previewImg" alt="" v-show="previewImg">
       </i>
       <div class="dinglian-createCirclePhoto-cover" v-show="cover">
         <label v-on:click.stop="takePictures">
@@ -51,8 +50,9 @@
         lists: [],
         serverId: '',
         ready: '',
-        localIds: '',
-        ioslocIds: '',
+        // localIds: '',
+        // ioslocIds: '',
+        previewImg: '',
         isIos: window.__wxjs_is_wkwebview
       }
     },
@@ -114,18 +114,21 @@
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-              _this.localIds = res.localIds
+              // _this.localIds = res.localIds
+              let localId = res.localIds[0]
               // 判断ios是不是用的 wkwebview 内核
               if (window.__wxjs_is_wkwebview) {
                 wx.getLocalImgData({
-                  localId: _this.localImgs[0], // 图片的localID
+                  localId: localId, // 图片的localID
                   success: function (res) {
-                    _this.ioslocIds = res.localData
+                    _this.previewImg = res.localData
                   }
                 })
+              } else {
+                _this.previewImg = localId
               }
               wx.uploadImage({
-                localId: res.localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                localId: localId, // 需要上传的图片的本地ID，由chooseImage接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverId = res.serverId
