@@ -136,6 +136,8 @@
     mounted () {
       var _this = this
       wx.ready(function () {
+        alert(_this.activityInfo.name)
+        alert(window.location.href)
         wx.showMenuItems({
           menuList: [
             'onMenuShareTimeline',
@@ -164,9 +166,11 @@
           dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
           success: function () {
             // 用户确认分享后执行的回调函数
+            alert(_this.activityInfo.name)
           },
-          cancel: function () {
+          cancel: function (error) {
             // 用户取消分享后执行的回调函数
+            alert(error)
           }
         })
       })

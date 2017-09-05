@@ -84,7 +84,6 @@
 <script>
   import { Toast } from 'mint-ui'
   import * as types from '../../store/mutation-types'
-//  import lrz from '../../../static/lrz/lrz.bundle'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
@@ -118,7 +117,6 @@
         imgLists: [],
         imgFilesList: [],
         chooseCircle: false,
-//        capture: 'camera',
         activityNameSuccess: '',
         localImgs: [],
         ioslocIds: [],
@@ -126,7 +124,6 @@
       }
     },
     created () {
-//      this.judgmentIos()
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
@@ -185,10 +182,8 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             _this.localImgs = _this.localImgs.concat(res.localIds)
-            alert('1=====' + _this.localImgs.length)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
-              alert('进入ios判断')
               for (var i = 0; i < res.localIds.length; i++) {
                 wx.getLocalImgData({
                   localId: res.localIds[i], // 图片的localID
@@ -196,19 +191,16 @@
                     var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
                     localData = localData.replace('jgp', 'jpeg')
                     _this.ioslocIds.push(localData)
-                    alert('2=======')
                   }
                 })
               }
             }
             for (var l = 0; l < res.localIds.length; l++) {
-              alert(res.localIds.length)
               wx.uploadImage({
                 localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverIds.push(res.serverId)
-                  alert('3=====' + _this.serverIds.length)
                 }
               })
             }
@@ -290,7 +282,6 @@
         this.charge = val
       },
       goNextStep () {
-        Toast(this.localImgs)
         if (!this.activityName) {
           Toast('标题不能为空')
           return false
