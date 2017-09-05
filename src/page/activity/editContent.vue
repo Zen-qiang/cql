@@ -122,8 +122,7 @@
         activityNameSuccess: '',
         localImgs: [],
         ioslocIds: [],
-        serverIds: [],
-        ready: false
+        serverIds: []
       }
     },
     created () {
@@ -133,41 +132,41 @@
       }
       this.getMyCircles()
     },
-    mounted () {
-      this.axios({
-        method: 'get',
-        url: '/getWxConfig',
-        params: {
-          url: location.href.split('#')[0]
-        }
-      }).then(res => {
-        wx.config({
-          debug: false,
-          appId: res.data.data.appId,
-          timestamp: res.data.data.timestamp,
-          nonceStr: res.data.data.nonceStr,
-          signature: res.data.data.signature,
-          jsApiList: [
-            'chooseImage',
-            'downloadImage',
-            'uploadImage'
-          ]
-        })
-        this.ready = true
-      }).catch(error => {
-        Toast(error)
-        this.ready = false
-      })
-      wx.ready(function () {
-        wx.showMenuItems({
-          menuList: [
-            'chooseImage',
-            'downloadImage',
-            'uploadImage'
-          ] // 要显示的菜单项，所有menu项见附录3
-        })
-      })
-    },
+//    mounted () {
+//      this.axios({
+//        method: 'get',
+//        url: '/getWxConfig',
+//        params: {
+//          url: location.href.split('#')[0]
+//        }
+//      }).then(res => {
+//        wx.config({
+//          debug: false,
+//          appId: res.data.data.appId,
+//          timestamp: res.data.data.timestamp,
+//          nonceStr: res.data.data.nonceStr,
+//          signature: res.data.data.signature,
+//          jsApiList: [
+//            'chooseImage',
+//            'downloadImage',
+//            'uploadImage'
+//          ]
+//        })
+//        this.ready = true
+//      }).catch(error => {
+//        Toast(error)
+//        this.ready = false
+//      })
+//      wx.ready(function () {
+//        wx.showMenuItems({
+//          menuList: [
+//            'chooseImage',
+//            'downloadImage',
+//            'uploadImage'
+//          ] // 要显示的菜单项，所有menu项见附录3
+//        })
+//      })
+//    },
 //    beforeRouteEnter (to, from, next) {
 //      let u = navigator.userAgent
 //      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
@@ -180,40 +179,38 @@
       takePictures () {
         var _this = this
         var imglen = _this.localImgs.length
-        if (_this.ready) {
-          wx.chooseImage({
-            count: 3 - imglen, // 默认9
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-              _this.localImgs = _this.localImgs.concat(res.localIds)
-              console.log(_this.localImgs)
-              // 判断ios是不是用的 wkwebview 内核
-              if (window.__wxjs_is_wkwebview) {
-                for (var i = 0; i < _this.localImgs.length; i++) {
-                  wx.getLocalImgData({
-                    localId: _this.localImgs[i], // 图片的localID
-                    success: function (res) {
-                      var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
-                      localData = localData.replace('jgp', 'jpeg')
-                      _this.ioslocIds.push(localData)
-                    }
-                  })
-                }
-              }
-              for (var l = 0; l < res.localIds.length; l++) {
-                wx.uploadImage({
-                  localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
-                  isShowProgressTips: 1, // 默认为1，显示进度提示
+        wx.chooseImage({
+          count: 3 - imglen, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            _this.localImgs = _this.localImgs.concat(res.localIds)
+            console.log(_this.localImgs)
+            // 判断ios是不是用的 wkwebview 内核
+            if (window.__wxjs_is_wkwebview) {
+              for (var i = 0; i < _this.localImgs.length; i++) {
+                wx.getLocalImgData({
+                  localId: _this.localImgs[i], // 图片的localID
                   success: function (res) {
-                    _this.serverIds.push(res.serverId)
-                    console.log(_this.serverIds)
+                    var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
+                    localData = localData.replace('jgp', 'jpeg')
+                    _this.ioslocIds.push(localData)
                   }
                 })
               }
             }
-          })
-        }
+            for (var l = 0; l < res.localIds.length; l++) {
+              wx.uploadImage({
+                localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                  _this.serverIds.push(res.serverId)
+                  console.log(_this.serverIds)
+                }
+              })
+            }
+          }
+        })
       },
 //      uploadImg (e) {
 //        var vm = this
