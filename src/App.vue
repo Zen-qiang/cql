@@ -5,8 +5,8 @@
   </div>
 </template>
 <script>
-import wx from 'weixin-js-sdk'
-import { Toast } from 'mint-ui'
+// import wx from 'weixin-js-sdk'
+// import { Toast } from 'mint-ui'
 export default {
   name: 'app',
   data () {
@@ -15,31 +15,31 @@ export default {
   },
   created () {
   },
-  mounted () {
-    this.axios({
-      method: 'get',
-      url: '/getWxConfig',
-      params: {
-        url: location.href.split('#')[0]
-      }
-    }).then(res => {
-      wx.config({
-        debug: false,
-        appId: res.data.data.appId,
-        timestamp: res.data.data.timestamp,
-        nonceStr: res.data.data.nonceStr,
-        signature: res.data.data.signature,
-        jsApiList: [
-          'hideAllNonBaseMenuItem'
-        ]
-      })
-      wx.ready(function () {
-        wx.hideAllNonBaseMenuItem()
-      })
-    }).catch(error => {
-      Toast(error)
-    })
-  },
+//  mounted () {
+//    this.axios({
+//      method: 'get',
+//      url: '/getWxConfig',
+//      params: {
+//        url: location.href.split('#')[0]
+//      }
+//    }).then(res => {
+//      wx.config({
+//        debug: false,
+//        appId: res.data.data.appId,
+//        timestamp: res.data.data.timestamp,
+//        nonceStr: res.data.data.nonceStr,
+//        signature: res.data.data.signature,
+//        jsApiList: [
+//          'hideAllNonBaseMenuItem'
+//        ]
+//      })
+//      wx.ready(function () {
+//        wx.hideAllNonBaseMenuItem()
+//      })
+//    }).catch(error => {
+//      Toast(error)
+//    })
+//  },
   methods: {
   }
 }

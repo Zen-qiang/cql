@@ -85,6 +85,7 @@
       },
 //      搜索圈子
       searchCircle () {
+        this.page = 1
         this.coterieList = []
         this.getCoterieList()
       },

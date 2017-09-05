@@ -24,7 +24,8 @@ import domain from './domain.js'
 Vue.prototype.domain = domain
 
 // 引入微信jssdk
-// import wx from 'weixin-js-sdk'
+import wx from 'weixin-js-sdk'
+
 Vue.config.productionTip = false
 
 if (window.sessionStorage.getItem('userId')) {
@@ -35,39 +36,33 @@ if (window.sessionStorage.getItem('userId')) {
 }
 
 router.beforeEach((to, from, next) => {
-  // if (to.fullPath !== '/authorization' || to.fullPath.indexOf('/api/authorization') > 0) {
-  //   axios({
-  //     method: 'get',
-  //     url: '/getWxConfig',
-  //     params: {
-  //       // url: 'http://mp.dingliantech.com' + to.fullPath
-  //       url: location.href.split('#')[0]
-  //     }
-  //   }).then(res => {
-  //     wx.config({
-  //       debug: false,
-  //       appId: res.data.data.appId,
-  //       timestamp: res.data.data.timestamp,
-  //       nonceStr: res.data.data.nonceStr,
-  //       signature: res.data.data.signature,
-  //       jsApiList: [
-  //         'onMenuShareTimeline',
-  //         'onMenuShareAppMessage',
-  //         'onMenuShareQQ',
-  //         'onMenuShareWeibo',
-  //         'onMenuShareQZone',
-  //         'chooseImage',
-  //         'downloadImage',
-  //         'uploadImage',
-  //         'hideAllNonBaseMenuItem'
-  //       ]
-  //     })
-  //     wx.ready(function () {
-  //       // 隐藏所有非基础按钮接口
-  //       wx.hideAllNonBaseMenuItem()
-  //     })
-  //   })
-  // }
+  if (to.fullPath !== '/authorization' || to.fullPath.indexOf('/api/authorization') > 0) {
+    axios({
+      method: 'get',
+      url: '/getWxConfig',
+      params: {
+        // url: 'http://mp.dingliantech.com' + to.fullPath
+        url: location.href.split('#')[0]
+      }
+    }).then(res => {
+      wx.config({
+        debug: false,
+        appId: res.data.data.appId,
+        timestamp: res.data.data.timestamp,
+        nonceStr: res.data.data.nonceStr,
+        signature: res.data.data.signature,
+        jsApiList: [
+          'hideAllNonBaseMenuItem'
+        ]
+      })
+      wx.ready(function () {
+        // 隐藏所有非基础按钮接口
+        // wx.hideAllNonBaseMenuItem()
+      })
+    }).catch(error => {
+      console.log(error)
+    })
+  }
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.userId) {
       next()
