@@ -137,6 +137,7 @@
     mounted () {
       var _this = this
       alert(_this.activityInfo.name)
+      _this.getActivityInfo()
       wx.showMenuItems({
         menuList: [
           'onMenuShareTimeline',
