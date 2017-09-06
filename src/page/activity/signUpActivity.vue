@@ -109,6 +109,7 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
+      console.log(this.$store.state.paramData)
       if (this.$store.state.paramData) {
         console.log(this.$store.state.paramData)
         this.friends = this.$store.state.paramData.friends
@@ -199,8 +200,8 @@
           }).catch()
         }
       },
+      // 提交绑定
       bindConfirm () {
-        // 提交绑定
         if (this.needBind) {
           if (!this.telphone) {
             Toast('手机号码不能为空')
