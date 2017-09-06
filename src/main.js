@@ -64,6 +64,12 @@ router.beforeEach((to, from, next) => {
       wx.ready(function () {
         // 隐藏所有非基础按钮接口
         wx.hideAllNonBaseMenuItem()
+        wx.showMenuItems({
+          menuList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+          ] // 要显示的菜单项，所有menu项见附录3
+        })
       })
     }).catch(error => {
       console.log(error)

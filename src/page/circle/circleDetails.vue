@@ -120,12 +120,6 @@
       sharePeople () {
         var _this = this
         wx.ready(function () {
-          wx.showMenuItems({
-            menuList: [
-              'onMenuShareTimeline',
-              'onMenuShareAppMessage'
-            ] // 要显示的菜单项，所有menu项见附录3
-          })
 //        朋友圈
           wx.onMenuShareTimeline({
             title: _this.circle.name, // 分享标题
