@@ -50,7 +50,7 @@
     <div class="dinglian-alone-addUsers">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
-        <span>{{friends.length}}</span>
+        <span>{{friends.length? friends.length : 0}}</span>
       </div>
       <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
         <ul>
