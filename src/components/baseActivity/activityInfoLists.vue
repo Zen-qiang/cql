@@ -120,11 +120,9 @@
         }
       },
       redirectActivityDetails (id) {
-//        this.$store.commit(types.ACTIVITYID, id)
         this.$router.push({'path': '/activityDetails/' + id})
       },
       redirectCircleDetails (id) {
-//        this.$store.commit(types.CIRCLEID, id)
         this.$router.push({'path': '/circleDetails/' + id})
       },
       signOut (activity) {
@@ -196,6 +194,7 @@
     height: 15px;
     line-height: 15px;
     float: left;
+    color: #333333;
   }
   .dinglian-lists-title > span {
     float: right;

@@ -15,7 +15,6 @@ import axios from './http'
 import * as types from './store/mutation-types'
 import cookie from './utils/cookie'
 
-// Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 
@@ -79,14 +78,10 @@ router.beforeEach((to, from, next) => {
     if (store.state.userId) {
       next()
     } else {
-      // console.log('get user authorization')
       cookie.setCookie('redirectUrl', to.fullPath)
       axios({
         method: 'get',
         url: 'userAuthorization'
-        // params: {
-        //   callbackUrl: encodeURI(location.href + 'authorization')
-        // }
       }).then(res => {
         // window.location.href = res.data
         location.assign(res.data)
