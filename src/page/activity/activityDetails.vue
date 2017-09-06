@@ -136,7 +136,7 @@
     },
     mounted () {
       var _this = this
-      alert(_this.activityInfo.name)
+      alert('mounted' + _this.activityInfo.name)
       _this.getActivityInfo()
       wx.showMenuItems({
         menuList: [
@@ -171,7 +171,7 @@
         },
         cancel: function (error) {
           // 用户取消分享后执行的回调函数
-          alert(error)
+          alert(error + 'error')
         }
       })
     },
