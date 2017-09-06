@@ -109,6 +109,10 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
+      if (this.$store.state.paramData) {
+        console.log(this.$store.state.paramData)
+        this.friends = this.$store.state.paramData.friends
+      }
     },
     methods: {
       removeItem (index) {
