@@ -37,7 +37,6 @@ if (window.sessionStorage.getItem('userId')) {
 
 router.beforeEach((to, from, next) => {
   if (to.fullPath !== '/authorization') {
-    alert('config')
     axios({
       method: 'get',
       url: '/getWxConfig',
@@ -64,7 +63,7 @@ router.beforeEach((to, from, next) => {
       })
       wx.ready(function () {
         // 隐藏所有非基础按钮接口
-        // wx.hideAllNonBaseMenuItem()
+        wx.hideAllNonBaseMenuItem()
       })
     }).catch(error => {
       console.log(error)
