@@ -86,10 +86,7 @@
         verifyNo: '',
         password: '',
         activity: {},
-        friends: [{
-          name: '张三',
-          gender: '1'
-        }]
+        friends: []
       }
     },
     created () {
@@ -117,6 +114,7 @@
       removeItem (index) {
         this.friends.splice(index, 1)
       },
+//      显示和关闭绑定手机号
       showBind () {
         this.bindPhone = true
       },
@@ -135,7 +133,6 @@
           if (!res.data.success) {
             Toast(res.data.error.message)
           } else {
-            console.log(res.data.data)
             this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
             let circleObj = {
               id: res.data.data.coterie.id,

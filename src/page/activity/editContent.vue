@@ -17,18 +17,12 @@
       </ul>
     </div>
     <!--上传图片 start-->
-    <!--<div class="dinglian-edit-photo">
-      <input id="photo" accept="image/*" :capture="capture" type="file" @change="uploadPhoto" multiple />
-      <label for="photo" style="width: 100%;margin-left: 0"></label>
-      <i class="dinglian-edit-photoShow"v-show="imgLists.length">
-        <img :src="photo" alt="" v-for="photo in imgLists">
-      </i>
-    </div>-->
     <div class="dinglian-edit-photo" @click="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
         <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds" v-if="ioslocIds.length">
         <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-else>
       </i>
+      <span>sowowowo</span>
     </div>
     <!--上传图片 end-->
     <mt-datetime-picker
