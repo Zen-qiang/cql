@@ -18,7 +18,7 @@
     <mt-tab-container v-model="selected">
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
         <ul class="dinglian-choose-tags clearfix">
-          <li :id="item.id" :key="item.id" v-for="item in tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
+          <li :id="item.id" :key="item.id" v-for="item in tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
         </ul>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -102,7 +102,10 @@
           }
         }).catch()
       },
-      checkTag (tagId) {
+      checkTag (tagId, tagName) {
+        if (tagName === '不限') {
+          this.selectedTags.splice(1, this.selectedTags.length)
+        }
         // 选中标签
         let idx = this.selectedTags.indexOf(tagId)
         // 判断是否存在数组中，存在则删除
