@@ -1,6 +1,6 @@
 <template>
   <mt-loadmore :top-method="loadTop"
-               :distanceIndex="1"
+               :distanceIndex="3"
                ref="loadTop">
   <div class="dinglian-details-whole">
     <header>

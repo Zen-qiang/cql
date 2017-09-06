@@ -18,10 +18,6 @@ import cookie from './utils/cookie'
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 
-// 引入全局变量配置
-import domain from './domain.js'
-Vue.prototype.domain = domain
-
 // 引入微信jssdk
 import wx from 'weixin-js-sdk'
 

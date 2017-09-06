@@ -207,32 +207,6 @@
           }
         })
       },
-//      uploadImg (e) {
-//        var vm = this
-//        if (window.__wxjs_is_wkwebview) {
-//          e.forEach(imgs => {
-//            wx.getLocalImgData({
-//              localId: imgs, // 图片的localID
-//              success: function (res) {
-//                var localData = res.localData
-//                localData.replace('jgp', 'jpeg')
-//                vm.localImgs.push(localData)
-//              }
-//            })
-//          })
-//        } else {
-//          vm.localImgs = e
-//        }
-//        e.forEach(li => {
-//          wx.uploadImage({
-//            localId: li, // 需要上传的图片的本地ID，由chooseImage接口获得
-//            isShowProgressTips: 1, // 默认为1，显示进度提示
-//            success: function (res) {
-//              vm.serverIds.push(res.serverId)
-//            }
-//          })
-//        })
-//      },
 //        判断移动设备
 //      judgmentIos () {
 //        let u = navigator.userAgent
@@ -251,27 +225,6 @@
           this.chooseCircle = false
         }
       },
-//      上传图片
-//      uploadPhoto (e) {
-//        let vm = this
-//        vm.imgLists = []
-//        vm.imgFilesList = []
-//        var files = e.target.files || e.dataTransfer.files
-//        if (files.length >= 1 && files.length <= 3) {
-//          for (let i = 0; i < files.length; i++) {
-//            lrz(files[i], {width: 450}).then(res => {
-//              res.base64 = res.base64 + ''
-//              vm.imgLists.push(res.base64)
-//              // vm.imgFilesList.push(res.file)
-//              vm.imgFilesList.push(res.formData.get('file'))
-//            }).always(function () {
-//              e.target.value = null
-//            })
-//          }
-//        } else {
-//          Toast('不允许上传图片超过3张！')
-//        }
-//      },
       openPicker () {
         this.$refs.picker.open()
       },
