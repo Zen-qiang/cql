@@ -5,12 +5,12 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="🔍 请输入活动关键词" v-model="keyword" @search="searchActivity">
+      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity">
+      <span v-show="!keyword"></span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
   </mt-loadmore>
     <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
-      发布活动
     </button>
   </div>
 
@@ -96,6 +96,7 @@
     height: 0.44rem;
     background: #f2f2f2;
     padding: 0.1rem 0.15rem;
+    position: relative;
   }
   .dinglian-circle-search > input[type^=search] {
     margin: 0 auto;
@@ -107,7 +108,16 @@
     color: #999999;
     text-align: center;
     float: left;
-    padding-right: 10px;
+    padding-right: 0.1rem;
+  }
+  .dinglian-circle-search > span {
+    position: absolute;
+    background: url("../../assets/images/magnifier.svg") no-repeat center center;
+    background-size: 0.14rem 0.14rem;
+    left: 1.15rem;
+    top: 0.15rem;
+    width: 0.14rem;
+    height: 0.14rem;
   }
   .dinglian-activityLists-all {
     position: relative;
@@ -117,11 +127,11 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 80px;
-    height: 80px;
-    background: #ffd200;
+    width: 0.6rem;
+    height: 0.6rem;
     border: none;
-    border-radius: 40px;
-    line-height: 80px;
+    border-radius: 50%;
+    background: url("../../assets/images/snniuz.png") no-repeat center center;
+    background-size: 0.6rem 0.6rem;
   }
 </style>

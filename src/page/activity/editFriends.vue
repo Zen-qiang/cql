@@ -32,7 +32,7 @@
     methods: {
       addItem () {
         let friend = {
-          name: '张三',
+          name: '',
           gender: '1'
         }
         this.friends.push(friend)
@@ -44,6 +44,7 @@
         item.gender = val
       },
       confirm () {
+        console.log(this.friends)
         this.paramData.friends = this.friends
         this.$store.commit(types.PARAMDATA, this.paramData)
         this.$router.push({'path': '/signUpActivity'})

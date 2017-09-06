@@ -15,13 +15,8 @@ import axios from './http'
 import * as types from './store/mutation-types'
 import cookie from './utils/cookie'
 
-// Vue.use(axios)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
-
-// 引入全局变量配置
-import domain from './domain.js'
-Vue.prototype.domain = domain
 
 // 引入微信jssdk
 import wx from 'weixin-js-sdk'
@@ -64,6 +59,12 @@ router.beforeEach((to, from, next) => {
       wx.ready(function () {
         // 隐藏所有非基础按钮接口
         // wx.hideAllNonBaseMenuItem()
+        wx.showMenuItems({
+          menuList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+          ] // 要显示的菜单项，所有menu项见附录3
+        })
       })
     }).catch(error => {
       console.log(error)
@@ -73,14 +74,10 @@ router.beforeEach((to, from, next) => {
     if (store.state.userId) {
       next()
     } else {
-      // console.log('get user authorization')
       cookie.setCookie('redirectUrl', to.fullPath)
       axios({
         method: 'get',
         url: 'userAuthorization'
-        // params: {
-        //   callbackUrl: encodeURI(location.href + 'authorization')
-        // }
       }).then(res => {
         // window.location.href = res.data
         location.assign(res.data)

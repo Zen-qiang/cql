@@ -69,7 +69,7 @@
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
       <!--<input type="text" v-model="isOpen" disabled>-->
-     <span>{{isOpen ? '公开':'非公开' }}</span>
+      <span>{{isOpen ? '公开':'非公开' }}</span>
       <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
       <!--<mt-switch v-model="isOpen" class="edit-switch" @change="preventSwitch" ></mt-switch>-->
     </div>
@@ -109,7 +109,7 @@
         carouselList: [],
         address: '漕宝路112号',
         types: '羽毛球',
-        activityInfo: '',
+        activityInfo: {},
         isOpen: '',
         status: '',
         nickName: '',
@@ -130,49 +130,36 @@
       }
     },
     created () {
-//      this.activityId = this.$store.state.activityId
-      this.getActivityInfo()
-      alert('created' + this.activityInfo.name)
-    },
-    mounted () {
-      var _this = this
-      alert(_this.activityInfo.name)
-      _this.getActivityInfo()
-      wx.showMenuItems({
-        menuList: [
-          'onMenuShareTimeline',
-          'onMenuShareAppMessage'
-        ] // 要显示的菜单项，所有menu项见附录3
-      })
-//        朋友圈
-      wx.onMenuShareTimeline({
-        title: 'test', // 分享标题
-        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: '', // 分享图标
-        success: function () {
-          // 用户确认分享后执行的回调函数
-          alert(_this.activityInfo.name + '朋友圈')
-        },
-        cancel: function () {
-          // 用户取消分享后执行的回调函数
-        }
-      })
-//        朋友
-      wx.onMenuShareAppMessage({
-        title: _this.activityInfo.name, // 分享标题
-        desc: _this.activityInfo.description, // 分享描述
-        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: '', // 分享图标
-        type: '', // 分享类型,music、video或link，不填默认为link
-        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-        success: function () {
-          // 用户确认分享后执行的回调函数
-          alert(_this.activityInfo.name + '朋友')
-        },
-        cancel: function (error) {
-          // 用户取消分享后执行的回调函数
-          alert(error)
-        }
+      this.getActivityInfo(function (data) {
+        wx.ready(function () {
+          //        朋友圈
+          wx.onMenuShareTimeline({
+            title: data.name, // 分享标题
+            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+          //        朋友
+          wx.onMenuShareAppMessage({
+            title: data.name, // 分享标题
+            desc: data.description, // 分享描述
+            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+        })
       })
     },
     methods: {
@@ -186,7 +173,7 @@
         this.$router.push({'path': '/activityMessage/' + this.topicId})
       },
 //        获取活动详情
-      getActivityInfo () {
+      getActivityInfo (callbackFn) {
         this.axios({
           method: 'get',
           url: '/getActivityInfo',
@@ -196,7 +183,6 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
-          alert('hanshu' + this.activityInfo.name)
           this.isOpen = res.data.data.isOpen
           this.allowSignUp = res.data.data.allowSignUp
           this.nickName = res.data.data.organizer.nickName
@@ -215,6 +201,7 @@
               this.carouselList.push({url: pics[i]})
             }
           }
+          callbackFn(res.data.data)
         }).catch()
       },
 //      参加活动

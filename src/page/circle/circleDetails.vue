@@ -1,6 +1,6 @@
 <template>
   <mt-loadmore :top-method="loadTop"
-               :distanceIndex="1"
+               :distanceIndex="3"
                ref="loadTop">
   <div class="dinglian-details-whole">
     <header>
@@ -74,42 +74,7 @@
       }
     },
     mounted () {
-      wx.ready(function () {
-        var _this = this
-        wx.showMenuItems({
-          menuList: [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage'
-          ] // 要显示的菜单项，所有menu项见附录3
-        })
-//        朋友圈
-        wx.onMenuShareTimeline({
-          title: _this.circle.name, // 分享标题
-          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: '', // 分享图标
-          success: function () {
-            // 用户确认分享后执行的回调函数
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-          }
-        })
-//        朋友
-        wx.onMenuShareAppMessage({
-          title: _this.circle.name, // 分享标题
-          desc: _this.circle.description, // 分享描述
-          link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: '', // 分享图标
-          type: '', // 分享类型,music、video或link，不填默认为link
-          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-          success: function () {
-            // 用户确认分享后执行的回调函数
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-          }
-        })
-      })
+
     },
     created () {
       this.loadCircleInfo(this.circleId)
@@ -146,10 +111,43 @@
           params: param
         }).then(res => {
           this.circle = res.data.data
+          this.sharePeople(res.data.data)
           this.coverStyle.background = 'url(' + this.circle.cover + ')'
           this.initLayout(this.circle)
           this.getTopicList(this.selected)
         }).catch()
+      },
+      sharePeople () {
+        var _this = this
+        wx.ready(function () {
+//        朋友圈
+          wx.onMenuShareTimeline({
+            title: _this.circle.name, // 分享标题
+            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+//        朋友
+          wx.onMenuShareAppMessage({
+            title: _this.circle.name, // 分享标题
+            desc: _this.circle.description, // 分享描述
+            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+        })
       },
       getTopicList (dataType) {
         let param = {
