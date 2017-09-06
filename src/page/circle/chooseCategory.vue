@@ -110,6 +110,7 @@
         }
         if (tagName !== '不限' && this.isUnlimited) {
           this.selectedTags.splice(1, this.selectedTags.length)
+          this.isUnlimited = false
         }
         // 选中标签
         let idx = this.selectedTags.indexOf(tagId)
