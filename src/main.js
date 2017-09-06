@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
       })
       wx.ready(function () {
         // 隐藏所有非基础按钮接口
-        wx.hideAllNonBaseMenuItem()
+        // wx.hideAllNonBaseMenuItem()
         wx.showMenuItems({
           menuList: [
             'onMenuShareTimeline',
