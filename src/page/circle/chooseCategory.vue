@@ -37,6 +37,7 @@
         activityType: [],
         tagsList: [],
         selectedTags: [],
+        isUnlimited: false,
         tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')]
         // circleName: ''
       }
@@ -104,6 +105,10 @@
       },
       checkTag (tagId, tagName) {
         if (tagName === '不限') {
+          this.selectedTags.splice(1, this.selectedTags.length)
+          this.isUnlimited = true
+        }
+        if (tagName !== '不限' && this.isUnlimited) {
           this.selectedTags.splice(1, this.selectedTags.length)
         }
         // 选中标签
