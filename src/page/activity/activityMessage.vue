@@ -109,6 +109,7 @@
           method: 'get',
           url: '/getActivityTopic',
           params: {
+            userId: this.$store.state.userId,
             topicId: this.$route.params.id
           }
         }).then(res => {
