@@ -266,6 +266,7 @@
         formdata.append('isOpen', this.isOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
+        formdata.append('endTime', this.startTime.valueOf())
 //        for (var i in this.imgFilesList) {
 //          let idx = parseInt(i) + 1
 //          formdata.append('pic' + idx, this.imgFilesList[i])

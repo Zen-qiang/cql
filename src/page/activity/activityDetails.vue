@@ -128,7 +128,7 @@
         topicId: '',
         activityId: '',
         uid: this.$store.state.userId,
-        mobileHref: 'tel:15221545361'
+        mobileHref: 'tel:' + this.$store.state.userPhoneNo
       }
     },
     created () {

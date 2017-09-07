@@ -60,11 +60,9 @@
         this.$router.push({'path': '/myActivity'})
       },
       redirectCircleDetails () {
-//        this.$store.commit(types.CIRCLEID, this.circle.id)
         this.$router.push({'path': '/circleDetails/' + this.circle.id})
       },
       redirectActivityDetails () {
-//        this.$store.commit(types.ACTIVITYID, this.activityId)
         this.$router.push({'path': '/activityDetails/' + this.activityId})
       }
     }
