@@ -42,7 +42,7 @@
       <span class="dinglian-details-address"></span>
     </div>
 
-    <div class="dinglian-details-sign">
+    <div class="dinglian-details-sign" @click="registerInformation">
       <label for="">报名信息</label>
       <span>
         <ul>
@@ -170,6 +170,10 @@
       })
     },
     methods: {
+//      跳转到查看报名人数
+      registerInformation () {
+        this.$router.push({'path': '/praiseMembers'})
+      },
       preventSwitch () {
         if (this.edit === '编辑') {
           Toast('请点击右上方的编辑按钮')
