@@ -424,6 +424,11 @@
     display: flex;
     flex-flow: row nowrap;
   }
+  .dinglian-details-activityMembers > img {
+    display: block;
+    width: 10px;
+    height: 10px;
+  }
   .dinglian-details-types {
     width: 100%;
     height: 50px;

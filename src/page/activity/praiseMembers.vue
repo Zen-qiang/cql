@@ -38,7 +38,7 @@
       }
     },
     created () {
-      this.activityId = this.$store.state.activityId
+      this.activityId = this.$route.params.id
       this.getActivityMembers()
     },
     methods: {
