@@ -28,7 +28,8 @@
     <div class="dinglian-details-status">
       <label for="">组织者</label>
       <input type="text" v-model="nickName" disabled>
-      <span class="dinglian-details-mobile"></span>
+      <a :href="mobileHref" class="dinglian-details-mobile"></a>
+      <!--<span class="dinglian-details-mobile"></span>-->
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
@@ -126,7 +127,8 @@
         allowSignUp: '',
         topicId: '',
         activityId: '',
-        uid: this.$store.state.userId
+        uid: this.$store.state.userId,
+        mobileHref: 'tel:15221545361'
       }
     },
     created () {
@@ -384,7 +386,7 @@
     background-color: #ffffff;
     flex: 2;
   }
-  .dinglian-details-status > span {
+  .dinglian-details-status > span,.dinglian-details-status > a {
     height: 100%;
     width: 45px;
     display: inline-block;
