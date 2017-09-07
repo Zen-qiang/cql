@@ -48,8 +48,8 @@
     },
     data () {
       return {
-        activity: this.messageLists.activity,
-        topic: ''
+        activity: this.messageLists[0].activity,
+        topic: {}
       }
     },
     created () {
