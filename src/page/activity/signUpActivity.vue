@@ -299,6 +299,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #dddddd;
+    background-color: #ffffff;
   }
   .dinglian-alone-users > ul {
     display: flex;
@@ -313,6 +314,7 @@
     padding-left: 0.25rem;
     width: 0.55rem;
     margin-right: 30px;
+    background-color: #ffffff;
   }
   .dinglian-alone-users > span {
     display: inline-block;
