@@ -22,7 +22,7 @@
         <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds" v-if="ioslocIds.length">
         <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-else>
       </i>
-      <span>sowowowo</span>
+      <!--<span>sowowowo</span>-->
     </div>
     <!--上传图片 end-->
     <mt-datetime-picker

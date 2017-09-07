@@ -82,7 +82,7 @@
           url: '/createActivityTopic',
           data: {
             userId: this.$store.state.userId,
-            activityId: this.$store.state.activityId,
+            activityId: this.activity.activityId,
             description: this.description
           }
         }).then(res => {
