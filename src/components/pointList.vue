@@ -5,8 +5,8 @@
         <div class="dinglian-mem-firstMember">
           <img :src="item.picture">
           <div class="clearfix">
-            <h4 v-if="item.gender === 1">{{item.name}} 男</h4>
-            <h4 v-else>{{item.name}} 女</h4>
+            <h4 v-if="item.gender === 1">{{item.nickName}} 男</h4>
+            <h4 v-else>{{item.nickName}} 女</h4>
             <span>{{item.createTime | formatDate}}</span>
           </div>
         </div>

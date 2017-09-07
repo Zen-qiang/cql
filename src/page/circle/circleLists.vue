@@ -147,7 +147,6 @@
         if (this.keyword) {
           param.keyword = this.keyword
         }
-        // console.log(param)
         this.axios({
           method: 'get',
           url: 'getCoterieList',
