@@ -44,10 +44,8 @@
 
     <div class="dinglian-details-sign" @click="registerInformation">
       <label for="">报名信息</label>
-      <span>
-        <ul>
-          <li v-for="item in activityMembers">{{item.picture}}</li>
-        </ul>
+      <span class="dinglian-details-activityMembers">
+        <img :src="item.picture" alt="" v-for="item in activityMembers">
       </span>
       <div></div>
     </div>
@@ -172,7 +170,7 @@
     methods: {
 //      跳转到查看报名人数
       registerInformation () {
-        this.$router.push({'path': '/praiseMembers'})
+        this.$router.push({'path': '/praiseMembers/' + this.activityInfo.activityId})
       },
       preventSwitch () {
         if (this.edit === '编辑') {
@@ -411,6 +409,8 @@
     line-height: 50px;
     font-size: 14px;
     border-bottom: 1px solid #dddddd;
+    display: flex;
+    flex-flow: row nowrap;
   }
   .dinglian-details-sign > label {
     height: 100%;
@@ -419,6 +419,10 @@
     width: 80px;
     padding-left: 15px;
     color: #999999;
+  }
+  .dinglian-details-activityMembers {
+    display: flex;
+    flex-flow: row nowrap;
   }
   .dinglian-details-types {
     width: 100%;

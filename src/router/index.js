@@ -245,7 +245,7 @@ export default new Router({
       }
     },
     {
-      path: '/praiseMembers',
+      path: '/praiseMembers/:id',
       name: 'PraiseMembers',
       component: PraiseMembers,
       meta: {

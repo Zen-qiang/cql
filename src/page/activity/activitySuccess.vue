@@ -26,7 +26,7 @@
 
 </template>
 <script>
-  import * as types from '../../store/mutation-types'
+//  import * as types from '../../store/mutation-types'
   export default {
     data () {
       return {
@@ -53,8 +53,8 @@
     },
     methods: {
       redirectActivityMembers () {
-        this.$store.commit(types.ACTIVITYID, this.activityId)
-        this.$router.push({'path': '/praiseMembers'})
+//        this.$store.commit(types.ACTIVITYID, this.activityId)
+        this.$router.push({'path': '/praiseMembers/' + this.activityId})
       },
       redirectMyActivity () {
         this.$router.push({'path': '/myActivity'})
