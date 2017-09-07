@@ -26,30 +26,59 @@
         </div>
       </div>
     <div class="dinglian-lists-footer clearfix" v-show="footer">
-      <span>12</span>
-      <span>23</span>
+      <span>{{messageLists.commentCnt}}</span>
+      <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">
+        {{messageLists.praiseCnt}}
+      </span>
     </div>
   </div>
 </template>
 <script>
   import * as types from '../../store/mutation-types'
+  import { Toast } from 'mint-ui'
   export default {
     name: 'AloneActivity',
     props: {
       footer: {
         type: Boolean
       },
-      activity: {
+      messageLists: {
         type: Object
       }
     },
     data () {
-      return {}
+      return {
+        activity: this.messageLists.activity,
+        topic: ''
+      }
+    },
+    created () {
+      this.topic.topicId = this.messageLists.topicId
     },
     methods: {
       redirectActivityDetails (id) {
         this.$store.commit(types.ACTIVITYID, id)
         this.$router.push({'path': '/activityDetails'})
+      },
+      praiseTopic (topic) {
+        // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
+        if (!topic.hasPraise) {
+          this.axios({
+            method: 'get',
+            url: 'praiseTopic',
+            params: {
+              userId: this.$store.state.userId,
+              topicId: topic.topicId
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              topic.hasPraise = true
+              topic.praiseCnt++
+            }
+          }).catch()
+        }
       }
     }
   }
@@ -154,9 +183,21 @@
     background-size: 14px 14px;
     padding-left: 19px;
   }
-  .dinglian-lists-footer span:last-of-type {
+  /*.dinglian-lists-footer span:last-of-type {*/
+    /*margin-left: 75px;*/
+    /*background: url("../../assets/images/like.svg") no-repeat left center;*/
+    /*background-size: 14px 14px;*/
+    /*padding-left: 19px;*/
+  /*}*/
+  .dinglian-lists-footer-like {
     margin-left: 75px;
     background: url("../../assets/images/like.svg") no-repeat left center;
+    background-size: 14px 14px;
+    padding-left: 19px;
+  }
+  .dinglian-lists-footer .dinglian-lists-footer-likeActive {
+    margin-left: 75px;
+    background: url("../../assets/images/likeActive.svg") no-repeat left center;
     background-size: 14px 14px;
     padding-left: 19px;
   }

@@ -12,12 +12,12 @@
       <!--<p>快来报名呀，一起触发</p>-->
     </div>
 
-    <alone-activity :footer="true" :activity="activity"></alone-activity>
+    <alone-activity :footer="true" :messageLists="messageLists"></alone-activity>
 
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
         <span>共有{{messageLists.praiseCnt}}人点过赞</span>
-        <ul>
+        <ul @click="goPointList">
           <li v-for="item in messageLists.praise">
             {{item.nickName}}
           </li>
@@ -73,10 +73,15 @@
         activity: {},
         messageLists: '',
         topicCommentList: '',
-        description: ''
+        description: '',
+        topic: ''
       }
     },
     methods: {
+//      跳转到点赞列表
+      goPointList () {
+        this.$router.push({'path': '/pointList/' + this.$route.params.id})
+      },
 //        发送评论
       createActivityTopic () {
         this.axios({

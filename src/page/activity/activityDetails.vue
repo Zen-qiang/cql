@@ -405,14 +405,15 @@
     flex: 2;
   }
   .dinglian-details-sign {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    height: 0.5rem;
+    line-height: 0.5rem;
     font-size: 14px;
     border-bottom: 1px solid #dddddd;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
   }
   .dinglian-details-sign > label {
     height: 100%;
