@@ -27,7 +27,7 @@
       </div>
     <div class="dinglian-lists-footer clearfix" v-show="footer">
       <span>{{messageLists.commentCnt}}</span>
-      <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">
+      <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': topic.hasPraise}]">
         {{messageLists.praiseCnt}}
       </span>
     </div>
