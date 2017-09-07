@@ -44,8 +44,12 @@
         item.gender = val
       },
       confirm () {
-        console.log(this.friends)
-        this.paramData.friends = this.friends
+        for (let i in this.friends) {
+          if (this.friends[i].name !== '') {
+            this.paramData.friends.push(this.friends[i])
+          }
+        }
+//        this.paramData.friends = this.friends
         this.$store.commit(types.PARAMDATA, this.paramData)
         this.$router.push({'path': '/signUpActivity'})
       }
