@@ -45,7 +45,7 @@
     <div class="dinglian-details-sign" @click="registerInformation">
       <label for="">报名信息</label>
       <span>
-
+        {{userCount.currentCount}}/ {{userCount.minCount}} ~ {{userCount.maxCount}}
       </span>
       <div class="dinglian-details-activityMembers">
         <img :src="item.picture" alt="" v-for="item in activityMembers">
@@ -133,7 +133,8 @@
         activityId: '',
         activityMembers: '',
         uid: this.$store.state.userId,
-        mobileHref: 'tel:' + this.$store.state.userPhoneNo
+        mobileHref: 'tel:' + this.$store.state.userPhoneNo,
+        userCount: ''
       }
     },
     created () {
@@ -194,6 +195,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          this.userCount = res.data.data.userCount
           this.activityMembers = res.data.data.activityMembers
           this.isOpen = res.data.data.isOpen
           this.allowSignUp = res.data.data.allowSignUp
