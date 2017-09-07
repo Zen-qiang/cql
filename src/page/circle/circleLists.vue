@@ -9,7 +9,7 @@
     </form>
     <carousel :carouselList="carouselList"></carousel>
     <mt-navbar v-model="tagIndex" class="dinglian-circle-navbar">
-      <mt-tab-item id="0" @click.native="getTagList(null)">全部</mt-tab-item>
+      <mt-tab-item id="0">全部</mt-tab-item>
       <mt-tab-item :id="item.id" :key="item.id" v-for="item of activityType" @click.native="getTagList(item.id)">{{item.name}}</mt-tab-item>
     </mt-navbar>
 
