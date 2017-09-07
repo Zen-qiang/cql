@@ -119,6 +119,7 @@
         }).catch()
       },
       hiddenTagList () {
+        this.resetListData()
         this.slvTagsArr = []
         this.tagsList = []
         this.flvTagId = null
@@ -138,6 +139,7 @@
         }).then(res => {
           this.tagsList = res.data.data
           this.flvTagId = parentId
+          this.resetListData()
           this.getCoterieList()
         }).catch()
       },
