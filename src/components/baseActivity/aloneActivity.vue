@@ -48,12 +48,16 @@
     },
     data () {
       return {
-        activity: this.messageLists[0].activity,
-        topic: {}
+        activity: this.messageLists.activity,
+        topic: {
+          topicId: '',
+          hasPraise: false
+        }
       }
     },
     created () {
       this.topic.topicId = this.messageLists.topicId
+      console.log(this.messageLists)
     },
     methods: {
       redirectActivityDetails (id) {
