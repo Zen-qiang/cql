@@ -17,7 +17,7 @@
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
         <span>共有{{messageLists.praiseCnt}}人点过赞</span>
-        <ul @click="goPointList">
+        <ul @click="goPointList(messageLists.praiseCnt)">
           <li v-for="item in messageLists.praise">
             {{item.nickName}}
           </li>
@@ -79,8 +79,10 @@
     },
     methods: {
 //      跳转到点赞列表
-      goPointList () {
-        this.$router.push({'path': '/pointList/' + this.$route.params.id})
+      goPointList (num) {
+        if (num > 0) {
+          this.$router.push({'path': '/pointList/' + this.$route.params.id})
+        }
       },
 //        发送评论
       createActivityTopic () {
