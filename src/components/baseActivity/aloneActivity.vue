@@ -26,9 +26,9 @@
         </div>
       </div>
     <div class="dinglian-lists-footer clearfix" v-show="footer">
-      <span>{{messageLists.commentCnt}}</span>
+      <span>{{topic.commentCnt}}</span>
       <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': topic.hasPraise}]">
-        {{messageLists.praiseCnt}}
+        {{topic.praiseCnt}}
       </span>
     </div>
   </div>
@@ -51,12 +51,17 @@
         activity: this.messageLists.activity,
         topic: {
           topicId: '',
-          hasPraise: false
+          hasPraise: '',
+          praiseCnt: '',
+          commentCnt: ''
         }
       }
     },
     created () {
       this.topic.topicId = this.messageLists.topicId
+      this.topic.hasPraise = this.messageLists.hasPraise
+      this.topic.praiseCnt = this.messageLists.praiseCnt
+      this.topic.commentCnt = this.messageLists.commentCnt
       console.log(this.messageLists)
     },
     methods: {
@@ -79,7 +84,7 @@
               Toast(res.data.error.message)
             } else {
               topic.hasPraise = true
-              topic.praiseCnt++
+              topic.praiseCnt = res.data.praiseCnt
             }
           }).catch()
         }
