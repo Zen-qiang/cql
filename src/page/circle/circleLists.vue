@@ -9,7 +9,7 @@
     </form>
     <carousel :carouselList="carouselList"></carousel>
     <mt-navbar v-model="tagIndex" class="dinglian-circle-navbar">
-      <mt-tab-item id="0">全部</mt-tab-item>
+      <mt-tab-item id="0" @click.native="hiddenTagList()">全部</mt-tab-item>
       <mt-tab-item :id="item.id" :key="item.id" v-for="item of activityType" @click.native="getTagList(item.id)">{{item.name}}</mt-tab-item>
     </mt-navbar>
 
@@ -115,6 +115,12 @@
         }).then(res => {
           this.activityType = res.data.data
         }).catch()
+      },
+      hiddenTagList () {
+        this.slvTagsArr = []
+        this.tagsList = []
+        this.flvTagId = null
+        this.getCoterieList()
       },
       getTagList (parentId) {
         // 获取二级标签
