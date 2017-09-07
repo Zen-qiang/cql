@@ -141,7 +141,6 @@
           this.getCoterieList()
         }).catch()
       },
-
       getCoterieList () {
         // 获取圈子列表
         let param = {}
