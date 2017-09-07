@@ -17,13 +17,13 @@
     <mt-tab-container v-model="tagIndex">
       <mt-tab-container-item id="0">
         <ul class="dinglian-tagsLists-all clearfix">
-          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
+          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
         </ul>
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
         <ul class="dinglian-tagsLists-all clearfix">
-          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
+          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
         </ul>
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
@@ -62,7 +62,8 @@
         pageSize: 10,
         page: 1,
         carouselList: [],
-        allLoaded: false
+        allLoaded: false,
+        isUnlimited: false
       }
     },
     created () {
@@ -164,7 +165,15 @@
           }
         }).catch()
       },
-      checkTag (tagId) {
+      checkTag (tagId, tagName) {
+        if (tagName === '不限') {
+          this.slvTagsArr.splice(0, this.slvTagsArr.length)
+          this.isUnlimited = true
+        }
+        if (tagName !== '不限' && this.isUnlimited) {
+          this.slvTagsArr.splice(0, this.slvTagsArr.length)
+          this.isUnlimited = false
+        }
         // 勾选二级标签
         let idx = this.slvTagsArr.indexOf(tagId)
         if (idx > -1) {
