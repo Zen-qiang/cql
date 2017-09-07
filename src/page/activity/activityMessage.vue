@@ -79,20 +79,21 @@
     methods: {
 //        发送评论
       createActivityTopic () {
-        console.log(this.activity.activityId)
         this.axios({
           method: 'post',
-          url: '/createActivityTopic',
+          url: '/commentTopic',
           data: {
             userId: this.$store.state.userId,
-            activityId: this.activity.activityId,
-            description: this.description
+            topicId: this.$route.params.id,
+            comment: this.description
           }
         }).then(res => {
           if (res.data.success) {
             this.topicCommentList = []
             this.getTopicCommentList()
             Toast('评论成功！')
+          } else {
+            Toast(res.data.error.message)
           }
         })
       },
