@@ -19,10 +19,10 @@
     <!--上传图片 start-->
     <div class="dinglian-edit-photo" @click="takePictures">
       <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
-        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds" v-if="ioslocIds.length">
-        <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-else>
+        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
+        <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">
       </i>
-      <span>sowowowo</span>
+      <!--<span>sowowowo</span>-->
     </div>
     <!--上传图片 end-->
     <mt-datetime-picker

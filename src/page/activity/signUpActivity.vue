@@ -36,7 +36,7 @@
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
         <input type="text" v-model="telphone" v-show="!needBind">
-        <span v-show="needBind" @click="showBind()">绑定（仅组织者可见）</span>
+        <span v-show="needBind" @click="showBind()">绑定手机号</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
@@ -50,7 +50,8 @@
     <div class="dinglian-alone-addUsers">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
-        <span>{{friends.length}}</span>
+        <span v-if="friends.length > 0">{{friends.length}}</span>
+        <span v-else>0</span>
       </div>
       <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
         <ul>
@@ -109,9 +110,8 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
-      console.log(this.$store.state.paramData)
-      if (this.$store.state.paramData) {
-        console.log(this.$store.state.paramData)
+      console.log(this.$store.state.paramData.friends)
+      if (this.$store.state.paramData.friends.length > 0) {
         this.friends = this.$store.state.paramData.friends
       }
     },
@@ -129,6 +129,7 @@
       checkGender (val) {
         this.gender = val
       },
+//      报名过程；成功后跳转成功页面
       confirm (data) {
         this.axios({
           method: 'post',
@@ -158,6 +159,7 @@
           console.log(err)
         })
       },
+//      立即报名
       signUp () {
         let data = {
           activityId: this.activity.activityId,
@@ -170,6 +172,7 @@
         }
         this.confirm(data)
       },
+//      跳转编辑好友页面
       showAddFriend () {
         let paramData = {
           userName: this.userName,
@@ -181,6 +184,7 @@
         this.$store.commit(types.ACTIVITY, this.activity)
         this.$router.push({'path': '/editFriends'})
       },
+//      发送验证码
       sendCode () {
         if (this.needBind) {
           if (!this.telphone) {
@@ -276,6 +280,7 @@
   .dinglian-alone-addUsers {
     background: #ffffff;
     font-size: 14px;
+    margin-bottom: 0.5rem;
   }
   .dinglian-alone-addUsers > div {
     height: 0.5rem;
@@ -294,6 +299,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #dddddd;
+    background-color: #ffffff;
   }
   .dinglian-alone-users > ul {
     display: flex;
@@ -308,6 +314,7 @@
     padding-left: 0.25rem;
     width: 0.55rem;
     margin-right: 30px;
+    background-color: #ffffff;
   }
   .dinglian-alone-users > span {
     display: inline-block;

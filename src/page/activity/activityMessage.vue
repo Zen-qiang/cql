@@ -11,7 +11,9 @@
       </div>
       <!--<p>快来报名呀，一起触发</p>-->
     </div>
+
     <alone-activity :footer="true" :activity="activity"></alone-activity>
+
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
         <span>共有{{messageLists.praiseCnt}}人点过赞</span>
@@ -79,17 +81,19 @@
       createActivityTopic () {
         this.axios({
           method: 'post',
-          url: '/createActivityTopic',
+          url: '/commentTopic',
           data: {
             userId: this.$store.state.userId,
-            activityId: this.$store.state.activityId,
-            description: this.description
+            topicId: this.$route.params.id,
+            comment: this.description
           }
         }).then(res => {
           if (res.data.success) {
             this.topicCommentList = []
             this.getTopicCommentList()
             Toast('评论成功！')
+          } else {
+            Toast(res.data.error.message)
           }
         })
       },
