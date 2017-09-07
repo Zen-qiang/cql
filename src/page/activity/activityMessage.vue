@@ -11,7 +11,9 @@
       </div>
       <!--<p>快来报名呀，一起触发</p>-->
     </div>
+
     <alone-activity :footer="true" :activity="activity"></alone-activity>
+
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
         <span>共有{{messageLists.praiseCnt}}人点过赞</span>
@@ -77,6 +79,7 @@
     methods: {
 //        发送评论
       createActivityTopic () {
+        console.log(this.activity.activityId)
         this.axios({
           method: 'post',
           url: '/createActivityTopic',
