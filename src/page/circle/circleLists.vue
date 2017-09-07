@@ -74,10 +74,13 @@
     mounted () {
     },
     methods: {
+      resetListData () {
+        this.page = 1
+        this.coterieList = []
+      },
 //        下拉刷新
       loadTop () {
-        this.coterieList = []
-        this.page = 1
+        this.resetListData()
         this.getCoterieList()
         this.$refs.loadTop.onTopLoaded()
       },
@@ -88,8 +91,7 @@
       },
 //      搜索圈子
       searchCircle () {
-        this.page = 1
-        this.coterieList = []
+        this.resetListData()
         this.getCoterieList()
       },
       redirectCreateCircle () {
@@ -139,6 +141,7 @@
           this.getCoterieList()
         }).catch()
       },
+
       getCoterieList () {
         // 获取圈子列表
         let param = {}
@@ -159,15 +162,16 @@
           url: 'getCoterieList',
           params: param
         }).then(res => {
-//          let temporary = res.data.data
-//          this.coterieList = res.data.data
-          if (res.data.data.length > 0) {
-            for (let item in res.data.data) {
-              this.coterieList.push(res.data.data[item])
+          if (this.page > 1) {
+            if (res.data.data.length > 0) {
+              for (let item in res.data.data) {
+                this.coterieList.push(res.data.data[item])
+              }
+            } else {
+              this.allLoaded = true
             }
           } else {
-            this.allLoaded = true
-            console.log('end')
+            this.coterieList = res.data.data
           }
         }).catch()
       },
