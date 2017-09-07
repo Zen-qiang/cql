@@ -1,29 +1,21 @@
 <template>
   <div class="dinglian-mem-whole">
     <ul>
-      <li :key="index" v-for="(item, index) in activityMembers">
+      <li :key="index" v-for="(item, index) in TopicPraiseList">
         <div class="dinglian-mem-firstMember">
           <img :src="item.picture">
           <div class="clearfix">
             <h4 v-if="item.gender === 1">{{item.name}} 男</h4>
             <h4 v-else>{{item.name}} 女</h4>
-            <span>报名时间: {{item.signUpTime | formatDate}}</span>
+            <span>{{item.createTime | formatDate}}</span>
           </div>
-          <span class="dinglian-mem-phoneNo"><a :href="'tel:' + item.phoneNo"></a></span>
         </div>
-        <ul class="dinglian-mem-proxy" v-show="item">
-          <li :key="idx" v-for="(retinue, idx) in item.retinues">
-            <span>{{retinue.name}}</span>
-            <span>{{retinue.gender}}</span>
-            <span>dai</span>
-          </li>
-        </ul>
       </li>
     </ul>
   </div>
 </template>
 <script>
-  import { formatDate } from '../../utils/date.js'
+  import { formatDate } from '../utils/date.js'
   export default {
     filters: {
       formatDate (time) {
@@ -33,25 +25,24 @@
     },
     data () {
       return {
-        activityId: '',
-        activityMembers: []
+        TopicPraiseList: []
       }
     },
     created () {
-      this.activityId = this.$route.params.id
-      this.getActivityMembers()
+      this.getTopicPraiseList()
     },
     methods: {
-      getActivityMembers () {
+      getTopicPraiseList () {
         this.axios({
           method: 'get',
-          url: 'getActivityMembers',
+          url: 'getTopicPraiseList',
           params: {
-            userId: this.$store.state.userId,
-            activityId: this.activityId
+            topicId: this.$route.params.id
           }
         }).then(res => {
-          this.activityMembers = res.data.data
+          if (res.data.success) {
+            this.TopicPraiseList = res.data.data
+          }
         }).catch()
       }
     }
@@ -130,14 +121,5 @@
     display: inline-block;
     line-height: 0.23rem;
     margin-left: 15px;
-  }
-  /*拨打电话*/
-  .dinglian-mem-phoneNo > a {
-    list-style: none;
-    background: url("../../assets/images/mobile.svg") no-repeat left center;
-    padding: 10px;
-    background-clip: content-box;
-    background-origin: content-box;
-    margin-right: 5px;
   }
 </style>

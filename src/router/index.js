@@ -105,6 +105,9 @@ import Authorization from '@/page/authorization/authorization.vue'
 // 二维码
 import QrCode from '@/page/circle/qrCode.vue'
 
+// 点赞列表
+const PointList = r => require.ensure([], () => r(require('@/components/pointList')), 'pointList')
+
 const nopage = r => require.ensure([], () => r(require('@/page/nopage')), 'nopage')
 
 Vue.use(Router)
@@ -262,6 +265,12 @@ export default new Router({
       path: '/qrCode',
       name: 'QrCode',
       component: QrCode
+    },
+    // 点赞列表
+    {
+      path: '/pointList/:id',
+      name: 'PointList',
+      component: PointList
     },
     {
       path: '*',
