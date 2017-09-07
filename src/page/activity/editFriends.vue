@@ -44,6 +44,7 @@
         item.gender = val
       },
       confirm () {
+        this.paramData.friends = []
         for (let i in this.friends) {
           if (this.friends[i].name !== '') {
             this.paramData.friends.push(this.friends[i])
