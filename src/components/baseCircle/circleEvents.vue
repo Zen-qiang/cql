@@ -5,10 +5,10 @@
                ref="loadmore">
   <div class="dinglian-lists-whole">
     <ul class="dinglian-lists-ul">
-      <li :key="item.topicId" v-for="item of topicList">
+      <li :key="item.topicId" v-for="item of topicList" @click="redirectActivityInfo(item.activity.activityId)">
         <div class="clearfix dinglian-lists-con">
           <div class="dinglian-lists-con-left">
-            <img :src="item.activity.cover" alt="" @click="redirectActivityInfo(item.activity.activityId)">
+            <img :src="item.activity.cover" alt="">
           </div>
           <div class="dinglian-lists-con-right">
             <div class="dinglian-lists-title clearfix">

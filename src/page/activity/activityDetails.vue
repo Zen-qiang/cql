@@ -44,10 +44,12 @@
 
     <div class="dinglian-details-sign" @click="registerInformation">
       <label for="">报名信息</label>
-      <span class="dinglian-details-activityMembers">
-        <img :src="item.picture" alt="" v-for="item in activityMembers">
+      <span>
+
       </span>
-      <div></div>
+      <div class="dinglian-details-activityMembers">
+        <img :src="item.picture" alt="" v-for="item in activityMembers">
+      </div>
     </div>
     <div class="dinglian-edit-people dinglian-details-types">
       <label for="">人数</label>
@@ -426,8 +428,9 @@
   }
   .dinglian-details-activityMembers > img {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
   }
   .dinglian-details-types {
     width: 100%;

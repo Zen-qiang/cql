@@ -9,7 +9,7 @@
             <h4 v-else>{{item.name}} 女</h4>
             <span>报名时间: {{item.signUpTime | formatDate}}</span>
           </div>
-          <span><a :href="'tel:' + item.phoneNo">b</a></span>
+          <span class="dinglian-mem-phoneNo"><a :href="'tel:' + item.phoneNo"></a></span>
         </div>
         <ul class="dinglian-mem-proxy" v-show="item">
           <li :key="idx" v-for="(retinue, idx) in item.retinues">
@@ -130,5 +130,14 @@
     display: inline-block;
     line-height: 0.23rem;
     margin-left: 15px;
+  }
+  /*拨打电话*/
+  .dinglian-mem-phoneNo > a {
+    list-style: none;
+    background: url("../../assets/images/mobile.svg") no-repeat left center;
+    padding: 10px;
+    background-clip: content-box;
+    background-origin: content-box;
+    margin-right: 5px;
   }
 </style>
