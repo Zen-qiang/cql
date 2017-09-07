@@ -52,7 +52,6 @@
           }
         }).then(res => {
           this.activityMembers = res.data.data
-          console.log(this.activityMembers)
         }).catch()
       }
     }

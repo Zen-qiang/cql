@@ -44,7 +44,11 @@
 
     <div class="dinglian-details-sign">
       <label for="">报名信息</label>
-      <span></span>
+      <span>
+        <ul>
+          <li v-for="item in activityMembers">{{item.picture}}</li>
+        </ul>
+      </span>
       <div></div>
     </div>
     <div class="dinglian-edit-people dinglian-details-types">
@@ -127,6 +131,7 @@
         allowSignUp: '',
         topicId: '',
         activityId: '',
+        activityMembers: '',
         uid: this.$store.state.userId,
         mobileHref: 'tel:' + this.$store.state.userPhoneNo
       }
@@ -185,6 +190,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          this.activityMembers = res.data.data.activityMembers
           this.isOpen = res.data.data.isOpen
           this.allowSignUp = res.data.data.allowSignUp
           this.nickName = res.data.data.organizer.nickName
@@ -428,6 +434,10 @@
     width: 80px;
     padding-left: 15px;
     color: #999999;
+    background-color: #ffffff;
+  }
+  .dinglian-details-types > input {
+    background-color: #ffffff;
   }
   .remarks {
     border-bottom: none;
