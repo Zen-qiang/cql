@@ -27,11 +27,26 @@
         }
       }).then(res => {
         if (res.data.data.openId) {
-          this.getUser(res.data.data.openId)
+          this.checkSubscribe(res.data.data.openId)
         }
       }).catch()
     },
     methods: {
+      checkSubscribe (openId) {
+        this.axios({
+          method: 'get',
+          url: 'checkSubscribe',
+          params: {
+            openId: openId
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.getUser(openId)
+          } else {
+            window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzNTg4NjQwOA==&scene=124#wechat_redirect'
+          }
+        }).catch()
+      },
       getUser (openId) {
         this.axios({
           method: 'get',
@@ -40,7 +55,7 @@
             openId: openId
           }
         }).then(res => {
-          console.log(1111)
+          // console.log(1111)
           if (res.data.data) {
             this.$store.commit(types.USERID, res.data.data.userId)
             this.$store.commit(types.USERNAME, res.data.data.nickName)
