@@ -22,7 +22,9 @@
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
-        <tags-lists :tagsList="tagsList" v-on:checkTag="checkTag"></tags-lists>
+        <ul class="dinglian-tagsLists-all clearfix">
+          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id)">{{item.name}}</li>
+        </ul>
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -34,14 +36,14 @@
 
 </template>
 <script>
-  import TagsLists from '../../components/tagsLists.vue'
+  // import TagsLists from '../../components/tagsLists.vue'
   import CircleInfoLists from '../../components/baseCircle/circleInfoLists.vue'
   import Carousel from '../../components/carousel.vue'
   // import { Toast } from 'mint-ui'
 //  import wx from 'weixin-js-sdk'
   export default {
     components: {
-      TagsLists,
+      // TagsLists,
       CircleInfoLists,
       Carousel
     },
