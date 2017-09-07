@@ -50,7 +50,7 @@
     <div class="dinglian-alone-addUsers">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
-        <span v-if="friends.length">{{friends.length}}</span>
+        <span v-if="friends.length > 0">{{friends.length}}</span>
         <span v-else>0</span>
       </div>
       <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
@@ -110,10 +110,10 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
-      console.log(this.$store.state.paramData)
-//      if (this.$store.state.paramData) {
-//        this.friends = this.$store.state.paramData.friends
-//      }
+      console.log(this.$store.state.paramData.friends)
+      if (this.$store.state.paramData.friends.length > 0) {
+        this.friends = this.$store.state.paramData.friends
+      }
     },
     methods: {
       removeItem (index) {
