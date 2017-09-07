@@ -93,8 +93,7 @@
     created () {
       this.activity = this.$store.state.activity
       this.userName = this.$store.state.userName
-      alert(this.$store.state.userPhoneNo)
-      if (this.$store.state.userPhoneNo) {
+      if (this.$store.state.userPhoneNo && this.$store.state.userPhoneNo !== 'null') {
         this.telphone = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
