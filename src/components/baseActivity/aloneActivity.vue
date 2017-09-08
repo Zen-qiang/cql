@@ -28,7 +28,7 @@
     <div class="dinglian-lists-footer clearfix" v-show="footer">
       <span>{{topic.commentCnt}}</span>
       <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': topic.hasPraise}]">
-        {{topic.praiseCnt}}
+        {{pointNum}}
       </span>
     </div>
   </div>
@@ -53,7 +53,8 @@
           hasPraise: '',
           praiseCnt: '',
           commentCnt: ''
-        }
+        },
+        pointNum: ''
       }
     },
     created () {
@@ -61,6 +62,7 @@
       this.topic.hasPraise = this.activity.hasPraise
       this.topic.praiseCnt = this.activity.praiseCnt
       this.topic.commentCnt = this.activity.commentCnt
+      this.pointNum = this.activity.praiseCnt
     },
     methods: {
       redirectActivityDetails (id) {
@@ -82,7 +84,7 @@
               Toast(res.data.error.message)
             } else {
               topic.hasPraise = true
-              topic.praiseCnt = res.data.praiseCnt
+              this.pointNum = res.data.praiseCnt
             }
           }).catch()
         }

@@ -4,7 +4,7 @@
       <img src="../../assets/images/success.svg" alt="">
     </div>
     <h3>{{title}}</h3>
-    <p>去活动的圈子看看吧～～</p>
+    <p>长按关注我们，以便及时获取最新动态</p>
     <div class="dinglian-success-title">
       <div>
         <img :src="circle.cover" alt="" @click="redirectCircleDetails">
@@ -53,7 +53,6 @@
     },
     methods: {
       redirectActivityMembers () {
-//        this.$store.commit(types.ACTIVITYID, this.activityId)
         this.$router.push({'path': '/praiseMembers/' + this.activityId})
       },
       redirectMyActivity () {
@@ -77,10 +76,9 @@
 
   }
   .dinglian-success-icon > img {
-    width: 42px;
-    height: 42px;
+    width: 0.42rem;
+    height: 0.42rem;
     display: inline-block;
-    background: #ffd200;
     border-radius: 50%;
   }
   .dinglian-success-all > h3 {
