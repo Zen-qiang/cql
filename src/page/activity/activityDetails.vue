@@ -261,6 +261,10 @@
           this.disabled = false
           this.edit = '完成'
         } else if (this.edit === '完成') {
+          if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
+            Toast('人数填写错误')
+            return false
+          }
           this.axios({
             method: 'post',
             url: '/updateActivityInfo',
