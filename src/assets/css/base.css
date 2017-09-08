@@ -72,12 +72,13 @@ ul, ol, li {
   background: #ffd200;
   width: 100%;
   color: #333333;
-  font-size: 12px;
+  font-size: 15px;
   border-radius: 0;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 8;
+  height: 0.49rem;
 }
 .edit-button {
   margin: 10px 4%;

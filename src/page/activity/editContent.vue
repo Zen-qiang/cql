@@ -123,49 +123,6 @@
       }
       this.getMyCircles()
     },
-//    mounted () {
-//      this.axios({
-//        method: 'get',
-//        url: '/getWxConfig',
-//        params: {
-//          url: location.href.split('#')[0]
-//        }
-//      }).then(res => {
-//        wx.config({
-//          debug: false,
-//          appId: res.data.data.appId,
-//          timestamp: res.data.data.timestamp,
-//          nonceStr: res.data.data.nonceStr,
-//          signature: res.data.data.signature,
-//          jsApiList: [
-//            'chooseImage',
-//            'downloadImage',
-//            'uploadImage'
-//          ]
-//        })
-//        this.ready = true
-//      }).catch(error => {
-//        Toast(error)
-//        this.ready = false
-//      })
-//      wx.ready(function () {
-//        wx.showMenuItems({
-//          menuList: [
-//            'chooseImage',
-//            'downloadImage',
-//            'uploadImage'
-//          ] // 要显示的菜单项，所有menu项见附录3
-//        })
-//      })
-//    },
-//    beforeRouteEnter (to, from, next) {
-//      let u = navigator.userAgent
-//      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
-//        location.assign(to.fullPath)
-//      } else {
-//        next()
-//      }
-//    },
     methods: {
       takePictures () {
         var _this = this
@@ -229,28 +186,36 @@
         this.charge = val
       },
       goNextStep () {
+        if (this.$store.state.activityTags === 0) {
+          Toast('标签不能为空')
+          return false
+        }
         if (!this.activityName) {
           Toast('标题不能为空')
-          return false
-        }
-        if (!this.address) {
-          Toast('地址不能为空')
-          return false
-        }
-        if (!this.minCount && !this.maxCount && !(this.minCount < this.maxCount)) {
-          Toast('人数错误')
-          return false
-        }
-        if (!this.description) {
-          Toast('备注不能为空')
           return false
         }
         if (this.serverIds.length === 0) {
           Toast('图片不能为空')
           return false
         }
-        if (this.$store.state.activityTags === 0) {
-          Toast('标签不能为空')
+        if (!this.address) {
+          Toast('地址不能为空')
+          return false
+        }
+        if (!this.minCount || !this.maxCount || !(this.minCount < this.maxCount)) {
+          Toast('人数错误')
+          return false
+        }
+        if (!this.charge) {
+          Toast('费用不能为空')
+          return false
+        }
+        if (!this.phoneNo) {
+          Toast('手机号不能为空')
+          return false
+        }
+        if (!this.description) {
+          Toast('备注不能为空')
           return false
         }
         let formdata = new FormData()
@@ -267,23 +232,6 @@
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
         formdata.append('endTime', this.startTime.valueOf())
-//        for (var i in this.imgFilesList) {
-//          let idx = parseInt(i) + 1
-//          formdata.append('pic' + idx, this.imgFilesList[i])
-//        }
-//        let data = {
-//          userId: this.$store.state.userId,
-//          tags: this.$store.state.activityTags,
-//          name: this.activityName,
-//          startTime: this.startTime,
-//          charge: this.charge,
-//          address: this.address,
-//          gps: this.gps,
-//          minCount: this.minCount,
-//          maxCount: this.maxCount,
-//          isOpen: this.isOpen,
-//          description: this.description
-//        }
         if (this.circle) {
 //          data.coterieId = this.circle.id
           formdata.append('coterieId', this.circle.id)

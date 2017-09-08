@@ -259,6 +259,7 @@
   .dinglian-lists-address > span {
     color: #999999;
     height: 0.14rem;
+    line-height: 0.14rem;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 40%;

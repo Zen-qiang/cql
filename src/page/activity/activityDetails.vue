@@ -6,7 +6,7 @@
     <carousel :carouselList="carouselList"></carousel>
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name">
-      <span>金桥街舞1圈</span>
+      <span>{{activityInfo.coterie.name}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
@@ -73,10 +73,8 @@
     </div>
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
-      <!--<input type="text" v-model="isOpen" disabled>-->
       <span>{{isOpen ? '公开':'非公开' }}</span>
       <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
-      <!--<mt-switch v-model="isOpen" class="edit-switch" @change="preventSwitch" ></mt-switch>-->
     </div>
     <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
