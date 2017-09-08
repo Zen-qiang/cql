@@ -58,6 +58,7 @@
 //      搜索
       searchActivity () {
         this.page = 1
+        this.start = 0
         this.activityLists = []
         this.getActivityList()
       },
