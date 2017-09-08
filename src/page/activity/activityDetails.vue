@@ -5,7 +5,7 @@
     </span>
     <carousel :carouselList="carouselList"></carousel>
     <div class="dinglian-details-title clearfix">
-      <input type="text" v-model="activityInfo.name">
+      <input type="text" v-model="activityInfo.name" disabled>
       <span>{{activityInfo.coterie.name}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">

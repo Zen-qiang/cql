@@ -50,7 +50,7 @@
     <div class="dinglian-edit-people">
       <label for="">人数</label>
       <input type="tel" v-model="minCount">&nbsp;至
-      <input type="tel"v-model="maxCount">&nbsp;人
+      <input type="tel" v-model="maxCount">&nbsp;人
     </div>
     <div class="dinglian-edit-cost">
       <label for="">费用</label>
@@ -115,6 +115,13 @@
         localImgs: [],
         ioslocIds: [],
         serverIds: []
+      }
+    },
+    watch: {
+      minCount: function (val) {
+        if (this.maxCount === '' || val > this.maxCount) {
+          this.maxCount = val
+        }
       }
     },
     created () {
@@ -202,7 +209,7 @@
           Toast('地址不能为空')
           return false
         }
-        if (!(this.minCount >= 1 && this.maxCount > this.minCount)) {
+        if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
           Toast('人数填写错误')
           return false
         }
