@@ -42,13 +42,12 @@
       footer: {
         type: Boolean
       },
-      messageLists: {
+      activity: {
         type: Object
       }
     },
     data () {
       return {
-        activity: this.messageLists.activity,
         topic: {
           topicId: '',
           hasPraise: '',
@@ -58,11 +57,10 @@
       }
     },
     created () {
-      this.topic.topicId = this.messageLists.topicId
-      this.topic.hasPraise = this.messageLists.hasPraise
-      this.topic.praiseCnt = this.messageLists.praiseCnt
-      this.topic.commentCnt = this.messageLists.commentCnt
-      console.log(this.messageLists)
+      this.topic.topicId = this.activity.topicId
+      this.topic.hasPraise = this.activity.hasPraise
+      this.topic.praiseCnt = this.activity.praiseCnt
+      this.topic.commentCnt = this.activity.commentCnt
     },
     methods: {
       redirectActivityDetails (id) {

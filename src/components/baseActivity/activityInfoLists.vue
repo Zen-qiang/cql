@@ -74,11 +74,12 @@
       }
     },
     methods: {
+//      下拉加载
       loadBottom () {
-        console.log('加载')
         this.$emit('pullUpActivity')
         this.$refs.loadmore.onBottomLoaded()
       },
+//      判断房间密码
       validPassword (activity, password) {
         this.axios({
           method: 'get',
@@ -95,6 +96,7 @@
           }
         }).catch()
       },
+//      跳转到参加活动页面
       goSingUp (activity) {
         this.axios({
           method: 'get',
@@ -110,6 +112,7 @@
           this.$router.push({'path': '/signUpActivity'})
         }).catch()
       },
+//      修改信息和重新报名
       updateSignInfo (activity) {
         if (!activity.isOpen) {
           MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
@@ -119,12 +122,15 @@
           this.goSingUp(activity)
         }
       },
+//      跳转到活动详情
       redirectActivityDetails (id) {
         this.$router.push({'path': '/activityDetails/' + id})
       },
+//      跳转到圈子详情
       redirectCircleDetails (id) {
         this.$router.push({'path': '/circleDetails/' + id})
       },
+//      取消报名
       signOut (activity) {
         MessageBox.confirm('确定取消报名?').then(action => {
           this.axios({

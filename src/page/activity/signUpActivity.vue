@@ -24,6 +24,7 @@
     <!--绑定手机号 end-->
 
     <alone-activity :footer="false" style="background: #ffffff" :activity="activity"></alone-activity>
+
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
@@ -127,6 +128,7 @@
       hiddenBind () {
         this.bindPhone = false
       },
+//      检查男女
       checkGender (val) {
         this.gender = val
       },
