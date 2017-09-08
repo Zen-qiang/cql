@@ -202,8 +202,8 @@
           Toast('地址不能为空')
           return false
         }
-        if (!this.minCount || !this.maxCount || !(this.minCount < this.maxCount)) {
-          Toast('人数错误')
+        if (!(this.minCount >= 1 && this.maxCount > this.minCount)) {
+          Toast('人数填写错误')
           return false
         }
         if (!this.charge) {
@@ -233,20 +233,14 @@
         formdata.append('serverIds', this.serverIds)
         formdata.append('endTime', this.startTime.valueOf())
         if (this.circle) {
-//          data.coterieId = this.circle.id
           formdata.append('coterieId', this.circle.id)
         }
         if (this.phoneNo) {
-//          data.phoneNo = this.phoneNo
           formdata.append('phoneNo', this.phoneNo)
         }
         if (!this.isOpen && this.password) {
-//          data.password = this.password
           formdata.append('password', this.password)
         }
-//        if (this.pictures.length > 0) {
-//          data.pictures = this.pictures
-//        }
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editActivity' : 'launchActivity',

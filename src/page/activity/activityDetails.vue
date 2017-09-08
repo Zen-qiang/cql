@@ -23,7 +23,7 @@
       <span v-if="activityInfo.status === '1'">进行中</span>
       <span v-else-if="activityInfo.status === '2'">正在报名</span>
       <span v-else>已结束</span>
-      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
+      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
@@ -74,7 +74,7 @@
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
       <span>{{isOpen ? '公开':'非公开' }}</span>
-      <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
+      <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
     </div>
     <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
@@ -172,11 +172,6 @@
 //      跳转到查看报名人数
       registerInformation () {
         this.$router.push({'path': '/praiseMembers/' + this.activityInfo.activityId})
-      },
-      preventSwitch () {
-        if (this.edit === '编辑') {
-          Toast('请点击右上方的编辑按钮')
-        }
       },
 //      跳转到活动评论界面
       gotoMessage () {
