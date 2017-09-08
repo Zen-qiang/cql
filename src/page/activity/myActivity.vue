@@ -26,12 +26,6 @@
       return {
         selected: '0',
         tags: ['全部活动', '我发起的', '我参与的', '历史活动'],
-//        tags: [
-//          {name: '全部活动', id: 0},
-//          {name: '我发起的', id: 1},
-//          {name: '我参与的', id: 2},
-//          {name: '历史活动', id: 3}
-//        ],
         start: 0,
         pageSize: 10,
         activityLists: [],

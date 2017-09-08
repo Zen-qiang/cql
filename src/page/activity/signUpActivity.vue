@@ -110,8 +110,10 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
-      if (this.$store.state.paramData.friends.length > 0) {
-        this.friends = this.$store.state.paramData.friends
+      if (this.$store.state.paramData) {
+        if (this.$store.state.paramData.friends.length > 0) {
+          this.friends = this.$store.state.paramData.friends
+        }
       }
     },
     methods: {
