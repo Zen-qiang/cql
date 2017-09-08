@@ -2,14 +2,12 @@
   <div>
     <mt-navbar v-model="selected">
       <mt-tab-item :id="index+''" v-for="(item, index) in tags" :key="index">{{item}}</mt-tab-item>
-      <!--<mt-tab-item :id="index+''" v-for="(item, index) in tags" :key="index">{{item}}</mt-tab-item>-->
     </mt-navbar>
 
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item :id="index+''" v-for="(item, index) in tags" :key="index">
-      <!--<mt-tab-container-item :id="index+''" v-for="(item, index) in tags" :key="index">-->
-        <activity-info-lists style="margin-top: 10px" :footer="true" :activityLists="activityLists"
+        <activity-info-lists style="margin-top: 10px" :footer="footer" :activityLists="activityLists"
                              v-on:pullUpActivity="pullUpActivity"
                              :allLoaded="allLoaded"></activity-info-lists>
       </mt-tab-container-item>
@@ -38,7 +36,8 @@
         pageSize: 10,
         activityLists: [],
         page: 1,
-        allLoaded: false
+        allLoaded: false,
+        footer: true
       }
     },
     created () {
@@ -46,10 +45,16 @@
     },
     watch: {
       selected: function (val, oldVal) {
-        console.log(11111)
+//        我创建的活动不显示按钮
+        if (val === '1') {
+          this.footer = false
+        } else {
+          this.footer = true
+        }
         this.page = 1
         this.start = 0
-        console.log(this.selected)
+        this.activityLists = []
+        this.allLoaded = false
         this.getMyActivityList()
       }
     },
