@@ -12,7 +12,7 @@
         <div class="dinglian-alone-bind-body clearfix">
           <input type="text" placeholder="请输入手机号" v-model="telphone">
           <input type="text" placeholder="请输入验证码" v-model="verifyNo">
-          <span @click="sendCode()">发送验证码</span>
+          <span @click="sendCode()">{{sendCodeButton}}</span>
         </div>
         <div class="dinglian-alone-bind-footer">
           <div>
@@ -73,6 +73,7 @@
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
   import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
+  import { judgmentTel } from '../../assets/js/tools'
   export default {
     components: {
       AloneActivity
@@ -88,7 +89,8 @@
         verifyNo: '',
         password: '',
         activity: {},
-        friends: []
+        friends: [],
+        sendCodeButton: '发送验证码'
       }
     },
     created () {
@@ -190,21 +192,39 @@
 //      发送验证码
       sendCode () {
         if (this.needBind) {
-          if (!this.telphone) {
-            Toast('手机号码不能为空')
+          if (!judgmentTel(this.telphone)) {
             return
           }
-          this.axios({
-            method: 'get',
-            url: 'sendCode',
-            params: {
-              phoneno: this.telphone
-            }
-          }).then(res => {
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            }
-          }).catch()
+          let num = 60
+          var timer = null
+          clearInterval(timer)
+          this.isDisabled = true
+          if (this.isDisabled) {
+            this.axios({
+              method: 'get',
+              url: 'sendCode',
+              params: {
+                phoneno: this.telphone
+              }
+            }).then(res => {
+              if (res.data.success) {
+                this.disabled = false
+                var _this = this
+                timer = setInterval(function () {
+                  num--
+                  _this.sendCodeButton = num + 's后发送'
+                  if (num === 0) {
+                    clearInterval(timer)
+                    num = 60
+                    this.disabled = true
+                    this.sendCodeButton = '发送验证码'
+                  }
+                }, 1000)
+              } else {
+                Toast(res.data.error.message)
+              }
+            }).catch()
+          }
         }
       },
       // 提交绑定

@@ -29,7 +29,6 @@
       <label for="">组织者</label>
       <input type="text" v-model="nickName" disabled>
       <a :href="mobileHref" class="dinglian-details-mobile"></a>
-      <!--<span class="dinglian-details-mobile"></span>-->
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
@@ -219,7 +218,7 @@
             method: 'get',
             url: '/closeActivity',
             params: {
-              activityId: this.$store.state.activityId
+              activityId: this.$route.params.aid
             }
           }).then(res => {
             if (res.data.success) {

@@ -90,6 +90,7 @@
             this.topicCommentList = []
             this.getTopicCommentList()
             Toast('评论成功！')
+            this.description = ''
           } else {
             Toast(res.data.error.message)
           }
