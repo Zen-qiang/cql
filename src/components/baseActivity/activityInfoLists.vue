@@ -194,7 +194,7 @@
 
   }
   .dinglian-lists-title > h3 {
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
     height: 0.14rem;
     line-height: 0.14rem;
@@ -204,10 +204,10 @@
   }
   .dinglian-lists-title > span {
     float: right;
-    font-size: 11px;
+    font-size: 0.11rem;
     background: #ffd200;
     border-radius: 4px;
-    padding: 0 3px;
+    padding: 0 0.03rem;
   }
   .dinglian-lists-tags {
     text-align: left;
@@ -220,7 +220,7 @@
     box-sizing: border-box;
     display: inline-block;
     float: left;
-    font-size: 11px;
+    font-size: 0.11rem;
     border-radius: 2px;
     background: #f2f2f2;
     margin-right: 0.07rem;
@@ -230,7 +230,7 @@
   }
   .dinglian-lists-cost {
     color: #e63832;
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
     margin-top: 0.1rem;
     height: 0.14rem;
@@ -239,7 +239,7 @@
   .dinglian-lists-people {
     margin-top: 0.2rem;
     text-align: left;
-    font-size: 10px;
+    font-size: 0.1rem;
     height: 0.1rem;
     line-height: 0.1rem;
   }
@@ -275,7 +275,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 0 0.15rem;
-    font-size: 12px;
+    font-size: 0.12rem;
   }
   .dinglian-lists-changeButton {
 
