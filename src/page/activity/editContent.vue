@@ -82,6 +82,7 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import wx from 'weixin-js-sdk'
+  import { judgmentTel } from '../../assets/js/tools'
   export default {
     filters: {
       moment (val) {
@@ -165,16 +166,6 @@
           }
         })
       },
-//        判断移动设备
-//      judgmentIos () {
-//        let u = navigator.userAgent
-//        let isIos = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
-//        if (isIos) {
-//          this.capture = false
-//        } else {
-//          this.capture = 'camera'
-//        }
-//      },
 //        选择圈子
       belongCircle () {
         if (!this.chooseCircle) {
@@ -217,8 +208,7 @@
           Toast('费用不能为空')
           return false
         }
-        if (!this.phoneNo) {
-          Toast('手机号不能为空')
+        if (!judgmentTel(this.phoneNo)) {
           return false
         }
         if (!this.description) {

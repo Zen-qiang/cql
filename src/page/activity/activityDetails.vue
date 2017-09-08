@@ -110,8 +110,7 @@
     data () {
       return {
         carouselList: [],
-        address: '漕宝路112号',
-        types: '羽毛球',
+        address: this.activityInfo.address,
         activityInfo: {},
         isOpen: '',
         status: '',
@@ -316,6 +315,7 @@
     background: #ffffff;
   }
   .dinglian-details-title {
+    background-color: #ffffff;
 
   }
   .dinglian-details-title > input {
@@ -323,6 +323,7 @@
     height: 100%;
     padding-left: 15px;
     float: left;
+    background-color: #ffffff;
   }
   .dinglian-details-title > span {
     height: 15px;
