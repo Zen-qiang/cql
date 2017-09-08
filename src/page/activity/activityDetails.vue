@@ -110,7 +110,7 @@
     data () {
       return {
         carouselList: [],
-        address: this.activityInfo.address,
+        address: '',
         activityInfo: {},
         isOpen: '',
         status: '',
@@ -198,6 +198,7 @@
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
           this.topic = res.data.data.topic
+          this.address = res.data.data.address
           this.mobileHref = 'tel:' + res.data.data.organizer.phoneNo
           if (this.topic) {
             this.topicId = res.data.data.topic.topicId
