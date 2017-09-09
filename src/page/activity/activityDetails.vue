@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-details-all">
     <!--右上角编辑按钮-->
-    <span class="dinglian-details-editIcon" @click.stop="editActivityInfo"  v-show="isCreator">
+    <span class="dinglian-details-editIcon" @click="editActivityInfo"  v-show="isCreator">
       {{edit}}
     </span>
     <!--轮播图-->
@@ -85,7 +85,7 @@
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <textarea name="" id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
+    <textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
       {{activityInfo.description}}
     </textarea>
     <mt-button v-if="isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>

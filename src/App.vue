@@ -23,7 +23,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #333333;
-  /*margin-top: 60px;*/
 }
   html,body,#app {
     height: 100%;
