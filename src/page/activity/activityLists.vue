@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search.blur="searchActivity">
+      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" @blur="blur()">
       <span v-show="!keyword"></span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
