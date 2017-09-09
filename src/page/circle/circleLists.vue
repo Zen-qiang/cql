@@ -77,6 +77,7 @@
     methods: {
       resetListData () {
         this.page = 1
+        this.allLoaded = false
         this.coterieList = []
       },
 //        下拉刷新
