@@ -207,6 +207,10 @@
     float: left;
     font-weight: 400;
     color: #333333;
+    width: 9em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-title > span {
     float: right;
@@ -214,6 +218,10 @@
     background: #ffd200;
     border-radius: 4px;
     padding: 0 0.03rem;
+    width: 6em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-tags {
     text-align: left;

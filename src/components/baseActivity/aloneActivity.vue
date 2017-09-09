@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-  import * as types from '../../store/mutation-types'
+//  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   export default {
     name: 'AloneActivity',
@@ -64,8 +64,8 @@
     },
     methods: {
       redirectActivityDetails (id) {
-        this.$store.commit(types.ACTIVITYID, id)
-        this.$router.push({'path': '/activityDetails'})
+//        this.$store.commit(types.ACTIVITYID, id)
+        this.$router.push({'path': '/activityDetails/' + id})
       },
       praiseTopic (topic) {
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红

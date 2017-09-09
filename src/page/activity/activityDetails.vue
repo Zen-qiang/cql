@@ -1,9 +1,12 @@
 <template>
   <div class="dinglian-details-all">
+    <!--右上角编辑按钮-->
     <span class="dinglian-details-editIcon" @click.stop="editActivityInfo"  v-show="isCreator">
       {{edit}}
     </span>
+    <!--轮播图-->
     <carousel :carouselList="carouselList"></carousel>
+    <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
       <span>{{activityInfo.coterie.name}}</span>
@@ -29,7 +32,6 @@
       <label for="">组织者</label>
       <input type="text" v-model="nickName" disabled>
       <a :href="mobileHref" class="dinglian-details-mobile"></a>
-      <!--<span class="dinglian-details-mobile"></span>-->
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
@@ -219,7 +221,7 @@
             method: 'get',
             url: '/closeActivity',
             params: {
-              activityId: this.$store.state.activityId
+              activityId: this.$route.params.aid
             }
           }).then(res => {
             if (res.data.success) {
