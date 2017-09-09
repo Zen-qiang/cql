@@ -192,10 +192,10 @@
           Toast('标题不能为空')
           return false
         }
-         if (this.serverIds.length === 0) {
-           Toast('图片不能为空')
-           return false
-         }
+        if (this.serverIds.length === 0) {
+          Toast('图片不能为空')
+          return false
+        }
         if (!this.address) {
           Toast('地址不能为空')
           return false
