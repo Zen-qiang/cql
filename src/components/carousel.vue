@@ -31,11 +31,11 @@
 <style scoped>
   .dinglian-home-carousel {
     width: 100%;
-    height: 170px;
+    height: 2.1rem;
   }
   .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item{
     width: 100%;
-    height: 170px;
+    height: 2.1rem;
   }
   .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item > img{
     width: 100%;

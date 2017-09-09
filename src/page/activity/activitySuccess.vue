@@ -3,13 +3,22 @@
     <div class="dinglian-success-icon">
       <img src="../../assets/images/success.svg" alt="">
     </div>
-    <h3>{{title}}</h3>
-    <p>长按关注我们，以便及时获取最新动态</p>
+    <div>
+      <h3>{{title}}</h3>
+      <p>长按关注我们，以便及时获取最新动态</p>
+    </div>
     <div class="dinglian-success-title">
       <div>
         <img :src="circle.cover" alt="" @click="redirectCircleDetails">
       </div>
-      <p>{{circle.name}}</p>
+      <!-- <p>{{circle.name}}</p> -->
+    </div>
+    <div class="dinglian-success-shetuan">
+      <div><img :src="circle.cover"></div>
+      <div>
+        <p>{{circle.name}}</p>
+        <p>成员<span>1</span>活动<span>2</span></p>
+      </div>
     </div>
     <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
@@ -20,8 +29,8 @@
         <img :src="item.picture">
       </span>
     </div>
-    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
-    <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
+    <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
+    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
   </div>
 
 </template>
@@ -70,6 +79,10 @@
 <style scoped>
   .dinglian-success-all {
     height: 100%;
+    background: #F1F2F3;
+  }
+  .dinglian-success-all > div{
+    background: #fff;
   }
   .dinglian-success-icon {
     /*padding-top: 50px;*/
@@ -81,24 +94,36 @@
     display: inline-block;
     border-radius: 50%;
   }
-  .dinglian-success-all > h3 {
+  .dinglian-success-all > div >h3 {
     font-size: 19px;
     font-weight: 400;
-    margin-top: 0.25rem;
+    /*margin-top: 0.25rem;*/
   }
-  .dinglian-success-all > p {
+  .dinglian-success-all > div > p {
     font-size: 11px;
     color: #999999;
-    margin-top: 0.1rem;
+    /*margin-top: 0.1rem;*/
   }
   .dinglian-success-title {
     /*padding-top: 0.5rem;*/
     /*padding-bottom: 0.45rem;*/
+    padding: 30px 0;
+  }
+  .dinglian-success-title > div {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #e6e6e6;
+    margin: 0 auto;
+    overflow: hidden;
+    padding:6px;
   }
   .dinglian-success-title img {
-    display: inline-block;
-    width: 90px;
-    height: 90px;
+    /*display: inline-block;
+    width: 120px;
+    height: 120px;*/
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
   }
   .dinglian-success-title > p {
     font-size: 13px;
@@ -136,5 +161,50 @@
     width: 40px;
     border-radius: 50%;
   }
+  /*社团展示*/
+  .dinglian-success-shetuan {
+    height: 70px;
+    font-size: 14px;
+    text-align: initial;
+    overflow: hidden;
+    padding: 10px;
+    margin-top: 1px;
+  }
+  .dinglian-success-shetuan > div{
+    height: 100%;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(1) {
+    float: left;
+    width: 50px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(1) > img{
+    width: 100%;
+    height: 100%;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(2) {
+    overflow: hidden;
+    padding: 5px 10px;
+    position: relative;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(2) > p:first-of-type{
 
+  }
+  .dinglian-success-shetuan > div:nth-of-type(2) > p:last-of-type{
+    font-size: 10px;
+    color: #666;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(2) > p:last-of-type > span{
+    display: inline-block;
+    width: 15px;
+    margin: 0 5px 0 2px;
+  }
+  .dinglian-success-shetuan > div:nth-of-type(2):after {
+    content: '>';
+    display: block;
+    position: absolute;
+    top: 25%;
+    right: 5px;
+   }
 </style>
