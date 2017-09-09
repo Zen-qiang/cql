@@ -1,9 +1,12 @@
 <template>
   <div class="dinglian-details-all">
+    <!--右上角编辑按钮-->
     <span class="dinglian-details-editIcon" @click.stop="editActivityInfo"  v-show="isCreator">
       {{edit}}
     </span>
+    <!--轮播图-->
     <carousel :carouselList="carouselList"></carousel>
+    <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
       <span>{{activityInfo.coterie.name}}</span>

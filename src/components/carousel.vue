@@ -1,7 +1,7 @@
 <template>
   <!-- 轮播图开始 -->
   <div class="dinglian-home-carousel">
-    <mt-swipe :auto="4000">
+    <mt-swipe :auto="4000" :show-indicators="indicators">
       <mt-swipe-item v-for="(item, index) in carouselList" :key="index" @click="">
         <img :src="item.url" @click="redirect(item.redirectUrl)">
       </mt-swipe-item>
@@ -13,16 +13,21 @@
   export default {
     name: 'Carousel',
     data () {
-      return {}
+      return {
+        indicators: true
+      }
     },
     props: ['carouselList'],
     created () {
-      // console.log(this.carouselList[0].imageUrl)
+      if (this.carouselList.length === 1) {
+        this.indicators = false
+      }
     },
     methods: {
       redirect (redirectUrl) {
         if (redirectUrl) {
           window.location.href = redirectUrl
+          console.log(redirectUrl)
         }
       }
     }
