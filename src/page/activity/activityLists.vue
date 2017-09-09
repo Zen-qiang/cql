@@ -4,8 +4,8 @@
                  :distanceIndex="2"
                  :maxDistance="100"
                  ref="loadTop">
-    <form class="dinglian-circle-search clearfix" onsubmit="return false;" @blur="blur()">
-      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" @blur="blur()">
+    <form class="dinglian-circle-search clearfix" onsubmit="return false;">
+      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity($event)" ref="searchInput">
       <span v-show="!keyword"></span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
@@ -60,6 +60,7 @@
         this.start = 0
         this.activityLists = []
         this.getActivityList()
+        this.$refs.searchInput.blur()
       },
 //      获取活动列表
       getActivityList () {
