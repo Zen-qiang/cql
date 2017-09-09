@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="请输入圈子关键词" @search="searchCircle" v-model="keyword">
+      <input type="search" placeholder="请输入圈子关键词" @search="searchCircle" v-model="keyword" ref="searchInput">
       <span v-show="!keyword"></span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
@@ -94,6 +94,7 @@
       searchCircle () {
         this.resetListData()
         this.getCoterieList()
+        this.$refs.searchInput.blur()
       },
       redirectCreateCircle () {
         // 跳转到创建圈子
