@@ -4,7 +4,7 @@
                  :distanceIndex="2"
                  :maxDistance="100"
                  ref="loadTop">
-    <form class="dinglian-circle-search clearfix" onsubmit="return false;">
+    <form class="dinglian-circle-search clearfix" onsubmit="return false;" @blur="blur()">
       <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" @blur="blur()">
       <span v-show="!keyword"></span>
     </form>
