@@ -10,6 +10,7 @@
   <!-- 轮播图结束 -->
 </template>
 <script>
+  import wx from 'weixin-js-sdk'
   export default {
     name: 'Carousel',
     data () {
@@ -27,7 +28,10 @@
       redirect (redirectUrl) {
         if (redirectUrl) {
           window.location.href = redirectUrl
-          console.log(redirectUrl)
+          wx.previewImage({
+            current: redirectUrl, // 当前显示图片的http链接
+            urls: [redirectUrl] // 需要预览的图片http链接列表
+          })
         }
       }
     }
