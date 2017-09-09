@@ -60,6 +60,7 @@
         this.start = 0
         this.allLoaded = false
         this.activityLists = []
+        this.keyword = ''
         this.getActivityList()
         this.$refs.searchInput.blur()
       },

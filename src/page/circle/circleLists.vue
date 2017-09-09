@@ -78,6 +78,7 @@
       resetListData () {
         this.page = 1
         this.allLoaded = false
+        this.keyword = ''
         this.coterieList = []
       },
 //        下拉刷新
