@@ -1,7 +1,9 @@
 <template>
-  <div class="dinglian-choose-all">
-    <h3>选择分类</h3>
-    <p>选择分类，让别人更好的找到你</p>
+  <div class="dinglian-choose-all bColor">
+    <div>
+      <h3>选择分类</h3>
+      <p>选择分类，让别人更好的找到你</p>
+    </div>
     <mt-navbar v-model="selected">
       <mt-tab-item :id="item.id" :key="item.id" v-for="(item, index) in activityType" @click.native="getTagList(item.id)">
         <img :src="tagImgs[index]">
@@ -13,7 +15,7 @@
 
     <!-- tab-container -->
     <div class="dinglian-circle-tagsHeader">
-      标签
+      添加标签
     </div>
     <mt-tab-container v-model="selected">
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
@@ -22,7 +24,7 @@
         </ul>
       </mt-tab-container-item>
     </mt-tab-container>
-    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">下一步</mt-button>
+    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="edit-button">下一步</mt-button>
   </div>
 
 </template>
@@ -118,44 +120,50 @@
   img {
     width: 50%;
   }
+  .mint-navbar {
+    padding-bottom: 0.315rem;
+  }
   .mint-navbar .mint-tab-item {
-    width: 24px;
+    width: 0.24rem;
     text-align: -webkit-center;
+  }
+  .mint-navbar .mint-tab-item-label > div{
+    padding: 0.1rem 0 0;
   }
   /*切换标签颜色 start*/
   .dinglian-circle-tags {
     color: #999999;
-    border: 1px solid #999999;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 8px;
+    border: 0.01rem solid #999999;
+    font-size: 0.12rem;
+    padding: 0.05rem;
+    border-radius: 0.08rem;
   }
   .dinglian-circle-changetags {
     background-color: #333333;
     color: #ffffff;
-    border: 1px solid #333333;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 8px;
+    border: 0.01rem solid #333;
+    font-size: 0.12rem;
+    padding: 0.05rem;
+    border-radius: 0.08rem;
   }
   /*切换标签颜色 end*/
   .dinglian-classification-tagList {
-    padding-left: 15px;
+    padding-left: 0.15rem;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.1rem;
   }
   .dinglian-classification-tagList li {
     list-style: none;
     float: left;
     margin-left: 0;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-right: 0.1rem;
+    margin-bottom: 0.1rem;
   }
   a {
     color: #333333;
   }
   .mint-navbar .mint-tab-item.is-selected {
-    border-bottom: 3px solid #ffd200;
+    border-bottom: 0.03rem solid #ffd200;
     color: #333333;
   }
   .mui-pull-left {
@@ -165,52 +173,83 @@
     width: 30%;
   }
   /*主体*/
-  .dinglian-choose-all {
-    padding-top: 0.8rem;
+  .dinglian-choose-all > div {
+    background: #fff;
+  }
+  .dinglian-choose-all > div:nth-of-type(1){
+    padding-top: 0.64rem;
+    padding-bottom: 0.37rem;
   }
   /*h3 标题*/
-  .dinglian-choose-all > h3 {
-    font-size: 24px;
+  .dinglian-choose-all > div h3 {
+    font-size: 0.24rem;
     font-weight: 300;
     color: #666666;
-
+    margin-bottom: 0.14rem;
   }
-  .dinglian-choose-all >p {
-    font-size:11px;
+  .dinglian-choose-all > div p {
+    font-size:0.11rem;
     color: #999999;
-    margin-bottom: 37px;
   }
   /*标签*/
   .dinglian-circle-tagsHeader {
-    width: 94%;
+    font-size: 0.14rem;
     text-align: left;
-    padding-top: 81px;
-    padding-bottom: 19px;
-    padding-left: 16px;
-    border-bottom: 1px solid #999999;
-    margin-left: 3%;
-    color: #333333;
-    font-size: 14px;
+    padding: 0.27rem 0 0.15rem 0.15rem;
+    margin-top: 0.01rem;
+    color: #333;
   }
   .dinglian-choose-tags {
-    padding: 5px 28px;
     overflow: hidden;
-
+    padding-left: 0.15rem;
+    padding-bottom: 0.135rem;
   }
   .dinglian-choose-tags > li {
-    display: inline-block;
+    font-size: 0.11rem;
     float: left;
-    height: 22px;
-    border: 1px solid #999999;
-    border-radius: 10px;
-    line-height: 22px;
-    font-size: 11px;
-    padding: 0 10px;
-    margin-top: 15px;
-    margin-right: 10px;
+    border: 0.01rem solid #999;
+    border-radius: 0.11rem;
+    margin: 0 0.1rem 0.15rem 0;
+    color: #999;
+    line-height: 0.22rem;
+    padding: 0 0.1rem;
   }
-  .dinglian-choose-tags-li {
+  .dinglian-choose-tags .dinglian-choose-tags-li {
     background: #333333;
     color: #ffffff;
+    border-color: #333;
+  }
+  .mint-tab-container {
+    margin-bottom: 0.2rem;
+  }
+  .mint-button--normal {
+    display: block;
+  }
+  /*分类底部黄色条*/
+  .mint-navbar > a{
+    position: relative;
+  }
+  .mint-navbar .mint-tab-item.is-selected[data-v-485b87ae] {
+    border-width: 0.02rem;
+  }
+  .mint-navbar .mint-tab-item:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    left: 0;
+    width: 0.4rem;
+    height: 0.03rem;
+    background: #fff;
+  }
+  .mint-navbar .mint-tab-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    right: 0;
+    width: 0.4rem;
+    height: 0.03rem;
+    background: #fff;
   }
 </style>

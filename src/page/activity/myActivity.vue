@@ -88,5 +88,31 @@
   }
 </script>
 <style scoped>
-
+  /*分类底部黄色条*/
+  .mint-navbar > a{
+    position: relative;
+  }
+  .mint-navbar .mint-tab-item.is-selected[data-v-485b87ae] {
+    border-width: 0.02rem;
+  }
+  .mint-navbar .mint-tab-item:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    left: 0;
+    width: 0.2rem;
+    height: 0.03rem;
+    background: #fff;
+  }
+  .mint-navbar .mint-tab-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    right: 0;
+    width: 0.2rem;
+    height: 0.03rem;
+    background: #fff;
+  }
 </style>
