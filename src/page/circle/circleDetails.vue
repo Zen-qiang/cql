@@ -209,7 +209,7 @@
         })
       },
       dismissCircle () {
-        if (this.isCreator) {
+        if (this.isCreator && this.circle.status === 1) {
           this.axios({
             method: 'get',
             url: 'dismissCoterie',
@@ -232,20 +232,22 @@
         if (circle) {
           this.isCreator = circle.isCreator
           if (circle.isCreator) {
-            if (circle.status) {
-              if (circle.status === 1) {
-                this.buttonText = '解散圈子'
-              } else if (circle.status === 2) {
-                this.buttonText = '解散中'
-              } else if (circle.status === 3) {
-                this.buttonText = '已解散'
-              }
+            if (circle.status && circle.status === 1) {
+              this.buttonText = '解散圈子'
             }
           } else {
+            // 参与者
             if (circle.isJoined) {
               this.buttonText = '退出'
             } else {
               this.buttonText = '加入'
+            }
+          }
+          if (circle.status) {
+            if (circle.status === 2) {
+              this.buttonText = '解散中'
+            } else if (circle.status === 3) {
+              this.buttonText = '已解散'
             }
           }
         }
