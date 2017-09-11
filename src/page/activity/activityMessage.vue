@@ -12,7 +12,7 @@
       <!--<p>快来报名呀，一起触发</p>-->
     </div>
 
-    <alone-activity :footer="true" :messageLists="messageLists"></alone-activity>
+    <alone-activity :footer="true" :activity="activity"></alone-activity>
 
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
@@ -33,15 +33,6 @@
         </div>
         <span>{{topics.commentTime | moment}}</span>
       </div>
-      <!--<div class="dinglian-message-avatar">-->
-        <!--<img src="../../assets/images/circle.jpg" alt="">-->
-        <!--<div class="dinglian-message-title">-->
-          <!--<h3>街舞</h3>-->
-          <!--<span>g广东 深证</span>-->
-        <!--</div>-->
-        <!--<span> 10-19 10:10</span>-->
-      <!--</div>-->
-
     </div>
     <div class="dinglian-message-chat">
       <input type="text" v-model="description">
@@ -99,6 +90,7 @@
             this.topicCommentList = []
             this.getTopicCommentList()
             Toast('评论成功！')
+            this.description = ''
           } else {
             Toast(res.data.error.message)
           }
@@ -109,11 +101,16 @@
           method: 'get',
           url: '/getActivityTopic',
           params: {
+            userId: this.$store.state.userId,
             topicId: this.$route.params.id
           }
         }).then(res => {
           this.messageLists = res.data.data
           this.activity = res.data.data.activity
+          this.activity.topicId = res.data.data.topicId
+          this.activity.hasPraise = res.data.data.hasPraise
+          this.activity.praiseCnt = res.data.data.praiseCnt
+          this.activity.commentCnt = res.data.data.commentCnt
         }).catch()
       },
 //      获取评论列表

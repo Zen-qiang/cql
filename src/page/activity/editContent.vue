@@ -1,18 +1,18 @@
 <template>
-  <div class="edit-all">
+  <div class="edit-all bColor">
     <div class="dinglian-edit-title">
-      <div>
-        <img :src="profilePicture" alt="">
-      </div>
+      <img :src="profilePicture" alt="">
       <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
     </div>
     <div class="dinglian-edit-belongsCircle" @click.stop="belongCircle">
       <label for="">所属圈子</label>
       <span v-if="circle">{{circle.name}}</span>
       <span v-else></span>
+      <p :class="{'active':chooseCircle}"></p>
     </div>
-    <div class="dinglian-edit-circleLists" v-show="chooseCircle">
-      <ul>
+    <!--<div class="dinglian-edit-circleLists" v-show="chooseCircle">-->
+    <div class="dinglian-edit-circleLists" :class="{'active':chooseCircle}">
+    <ul>
         <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>
       </ul>
     </div>
@@ -50,13 +50,13 @@
     <div class="dinglian-edit-people">
       <label for="">人数</label>
       <input type="tel" v-model="minCount">&nbsp;至
-      <input type="tel"v-model="maxCount">&nbsp;人
+      <input type="tel" v-model="maxCount">&nbsp;人
     </div>
     <div class="dinglian-edit-cost">
       <label for="">费用</label>
       <div class="edit-radio">
-        <label for="" @click="checkCharge('free')"><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
-        <label for="" @click="checkCharge('dutch')"><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
+        <label for="" @click="checkCharge('free',1)"><span :class="{'active':charge=='free'}"></span><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
+        <label for="" @click="checkCharge('dutch')"><span :class="{'active':charge=='dutch'}"></span><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
       </div>
     </div>
     <div class="dinglian-edit-tel">
@@ -67,7 +67,8 @@
       <label for="">公开</label>
       <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
     </div>
-    <div class="dinglian-edit-psw" v-show="!isOpen">
+    <!--v-show="!isOpen"-->
+    <div class="dinglian-edit-psw" :class="{'active':!isOpen}">
       <label for="">输入密码</label>
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
@@ -82,6 +83,7 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import wx from 'weixin-js-sdk'
+  import { judgmentTel } from '../../assets/js/tools'
   export default {
     filters: {
       moment (val) {
@@ -117,55 +119,19 @@
         serverIds: []
       }
     },
+    watch: {
+      minCount: function (val) {
+        if (this.maxCount === '' || val > this.maxCount) {
+          this.maxCount = val
+        }
+      }
+    },
     created () {
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
     },
-//    mounted () {
-//      this.axios({
-//        method: 'get',
-//        url: '/getWxConfig',
-//        params: {
-//          url: location.href.split('#')[0]
-//        }
-//      }).then(res => {
-//        wx.config({
-//          debug: false,
-//          appId: res.data.data.appId,
-//          timestamp: res.data.data.timestamp,
-//          nonceStr: res.data.data.nonceStr,
-//          signature: res.data.data.signature,
-//          jsApiList: [
-//            'chooseImage',
-//            'downloadImage',
-//            'uploadImage'
-//          ]
-//        })
-//        this.ready = true
-//      }).catch(error => {
-//        Toast(error)
-//        this.ready = false
-//      })
-//      wx.ready(function () {
-//        wx.showMenuItems({
-//          menuList: [
-//            'chooseImage',
-//            'downloadImage',
-//            'uploadImage'
-//          ] // 要显示的菜单项，所有menu项见附录3
-//        })
-//      })
-//    },
-//    beforeRouteEnter (to, from, next) {
-//      let u = navigator.userAgent
-//      if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && to.path !== location.pathname) {
-//        location.assign(to.fullPath)
-//      } else {
-//        next()
-//      }
-//    },
     methods: {
       takePictures () {
         var _this = this
@@ -201,16 +167,6 @@
           }
         })
       },
-//        判断移动设备
-//      judgmentIos () {
-//        let u = navigator.userAgent
-//        let isIos = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
-//        if (isIos) {
-//          this.capture = false
-//        } else {
-//          this.capture = 'camera'
-//        }
-//      },
 //        选择圈子
       belongCircle () {
         if (!this.chooseCircle) {
@@ -229,28 +185,35 @@
         this.charge = val
       },
       goNextStep () {
+        if (this.$store.state.activityTags === 0) {
+          Toast('标签不能为空')
+          return false
+        }
         if (!this.activityName) {
           Toast('标题不能为空')
-          return false
-        }
-        if (!this.address) {
-          Toast('地址不能为空')
-          return false
-        }
-        if (!this.minCount && !this.maxCount && !(this.minCount < this.maxCount)) {
-          Toast('人数错误')
-          return false
-        }
-        if (!this.description) {
-          Toast('备注不能为空')
           return false
         }
         if (this.serverIds.length === 0) {
           Toast('图片不能为空')
           return false
         }
-        if (this.$store.state.activityTags === 0) {
-          Toast('标签不能为空')
+        if (!this.address) {
+          Toast('地址不能为空')
+          return false
+        }
+        if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
+          Toast('人数填写错误')
+          return false
+        }
+        if (!this.charge) {
+          Toast('费用不能为空')
+          return false
+        }
+        if (!judgmentTel(this.phoneNo)) {
+          return false
+        }
+        if (!this.description) {
+          Toast('备注不能为空')
           return false
         }
         let formdata = new FormData()
@@ -267,38 +230,15 @@
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
         formdata.append('endTime', this.startTime.valueOf())
-//        for (var i in this.imgFilesList) {
-//          let idx = parseInt(i) + 1
-//          formdata.append('pic' + idx, this.imgFilesList[i])
-//        }
-//        let data = {
-//          userId: this.$store.state.userId,
-//          tags: this.$store.state.activityTags,
-//          name: this.activityName,
-//          startTime: this.startTime,
-//          charge: this.charge,
-//          address: this.address,
-//          gps: this.gps,
-//          minCount: this.minCount,
-//          maxCount: this.maxCount,
-//          isOpen: this.isOpen,
-//          description: this.description
-//        }
         if (this.circle) {
-//          data.coterieId = this.circle.id
           formdata.append('coterieId', this.circle.id)
         }
         if (this.phoneNo) {
-//          data.phoneNo = this.phoneNo
           formdata.append('phoneNo', this.phoneNo)
         }
         if (!this.isOpen && this.password) {
-//          data.password = this.password
           formdata.append('password', this.password)
         }
-//        if (this.pictures.length > 0) {
-//          data.pictures = this.pictures
-//        }
         this.axios({
           method: 'post',
           url: this.isEdit ? 'editActivity' : 'launchActivity',
@@ -353,21 +293,25 @@
 </script>
 <style scoped>
   .edit-all {
-    width: 100%;
-    /*overflow: hidden;*/
-    margin-bottom: 0.4rem;
+    padding-bottom: 0.4rem;
     position: relative;
+    overflow: hidden;
+    height: auto;
+  }
+  .edit-all > div {
+    background: #fff;
+    margin-bottom: 1px;
+    padding: 0 0.15rem;
+    overflow: hidden;
   }
   div[class^="dinglian"] {
     width: 100%;
     height: 0.5rem;
-    border-bottom: 1px solid #dddddd;
-    font-size: 14px;
+    font-size: 0.14rem;
     line-height: 0.5rem;
     text-align: left;
   }
   .edit-all > div > label:first-of-type {
-    margin-left: 15px;
     width: 0.8rem;
     display: inline-block;
     color: #999999;
@@ -376,61 +320,90 @@
   .edit-all .dinglian-edit-title {
     height: 0.69rem;
     line-height: 0.69rem;
-    overflow: hidden;
-    padding-left: 0.15rem;
+    position: relative;
   }
-  .dinglian-edit-title  img {
-    display: inline-block;
+  .dinglian-edit-title img {
+    position: absolute;
     width: 0.44rem;
     height: 0.44rem;
-    vertical-align:middle;
+    border-radius: 50%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
   }
-  .dinglian-edit-title > div {
-    display: inline-block;
-  }
-  input {
+  .dinglian-edit-title input {
+    font-size: 0.14rem;
+    width: 100%;
     height: 100%;
+    padding-left: 0.6rem;
+  }
+  .dinglian-edit-belongsCircle {
+    position: relative;
   }
   .dinglian-edit-belongsCircle > span {
     background: #ffd200;
-    height: 15px;
-    line-height: 15px;
-    font-size: 11px;
+    height: 0.15rem;
+    line-height: 0.15rem;
+    font-size: 0.11rem;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 0.02rem;
+    padding:0 0.03rem;
+  }
+  .dinglian-edit-belongsCircle > p {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0.15rem;
+    margin: auto;
+    width: 0.1rem;
+    height: 0.1rem;
+    background: url("../../assets/images/jtcy.svg") no-repeat center center;
+    transition: all 0.3s;
+  }
+  .dinglian-edit-belongsCircle > p.active {
+    transform: rotate(90deg);
   }
   /*圈子列表*/
   .edit-all .dinglian-edit-circleLists {
-    height: 1rem;
+    height: 0;
+    margin-bottom: 0;
+    transition: all 0.3s;
+  }
+  .edit-all .dinglian-edit-circleLists.active {
+    height: 1.2rem;
+    overflow: hidden;
+    margin-bottom: 1px;
   }
   /*.dinglian-edit-circleLists {*/
     /*width: 100%;*/
   /*}*/
   .edit-all .dinglian-edit-circleLists > ul {
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+    /*width: 100%;*/
     /*height: 100%;*/
-    padding-right: 0.1rem;
+    /*padding-right: 0.1rem;*/
+    /*padding-top: 0.12rem;*/
+    /*padding-left: 0.15rem;*/
     padding-top: 0.12rem;
-    padding-left: 0.15rem;
+    overflow: hidden;
   }
   .dinglian-edit-circleLists > ul > li {
-    display: inline-block;
+    /*display: inline-block;*/
     height: 0.24rem;
     line-height: 0.24rem;
-    font-size: 11px;
+    font-size: 0.11rem;
     color: #333333;
     float: left;
     background: #ffd200;
-    border-radius: 5px;
-    margin-right: 7px;
-    margin-bottom: 5px;
-    padding: 0 10px;
+    border-radius: 0.02rem;
+    margin-right: 0.07rem;
+    margin-bottom: 0.1rem;
+    padding: 0 0.09rem;
   }
 /*上传图片*/
   .edit-all .dinglian-edit-photo {
-    height: 110px;
+    height: 1.1rem;
     position: relative;
     background: url("../../assets/images/upload.png") no-repeat left center;
     background-size: 100% 110px;
@@ -460,7 +433,7 @@
     display: block;
     width: 0.8rem;
     height: 0.8rem;
-    margin-left: 10px;
+    margin-left: 0.1rem;
   }
 
   .dinglian-edit-people > input {
@@ -468,10 +441,43 @@
     outline: none;
     -webkit-appearance: none;
     width: 78px;
-    height: 30px;
+    height: 0.3rem;
     border: 1px solid #dddddd;
-    border-radius: 4px;
-    padding-left: 10px;
+    border-radius: 0.04rem;
+    padding-left: 0.1rem;
+  }
+  /*费用*/
+  .dinglian-edit-cost > div > label {
+    position: relative;
+  }
+  .dinglian-edit-cost > div > label [type="radio"] {
+    opacity: 0;
+  }
+  .dinglian-edit-cost > div > label span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.03rem;
+    margin: auto;
+    width: 0.12rem;
+    height: 0.12rem;
+    border-radius: 50%;
+  }
+  .dinglian-edit-cost > div > label span.active {
+    background: #E63832;
+  }
+  .dinglian-edit-cost > div > label span:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -0.03rem;
+    margin: auto;
+    width: 0.18rem;
+    height: 0.18rem;
+    border: 1px solid #E63832;
+    border-radius: 50%;
   }
   .dinglian-edit-public {
     position: relative;
@@ -479,15 +485,15 @@
   .edit-switch {
     height: 100%;
     position: absolute;
-    right: 15px;
+    right: 0.15rem;
     top: 0;
     color: #ffd200;
   }
   .dinglian-edit-note {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     width: 100%;
-    padding: 15px;
-    border-bottom: 1px solid #dddddd;
+    padding: 0.15rem;
+    overflow: hidden;
   }
   .mint-datetime-picker {
     width: 100%;
@@ -501,7 +507,21 @@
   .dinglian-edit-address > input {
     height: 0.4rem;
   }
+  .dinglian-edit-psw {
+    height: 0!important;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .dinglian-edit-psw.active {
+    height: 0.5rem!important;
+  }
   .dinglian-edit-psw > input {
     height: 0.4rem;
+  }
+  .mint-button--normal {
+    display: block;
+    margin-top: 0.2rem;
+    position: absolute;
+    bottom: 0;
   }
 </style>

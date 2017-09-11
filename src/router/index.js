@@ -154,7 +154,8 @@ export default new Router({
       name: 'CircleLists',
       component: CircleLists,
       meta: {
-        requireAuth: requireAuth
+        requireAuth: requireAuth,
+        keepAlive: true
       }
     },
     {
@@ -195,7 +196,8 @@ export default new Router({
       name: 'ActivityLists',
       component: ActivityLists,
       meta: {
-        requireAuth: requireAuth
+        requireAuth: requireAuth,
+        keepAlive: true
       }
     },
     {

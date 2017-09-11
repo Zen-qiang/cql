@@ -5,7 +5,8 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="🔍 请输入圈子关键词" @search="searchCircle" v-model="keyword">
+      <input type="search" placeholder="请输入圈子关键词" @search="searchCircle" v-model="keyword" ref="circleSearch">
+      <span v-show="!keyword"></span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
     <mt-navbar v-model="tagIndex" class="dinglian-circle-navbar">
@@ -76,6 +77,8 @@
     methods: {
       resetListData () {
         this.page = 1
+        this.allLoaded = false
+        this.keyword = ''
         this.coterieList = []
       },
 //        下拉刷新
@@ -91,6 +94,7 @@
       },
 //      搜索圈子
       searchCircle () {
+        this.$refs.circleSearch.blur()
         this.resetListData()
         this.getCoterieList()
       },
@@ -214,6 +218,7 @@
     height: 0.44rem;
     background: #f2f2f2;
     padding: 0.1rem 0.15rem;
+    position: relative;
   }
   .dinglian-circle-search > input[type^=search] {
     margin: 0 auto;
@@ -225,7 +230,16 @@
     color: #999999;
     text-align: center;
     float: left;
-    padding-right: 10px;
+    padding-right: 0.1rem;
+  }
+  .dinglian-circle-search > span {
+    position: absolute;
+    background: url("../../assets/images/magnifier.svg") no-repeat center center;
+    background-size: 0.14rem 0.14rem;
+    left: 1.15rem;
+    top: 0.15rem;
+    width: 0.14rem;
+    height: 0.14rem;
   }
   .mint-search {
     height: auto;

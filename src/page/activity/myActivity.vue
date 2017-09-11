@@ -2,14 +2,12 @@
   <div>
     <mt-navbar v-model="selected">
       <mt-tab-item :id="index+''" v-for="(item, index) in tags" :key="index">{{item}}</mt-tab-item>
-      <!--<mt-tab-item :id="index+''" v-for="(item, index) in tags" :key="index">{{item}}</mt-tab-item>-->
     </mt-navbar>
 
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item :id="index+''" v-for="(item, index) in tags" :key="index">
-      <!--<mt-tab-container-item :id="index+''" v-for="(item, index) in tags" :key="index">-->
-        <activity-info-lists style="margin-top: 10px" :footer="true" :activityLists="activityLists"
+        <activity-info-lists style="margin-top: 10px" :footer="footer" :activityLists="activityLists"
                              v-on:pullUpActivity="pullUpActivity"
                              :allLoaded="allLoaded"></activity-info-lists>
       </mt-tab-container-item>
@@ -28,17 +26,12 @@
       return {
         selected: '0',
         tags: ['全部活动', '我发起的', '我参与的', '历史活动'],
-//        tags: [
-//          {name: '全部活动', id: 0},
-//          {name: '我发起的', id: 1},
-//          {name: '我参与的', id: 2},
-//          {name: '历史活动', id: 3}
-//        ],
         start: 0,
         pageSize: 10,
         activityLists: [],
         page: 1,
-        allLoaded: false
+        allLoaded: false,
+        footer: true
       }
     },
     created () {
@@ -46,10 +39,16 @@
     },
     watch: {
       selected: function (val, oldVal) {
-        console.log(11111)
+//        我创建的活动不显示按钮
+        if (val === '1') {
+          this.footer = false
+        } else {
+          this.footer = true
+        }
         this.page = 1
         this.start = 0
-        console.log(this.selected)
+        this.activityLists = []
+        this.allLoaded = false
         this.getMyActivityList()
       }
     },
@@ -89,5 +88,31 @@
   }
 </script>
 <style scoped>
-
+  /*分类底部黄色条*/
+  .mint-navbar > a{
+    position: relative;
+  }
+  .mint-navbar .mint-tab-item.is-selected[data-v-485b87ae] {
+    border-width: 0.02rem;
+  }
+  .mint-navbar .mint-tab-item:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    left: 0;
+    width: 0.2rem;
+    height: 0.03rem;
+    background: #fff;
+  }
+  .mint-navbar .mint-tab-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.03rem;
+    right: 0;
+    width: 0.2rem;
+    height: 0.03rem;
+    background: #fff;
+  }
 </style>

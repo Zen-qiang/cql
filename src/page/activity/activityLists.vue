@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity">
+      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" ref="searchInput">
       <span v-show="!keyword"></span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
@@ -18,7 +18,6 @@
 <script>
   import ActivityInfoLists from '../../components/baseActivity/activityInfoLists.vue'
   import { Indicator } from 'mint-ui'
-//  import wx from 'weixin-js-sdk'
   export default {
     components: {
       ActivityInfoLists
@@ -58,8 +57,12 @@
 //      搜索
       searchActivity () {
         this.page = 1
+        this.start = 0
+        this.allLoaded = false
         this.activityLists = []
+        this.keyword = ''
         this.getActivityList()
+        this.$refs.searchInput.blur()
       },
 //      获取活动列表
       getActivityList () {
@@ -83,7 +86,6 @@
             this.allLoaded = true
           }
           Indicator.close()
-//          this.activityLists = res.data.data
         }).catch()
       }
     }

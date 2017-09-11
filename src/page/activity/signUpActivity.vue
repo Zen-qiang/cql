@@ -12,7 +12,7 @@
         <div class="dinglian-alone-bind-body clearfix">
           <input type="text" placeholder="请输入手机号" v-model="telphone">
           <input type="text" placeholder="请输入验证码" v-model="verifyNo">
-          <span @click="sendCode()">发送验证码</span>
+          <span @click="sendCode()">{{sendCodeButton}}</span>
         </div>
         <div class="dinglian-alone-bind-footer">
           <div>
@@ -24,6 +24,7 @@
     <!--绑定手机号 end-->
 
     <alone-activity :footer="false" style="background: #ffffff" :activity="activity"></alone-activity>
+
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
         <label for="">报名信息</label>
@@ -72,6 +73,7 @@
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
   import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
+  import { judgmentTel } from '../../assets/js/tools'
   export default {
     components: {
       AloneActivity
@@ -87,7 +89,8 @@
         verifyNo: '',
         password: '',
         activity: {},
-        friends: []
+        friends: [],
+        sendCodeButton: '发送验证码'
       }
     },
     created () {
@@ -110,8 +113,10 @@
       if (this.activity.isEditSignUp) {
         this.isEditSignUp = this.activity.isEditSignUp
       }
-      if (this.$store.state.paramData.friends.length > 0) {
-        this.friends = this.$store.state.paramData.friends
+      if (this.$store.state.paramData) {
+        if (this.$store.state.paramData.friends.length > 0) {
+          this.friends = this.$store.state.paramData.friends
+        }
       }
     },
     methods: {
@@ -125,6 +130,7 @@
       hiddenBind () {
         this.bindPhone = false
       },
+//      检查男女
       checkGender (val) {
         this.gender = val
       },
@@ -186,21 +192,39 @@
 //      发送验证码
       sendCode () {
         if (this.needBind) {
-          if (!this.telphone) {
-            Toast('手机号码不能为空')
+          if (!judgmentTel(this.telphone)) {
             return
           }
-          this.axios({
-            method: 'get',
-            url: 'sendCode',
-            params: {
-              phoneno: this.telphone
-            }
-          }).then(res => {
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            }
-          }).catch()
+          let num = 60
+          var timer = null
+          clearInterval(timer)
+          this.isDisabled = true
+          if (this.isDisabled) {
+            this.axios({
+              method: 'get',
+              url: 'sendCode',
+              params: {
+                phoneno: this.telphone
+              }
+            }).then(res => {
+              if (res.data.success) {
+                this.disabled = false
+                var _this = this
+                timer = setInterval(function () {
+                  num--
+                  _this.sendCodeButton = num + 's后发送'
+                  if (num === 0) {
+                    clearInterval(timer)
+                    num = 60
+                    this.disabled = true
+                    this.sendCodeButton = '发送验证码'
+                  }
+                }, 1000)
+              } else {
+                Toast(res.data.error.message)
+              }
+            }).catch()
+          }
         }
       },
       // 提交绑定

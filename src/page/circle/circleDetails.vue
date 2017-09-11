@@ -70,6 +70,7 @@
     },
     watch: {
       selected: function (val, oldVal) {
+        this.topicList = []
         this.getTopicList(val)
       }
     },

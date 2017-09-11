@@ -74,11 +74,12 @@
       }
     },
     methods: {
+//      下拉加载
       loadBottom () {
-        console.log('加载')
         this.$emit('pullUpActivity')
         this.$refs.loadmore.onBottomLoaded()
       },
+//      判断房间密码
       validPassword (activity, password) {
         this.axios({
           method: 'get',
@@ -95,6 +96,7 @@
           }
         }).catch()
       },
+//      跳转到参加活动页面
       goSingUp (activity) {
         this.axios({
           method: 'get',
@@ -110,6 +112,7 @@
           this.$router.push({'path': '/signUpActivity'})
         }).catch()
       },
+//      修改信息和重新报名
       updateSignInfo (activity) {
         if (!activity.isOpen) {
           MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
@@ -119,12 +122,15 @@
           this.goSingUp(activity)
         }
       },
+//      跳转到活动详情
       redirectActivityDetails (id) {
         this.$router.push({'path': '/activityDetails/' + id})
       },
+//      跳转到圈子详情
       redirectCircleDetails (id) {
         this.$router.push({'path': '/circleDetails/' + id})
       },
+//      取消报名
       signOut (activity) {
         MessageBox.confirm('确定取消报名?').then(action => {
           this.axios({
@@ -194,20 +200,28 @@
 
   }
   .dinglian-lists-title > h3 {
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
     height: 0.14rem;
     line-height: 0.14rem;
     float: left;
     font-weight: 400;
     color: #333333;
+    width: 9em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-title > span {
     float: right;
-    font-size: 11px;
+    font-size: 0.11rem;
     background: #ffd200;
     border-radius: 4px;
-    padding: 0 3px;
+    padding: 0 0.03rem;
+    width: 6em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-tags {
     text-align: left;
@@ -220,7 +234,7 @@
     box-sizing: border-box;
     display: inline-block;
     float: left;
-    font-size: 11px;
+    font-size: 0.11rem;
     border-radius: 2px;
     background: #f2f2f2;
     margin-right: 0.07rem;
@@ -230,7 +244,7 @@
   }
   .dinglian-lists-cost {
     color: #e63832;
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
     margin-top: 0.1rem;
     height: 0.14rem;
@@ -239,7 +253,7 @@
   .dinglian-lists-people {
     margin-top: 0.2rem;
     text-align: left;
-    font-size: 10px;
+    font-size: 0.1rem;
     height: 0.1rem;
     line-height: 0.1rem;
   }
@@ -259,6 +273,7 @@
   .dinglian-lists-address > span {
     color: #999999;
     height: 0.14rem;
+    line-height: 0.14rem;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 40%;
@@ -275,7 +290,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 0 0.15rem;
-    font-size: 12px;
+    font-size: 0.12rem;
   }
   .dinglian-lists-changeButton {
 

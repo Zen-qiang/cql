@@ -26,15 +26,15 @@
         </div>
       </div>
     <div class="dinglian-lists-footer clearfix" v-show="footer">
-      <span>{{messageLists.commentCnt}}</span>
+      <span>{{topic.commentCnt}}</span>
       <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': topic.hasPraise}]">
-        {{messageLists.praiseCnt}}
+        {{topic.praiseCnt}}
       </span>
     </div>
   </div>
 </template>
 <script>
-  import * as types from '../../store/mutation-types'
+//  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   export default {
     name: 'AloneActivity',
@@ -42,27 +42,30 @@
       footer: {
         type: Boolean
       },
-      messageLists: {
+      activity: {
         type: Object
       }
     },
     data () {
       return {
-        activity: this.messageLists.activity,
         topic: {
           topicId: '',
-          hasPraise: false
+          hasPraise: '',
+          praiseCnt: '',
+          commentCnt: ''
         }
       }
     },
     created () {
-      this.topic.topicId = this.messageLists.topicId
-      console.log(this.messageLists)
+      this.topic.topicId = this.activity.topicId
+      this.topic.hasPraise = this.activity.hasPraise
+      this.topic.praiseCnt = this.activity.praiseCnt
+      this.topic.commentCnt = this.activity.commentCnt
     },
     methods: {
       redirectActivityDetails (id) {
-        this.$store.commit(types.ACTIVITYID, id)
-        this.$router.push({'path': '/activityDetails'})
+//        this.$store.commit(types.ACTIVITYID, id)
+        this.$router.push({'path': '/activityDetails/' + id})
       },
       praiseTopic (topic) {
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
@@ -79,7 +82,7 @@
               Toast(res.data.error.message)
             } else {
               topic.hasPraise = true
-              topic.praiseCnt++
+              topic.praiseCnt = res.data.data.praiseCnt
             }
           }).catch()
         }

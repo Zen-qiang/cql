@@ -1,12 +1,15 @@
 <template>
   <div class="dinglian-details-all">
-    <span class="dinglian-details-editIcon" @click.stop="editActivityInfo"  v-show="isCreator">
+    <!--右上角编辑按钮-->
+    <span class="dinglian-details-editIcon" @click="editActivityInfo"  v-show="isCreator">
       {{edit}}
     </span>
+    <!--轮播图-->
     <carousel :carouselList="carouselList"></carousel>
+    <!--标题-->
     <div class="dinglian-details-title clearfix">
-      <input type="text" v-model="activityInfo.name">
-      <span>金桥街舞1圈</span>
+      <input type="text" v-model="activityInfo.name" disabled>
+      <span>{{activityInfo.coterie.name}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
@@ -23,13 +26,12 @@
       <span v-if="activityInfo.status === '1'">进行中</span>
       <span v-else-if="activityInfo.status === '2'">正在报名</span>
       <span v-else>已结束</span>
-      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
+      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
       <input type="text" v-model="nickName" disabled>
       <a :href="mobileHref" class="dinglian-details-mobile"></a>
-      <!--<span class="dinglian-details-mobile"></span>-->
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
@@ -45,7 +47,7 @@
     <div class="dinglian-details-sign" @click="registerInformation">
       <label for="">报名信息</label>
       <span>
-
+        {{userCount.currentCount}}/ {{userCount.minCount}} ~ {{userCount.maxCount}}
       </span>
       <div class="dinglian-details-activityMembers">
         <img :src="item.picture" alt="" v-for="item in activityMembers">
@@ -73,10 +75,8 @@
     </div>
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
-      <!--<input type="text" v-model="isOpen" disabled>-->
       <span>{{isOpen ? '公开':'非公开' }}</span>
-      <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator" @change="preventSwitch"></mt-switch>
-      <!--<mt-switch v-model="isOpen" class="edit-switch" @change="preventSwitch" ></mt-switch>-->
+      <mt-switch v-model="isOpen" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
     </div>
     <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
@@ -85,7 +85,7 @@
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <textarea name="" id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
+    <textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
       {{activityInfo.description}}
     </textarea>
     <mt-button v-if="isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
@@ -112,8 +112,7 @@
     data () {
       return {
         carouselList: [],
-        address: '漕宝路112号',
-        types: '羽毛球',
+        address: '',
         activityInfo: {},
         isOpen: '',
         status: '',
@@ -133,7 +132,8 @@
         activityId: '',
         activityMembers: '',
         uid: this.$store.state.userId,
-        mobileHref: 'tel:' + this.$store.state.userPhoneNo
+        mobileHref: '',
+        userCount: ''
       }
     },
     created () {
@@ -174,11 +174,6 @@
       registerInformation () {
         this.$router.push({'path': '/praiseMembers/' + this.activityInfo.activityId})
       },
-      preventSwitch () {
-        if (this.edit === '编辑') {
-          Toast('请点击右上方的编辑按钮')
-        }
-      },
 //      跳转到活动评论界面
       gotoMessage () {
         this.$router.push({'path': '/activityMessage/' + this.topicId})
@@ -194,6 +189,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          this.userCount = res.data.data.userCount
           this.activityMembers = res.data.data.activityMembers
           this.isOpen = res.data.data.isOpen
           this.allowSignUp = res.data.data.allowSignUp
@@ -204,6 +200,8 @@
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
           this.topic = res.data.data.topic
+          this.address = res.data.data.address
+          this.mobileHref = 'tel:' + res.data.data.organizer.phoneNo
           if (this.topic) {
             this.topicId = res.data.data.topic.topicId
           }
@@ -223,7 +221,7 @@
             method: 'get',
             url: '/closeActivity',
             params: {
-              activityId: this.$store.state.activityId
+              activityId: this.$route.params.aid
             }
           }).then(res => {
             if (res.data.success) {
@@ -265,6 +263,10 @@
           this.disabled = false
           this.edit = '完成'
         } else if (this.edit === '完成') {
+          if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
+            Toast('人数填写错误')
+            return false
+          }
           this.axios({
             method: 'post',
             url: '/updateActivityInfo',
@@ -316,6 +318,7 @@
     background: #ffffff;
   }
   .dinglian-details-title {
+    background-color: #ffffff;
 
   }
   .dinglian-details-title > input {
@@ -323,6 +326,7 @@
     height: 100%;
     padding-left: 15px;
     float: left;
+    background-color: #ffffff;
   }
   .dinglian-details-title > span {
     height: 15px;
