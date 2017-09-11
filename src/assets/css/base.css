@@ -51,6 +51,11 @@ ul, ol, li {
   -webkit-transform: scale(0.75);
   transform: scale(0.75);*/
 }
+/*背景颜色#F2F2F2*/
+.bColor {
+  background: #F2F2F2;
+  height: 100%;
+}
 /*搜索框*/
 .dinglian-circle-all .mint-searchbar {
   height: 45px;
@@ -86,10 +91,11 @@ ul, ol, li {
   background: #ffd200;
   color: #333333;
   font-size: 15px;
+  height: 0.49rem;
 }
 /*修改navbar*/
 .mint-navbar .mint-tab-item.is-selected {
-  border-bottom: 2px solid #ffd200;
+  border-bottom: 0.02rem solid #ffd200;
   color: #333333;
 }
 a {

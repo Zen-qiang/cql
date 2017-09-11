@@ -11,7 +11,6 @@
       <div>
         <img :src="circle.cover" alt="" @click="redirectCircleDetails">
       </div>
-      <!-- <p>{{circle.name}}</p> -->
     </div>
     <div class="dinglian-success-shetuan">
       <div><img :src="circle.cover"></div>
@@ -207,4 +206,7 @@
     top: 25%;
     right: 5px;
    }
+  .edit-button {
+    display: block;
+  }
 </style>
