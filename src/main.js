@@ -59,7 +59,9 @@ router.beforeEach((to, from, next) => {
           'scanQRCode',
           'onMenuShareTimeline',
           'onMenuShareAppMessage',
-          'previewImage'
+          'previewImage',
+          'getLocation',
+          'openLocation'
         ]
       })
       wx.ready(function () {
