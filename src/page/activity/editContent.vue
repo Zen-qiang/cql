@@ -10,7 +10,6 @@
       <span v-else></span>
       <p :class="{'active':chooseCircle}"></p>
     </div>
-    <!--<div class="dinglian-edit-circleLists" v-show="chooseCircle">-->
     <div class="dinglian-edit-circleLists" :class="{'active':chooseCircle}">
     <ul>
         <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>
@@ -22,7 +21,6 @@
         <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
         <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">
       </i>
-      <!--<span>sowowowo</span>-->
     </div>
     <!--上传图片 end-->
     <mt-datetime-picker
@@ -275,10 +273,14 @@
             params: param
           }).then(res => {
             this.circles = res.data.data
-            for (var i in this.circles) {
-              if (this.circles[i].isLastCoterie) {
-                this.circle = this.circles[i]
-                break
+            if (this.circles.length === 1) {
+              this.ciecle = this.circles[0]
+            } else {
+              for (var i in this.circles) {
+                if (this.circles[i].isLastCoterie) {
+                  this.circle = this.circles[i]
+                  break
+                }
               }
             }
           }).catch()
