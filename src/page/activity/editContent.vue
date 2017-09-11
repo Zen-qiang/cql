@@ -42,8 +42,9 @@
       <!--<input type="text" v-model="startTime">-->
     </div>
     <div class="dinglian-edit-address">
-      <label for="">地址</label>
-      <input type="text" placeholder="自定义位置" v-model="address">
+      <label for="addr">地址</label>
+      <input type="text" placeholder="自定义位置" v-model="address" id="addr">
+      <span></span>
     </div>
     <div class="dinglian-edit-people">
       <label for="">人数</label>
@@ -71,7 +72,7 @@
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
     <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注" v-model="description"></textarea>
-    <mt-button type="default" class="edit-button" @click.native="goNextStep">创建新活动</mt-button>
+    <mt-button type="default" class="edit-button" @click.native="goNextStep">发布</mt-button>
   </div>
 </template>
 <script>
@@ -376,22 +377,11 @@
     overflow: hidden;
     margin-bottom: 1px;
   }
-  /*.dinglian-edit-circleLists {*/
-    /*width: 100%;*/
-  /*}*/
   .edit-all .dinglian-edit-circleLists > ul {
-    /*display: flex;*/
-    /*flex-flow: row wrap;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*padding-right: 0.1rem;*/
-    /*padding-top: 0.12rem;*/
-    /*padding-left: 0.15rem;*/
     padding-top: 0.12rem;
     overflow: hidden;
   }
   .dinglian-edit-circleLists > ul > li {
-    /*display: inline-block;*/
     height: 0.24rem;
     line-height: 0.24rem;
     font-size: 0.11rem;
@@ -496,6 +486,7 @@
     width: 100%;
     padding: 0.15rem;
     overflow: hidden;
+    font-size: 0.14rem;
   }
   .mint-datetime-picker {
     width: 100%;
@@ -505,9 +496,24 @@
   }
   .dinglian-edit-tel > input {
     height: 0.4rem;
+    font-size: 0.14rem;
+  }
+  .dinglian-edit-address {
+    position: relative;
   }
   .dinglian-edit-address > input {
     height: 0.4rem;
+    font-size: 0.14rem;
+  }
+  .dinglian-edit-address > span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 0.15rem;
+    width: 0.16rem;
+    height: 0.16rem;
+    background: url("../../assets/images/address.svg") no-repeat center center;
   }
   .dinglian-edit-psw {
     height: 0!important;
@@ -519,6 +525,7 @@
   }
   .dinglian-edit-psw > input {
     height: 0.4rem;
+    font-size: 0.14rem;
   }
   .mint-button--normal {
     display: block;
