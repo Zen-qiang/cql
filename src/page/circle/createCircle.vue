@@ -1,9 +1,9 @@
 <template>
   <div class="dinglian-create-all">
     <h3>创建圈子名称</h3>
-    <div>
+    <!--<div>-->
       <input type="text" placeholder="请输入圈子的名称,不得超过12字" class="fs_11" v-model="circleName">
-    </div>
+    <!--</div>-->
     <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">下一步</mt-button>
   </div>
 </template>
@@ -44,26 +44,43 @@
 </script>
 <style scoped>
   .dinglian-create-all {
-    padding-top: 154px;
+    padding-top: 0.9rem;
     /*overflow: hidden;*/
+    /*height: 100%;*/
   }
 
   .dinglian-create-all > h3 {
     /*margin-top: 154px;*/
     color: #666666;
-    font-weight: 400;
-    font-size: 24px;
+    font-weight: 200;
+    font-size: 0.24rem;
+    font-family: "PingFang";
+    text-align: center;
   }
   /*输入框*/
   .dinglian-create-all > div {
-    text-align: center;
-    margin: 0 auto;
-    width: 190px;
-    border-bottom: 1px solid #ffd200;
+    /*text-align: center;*/
+    /*margin: 0 auto;*/
+    /*width: 190px;*/
+    /*border-bottom: 1px solid #ffd200;*/
+    /*height: auto!important;*/
+    /*height: 100px;*/
   }
   .dinglian-create-all > div > input {
-    width: 173px;
-    height: 14px;
+    /*width: 173px;*/
+    /*height: 14px;*/
+  }
+  .dinglian-create-all input {
+    position: absolute;
+    top: 1.58rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 1.9rem;
+    font-size: 0.11rem;
+    border-bottom: 1px solid #ffd200;
+    text-align: center;
+    padding-bottom: 0.09rem;
   }
 
 </style>

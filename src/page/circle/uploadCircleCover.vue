@@ -1,5 +1,5 @@
 <template>
-  <div class="dinglian-upload-all">
+  <div class="dinglian-upload-all bColor">
     <!--<div class="dinglian-createCirclePhoto-uploadPhoto">
       <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>
       <label for="photo" v-show="isBlock"></label>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <p>简介</p>
-    <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder=""></textarea>
+    <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder="选择分类让别人更好的找到你"></textarea>
     <p>我同意<a>《出趣浪服务条款》</a></p>
     <mt-button type="default" @click.native="createCircle" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
   </div>
@@ -178,12 +178,8 @@
   }
   .dinglian-createCirclePhoto-uploadPhoto {
     position: relative;
-    height: 180px;
+    height: 1.8rem;
     /*border-bottom: 1px solid #999999;*/
-  }
-  .dinglian-createCirclePhoto-uploadPhoto > input {
-    position: absolute;
-    left: -9999px;
   }
   label {
     position: absolute;
@@ -194,7 +190,7 @@
     background: url(../../assets/images/createCircle.png) no-repeat center center;
     display: inline-block;
     width: 100%;
-    height: 180px;
+    height: 1.8rem;
     border-bottom: 1px solid #dddddd;
   }
   .dinglian-createCirclePhoto-background > img {
@@ -208,8 +204,9 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: #dddddd;
-    opacity: 0.2;
+    /*background: #dddddd;*/
+    /*opacity: 0.2;*/
+    background: rgba(0,0,0,0.2);
     z-index: 11;
   }
   .dinglian-createCirclePhoto-cover > label {
@@ -228,22 +225,18 @@
     position: absolute;
     right: 0;
   }
-
-
-
-
   .dinglian-upload-all > p {
     background-color: #ffffff;
     margin-bottom: 0;
     text-align: left;
-    font-size: 14px;
-    padding: 15px;
+    font-size: 0.14rem;
+    padding: 0.15rem;
     color: #333333;
   }
   .dinglian-upload-all > p:last-of-type {
     font-size: 11px;
     text-align: center;
-    margin-top: -36px;
+    margin-top: -0.36rem;
     position: relative;
   }
   .dinglian-upload-all > p:last-of-type > a {
@@ -254,10 +247,24 @@
   .dinglian-upload-con {
     width: 100%;
     border-bottom: 1px solid #dddddd;
-    height: 157px;
-    padding: 15px;
-    font-size: 12px;
+    height: 1.57rem;
+    padding: 0 0.15rem 0.15rem;
+    font-size: 0.12rem;
   }
-
-
+  .dinglian-upload-all .dinglian-upload-con + p{
+    background: #F2F2F2;
+    position: relative;
+  }
+  .dinglian-upload-all .dinglian-upload-con + p:after {
+    position: absolute;
+    content: '400字';
+    display: block;
+    top: -0.2rem;
+    right: 0;
+    width: 0.5rem;
+    line-height: 0.11rem;
+    text-align: left;
+    font-size: 0.11rem;
+    color: #999;
+  }
 </style>
