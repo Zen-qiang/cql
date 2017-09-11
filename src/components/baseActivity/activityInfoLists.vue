@@ -207,7 +207,7 @@
     float: left;
     font-weight: 400;
     color: #333333;
-    width: 9em;
+    max-width: 9em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -218,7 +218,7 @@
     background: #ffd200;
     border-radius: 4px;
     padding: 0 0.03rem;
-    width: 6em;
+    max-width: 6em;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
