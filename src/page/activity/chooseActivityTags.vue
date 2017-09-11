@@ -24,7 +24,7 @@
         </ul>
       </mt-tab-container-item>
     </mt-tab-container>
-    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="edit-button">下一步</mt-button>
+    <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="edit-button">继续</mt-button>
   </div>
 
 </template>
@@ -40,7 +40,7 @@
         tagsList: [],
         selectedTags: [],
         isUnlimited: false,
-        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')]
+        tagImgs: [require('../../assets/images/dancing.svg'), require('../../assets/images/table.svg'), require('../../assets/images/basketball.svg')]
       }
     },
     created () {
@@ -182,6 +182,7 @@
   }
   /*h3 标题*/
   .dinglian-choose-all > div h3 {
+    font-family: "PingFang-Regular";
     font-size: 0.24rem;
     font-weight: 300;
     color: #666666;
