@@ -86,6 +86,7 @@ ul, ol, li {
   height: 0.49rem;
 }
 .edit-button {
+  height: 0.49rem;
   margin: 10px 4%;
   width: 92%;
   background: #ffd200;
