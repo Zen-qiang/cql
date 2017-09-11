@@ -9,7 +9,9 @@
     <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
-      <span>{{activityInfo.coterie.name}}</span>
+      <router-link to="{path: '/circleDetails/' + activityInfo.coterie.id}">
+        <span>{{activityInfo.coterie.name}}</span>
+      </router-link>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
