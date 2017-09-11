@@ -38,7 +38,7 @@
         tagsList: [],
         selectedTags: [],
         isUnlimited: false,
-        tagImgs: [require('../../assets/images/dancing.png'), require('../../assets/images/table.png'), require('../../assets/images/basketball.png')]
+        tagImgs: [require('../../assets/images/dancing.svg'), require('../../assets/images/table.svg'), require('../../assets/images/basketball.svg')]
         // circleName: ''
       }
     },
@@ -141,44 +141,67 @@
     width: 50%;
   }
   .mint-navbar .mint-tab-item {
-    width: 24px;
+    width: 0.24rem;
     text-align: -webkit-center;
   }
   /*切换标签颜色 start*/
   .dinglian-circle-tags {
     color: #999999;
     border: 1px solid #999999;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 8px;
+    font-size: 0.12rem;
+    padding: 0.05rem;
+    border-radius: 0.08rem;
   }
   .dinglian-circle-changetags {
     background-color: #333333;
     color: #ffffff;
     border: 1px solid #333333;
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 8px;
+    font-size: 0.12rem;
+    padding: 0.05rem;
+    border-radius: 0.08rem;
   }
   /*切换标签颜色 end*/
   .dinglian-classification-tagList {
-    padding-left: 15px;
+    padding-left: 10.15rem;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.1rem;
   }
   .dinglian-classification-tagList li {
     list-style: none;
     float: left;
     margin-left: 0;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-right: 0.1rem;
+    margin-bottom: 0.1rem;
   }
   a {
     color: #333333;
   }
   .mint-navbar .mint-tab-item.is-selected {
-    border-bottom: 3px solid #ffd200;
+    border-bottom: 0.02rem solid #ffd200;
     color: #333333;
+  }
+  .mint-navbar .mint-tab-item {
+    position: relative;
+  }
+  .mint-navbar .mint-tab-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.02rem;
+    left: 0;
+    width: 0.425rem;
+    height: 0.02rem;
+    background: #fff;
+  }
+  .mint-navbar .mint-tab-item:before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.02rem;
+    right: 0;
+    width: 0.425rem;
+    height: 0.02rem;
+    background: #fff;
   }
   .mui-pull-left {
     float: none;
@@ -186,53 +209,60 @@
   img {
     width: 30%;
   }
+  .mint-tab-item-label > div {
+    font-size: 0.12rem;
+    margin-top: 0.11rem;
+    color: #333;
+  }
   /*主体*/
   .dinglian-choose-all {
     padding-top: 0.8rem;
   }
   /*h3 标题*/
  .dinglian-choose-all > h3 {
-   font-size: 24px;
+   font-size: 0.24rem;
    font-weight: 300;
+   line-height: 0.22rem;
    color: #666666;
-
+  font-family: "PingFang";
  }
   .dinglian-choose-all >p {
-    font-size:11px;
+    font-size:0.11rem;
     color: #999999;
-    margin-bottom: 37px;
+    margin-top: 0.11rem;
+    margin-bottom: 0.2rem;
   }
   /*标签*/
   .dinglian-circle-tagsHeader {
     width: 94%;
     text-align: left;
-    padding-top: 81px;
-    padding-bottom: 19px;
-    padding-left: 16px;
+    padding-top: 0.49rem;
+    padding-bottom: 0.19rem;
     border-bottom: 1px solid #999999;
     margin-left: 3%;
     color: #333333;
-    font-size: 14px;
+    font-size: 0.14rem;
   }
   .dinglian-choose-tags {
-    padding: 5px 28px;
+    padding: 0.05rem 0.28rem;
     overflow: hidden;
 
   }
   .dinglian-choose-tags > li {
     display: inline-block;
     float: left;
-    height: 22px;
+    height: 0.22rem;
     border: 1px solid #999999;
-    border-radius: 10px;
-    line-height: 22px;
-    font-size: 11px;
-    padding: 0 10px;
-    margin-top: 15px;
-    margin-right: 10px;
+    border-radius: 0.1rem;
+    line-height: 0.22rem;
+    font-size: 0.11rem;
+    padding: 0 0.1rem;
+    margin-top: 0.15rem;
+    margin-right: 0.1rem;
   }
-  .dinglian-choose-tags-li {
+  .dinglian-choose-tags .dinglian-choose-tags-li {
     background: #333333;
     color: #ffffff;
+    border-color: #333;
   }
 </style>
