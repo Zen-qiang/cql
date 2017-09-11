@@ -23,17 +23,17 @@ import wx from 'weixin-js-sdk'
 
 Vue.config.productionTip = false
 
-// if (window.sessionStorage.getItem('userId')) {
-//   store.commit(types.USERID, window.sessionStorage.getItem('userId'))
-//   store.commit(types.USERNAME, window.sessionStorage.getItem('userName'))
-//   store.commit(types.USERPICTURE, window.sessionStorage.getItem('userPicture'))
-//   store.commit(types.USERPHONENO, window.sessionStorage.getItem('userPhoneNo'))
-// }
+if (window.sessionStorage.getItem('userId')) {
+  store.commit(types.USERID, window.sessionStorage.getItem('userId'))
+  store.commit(types.USERNAME, window.sessionStorage.getItem('userName'))
+  store.commit(types.USERPICTURE, window.sessionStorage.getItem('userPicture'))
+  store.commit(types.USERPHONENO, window.sessionStorage.getItem('userPhoneNo'))
+}
 
-store.commit(types.USERID, 24)
-store.commit(types.USERNAME, 'frank')
-store.commit(types.USERPICTURE, '')
-store.commit(types.USERPHONENO, '15221545361')
+// store.commit(types.USERID, 24)
+// store.commit(types.USERNAME, 'frank')
+// store.commit(types.USERPICTURE, '')
+// store.commit(types.USERPHONENO, '15221545361')
 
 router.beforeEach((to, from, next) => {
   if (to.fullPath !== '/authorization') {

@@ -31,6 +31,8 @@
         <circle-events :topicList="topicList"></circle-events>
       </mt-tab-container-item>
     </mt-tab-container>
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
+    </button>
   </div>
   </mt-loadmore>
 </template>
@@ -82,6 +84,10 @@
       this.qrcodeContent = window.location.href
     },
     methods: {
+//      发布活动
+      redirectCreateActivity () {
+        this.$router.push({'path': '/chooseActivityTags'})
+      },
       showQRCode () {
         this.$store.commit(types.QRCODE, this.qrcodeContent)
         this.$router.push({'path': '/qrCode'})
@@ -303,5 +309,16 @@
     border: 1px solid red;
     top: 0.5rem;
     height: 202px;
+  }
+  .dinglian-activityLists-release {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 0.6rem;
+    height: 0.6rem;
+    border: none;
+    border-radius: 50%;
+    background: url("../../assets/images/snniuz.png") no-repeat center center;
+    background-size: 0.6rem 0.6rem;
   }
 </style>

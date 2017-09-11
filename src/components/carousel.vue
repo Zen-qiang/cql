@@ -21,7 +21,6 @@
     },
     props: ['carouselList'],
     created () {
-      console.log(this.carouselList)
       if (this.carouselList.length === 1) {
         this.indicators = false
       }
