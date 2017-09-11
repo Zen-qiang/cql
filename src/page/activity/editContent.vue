@@ -44,7 +44,7 @@
     <div class="dinglian-edit-address">
       <label for="addr">地址</label>
       <input type="text" placeholder="自定义位置" v-model="address" id="addr">
-      <span></span>
+      <span @click="getLocationGps"></span>
     </div>
     <div class="dinglian-edit-people">
       <label for="">人数</label>
@@ -132,6 +132,29 @@
       this.getMyCircles()
     },
     methods: {
+//      获取本地的gps
+      getLocationGps () {
+        wx.getLocation({
+          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+          success: function (res) {
+            var latitude = res.latitude  // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude  // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed  // 速度，以米/每秒计
+            alert(speed)
+            var accuracy = res.accuracy  // 位置精度
+            alert(accuracy)
+            wx.openLocation({
+              latitude: latitude, // 纬度，浮点数，范围为90 ~ -90
+              longitude: longitude, // 经度，浮点数，范围为180 ~ -180。
+              name: '', // 位置名
+              address: '', // 地址详情说明
+              scale: 1, // 地图缩放级别,整形值,范围从1~28。默认为最大
+              infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+            })
+          }
+        })
+      },
+//      拍照，上传照片
       takePictures () {
         var _this = this
         var imglen = _this.localImgs.length
@@ -275,7 +298,7 @@
           }).then(res => {
             this.circles = res.data.data
             if (this.circles.length === 1) {
-              this.ciecle = this.circles[0]
+              this.circle = this.circles[0]
             } else {
               for (var i in this.circles) {
                 if (this.circles[i].isLastCoterie) {
@@ -511,9 +534,11 @@
     bottom: 0;
     margin: auto;
     right: 0.15rem;
-    width: 0.16rem;
+    width: 0.3rem;
     height: 0.16rem;
     background: url("../../assets/images/address.svg") no-repeat center center;
+    background-clip: content-box;
+    background-origin: content-box;
   }
   .dinglian-edit-psw {
     height: 0!important;

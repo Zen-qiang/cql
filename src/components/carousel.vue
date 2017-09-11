@@ -1,9 +1,9 @@
 <template>
   <!-- 轮播图开始 -->
-  <div class="dinglian-home-carousel" @click="previewImg()">
-    <mt-swipe :auto="4000" :show-indicators="indicators" @change="handleChange">
+  <div class="dinglian-home-carousel">
+    <mt-swipe :auto="4000" :show-indicators="indicators">
       <mt-swipe-item v-for="(item, index) in carouselList" :key="index">
-        <img :src="item.url" @click="redirect(item.redirectUrl)" >
+        <img :src="item.url" @click="redirect(item.url)" >
       </mt-swipe-item>
     </mt-swipe>
   </div>
@@ -16,34 +16,24 @@
     data () {
       return {
         indicators: true,
-        redurl: ''
+        redUrl: []
       }
     },
     props: ['carouselList'],
     created () {
+      for (let i in this.carouselList) {
+        this.redUrl.push(this.carouselList[i].url)
+      }
       if (this.carouselList.length === 1) {
         this.indicators = false
       }
     },
     methods: {
-      previewImg () {
-        if (this.carouselList.length === 1) {
-          wx.previewImage({
-            current: this.carouselList[0].url, // 当前显示图片的http链接
-            urls: [this.carouselList[0].url] // 需要预览的图片http链接列表
-          })
-        }
-      },
-      handleChange (index) {
-        console.log(index)
-      },
       redirect (redirectUrl) {
         if (redirectUrl) {
-          console.log('点击')
-          window.location.href = redirectUrl
           wx.previewImage({
             current: redirectUrl, // 当前显示图片的http链接
-            urls: [] // 需要预览的图片http链接列表
+            urls: this.redUrl // 需要预览的图片http链接列表
           })
         }
       }
