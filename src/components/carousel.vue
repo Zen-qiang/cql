@@ -22,12 +22,11 @@
     },
     props: ['carouselList'],
     created () {
+      for (let i in this.carouselList) {
+        this.redUrl.push(this.carouselList[i].url)
+      }
       if (this.carouselList.length === 1) {
         this.indicators = false
-      } else if (this.carouselList.length > 1) {
-        for (let i in this.carouselList) {
-          this.redUrl.push(this.carouselList[i].url)
-        }
       }
     },
     methods: {
