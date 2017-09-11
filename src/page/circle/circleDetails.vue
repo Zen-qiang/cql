@@ -55,8 +55,6 @@
         circle: '',
         buttonText: '',
         isCreator: false,
-        dismissBtnText: '',
-        showDismissBtn: false,
         start: 0,
         pageSize: 10,
         topicList: [],
