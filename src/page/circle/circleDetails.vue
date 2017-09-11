@@ -8,7 +8,8 @@
         <div class="dinglian-details-join">
           <h4>{{circle.name}}</h4>
           <p>已有&nbsp;{{circle.membersCnt}}&nbsp;人参加</p>
-          <span v-show="showButton" @click="joinCircle()">{{buttonText}}</span>
+          <span v-if="isCreator" @click="dismissCircle()">{{buttonText}}</span>
+          <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
@@ -53,7 +54,9 @@
         circleId: this.$route.params.cid,
         circle: '',
         buttonText: '',
-        showButton: false,
+        isCreator: false,
+        dismissBtnText: '',
+        showDismissBtn: false,
         start: 0,
         pageSize: 10,
         topicList: [],
@@ -207,16 +210,47 @@
           console.log(err)
         })
       },
+      dismissCircle () {
+        if (this.isCreator) {
+          this.axios({
+            method: 'get',
+            url: 'dismissCoterie',
+            data: {
+              userId: this.uid,
+              coterieId: this.circleId
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.circle.status = res.data.data.status
+              this.initLayout(this.circle)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      },
       initLayout (circle) {
         // 初始化界面
         if (circle) {
-          if (!circle.isCreator) {
-            this.showButton = true
-          }
-          if (circle.isJoined) {
-            this.buttonText = '退出'
+          this.isCreator = circle.isCreator
+          if (circle.isCreator) {
+            if (circle.status) {
+              if (circle.status === 1) {
+                this.buttonText = '解散圈子'
+              } else if (circle.status === 2) {
+                this.buttonText = '解散中'
+              } else if (circle.status === 3) {
+                this.buttonText = '已解散'
+              }
+            }
           } else {
-            this.buttonText = '加入'
+            if (circle.isJoined) {
+              this.buttonText = '退出'
+            } else {
+              this.buttonText = '加入'
+            }
           }
         }
       }
