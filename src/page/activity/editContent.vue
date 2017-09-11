@@ -274,7 +274,7 @@
           }).then(res => {
             this.circles = res.data.data
             if (this.circles.length === 1) {
-              this.ciecle = this.circles[0]
+              this.circle = this.circles[0]
             } else {
               for (var i in this.circles) {
                 if (this.circles[i].isLastCoterie) {

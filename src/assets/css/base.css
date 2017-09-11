@@ -11,6 +11,8 @@
   /*设置盒子宽度从边框计算*/
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
 }
 .clearfix::before, .clearfix::after {
   content: '.';
