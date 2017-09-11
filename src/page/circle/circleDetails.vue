@@ -40,7 +40,7 @@
 <script>
   import CircleEvents from '../../components/baseCircle/circleEvents.vue'
   import * as types from '../../store/mutation-types'
-  import { Toast } from 'mint-ui'
+  import { MessageBox, Toast } from 'mint-ui'
   import wx from 'weixin-js-sdk'
   import VueQr from 'vue-qr'
   export default {
@@ -210,21 +210,23 @@
       },
       dismissCircle () {
         if (this.isCreator && this.circle.status === 1) {
-          this.axios({
-            method: 'get',
-            url: 'dismissCoterie',
-            params: {
-              userId: this.uid,
-              coterieId: this.circleId
-            }
-          }).then(res => {
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            } else {
-              this.circle.status = res.data.data.status
-              this.initLayout(this.circle)
-            }
-          }).catch()
+          MessageBox.confirm('确认解散该圈子?').then(action => {
+            this.axios({
+              method: 'get',
+              url: 'dismissCoterie',
+              params: {
+                userId: this.uid,
+                coterieId: this.circleId
+              }
+            }).then(res => {
+              if (!res.data.success) {
+                Toast(res.data.error.message)
+              } else {
+                this.circle.status = res.data.data.status
+                this.initLayout(this.circle)
+              }
+            }).catch()
+          })
         }
       },
       initLayout (circle) {
