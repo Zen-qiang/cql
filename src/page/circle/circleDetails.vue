@@ -213,7 +213,7 @@
           this.axios({
             method: 'get',
             url: 'dismissCoterie',
-            data: {
+            params: {
               userId: this.uid,
               coterieId: this.circleId
             }
@@ -224,9 +224,7 @@
               this.circle.status = res.data.data.status
               this.initLayout(this.circle)
             }
-          }).catch(err => {
-            console.log(err)
-          })
+          }).catch()
         }
       },
       initLayout (circle) {
