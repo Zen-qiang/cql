@@ -9,9 +9,7 @@
     <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
-      <router-link to="{path: '/circleDetails/' + activityInfo.coterie.id}">
-        <span>{{activityInfo.coterie.name}}</span>
-      </router-link>
+      <span @click="goCircleDetail(activityInfo.coterie.id)">{{activityInfo.coterie.name}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
@@ -174,6 +172,10 @@
       })
     },
     methods: {
+//      跳转到圈子详情界面
+      goCircleDetail (id) {
+        this.$router.push({'path': '/circleDetails/' + id})
+      },
 //      跳转到查看报名人数
       registerInformation () {
         this.$router.push({'path': '/praiseMembers/' + this.activityInfo.activityId})

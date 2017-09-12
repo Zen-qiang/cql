@@ -16,7 +16,7 @@
         </div>
         <div class="dinglian-alone-bind-footer">
           <div>
-            <mt-button type="default" class="dinglian-alone-bind-button" @click.native="bindConfirm()">立即绑定</mt-button>
+            <mt-button type="default" class="dinglian-alone-bind-button" :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</mt-button>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="dinglian-alone-addUsers" v-show="friends">
+    <div class="dinglian-alone-addUsers" v-show="friends.length">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
         <span v-if="friends.length > 0">{{friends.length}}</span>
@@ -91,7 +91,8 @@
         activity: {},
         friends: [],
         sendCodeButton: '发送验证码',
-        isActivated: true
+        isActivated: true,
+        isSignUpActive: false
       }
     },
     created () {
@@ -165,6 +166,7 @@
               this.$router.push({'path': '/activitySuccess'})
             }
           }).catch(err => {
+            this.isActivated = true
             console.log(err)
           })
         }
@@ -255,6 +257,8 @@
             if (!res.data.success) {
               Toast(res.data.error.message)
             } else {
+              this.telphone = ''
+              this.verifyNo = ''
               this.hiddenBind()
               this.needBind = false
               this.$store.commit(types.USERPHONENO, this.telphone)
@@ -462,6 +466,9 @@
     width: 100%;
     background: #dddddd;
     color: #999999;
+  }
+  .signUpActive {
+    background: #ffd200;
   }
 
 
