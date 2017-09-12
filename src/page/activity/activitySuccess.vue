@@ -1,5 +1,5 @@
 <template>
-  <div class="dinglian-success-all">
+  <div class="dinglian-success-all bColor">
     <div class="dinglian-success-icon">
       <img src="../../assets/images/success.svg" alt="">
     </div>
@@ -11,6 +11,7 @@
       <div>
         <img :src="circle.cover" alt="" @click="redirectCircleDetails">
       </div>
+      <p>街舞圈子</p>
     </div>
     <div class="dinglian-success-shetuan">
       <div><img :src="circle.cover"></div>
@@ -76,97 +77,86 @@
   }
 </script>
 <style scoped>
-  .dinglian-success-all {
-    height: 100%;
-    background: #F1F2F3;
-  }
   .dinglian-success-all > div{
     background: #fff;
   }
   .dinglian-success-icon {
-    /*padding-top: 50px;*/
-
+    box-sizing: content-box;
+    height: 0.42rem;
+    padding: 0.52rem 0 0.25rem;
   }
   .dinglian-success-icon > img {
     width: 0.42rem;
     height: 0.42rem;
-    display: inline-block;
     border-radius: 50%;
+    vertical-align: top;
   }
   .dinglian-success-all > div >h3 {
-    font-size: 19px;
-    font-weight: 400;
-    /*margin-top: 0.25rem;*/
+    font-size: 0.19rem;
+    font-weight: 300;
+    color: #333;
   }
   .dinglian-success-all > div > p {
-    font-size: 11px;
+    font-size: 0.11rem;
     color: #999999;
-    /*margin-top: 0.1rem;*/
-  }
-  .dinglian-success-title {
-    /*padding-top: 0.5rem;*/
-    /*padding-bottom: 0.45rem;*/
-    padding: 30px 0;
+    padding: 0.1rem 0 0.5rem;
   }
   .dinglian-success-title > div {
-    width: 120px;
-    height: 120px;
+    width: 1.2rem;
+    height: 1.2rem;
     border: 1px solid #e6e6e6;
     margin: 0 auto;
     overflow: hidden;
-    padding:6px;
+    padding:0.06rem;
   }
-  .dinglian-success-title img {
-    /*display: inline-block;
-    width: 120px;
-    height: 120px;*/
+  .dinglian-success-title >div img {
     width: 100%;
     height: 100%;
     vertical-align: top;
   }
-  .dinglian-success-title > p {
-    font-size: 13px;
-
+  .dinglian-success-all .dinglian-success-title > p {
+    font-size: 0.13rem;
+    color: #333;
+    padding:0.09rem 0 0.44rem;
   }
   .dinglian-success-joinPeople {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    border-top: 1px solid #dddddd;
-    padding: 0 15px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 14px;
+    padding: 0 0.15rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 0.14rem;
+    margin-top: 1px;
   }
   .dinglian-success-peopleList {
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
-    height: 50px;
-    line-height: 50px;
-    font-size: 14px;
+    margin-top: 1px;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 0.14rem;
     display: flex;
     flex-flow: row-reverse nowrap;
     align-items: center;
   }
   .dinglian-success-peopleList > span {
-    margin-right: 10px ;
+    margin-right: 0.1rem;
     display: inline-block;
-    width: 40px;
+    width: 0.4rem;
     border-radius: 50%;
     background-color: #dddddd;
   }
   .dinglian-success-peopleList > span > img {
     display: block;
-    width: 40px;
+    width: 0.4rem;
     border-radius: 50%;
   }
   /*社团展示*/
   .dinglian-success-shetuan {
-    height: 70px;
-    font-size: 14px;
+    height: 0.7rem;
+    font-size: 0.14rem;
     text-align: initial;
     overflow: hidden;
-    padding: 10px;
+    padding: 0.1rem;
     margin-top: 1px;
   }
   .dinglian-success-shetuan > div{
@@ -174,8 +164,8 @@
   }
   .dinglian-success-shetuan > div:nth-of-type(1) {
     float: left;
-    width: 50px;
-    border-radius: 4px;
+    width: 0.5rem;
+    border-radius: 0.04rem;
     overflow: hidden;
   }
   .dinglian-success-shetuan > div:nth-of-type(1) > img{
@@ -184,27 +174,32 @@
   }
   .dinglian-success-shetuan > div:nth-of-type(2) {
     overflow: hidden;
-    padding: 5px 10px;
+    padding: 0.05rem 0.1rem;
     position: relative;
   }
   .dinglian-success-shetuan > div:nth-of-type(2) > p:first-of-type{
 
   }
   .dinglian-success-shetuan > div:nth-of-type(2) > p:last-of-type{
-    font-size: 10px;
+    font-size: 0.1rem;
     color: #666;
   }
   .dinglian-success-shetuan > div:nth-of-type(2) > p:last-of-type > span{
     display: inline-block;
-    width: 15px;
-    margin: 0 5px 0 2px;
+    width: 0.15rem;
+    margin: 0 0.05rem 0 0.02rem;
   }
   .dinglian-success-shetuan > div:nth-of-type(2):after {
-    content: '>';
+    content: '';
     display: block;
     position: absolute;
-    top: 25%;
-    right: 5px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 0.16rem;
+    width: 0.1rem;
+    height: 0.1rem;
+    background: url("../../assets/images/jtcy.svg") no-repeat center center;
    }
   .edit-button {
     display: block;

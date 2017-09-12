@@ -13,6 +13,10 @@
     </div>
     <p>简介</p>
     <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder="选择分类让别人更好的找到你"></textarea>
+    <!--<div v-if="introduction.length>400"><span>0</span>字</div>-->
+    <!--<div v-else><span>{{num - introduction.length}}</span>字</div>-->
+    <!--<div><span>{{introduction.length>400?0:num-introduction.length}}</span>字</div>-->
+    <div><span v-text="num"></span>字</div>
     <p>我同意<a>《出趣浪服务条款》</a></p>
     <mt-button type="default" @click.native="createCircle" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
   </div>
@@ -32,8 +36,19 @@
         cover: false,
         lists: [],
         serverId: '',
+        isActivated: true,
         previewImg: '',
-        isActivated: true
+        num: 400
+      }
+    },
+    watch: {
+      introduction: function (val) {
+        this.num = 400 - parseInt(val.length)
+        if (parseInt(val.length) > 400) {
+          Toast('不允许超过400个字')
+          this.introduction = val.substr(0, 400)
+          this.num = 0
+        }
       }
     },
     created () {
@@ -129,7 +144,8 @@
     z-index: 10;
   }
   .dinglian-createCirclePhoto-background {
-    background: url(../../assets/images/createCircle.png) no-repeat center center;
+    background: #fff url(../../assets/images/createCircle.svg) no-repeat center center;
+    background-size: 50% 50%;
     display: inline-block;
     width: 100%;
     height: 1.8rem;
@@ -190,23 +206,20 @@
     width: 100%;
     border-bottom: 1px solid #dddddd;
     height: 1.57rem;
-    padding: 0 0.15rem 0.15rem;
+    padding: 0 0.15rem;
     font-size: 0.12rem;
   }
-  .dinglian-upload-all .dinglian-upload-con + p{
-    background: #F2F2F2;
-    position: relative;
-  }
-  .dinglian-upload-all .dinglian-upload-con + p:after {
-    position: absolute;
-    content: '400字';
-    display: block;
-    top: -0.2rem;
-    right: 0;
-    width: 0.5rem;
-    line-height: 0.11rem;
-    text-align: left;
+  .dinglian-upload-all .dinglian-upload-con + div {
     font-size: 0.11rem;
+    line-height: 0.25rem;
+    text-align: right;
     color: #999;
+    background: #fff;
+    position: relative;
+    top: -0.36rem;
+    padding: 0 0.15rem;
+  }
+  .dinglian-upload-all .dinglian-upload-con ~ p{
+    background: #F2F2F2;
   }
 </style>
