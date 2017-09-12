@@ -125,15 +125,62 @@
     position: relative;
     height: 100%;
   }
+  @-webkit-keyfarmes move {
+    from{
+      opacity: 0.6;
+      -webkit-transform: scale(0.6);
+      -moz-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  @keyframes move {
+    from{
+      opacity: 0.6;
+      -webkit-transform: scale(0.6);
+      -moz-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
   .dinglian-activityLists-release {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0.2rem;
+    right: 0.2rem;
     width: 0.6rem;
     height: 0.6rem;
     border: none;
     border-radius: 50%;
     background: url("../../assets/images/snniuz.png") no-repeat center center;
     background-size: 0.6rem 0.6rem;
+    -webkit-animation:move 0.5s ease-in;
+    -o-animation:move 0.5s ease-in;
+    animation:move 0.5s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    -o-animation-direction: alternate;
+    animation-direction: alternate;
   }
 </style>

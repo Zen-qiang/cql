@@ -176,6 +176,22 @@
   a {
     color: #333333;
   }
+  @-webkit-keyframes move {
+    from {
+      width: 0;
+    }
+    to {
+      width: 0.425rem;
+    }
+  }
+  @keyframes move {
+    from {
+      width: 0;
+    }
+    to {
+      width: 0.425rem;
+    }
+  }
   .mint-navbar .mint-tab-item.is-selected {
     border-bottom: 0.02rem solid #ffd200;
     color: #333333;
@@ -183,23 +199,35 @@
   .mint-navbar .mint-tab-item {
     position: relative;
   }
-  .mint-navbar .mint-tab-item:after {
+  .mint-navbar .mint-tab-item.is-selected:after {
     content: '';
     display: block;
     position: absolute;
     bottom: -0.02rem;
     left: 0;
-    width: 0.425rem;
+    /*width: 0.425rem;*/
+    -webkit-animation:move 0.5s;
+    -o-animation:move 0.5s;
+    animation:move 0.5s;
+    animation-fill-mode: forwards;
+    /*animation-iteration-count: infinite;*/
     height: 0.02rem;
     background: #fff;
   }
-  .mint-navbar .mint-tab-item:before {
+  .mint-navbar .mint-tab-item.is-selected:before {
     content: '';
     display: block;
     position: absolute;
     bottom: -0.02rem;
     right: 0;
-    width: 0.425rem;
+    /*width: 0.425rem;*/
+    -webkit-animation:move 0.5s;
+    -o-animation:move 0.5s;
+    animation:move 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
     height: 0.02rem;
     background: #fff;
   }
@@ -248,6 +276,42 @@
     overflow: hidden;
 
   }
+  @-webkit-keyfarmes show {
+    from{
+      opacity: 0;
+      -webkit-transform: translateY(0.05rem);
+      -moz-transform: translateY(0.05rem);
+      -ms-transform: translateY(0.05rem);
+      -o-transform: translateY(0.05rem);
+      transform: translateY(0.05rem);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+  @keyframes show {
+    from{
+      opacity: 0;
+      -webkit-transform: translateY(0.05rem);
+      -moz-transform: translateY(0.05rem);
+      -ms-transform: translateY(0.05rem);
+      -o-transform: translateY(0.05rem);
+      transform: translateY(0.05rem);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
   .dinglian-choose-tags > li {
     display: inline-block;
     float: left;
@@ -259,6 +323,13 @@
     padding: 0 0.1rem;
     margin-top: 0.15rem;
     margin-right: 0.1rem;
+    -webkit-animation:show 0.5s;
+    -o-animation:show 0.5s;
+    animation:show 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
   }
   .dinglian-choose-tags .dinglian-choose-tags-li {
     background: #333333;

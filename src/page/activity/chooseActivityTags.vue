@@ -205,6 +205,42 @@
     padding-left: 0.15rem;
     padding-bottom: 0.135rem;
   }
+  @webkit-keyframes show {
+    from{
+      opacity: 0;
+      -webkit-transform: translateY(0.05rem);
+      -moz-transform: translateY(0.05rem);
+      -ms-transform: translateY(0.05rem);
+      -o-transform: translateY(0.05rem);
+      transform: translateY(0.05rem);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+  @keyframes show {
+    from{
+      opacity: 0;
+      -webkit-transform: translateY(0.05rem);
+      -moz-transform: translateY(0.05rem);
+      -ms-transform: translateY(0.05rem);
+      -o-transform: translateY(0.05rem);
+      transform: translateY(0.05rem);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
   .dinglian-choose-tags > li {
     font-size: 0.11rem;
     float: left;
@@ -214,6 +250,9 @@
     color: #999;
     line-height: 0.22rem;
     padding: 0 0.1rem;
+    -webkit-animation:show 0.5s;
+    -o-animation:show 0.5s;
+    animation:show 0.5s;
   }
   .dinglian-choose-tags .dinglian-choose-tags-li {
     background: #333333;
@@ -230,27 +269,57 @@
   .mint-navbar > a{
     position: relative;
   }
-  .mint-navbar .mint-tab-item.is-selected[data-v-485b87ae] {
+  @-webkit-keyframes move {
+    from{
+      width: 0;
+    }
+    to{
+      width:0.4rem;
+    }
+  }
+  @keyframes move {
+    from{
+      width: 0;
+    }
+    to{
+      width:0.4rem;
+    }
+  }
+  .mint-navbar .mint-tab-item.is-selected {
     border-width: 0.02rem;
   }
-  .mint-navbar .mint-tab-item:before {
+  .mint-navbar .mint-tab-item.is-selected:before {
     content: '';
     display: block;
     position: absolute;
     bottom: -0.03rem;
     left: 0;
-    width: 0.4rem;
+    /*width: 0.4rem;*/
     height: 0.03rem;
     background: #fff;
+    -webkit-animation:move 0.5s;
+    -o-animation:move 0.5s;
+    animation:move 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
   }
-  .mint-navbar .mint-tab-item:after {
+  .mint-navbar .mint-tab-item.is-selected:after {
     content: '';
     display: block;
     position: absolute;
     bottom: -0.03rem;
     right: 0;
-    width: 0.4rem;
+    /*width: 0.4rem;*/
     height: 0.03rem;
     background: #fff;
+    -webkit-animation:move 0.5s;
+    -o-animation:move 0.5s;
+    animation:move 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
   }
 </style>
