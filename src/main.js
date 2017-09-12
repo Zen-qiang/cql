@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
       }
     }).then(res => {
       wx.config({
-        debug: true,
+        debug: false,
         appId: res.data.data.appId,
         timestamp: res.data.data.timestamp,
         nonceStr: res.data.data.nonceStr,
