@@ -41,6 +41,14 @@
       <span>{{startTime | moment}}</span>
       <!--<input type="text" v-model="startTime">-->
     </div>
+    <!--test-->
+    <group>
+      <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
+        test datatime
+      </datetime>
+    </group>
+    <!--test-->
+
     <div class="dinglian-edit-address">
       <label for="addr">地址</label>
       <input type="text" placeholder="自定义位置" v-model="address" id="addr">
@@ -83,7 +91,12 @@
   moment.locale('zh-cn')
   import wx from 'weixin-js-sdk'
   import { judgmentTel } from '../../assets/js/tools'
+  import { Datetime, Group } from 'vux'
   export default {
+    components: {
+      Datetime,
+      Group
+    },
     filters: {
       moment (val) {
         return moment(val).format('YYYY-MM-DD HH:mm')
@@ -116,7 +129,8 @@
         localImgs: [],
         ioslocIds: [],
         serverIds: [],
-        isActivated: true
+        isActivated: true,
+        limitHourValue: ''
       }
     },
     watch: {
@@ -133,6 +147,9 @@
       this.getMyCircles()
     },
     methods: {
+      change (value) {
+        console.log('change', value)
+      },
 //      获取本地的gps
       getLocationGps () {
         wx.getLocation({
