@@ -30,6 +30,8 @@
     },
     methods: {
       redirect (redirectUrl) {
+        console.log(this.redUrl)
+        console.log(redirectUrl)
         if (redirectUrl) {
           wx.previewImage({
             current: redirectUrl, // 当前显示图片的http链接
