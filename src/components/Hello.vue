@@ -1,74 +1,41 @@
 <template>
   <div class="hello">
-    <div @click="ceshi">
-      测试拍照
-    </div>
+    <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:300px;" /></div>
+    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:300px;height:auto; display:none;"></div>
+    <button @click="getAddress">获取当前地址</button>
+    <button @click="getLocation">获取当前位置</button>
+    <button @click="getDistance">测距</button>
+    <b-map ref="bmap" style="height:400px;width:100%;"></b-map>
   </div>
 </template>
 
 <script>
-import { Toast } from 'mint-ui'
-import wx from 'weixin-js-sdk'
+import BMap from './BMap.vue'
 export default {
+  components: {
+    BMap
+  },
   name: 'hello',
   data () {
     return {
-      ready: ''
     }
   },
+  created () {
+  },
   mounted () {
-    this.axios({
-      method: 'get',
-      url: '/getWxConfig',
-      params: {
-        url: location.href.split('#')[0]
-      }
-    }).then(res => {
-      wx.config({
-        debug: false,
-        appId: res.data.data.appId,
-        timestamp: res.data.data.timestamp,
-        nonceStr: res.data.data.nonceStr,
-        signature: res.data.data.signature,
-        jsApiList: [
-          'chooseImage',
-          'downloadImage',
-          'uploadImage'
-        ]
-      })
-      this.ready = true
-    }).catch(error => {
-      Toast(error)
-      this.ready = false
-    })
   },
   methods: {
-    ceshi () {
-      var _this = this
-      if (_this.ready) {
-        wx.chooseImage({
-          count: 3, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            var localIds = res.localIds
-            alert(localIds)
-            _this.shangchuan(localIds)
-          }
-        })
-      }
+    getAddress () {
+      alert('当前位置地址：' + this.$refs.bmap.address)
+      // console.log(this.$refs.bmap.address)
     },
-    shangchuan (e) {
-      for (let item in e) {
-        wx.uploadImage({
-          localId: e[item], // 需要上传的图片的本地ID，由chooseImage接口获得
-          isShowProgressTips: 1, // 默认为1，显示进度提示
-          success: function (res) {
-            var serverId = res.serverId
-            alert(serverId)
-          }
-        })
-      }
+    getLocation () {
+      alert('当前位置坐标：' + this.$refs.bmap.position)
+      // console.log(this.$refs.bmap.position)
+    },
+    getDistance () {
+      alert('距离当前位置：' + this.$refs.bmap.distance + 'm')
+      // console.log(this.$refs.bmap.distance + 'm')
     }
   }
 }
@@ -79,4 +46,5 @@ export default {
   div {
     font-size: 14px;
   }
+  #r-result{width:100%;}
 </style>
