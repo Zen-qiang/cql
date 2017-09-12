@@ -21,18 +21,15 @@
     },
     props: ['carouselList'],
     created () {
-      console.log(this.carouselList)
-      for (let i in this.carouselList) {
-        this.redUrl.push(this.carouselList[i].url)
-      }
       if (this.carouselList.length === 1) {
         this.indicators = false
       }
     },
     methods: {
       redirect (redirectUrl) {
-        console.log(this.redUrl)
-        console.log(redirectUrl)
+        for (let i in this.carouselList) {
+          this.redUrl.push(this.carouselList[i].url)
+        }
         if (redirectUrl) {
           wx.previewImage({
             current: redirectUrl, // 当前显示图片的http链接
