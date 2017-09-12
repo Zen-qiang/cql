@@ -21,6 +21,7 @@
     },
     props: ['carouselList'],
     created () {
+      console.log(this.carouselList)
       for (let i in this.carouselList) {
         this.redUrl.push(this.carouselList[i].url)
       }
