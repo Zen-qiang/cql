@@ -1,19 +1,6 @@
 <template>
   <div class="dinglian-upload-all bColor">
-    <!--<div class="dinglian-createCirclePhoto-uploadPhoto">
-      <input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>
-      <label for="photo" v-show="isBlock"></label>
-      <i class="dinglian-createCirclePhoto-background">
-        <img :src="imgUrl" alt="" v-show="imgUrl">
-      </i>
-      <div class="dinglian-createCirclePhoto-cover" v-show="cover">
-        <label for="photo">
-          <img src="../../assets/images/modify.png" alt="">
-        </label>
-      </div>
-    </div>-->
     <div class="dinglian-createCirclePhoto-uploadPhoto">
-      <!--<input id="photo" accept="image/*" capture="camera" type="file" @change="uploadImg" ref="photo" multiple/>-->
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
         <img :src="previewImg" alt="" v-show="previewImg">
@@ -32,8 +19,6 @@
 
 </template>
 <script>
-//  import lrz from '../../../static/lrz/lrz.bundle'
-//  import {compressPic} from '../../assets/js/compressPicture'
   import { Toast } from 'mint-ui'
   import wx from 'weixin-js-sdk'
   export default {
@@ -42,15 +27,13 @@
         circle: {},
         isEdit: false,
         circleTags: '',
-        // photoFile: '',
         isBlock: true,
-        // imgUrl: '',
         introduction: '',
         cover: false,
         lists: [],
         serverId: '',
-        // ready: '',
-        previewImg: ''
+        previewImg: '',
+        isActivated: true
       }
     },
     created () {
@@ -63,45 +46,7 @@
         this.cover = true
       }
     },
-    // mounted () {
-    //   this.axios({
-    //     method: 'get',
-    //     url: '/getWxConfig',
-    //     params: {
-    //       url: location.href.split('#')[0]
-    //     }
-    //   }).then(res => {
-    //     wx.config({
-    //       debug: false,
-    //       appId: res.data.data.appId,
-    //       timestamp: res.data.data.timestamp,
-    //       nonceStr: res.data.data.nonceStr,
-    //       signature: res.data.data.signature,
-    //       jsApiList: [
-    //         'chooseImage',
-    //         'downloadImage',
-    //         'uploadImage'
-    //       ]
-    //     })
-    //     this.ready = true
-    //   }).catch(error => {
-    //     Toast(error)
-    //     this.ready = false
-    //   })
-    // },
     methods: {
-//      uploadImg (e) {
-//        let vm = this
-//        var files = e.target.files || e.dataTransfer.files
-//        lrz(files[0], {width: 750}).then(rst => {
-//          rst.base64 = rst.base64 + ''
-//          vm.imgUrl = rst.base64
-//          vm.imgFile = rst.formData
-//        }).always(function () {
-//          e.target.value = null
-//        })
-//        this.cover = true
-//      },
 //      上传图片
       takePictures () {
         var _this = this
@@ -134,8 +79,8 @@
             })
           }
         })
-        // }
       },
+//      创建圈子
       createCircle () {
         let formData = new FormData()
         formData.append('serverId', this.serverId)
@@ -143,30 +88,27 @@
         formData.append('name', this.circle.name)
         formData.append('tags', this.circleTags)
         formData.append('description', this.introduction)
-        // let data = {
-        //   userId: this.$store.state.userId,
-        //   name: this.circle.name,
-        //   tags: this.circleTags,
-        //   description: this.introduction,
-        //   picture: this.imgFile
-        // }
         if (this.isEdit) {
-          // data.coterieId = this.circle.coterieId
           formData.append('coterieId', this.circle.coterieId)
         }
-        this.axios({
-          method: 'post',
-          url: this.isEdit ? 'editCoterie' : 'createCoterie',
-          data: formData
-        }).then(res => {
-          if (!res.data.success) {
-            Toast(res.data.error.message)
-          } else {
-            this.$router.push({'path': '/myCircle'})
-          }
-        }).catch(err => {
-          console.log(err)
-        })
+        if (this.isActivated) {
+          this.isActivated = false
+          this.axios({
+            method: 'post',
+            url: this.isEdit ? 'editCoterie' : 'createCoterie',
+            data: formData
+          }).then(res => {
+            this.isActivated = true
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.$router.push({'path': '/myCircle'})
+            }
+          }).catch(err => {
+            this.isActivated = true
+            console.log(err)
+          })
+        }
       }
     }
   }

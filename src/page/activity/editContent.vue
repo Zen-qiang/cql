@@ -115,7 +115,8 @@
         activityNameSuccess: '',
         localImgs: [],
         ioslocIds: [],
-        serverIds: []
+        serverIds: [],
+        isActivated: true
       }
     },
     watch: {
@@ -139,17 +140,15 @@
           success: function (res) {
             var latitude = res.latitude  // 纬度，浮点数，范围为90 ~ -90
             var longitude = res.longitude  // 经度，浮点数，范围为180 ~ -180。
-            var speed = res.speed  // 速度，以米/每秒计
-            alert(speed)
-            var accuracy = res.accuracy  // 位置精度
-            alert(accuracy)
+//            var speed = res.speed  // 速度，以米/每秒计
+//            var accuracy = res.accuracy  // 位置精度
             wx.openLocation({
               latitude: latitude, // 纬度，浮点数，范围为90 ~ -90
               longitude: longitude, // 经度，浮点数，范围为180 ~ -180。
-              name: '', // 位置名
-              address: '', // 地址详情说明
-              scale: 1, // 地图缩放级别,整形值,范围从1~28。默认为最大
-              infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+              name: '上海', // 位置名
+              address: '上海金桥', // 地址详情说明
+              scale: 10, // 地图缩放级别,整形值,范围从1~28。默认为最大
+              infoUrl: 'http://www.baidu.com' // 在查看位置界面底部显示的超链接,可点击跳转
             })
           }
         })
@@ -261,27 +260,32 @@
         if (!this.isOpen && this.password) {
           formdata.append('password', this.password)
         }
-        this.axios({
-          method: 'post',
-          url: this.isEdit ? 'editActivity' : 'launchActivity',
-          data: formdata
-        }).then(res => {
-          if (!res.data.success) {
-            Toast(res.data.error.message)
-          } else {
-            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
-            let circleObj = {
-              id: res.data.data.coterieId,
-              name: res.data.data.coterieName,
-              cover: res.data.data.coterieCover,
-              isRelease: true
+        if (this.isActivated) {
+          this.isActivated = false
+          this.axios({
+            method: 'post',
+            url: this.isEdit ? 'editActivity' : 'launchActivity',
+            data: formdata
+          }).then(res => {
+            this.isActivated = true
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+              let circleObj = {
+                id: res.data.data.coterieId,
+                name: res.data.data.coterieName,
+                cover: res.data.data.coterieCover,
+                isRelease: true
+              }
+              this.$store.commit(types.CIRCLE, circleObj)
+              this.$router.push({'path': '/activitySuccess'})
             }
-            this.$store.commit(types.CIRCLE, circleObj)
-            this.$router.push({'path': '/activitySuccess'})
-          }
-        }).catch(err => {
-          console.log(err)
-        })
+          }).catch(err => {
+            this.isActivated = true
+            console.log(err)
+          })
+        }
       },
       getMyCircles () {
         // 获取我的圈子列表
