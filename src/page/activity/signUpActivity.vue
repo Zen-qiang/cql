@@ -32,23 +32,23 @@
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">姓名</label>
-        <input type="text" v-model="userName">
+        <input type="text" v-model="userName" disabled>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
-        <input type="text" v-model="telphone" v-show="!needBind">
+        <input type="text" v-model="telphone" v-show="!needBind" disabled>
         <span v-show="needBind" @click="showBind()">绑定手机号</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
         <div class="edit-radio">
-          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender">男</label>
-          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender">女</label>
+          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>
+          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>
         </div>
       </div>
     </div>
 
-    <div class="dinglian-alone-addUsers">
+    <div class="dinglian-alone-addUsers" v-show="friends">
       <div class="dinglian-alone-addTitle">
         <span>添加的朋友</span>
         <span v-if="friends.length > 0">{{friends.length}}</span>
@@ -90,7 +90,8 @@
         password: '',
         activity: {},
         friends: [],
-        sendCodeButton: '发送验证码'
+        sendCodeButton: '发送验证码',
+        isActivated: true
       }
     },
     created () {
@@ -136,33 +137,37 @@
       },
 //      报名过程；成功后跳转成功页面
       confirm (data) {
-        this.axios({
-          method: 'post',
-          url: 'signUp',
-          data: data
-        }).then(res => {
-          if (!res.data.success) {
-            Toast(res.data.error.message)
-          } else {
-            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
-            let circleObj = {
-              id: res.data.data.coterie.id,
-              name: res.data.data.coterie.name,
-              cover: res.data.data.coterie.cover,
-              isRelease: false
+        if (this.isActivated) {
+          this.isActivated = false
+          this.axios({
+            method: 'post',
+            url: 'signUp',
+            data: data
+          }).then(res => {
+            this.isActivated = true
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+              let circleObj = {
+                id: res.data.data.coterie.id,
+                name: res.data.data.coterie.name,
+                cover: res.data.data.coterie.cover,
+                isRelease: false
+              }
+              if (res.data.data.activityMembers) {
+                circleObj.activityMembers = res.data.data.activityMembers
+              }
+              if (res.data.data.userCount) {
+                circleObj.userCount = res.data.data.userCount
+              }
+              this.$store.commit(types.CIRCLE, circleObj)
+              this.$router.push({'path': '/activitySuccess'})
             }
-            if (res.data.data.activityMembers) {
-              circleObj.activityMembers = res.data.data.activityMembers
-            }
-            if (res.data.data.userCount) {
-              circleObj.userCount = res.data.data.userCount
-            }
-            this.$store.commit(types.CIRCLE, circleObj)
-            this.$router.push({'path': '/activitySuccess'})
-          }
-        }).catch(err => {
-          console.log(err)
-        })
+          }).catch(err => {
+            console.log(err)
+          })
+        }
       },
 //      立即报名
       signUp () {

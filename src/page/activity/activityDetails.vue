@@ -9,7 +9,9 @@
     <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
-      <span>{{activityInfo.coterie.name}}</span>
+      <router-link to="{path: '/circleDetails/' + activityInfo.coterie.id}">
+        <span>{{activityInfo.coterie.name}}</span>
+      </router-link>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
@@ -88,8 +90,8 @@
     <textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
       {{activityInfo.description}}
     </textarea>
-    <mt-button v-if="isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
-    <mt-button v-else v-show="allowSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-if="isCreator && activityInfo.status === '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
+    <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
   </div>
 </template>
 <script>
@@ -133,7 +135,9 @@
         activityMembers: '',
         uid: this.$store.state.userId,
         mobileHref: '',
-        userCount: ''
+        userCount: '',
+        isSignUp: false,
+        isActivated: true
       }
     },
     created () {
@@ -189,6 +193,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          this.isSignUp = res.data.data.isSignUp
           this.userCount = res.data.data.userCount
           this.activityMembers = res.data.data.activityMembers
           this.isOpen = res.data.data.isOpen
@@ -216,28 +221,32 @@
       },
 //      参加活动
       singnUpActivity () {
-        if (this.isCreator) {
-          this.axios({
-            method: 'get',
-            url: '/closeActivity',
-            params: {
-              activityId: this.$route.params.aid
-            }
-          }).then(res => {
-            if (res.data.success) {
-              this.$router.push({'path': '/activityLists'})
-            }
-            console.log(res)
-          }).catch()
-        } else {
-          this.activityInfo.cover = this.activityInfo.pictures[0]
-          this.$store.commit(types.ACTIVITY, this.activityInfo)
-          if (!this.isOpen) {
-            MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
-              this.validPassword(this.activityId, value)
-            })
+        if (this.isActivated) {
+          this.isActivated = false
+          if (this.isCreator) {
+            this.axios({
+              method: 'get',
+              url: '/closeActivity',
+              params: {
+                activityId: this.$route.params.aid
+              }
+            }).then(res => {
+              this.isActivated = true
+              if (res.data.success) {
+                this.$router.push({'path': '/activityLists'})
+              }
+            }).catch()
           } else {
-            this.$router.push({'path': '/signUpActivity'})
+            this.activityInfo.cover = this.activityInfo.pictures[0]
+            this.$store.commit(types.ACTIVITY, this.activityInfo)
+            if (!this.isOpen) {
+              MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+                this.validPassword(this.activityId, value)
+              })
+            } else {
+              this.isActivated = true
+              this.$router.push({'path': '/signUpActivity'})
+            }
           }
         }
       },
@@ -250,6 +259,7 @@
             password: password
           }
         }).then(res => {
+          this.isActivated = true
           if (res.data.success) {
             this.$router.push({'path': '/signUpActivity'})
           } else {

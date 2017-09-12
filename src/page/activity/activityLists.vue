@@ -78,6 +78,7 @@
           url: 'getActivityList',
           params: params
         }).then(res => {
+          console.log(res.data.data)
           if (res.data.data.length > 0) {
             for (let item in res.data.data) {
               this.activityLists.push(res.data.data[item])
