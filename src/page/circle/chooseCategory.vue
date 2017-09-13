@@ -209,6 +209,9 @@
     -webkit-animation:move 0.5s;
     -o-animation:move 0.5s;
     animation:move 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
     /*animation-iteration-count: infinite;*/
     height: 0.02rem;
