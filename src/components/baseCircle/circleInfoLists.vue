@@ -53,8 +53,10 @@
 </script>
 <style scoped>
   .dinglian-lists-con {
-    height: 130px;
-    border-bottom: 1px solid #dddddd;
+    height: 1.3rem;
+    /*border-bottom: 1px solid #dddddd;*/
+    margin-bottom: 1px;
+    background: #fff;
   }
   /*左边区域*/
   .dinglian-lists-con-left {

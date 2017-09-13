@@ -4,9 +4,11 @@
                  :distanceIndex="2"
                  :maxDistance="100"
                  ref="loadTop">
-    <form class="dinglian-circle-search clearfix" onsubmit="return false;">
-      <input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" ref="searchInput">
-      <span v-show="!keyword"></span>
+    <form class="dinglian-circle-search" onsubmit="return false;">
+      <!--<input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" ref="searchInput">
+      <span v-show="!keyword"></span>-->
+      <input type="search" placeholder="请输入活动关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}" @search="searchActivity" ref="searchInput">
+      <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
   </mt-loadmore>
@@ -29,7 +31,8 @@
         pageSize: 10,
         activityLists: [],
         page: 1,
-        allLoaded: false
+        allLoaded: false,
+        active: false
       }
     },
     created () {
@@ -88,12 +91,27 @@
           }
           Indicator.close()
         }).catch()
+      },
+      // 输入框放大镜图标 聚焦事件
+      moveIcon () {
+        this.active = true
+      },
+      // 失焦事件
+      refreshIcon () {
+        if (this.keyword === '') {
+          this.active = false
+        }
+      },
+      // 清除输入框内容
+      clearSearchContent () {
+        this.keyword = ''
+        this.active = false
       }
     }
   }
 </script>
 <style scoped>
-  /*搜索框*/
+  /*!*搜索框*!
   .dinglian-circle-search {
     width: 100%;
     height: 0.44rem;
@@ -121,12 +139,66 @@
     top: 0.15rem;
     width: 0.14rem;
     height: 0.14rem;
+  }*/
+  /*搜索框*/
+  .dinglian-circle-search {
+    height: 0.44rem;
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
+    position: relative;
   }
+  .dinglian-circle-search > span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    font-size: 0.14rem;
+    color: #333;
+    line-height: 0.44rem;
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .dinglian-circle-search > span.active {
+    right: 0.18rem;
+    opacity: 1;
+  }
+  .dinglian-circle-search > input[type^=search] {
+    /*margin: 0 auto;*/
+    margin: 0 0.15rem 0 0.15rem;
+    height: 0.24rem;
+    width: 3.45rem;
+    border-radius: 0.12rem;
+    font-size: 0.12rem;
+    color: #999999;
+    background: #fff url("../../assets/images/magnifier.svg") no-repeat 30% center;
+    background-size: 0.12rem;
+    padding-left: 34%;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+  .dinglian-circle-search > input[type^=search].active {
+    background-position-x: 0.05rem;
+    padding-left: 0.2rem;
+    margin: 0 0.6rem 0 0.15rem;
+    -webkit-border-radius: 0.04rem;
+    -moz-border-radius: 0.04rem;
+    border-radius: 0.04rem;
+  }
+  /**/
   .dinglian-activityLists-all {
     position: relative;
     height: 100%;
   }
-  @-webkit-keyfarmes move {
+  @-webkit-keyframes move {
     from{
       opacity: 0.6;
       -webkit-transform: scale(0.6);
