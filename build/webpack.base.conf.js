@@ -7,9 +7,13 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+// const webpackConfig = originalConfig // 原来的 module.exports 代码赋值给变量 webpackConfig
+const webpackConfig = {
   entry: {
     app: './src/main.js'
+  },
+  externals: {
+    'BMap': 'BMap'
   },
   output: {
     path: config.build.assetsRoot,
@@ -69,7 +73,22 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /vux.src.*?js$/,
+        loader: 'babel'
       }
     ]
   }
 }
+
+const vuxLoader = require('vux-loader')
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  options: {
+    showVuxVersionInfo: false
+  },
+  plugins: [
+    'vux-ui', 'duplicate-style'
+  ]
+})
