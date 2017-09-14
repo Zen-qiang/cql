@@ -1,9 +1,13 @@
 <template>
   <div id="app">
     <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
+      <transition name="slide">
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </transition>
     </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <transition name="slide">
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -27,4 +31,16 @@ export default {
   html,body,#app {
     height: 100%;
   }
+  .slide-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-enter, .slide-leave {
+    transform: translateX(-430px);
+    opacity: 0;
+  }
+
+
 </style>
