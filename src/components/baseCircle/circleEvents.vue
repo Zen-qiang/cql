@@ -214,4 +214,16 @@
     background-size: 14px 14px;
     padding-left: 19px;
   }
+  /*进行中*/
+  .dinglian-lists-status-processing {
+    background: #5dcf58;
+  }
+  /*报名中*/
+  .dinglian-lists-status-IsRegistering {
+    background: #2f8efa;
+  }
+  /*已结束*/
+  .dinglian-lists-status-over {
+    background: #ffd200;
+  }
 </style>
