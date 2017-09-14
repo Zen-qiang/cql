@@ -18,6 +18,8 @@ export default {
   name: 'hello',
   data () {
     return {
+      address: ''
+
     }
   },
   created () {
@@ -27,15 +29,12 @@ export default {
   methods: {
     getAddress () {
       alert('当前位置地址：' + this.$refs.bmap.address)
-      // console.log(this.$refs.bmap.address)
     },
     getLocation () {
       alert('当前位置坐标：' + this.$refs.bmap.position)
-      // console.log(this.$refs.bmap.position)
     },
     getDistance () {
       alert('距离当前位置：' + this.$refs.bmap.distance + 'm')
-      // console.log(this.$refs.bmap.distance + 'm')
     }
   }
 }

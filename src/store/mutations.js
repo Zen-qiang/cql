@@ -47,6 +47,9 @@ const mutations = {
   },
   [types.QRCODE]: (state, qrCode) => {
     state.qrCode = qrCode
+  },
+  [types.CURRENTADDRESS]: (state, currentAddress) => {
+    state.currentAddress = currentAddress
   }
 }
 export default mutations

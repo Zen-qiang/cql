@@ -19,6 +19,7 @@ const state = {
   // 参数
   paramData: {},
   // 二维码
-  qrCode: ''
+  qrCode: '',
+  currentAddress: ''
 }
 export default state

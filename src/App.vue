@@ -35,10 +35,10 @@ export default {
     transition: all .3s ease;
   }
   .slide-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    /*transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
   }
   .slide-enter, .slide-leave {
-    transform: translateX(-430px);
+    transform: translateX(-3.7rem);
     opacity: 0;
   }
 

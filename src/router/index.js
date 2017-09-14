@@ -105,6 +105,9 @@ import Authorization from '@/page/authorization/authorization.vue'
 // 二维码
 import QrCode from '@/page/circle/qrCode.vue'
 
+// 地图
+import ActivityPosition from '@/page/activity/activityPosition.vue'
+
 // 点赞列表
 const PointList = r => require.ensure([], () => r(require('@/components/pointList')), 'pointList')
 
@@ -273,6 +276,12 @@ export default new Router({
       path: '/pointList/:id',
       name: 'PointList',
       component: PointList
+    },
+    // 地图
+    {
+      path: '/activityPosition',
+      name: 'ActivityPosition',
+      component: ActivityPosition
     },
     {
       path: '*',

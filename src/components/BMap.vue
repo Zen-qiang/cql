@@ -86,6 +86,7 @@ export default {
       var geocoder = new BMap.Geocoder()
       geocoder.getLocation(p, function (result) {
         _this.address = result.address
+        _this.$emit('getCurrentAddress', _this.address)
       })
     },
     getPosition (p) {
