@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">
-      <input type="search" placeholder="请输入圈子关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
+      <input type="search" placeholder="请输入圈子关键词" @search="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
@@ -89,7 +89,6 @@
       resetListData () {
         this.page = 1
         this.allLoaded = false
-        this.keyword = ''
         this.coterieList = []
       },
 //        下拉刷新
