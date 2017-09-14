@@ -14,9 +14,9 @@
           </div>
           <div class="dinglian-lists-cost">{{activity.charge}}</div>
           <div class="dinglian-lists-people clearfix">
-            <span v-if="activity.status === '1'"><em class="dinglian-lists-status"></em>进行中</span>
-            <span v-else-if="activity.status === '2'"><em class="dinglian-lists-status"></em>正在报名</span>
-            <span v-else><em class="dinglian-lists-status"></em>已结束</span>
+            <span v-if="activity.status === '1'"><em class="dinglian-lists-status-processing"></em>进行中</span>
+            <span v-else-if="activity.status === '2'"><em class="dinglian-lists-status-IsRegistering"></em>正在报名</span>
+            <span v-else><em class="dinglian-lists-status-over"></em>已结束</span>
             <span> <i>{{activity.userCount.currentCount}}</i> /{{activity.userCount.minCount}}~{{activity.userCount.maxCount}}人</span>
           </div>
           <div class="dinglian-lists-people dinglian-lists-address clearfix">
@@ -216,5 +216,24 @@
     border-radius: 50%;
     background: #ffd200;
     margin-right: 5px;
+  }
+  em[class^='dinglian-lists-status'] {
+    width: 0.08rem;
+    height: 0.08rem;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 0.05rem;
+  }
+  /*进行中*/
+  .dinglian-lists-status-processing {
+    background: #5dcf58;
+  }
+  /*报名中*/
+  .dinglian-lists-status-IsRegistering {
+    background: #2f8efa;
+  }
+  /*已结束*/
+  .dinglian-lists-status-over {
+    background: #ffd200;
   }
 </style>
