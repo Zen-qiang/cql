@@ -100,7 +100,7 @@
         if (idx > -1) {
           this.selectedTags.splice(idx, 1)
         } else {
-          if (this.selectedTags.length === 3) {
+          if (this.selectedTags.length === 4) {
             Toast('最多可选择3个标签')
             return
           }
