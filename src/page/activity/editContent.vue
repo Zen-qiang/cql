@@ -23,7 +23,7 @@
       </i>
     </div>
     <!--上传图片 end-->
-    <mt-datetime-picker
+    <!--<mt-datetime-picker
       ref="picker"
       type="datetime"
       year-format="{value}"
@@ -35,16 +35,17 @@
       :startDate="startDate"
       :endDate="endDate"
     >
-    </mt-datetime-picker>
-    <div @click="$refs.picker.open()" class="dinglian-edit-time">
+    </mt-datetime-picker>-->
+    <!--<div @click="$refs.picker.open()" class="dinglian-edit-time">
       <label for="">时间</label>
       <span>{{startTime | moment}}</span>
-      <!--<input type="text" v-model="startTime">-->
-    </div>
+      &lt;!&ndash;<input type="text" v-model="startTime">&ndash;&gt;
+    </div>-->
     <!--test-->
+    <!--:start-date="startDate" :end-date="endDate"-->
     <group>
       <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
-        test datatime
+        <span>时间</span><span v-text="times"></span>
       </datetime>
     </group>
     <!--test-->
@@ -104,8 +105,14 @@
     },
     data () {
       return {
-        startDate: new Date(),
-        endDate: new Date('2018-12-12'),
+        startDate: '',
+        endDate: '',
+        times: '',
+//        fullYear: this.times.getFullYear().toString(),
+//        month: this.forMartTimes(this.times.getMonth()),
+//        day: this.forMartTimes(this.times.getDate()),
+        fullYear: '',
+        month: '',
         isEdit: false,
         profilePicture: '',
         circles: [],
@@ -147,8 +154,13 @@
       this.getMyCircles()
     },
     methods: {
+      forMartTimes (val) {
+        return val < 10 ? '0' + val : val.toString()
+      },
       change (value) {
-        console.log('change', value)
+//        console.log('change', value)
+        this.times = value
+//        console.log(this.fullYear)
       },
 //      获取本地的gps
       getLocationGps () {
