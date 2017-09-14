@@ -94,8 +94,8 @@ export default {
     },
     initMarker (point) {
       var _this = this
-      var myIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu3.svg', new BMap.Size(45, 88))
-      var shadow = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu4.svg', new BMap.Size(45, 88))
+      var myIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu5.svg', new BMap.Size(45, 88))
+      var shadow = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu5.svg', new BMap.Size(45, 88))
       this.marker = new BMap.Marker(point, {
         icon: myIcon,
         shadow: shadow,

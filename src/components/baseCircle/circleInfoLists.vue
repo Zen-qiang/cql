@@ -8,8 +8,8 @@
     <ul class="dinglian-lists-ul">
       <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList" @click="redirectCircleInfo(item.coterieId)">
         <div class="dinglian-lists-con-left">
-          <!--<img :src="item.cover" alt="">-->
-          <img v-lazy.container="item.cover" alt="">
+          <img :src="item.cover" alt="">
+          <!--<img v-lazy.container="item.cover" alt="">-->
         </div>
         <div class="dinglian-lists-con-right">
           <h3>{{item.name}}</h3>
