@@ -18,11 +18,14 @@
             <div class="dinglian-lists-tags clearfix" @click="redirectActivityInfo(item.activity.activityId)">
               <span class="fs_11" :key="tag" v-for="tag of item.activity.tags">{{tag}}</span>
             </div>
-            <div class="dinglian-lists-cost" @click="redirectActivityInfo(item.activity.activityId)">{{item.activity.charge}}</div>
+            <div class="dinglian-lists-cost" @click="redirectActivityInfo(item.activity.activityId)">
+              <span v-if="item.activity.charge === 'free'">免费</span>
+              <span v-else>AA制</span>
+            </div>
             <div class="dinglian-lists-people clearfix" @click="redirectActivityInfo(item.activity.activityId)">
-              <span v-if="item.activity.status === '1'">进行中</span>
-              <span v-else-if="item.activity.status === '2'">正在报名</span>
-              <span v-else>已结束</span>
+              <span v-if="item.activity.status === '1'"><em class="dinglian-lists-status-processing"></em>进行中</span>
+              <span v-else-if="item.activity.status === '2'"><em class="dinglian-lists-status-IsRegistering"></em>正在报名</span>
+              <span v-else><em class="dinglian-lists-status-over"></em>已结束</span>
               <span> <i>{{item.activity.userCount.currentCount}}</i> /{{item.activity.userCount.minCount}}~{{item.activity.userCount.maxCount}}人</span>
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
