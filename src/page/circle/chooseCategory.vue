@@ -28,6 +28,7 @@
 </template>
 <script>
   import * as types from '../../store/mutation-types'
+  import { Toast } from 'mint-ui'
   export default {
     data () {
       return {
@@ -118,6 +119,10 @@
         if (idx > -1) {
           this.selectedTags.splice(idx, 1)
         } else {
+          if (this.selectedTags.length === 4) {
+            Toast('最多可选择3个标签')
+            return
+          }
           this.selectedTags.push(tagId)
         }
         // console.log(this.selectedTags)
