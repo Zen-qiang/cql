@@ -120,9 +120,6 @@
       }
     },
     computed: {
-      getAddress () {
-        return this.$store.state.currentAddress
-      }
     },
     data () {
       return {
@@ -168,9 +165,6 @@
         if (this.maxCount === '' || val > this.maxCount) {
           this.maxCount = val
         }
-      },
-      getAddress: function (val) {
-        this.address = val
       }
     },
     created () {
@@ -178,7 +172,6 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
-      console.log(this.$store.state.currentAddress)
       /* 时间 */
       this.fullYear = this.date.getFullYear().toString()
       this.month = this.forMartTimes(this.date.getMonth() + 1)
@@ -187,6 +180,9 @@
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.times = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.forMartTimes(this.date.getMonth()) + '-' + this.day
+      if (this.$store.state.currentAddress) {
+        this.address = this.$store.state.currentAddress
+      }
     },
     methods: {
       forMartTimes (val) {
@@ -602,6 +598,7 @@
   .dinglian-edit-address > input {
     height: 0.4rem;
     font-size: 0.14rem;
+    width: 1.8rem;
   }
   .dinglian-edit-address > span {
     position: absolute;

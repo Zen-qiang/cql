@@ -89,7 +89,7 @@
     <textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
       {{activityInfo.description}}
     </textarea>
-    <mt-button v-if="isCreator && activityInfo.status === '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
+    <mt-button v-if="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
     <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
   </div>
 </template>

@@ -196,7 +196,9 @@
           isEditSignUp: this.isEditSignUp,
           friends: JSON.stringify(this.friends)
         }
-        this.confirm(data)
+        if (judgmentTel(this.telphone)) {
+          this.confirm(data)
+        }
       },
 //      跳转编辑好友页面
       showAddFriend () {

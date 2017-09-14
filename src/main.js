@@ -23,8 +23,8 @@ import wx from 'weixin-js-sdk'
 
 Vue.config.productionTip = false
 
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
+// const FastClick = require('fastclick')
+// FastClick.attach(document.body)
 
 if (window.sessionStorage.getItem('userId')) {
   store.commit(types.USERID, window.sessionStorage.getItem('userId'))

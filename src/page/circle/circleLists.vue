@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-circle-all bColor">
     <mt-loadmore :top-method="loadTop"
-                 :distanceIndex="4"
+                 :distanceIndex="5"
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">

@@ -1,8 +1,8 @@
 <template>
+  <div class="dinglian-details-whole">
   <mt-loadmore :top-method="loadTop"
                :distanceIndex="3"
                ref="loadTop">
-  <div class="dinglian-details-whole">
     <header>
       <div class="coverStyle" :style="coverStyle">
         <div class="dinglian-details-join">
@@ -11,7 +11,9 @@
           <span v-if="isCreator" @click="dismissCircle()">{{buttonText}}</span>
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
+        <!--编辑按钮-->
         <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
+        <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
       </div>
@@ -32,10 +34,10 @@
         <circle-events :topicList="topicList"></circle-events>
       </mt-tab-container-item>
     </mt-tab-container>
-    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()">
+  </mt-loadmore>
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="isJoined">
     </button>
   </div>
-  </mt-loadmore>
 </template>
 <script>
   import CircleEvents from '../../components/baseCircle/circleEvents.vue'
@@ -60,15 +62,19 @@
         topicList: [],
         coverStyle: {
           width: '100%',
-          height: '195px',
-          background: 'url(' + require('../../assets/images/carousel0.jpg') + ')',
+          height: '1.95rem',
+//          background: 'url(' + require('../../assets/images/carousel0.jpg') + ')',
+          backgroundPositionX: 'center',
+          backgroundPositionY: 'center',
+          backgroundSize: 'cover',
           position: 'relative'
         },
         page: 1,
         allLoaded: false,
         uid: this.$store.state.userId,
         qrcodeContent: '',
-        showed: false
+        showed: false,
+        isJoined: false
       }
     },
     watch: {
@@ -87,7 +93,9 @@
     methods: {
 //      发布活动
       redirectCreateActivity () {
-        this.$router.push({'path': '/chooseActivityTags'})
+        if (this.isJoined) {
+          this.$router.push({'path': '/chooseActivityTags'})
+        }
       },
       showQRCode () {
         this.$store.commit(types.QRCODE, this.qrcodeContent)
@@ -119,8 +127,9 @@
           params: param
         }).then(res => {
           this.circle = res.data.data
+          this.isJoined = res.data.data.isJoined
           this.sharePeople(res.data.data)
-          this.coverStyle.background = 'url(' + this.circle.cover + ')'
+          this.coverStyle.backgroundImage = 'url(' + this.circle.cover + ')'
           this.initLayout(this.circle)
           this.getTopicList(this.selected)
         }).catch()
@@ -258,6 +267,12 @@
   }
 </script>
 <style scoped>
+  .dinglian-details-whole {
+    width: 100%;
+    height: 100%;
+    background-color: #F2F2F2;
+    position: relative;
+  }
   /*头部背景*/
   .dinglian-details-background {
     width: 100%;
@@ -344,15 +359,62 @@
     top: 0.5rem;
     height: 202px;
   }
+  @-webkit-keyframes move {
+    from{
+      opacity: 0.6;
+      -webkit-transform: scale(0.6);
+      -moz-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  @keyframes move {
+    from{
+      opacity: 0.6;
+      -webkit-transform: scale(0.6);
+      -moz-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
+    }
+    to{
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
   .dinglian-activityLists-release {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0.2rem;
+    right: 0.2rem;
     width: 0.6rem;
     height: 0.6rem;
     border: none;
     border-radius: 50%;
     background: url("../../assets/images/snniuz.png") no-repeat center center;
     background-size: 0.6rem 0.6rem;
+    -webkit-animation:move 0.5s ease-in;
+    -o-animation:move 0.5s ease-in;
+    animation:move 0.5s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    -o-animation-direction: alternate;
+    animation-direction: alternate;
   }
 </style>

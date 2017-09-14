@@ -82,7 +82,7 @@
     padding-left: 0.2rem;
   }
   .dinglian-position-bmap {
-    height: 6.67rem;
+    height: 100%;
   }
 
 </style>

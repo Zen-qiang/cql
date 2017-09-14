@@ -2,13 +2,14 @@
   <div>
     <mt-loadmore :bottom-method="loadBottom"
                  :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
-                 :distanceIndex="1"
+                 :distanceIndex="2"
                  ref="loadmore">
 
     <ul class="dinglian-lists-ul">
       <li class="clearfix dinglian-lists-con" :key="item.coterieId" v-for="item of coterieList" @click="redirectCircleInfo(item.coterieId)">
         <div class="dinglian-lists-con-left">
           <img :src="item.cover" alt="">
+          <!--<img v-lazy.container="item.cover" alt="">-->
         </div>
         <div class="dinglian-lists-con-right">
           <h3>{{item.name}}</h3>
@@ -54,81 +55,100 @@
 <style scoped>
   .dinglian-lists-con {
     height: 1.3rem;
-    /*border-bottom: 1px solid #dddddd;*/
     margin-bottom: 1px;
     background: #fff;
   }
   /*左边区域*/
   .dinglian-lists-con-left {
     float: left;
-    width: 31%;
-    padding: 15px 0;
-    padding-left: 15px;
+    width: 1.15rem;
+    padding: 0.15rem 0;
+    padding-left: 0.15rem;
+    box-sizing: border-box;
   }
   .dinglian-lists-con-left > img {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 4px;
+  }
+  image[lazy=loading] {
+    display: block;
+    width: 1rem;
+    height: 1rem;
     border-radius: 4px;
   }
   /*右边区域*/
   .dinglian-lists-con-right {
     float: left;
-    width: 69%;
+    width: 2.6rem;
     height: 100%;
-    padding-top: 14px;
-    padding-left: 13px;
+    padding: 0.15rem;
+    padding-left: 0.12rem;
+    overflow: hidden;
   }
   .dinglian-lists-con-right > h3 {
     font-size: 14px;
     text-align: left;
-    height: 15px;
-    line-height: 15px;
+    height: 0.15rem;
+    line-height: 0.15rem;
     width: 80%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #333333;
+    font-weight: 500;
+    font-family: 'PingFangSC-Light';
   }
   .dinglian-lists-statistics {
     text-align: left;
-    height: 11px;
-    line-height: 11px;
-    padding-top: 5px;
+    height: 0.11rem;
+    line-height: 0.11rem;
+    padding-top: 0.05rem;
+    font-size: 11px;
+    box-sizing: content-box;
   }
   .dinglian-lists-statistics > span {
+    height: 0.11rem;
+    line-height: 0.11rem;
+    font-size: 11px;
     color: #999999;
     display: inline-block;
     float: left;
-    margin-left: 13px;
+    margin-left: 0.13rem;
   }
   .dinglian-lists-statistics > span:first-of-type {
     margin-left: 0;
   }
   .dinglian-lists-tags {
+    height: 0.18rem;
     text-align: left;
-    height: 18px;
-    line-height: 18px;
-    margin-top: 7px;
+    line-height: 0.18rem;
+    margin-top: 0.07rem;
+    box-sizing: content-box;
 
   }
   .dinglian-lists-tags > span {
+    box-sizing: border-box;
+    height: 0.18rem;
+    line-height: 0.12rem;
+    font-size: 0.11rem;
     display: inline-block;
     float: left;
-    border-radius: 4px;
+    border-radius: 2px;
     background: #f2f2f2;
-    margin-right: 7px;
-    padding: 2px;
+    margin-right: 0.07rem;
+    padding: 0.03rem;
   }
   .dinglian-lists-con-right > p {
-    margin-top: 17px;
-    font-size: 12px;
-    height: 29px;
+    margin-top: 0.17rem;
+    font-size: 0.12rem;
+    height: 0.285rem;
     text-align: left;
-    margin-right: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 80%;
+    /*width: 80%;*/
    /* display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
