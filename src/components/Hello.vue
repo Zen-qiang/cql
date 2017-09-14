@@ -1,40 +1,64 @@
 <template>
   <div class="hello">
-    <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:300px;" /></div>
-    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:300px;height:auto; display:none;"></div>
-    <button @click="getAddress">获取当前地址</button>
-    <button @click="getLocation">获取当前位置</button>
-    <button @click="getDistance">测距</button>
-    <b-map ref="bmap" style="height:400px;width:100%;"></b-map>
+    <div id="allmap" style="height:400px;width:100%;"></div>
   </div>
 </template>
 
 <script>
-import BMap from './BMap.vue'
+import BMap from 'BMap'
 export default {
-  components: {
-    BMap
-  },
-  name: 'hello',
   data () {
     return {
-      address: ''
-
+      map: null,
+      userPoint: null,
+      activityPoint: null,
+      userMarker: null,
+      activityMarker: null
     }
   },
   created () {
   },
   mounted () {
+    var _this = this
+    var map = new BMap.Map('allmap')
+    map.centerAndZoom('上海', 16)
+    this.map = map
+    // 创建活动标识
+    this.initActivityMarker()
+    map.addEventListener('load', function (e) {
+      new BMap.Geolocation().getCurrentPosition(function (r) {
+        if (this.getStatus() === 0) {
+          _this.initUserMarker(r.point)
+        } else {
+          alert('定位失败，状态码为:' + this.getStatus())
+        }
+      }, {
+        enableHighAccuracy: true
+      })
+    })
   },
   methods: {
-    getAddress () {
-      alert('当前位置地址：' + this.$refs.bmap.address)
+    initUserMarker (p) {
+      var userIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu4.svg', new BMap.Size(25, 58))
+      this.userMarker = new BMap.Marker(p, {
+        icon: userIcon
+      })
+      // 添加标识物
+      this.map.addOverlay(this.userMarker)
+      // 移动到指定的point
+      this.map.panTo(p)
     },
-    getLocation () {
-      alert('当前位置坐标：' + this.$refs.bmap.position)
-    },
-    getDistance () {
-      alert('距离当前位置：' + this.$refs.bmap.distance + 'm')
+    initActivityMarker () {
+      // 定义活动地点
+      this.activityPoint = new BMap.Point(121.48187849, 31.24946271)
+      var activityIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu5.svg', new BMap.Size(75, 118))
+      this.activityMarker = new BMap.Marker(this.activityPoint, {
+        icon: activityIcon
+      })
+      // 添加标识物
+      this.map.addOverlay(this.activityMarker)
+      // 移动到指定的point
+      // this.map.panTo(this.activityPoint)
     }
   }
 }
