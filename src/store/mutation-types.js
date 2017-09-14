@@ -21,4 +21,6 @@ export const USERPHONENO = 'userPhoneNo'
 export const PARAMDATA = 'paramData'
 // 二维码
 export const QRCODE = 'qrCode'
+// 当前地址
+export const CURRENTADDRESS = 'currentAddress'
 
