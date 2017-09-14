@@ -214,6 +214,13 @@
     background-size: 14px 14px;
     padding-left: 19px;
   }
+  em[class^='dinglian-lists-status'] {
+    width: 0.08rem;
+    height: 0.08rem;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 0.05rem;
+  }
   /*进行中*/
   .dinglian-lists-status-processing {
     background: #5dcf58;
