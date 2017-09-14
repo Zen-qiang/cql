@@ -258,6 +258,11 @@
   }
 </script>
 <style scoped>
+  .dinglian-details-whole {
+    width: 100%;
+    height: 6.67rem;
+    background-color: #F2F2F2;
+  }
   /*头部背景*/
   .dinglian-details-background {
     width: 100%;

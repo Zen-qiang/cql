@@ -24,9 +24,9 @@
               <span v-else>AA制</span>
             </div>
             <div class="dinglian-lists-people clearfix" @click="redirectActivityDetails(item.activityId)">
-              <span v-if="item.status === '1'"><em class="dinglian-lists-status"></em>进行中</span>
-              <span v-else-if="item.status === '2'"><em class="dinglian-lists-status"></em>正在报名</span>
-              <span v-else><em class="dinglian-lists-status"></em>已结束</span>
+              <span v-if="item.status === '1'"><em class="dinglian-lists-status-processing"></em>进行中</span>
+              <span v-else-if="item.status === '2'"><em class="dinglian-lists-status-IsRegistering"></em>正在报名</span>
+              <span v-else><em class="dinglian-lists-status-over"></em>已结束</span>
               <span> <i>{{item.userCount.currentCount}}</i> /{{item.userCount.minCount}}~{{item.userCount.maxCount}}人</span>
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
@@ -314,5 +314,24 @@
     border-radius: 50%;
     background: #ffd200;
     margin-right: 0.05rem;
+  }
+  em[class^='dinglian-lists-status'] {
+    width: 0.08rem;
+    height: 0.08rem;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 0.05rem;
+  }
+  /*进行中*/
+  .dinglian-lists-status-processing {
+    background: #5dcf58;
+  }
+  /*报名中*/
+  .dinglian-lists-status-IsRegistering {
+    background: #2f8efa;
+  }
+  /*已结束*/
+  .dinglian-lists-status-over {
+    background: #ffd200;
   }
 </style>

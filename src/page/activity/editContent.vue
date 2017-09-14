@@ -104,9 +104,6 @@
       }
     },
     computed: {
-      getAddress () {
-        return this.$store.state.currentAddress
-      }
     },
     data () {
       return {
@@ -150,9 +147,6 @@
         if (this.maxCount === '' || val > this.maxCount) {
           this.maxCount = val
         }
-      },
-      getAddress: function (val) {
-        this.address = val
       }
     },
     created () {
@@ -160,7 +154,9 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
-      console.log(this.$store.state.currentAddress)
+      if (this.$store.state.currentAddress) {
+        this.address = this.$store.state.currentAddress
+      }
     },
     methods: {
       forMartTimes (val) {
@@ -568,6 +564,7 @@
   .dinglian-edit-address > input {
     height: 0.4rem;
     font-size: 0.14rem;
+    width: 1.8rem;
   }
   .dinglian-edit-address > span {
     position: absolute;
