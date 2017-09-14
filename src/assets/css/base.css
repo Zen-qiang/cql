@@ -166,3 +166,34 @@ a {
 .mint-swipe-indicators .mint-swipe-indicator.is-active {
   background: #fff;
 }
+/*编辑活动页面时间选择自定义样式*/
+.weui-cells.vux-no-group-title {
+  height: 0.5rem!important;
+}
+.vux-no-group-title {
+  margin-top: 0!important;
+}
+.weui-cells {
+  font-size: 0.14rem!important;
+  margin-top: 0!important;
+  line-height: 0.5rem!important;
+}
+.weui-cells:before,.weui-cells:after {
+  border: none!important;
+}
+.weui-cell {
+  padding: 0!important;
+}
+.vux-datetime {
+  color: #999!important;
+  text-decoration: none!important;
+}
+.weui-cell > span:nth-of-type(1) {
+  display: inline-block!important;
+  width: 0.8rem!important;
+  text-align: left!important;
+}
+.weui-cell > span:nth-of-type(2) {
+  color: #333!important;
+  font-size: 0.14rem!important;
+}
