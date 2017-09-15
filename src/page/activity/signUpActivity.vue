@@ -55,7 +55,7 @@
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
         <div class="edit-radio">
-          <div>男</div>
+          <div>{{userGender}}</div>
           <!--<label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>-->
           <!--<label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>-->
         </div>
@@ -107,7 +107,8 @@
         sendCodeButton: '发送验证码',
         isActivated: true,
         isSignUpActive: false,
-        active: true
+        active: true,
+        userGender: '男'
       }
     },
     created () {
@@ -117,6 +118,13 @@
         this.telphone = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
+      }
+      if (this.$store.state.userGender && this.$store.state.userGender !== 'null') {
+        if (this.$store.state.userGender === '1') {
+          this.userGender = '男'
+        } else if (this.$store.state.userGender === '2') {
+          this.userGender = '女'
+        }
       }
       if (this.activity.signUpInfo) {
         this.userName = this.activity.signUpInfo.realName

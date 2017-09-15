@@ -18,7 +18,6 @@
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
-      <!--<vue-qr :text="qrcodeContent" size="200" dotScale="1" whiteMargin="true" colorLight="red" v-show="showed" class="dinglian-vueqr"></vue-qr>-->
     </header>
     <mt-navbar v-model="selected">
       <mt-tab-item id="all">所有活动</mt-tab-item>
@@ -291,7 +290,7 @@
     height: 1rem;
     left: 50%;
     margin-left: -0.9rem;
-    top: 0.9rem;
+    top: 0.8rem;
     z-index: 7;
   }
   .dinglian-details-join > h4 {
@@ -302,7 +301,7 @@
   }
   .dinglian-details-join > p {
     font-size: 0.12rem;
-    margin-top: 0.12rem;
+    margin-top: 0.07rem;
     color: #ffffff;
   }
   .dinglian-details-join > span {
@@ -343,17 +342,16 @@
     position: absolute;
     left: 0;
     top: 0;
-    background: gainsboro;
-    opacity: 0.3;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
   }
   header > p {
     width: 100%;
     padding: 0.15rem;
     text-align: left;
     font-size: 0.12rem;
-    height: 0.5rem;
+    /*height: 0.5rem;*/
     background-color: #ffffff;
     border-bottom: 1px solid #dddddd;
     display: -webkit-box;

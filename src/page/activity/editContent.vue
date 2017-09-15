@@ -209,21 +209,6 @@
 //      获取本地的gps
       getLocationGps () {
         this.$router.push({'name': 'ActivityPosition'})
-//        wx.getLocation({
-//          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-//          success: function (res) {
-//            var latitude = res.latitude  // 纬度，浮点数，范围为90 ~ -90
-//            var longitude = res.longitude  // 经度，浮点数，范围为180 ~ -180。
-//            wx.openLocation({
-//              latitude: latitude, // 纬度，浮点数，范围为90 ~ -90
-//              longitude: longitude, // 经度，浮点数，范围为180 ~ -180。
-//              name: '上海', // 位置名
-//              address: '上海金桥', // 地址详情说明
-//              scale: 10, // 地图缩放级别,整形值,范围从1~28。默认为最大
-//              infoUrl: 'http://www.baidu.com' // 在查看位置界面底部显示的超链接,可点击跳转
-//            })
-//          }
-//        })
       },
 //      拍照，上传照片
       takePictures () {
@@ -302,7 +287,7 @@
           Toast('费用不能为空')
           return false
         }
-        if (!judgmentTel(this.phoneNo)) {
+        if (!judgmentTel(this.telphone)) {
           return false
         }
         if (!this.description) {
@@ -326,8 +311,8 @@
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
-        if (this.phoneNo) {
-          formdata.append('phoneNo', this.phoneNo)
+        if (this.telphone) {
+          formdata.append('phoneNo', this.telphone)
         }
         if (!this.isOpen && this.password) {
           formdata.append('password', this.password)
