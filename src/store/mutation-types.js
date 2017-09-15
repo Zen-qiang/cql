@@ -17,6 +17,7 @@ export const USERID = 'userId'
 export const USERNAME = 'userName'
 export const USERPICTURE = 'userPicture'
 export const USERPHONENO = 'userPhoneNo'
+export const USERGENDER = 'userGender'
 
 export const PARAMDATA = 'paramData'
 // 二维码
