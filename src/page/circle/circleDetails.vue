@@ -97,7 +97,14 @@
         }
       },
       showQRCode () {
-        this.$store.commit(types.QRCODE, this.qrcodeContent)
+        let qrcode = {
+          qrcodeContent: this.qrcodeContent,
+          circleName: this.circle.name,
+          cover: this.circle.cover,
+          activityCnt: this.circle.activityCnt,
+          membersCnt: this.circle.membersCnt
+        }
+        this.$store.commit(types.QRCODE, qrcode)
         this.$router.push({'path': '/qrCode'})
       },
 //        下拉刷新

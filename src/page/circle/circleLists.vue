@@ -355,7 +355,7 @@
     float: left;
     border: 1px solid #999999;
     font-size: 0.09rem;
-    color: #333;
+    color: #999;
     border-radius: 0.04rem;
     line-height: 0.2rem;
     padding: 0 0.1rem;
@@ -364,9 +364,10 @@
   .dinglian-tagsLists-active {
     background: #ffd200;
   }
-  .dinglian-tagsLists-all .dinglian-choose-tags-li {
-    background: #ffd200;
-    border-color: #ffd200;
+  .dinglian-tagsLists-all > .dinglian-choose-tags-li {
+    background: #333;
+    border-color: #333;
+    color: #fff;
   }
   .dinglian-tagsLists-all > span {
     position: absolute;

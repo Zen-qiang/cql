@@ -5,7 +5,7 @@
         <img src="../../assets/images/circle.jpg" alt="">
         <div class="dinglian-message-title">
           <h3>{{messageLists.user.nickName}}</h3>
-          <span></span>
+          <span>223</span>
         </div>
         <span>{{messageLists.topicCreateTime | moment}}</span>
       </div>

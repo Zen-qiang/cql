@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-all bColor">
+  <div class="edit-all bColor" :class="{'active':!active}">
     <div class="dinglian-edit-title">
       <img :src="profilePicture" alt="">
       <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
@@ -44,6 +44,7 @@
     <!--test-->
     <!--:start-date="startDate" :end-date="endDate"-->
     <group>
+      <!--:min-hour="minHour"-->
       <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
         <span>时间</span><span v-text="times"></span>
       </datetime>
@@ -69,7 +70,7 @@
     </div>
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
-      <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
+      <input type="tel" placeholder="请绑定电话号码" v-model="telphone" disabled>
       <span @click="active = !active">绑定</span>
     </div>
     <div class="dinglian-edit-public">
@@ -82,7 +83,7 @@
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
     <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注" v-model="description"></textarea>
-    <mt-button type="default" class="edit-button" @click.native="goNextStep">发布</mt-button>
+    <mt-button type="default" class="edit-button" @click.native="goNextStep" v-show="active">发布</mt-button>
     <!--绑定手机号 start-->
     <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
@@ -90,10 +91,10 @@
           <h3>绑定手机号<span @click="active = !active"></span></h3>
         </div>
         <div class="editContent-phone-body">
-          <div><input type="tel" placeholder="请输入手机号"></div>
-          <div><input type="text" placeholder="请输入验证码"><span>发送验证码</span></div>
+          <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
+          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
           <p></p>
-          <div><button>立即绑定</button></div>
+          <div><button :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</button></div>
         </div>
       </div>
     </div>
@@ -125,6 +126,7 @@
       return {
         startDate: '',
         endDate: '',
+//        minHour: '',
         times: '',
         date: new Date(),
         fullYear: '',
@@ -157,7 +159,12 @@
         serverIds: [],
         isActivated: true,
         limitHourValue: '',
-        active: true
+        active: true,
+        isSignUpActive: false,
+        telphone: '',
+        verifyNo: '',
+        sendCodeButton: '发送验证码',
+        needBind: false
       }
     },
     watch: {
@@ -171,6 +178,12 @@
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
+//      绑定手机号
+      if (this.$store.state.userPhoneNo && this.$store.state.userPhoneNo !== 'null') {
+        this.telphone = this.$store.state.userPhoneNo
+      } else {
+        this.needBind = true
+      }
       this.getMyCircles()
       /* 时间 */
       this.fullYear = this.date.getFullYear().toString()
@@ -179,7 +192,8 @@
       this.hours = this.forMartTimes(this.date.getHours())
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.times = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
-      this.startDate = this.fullYear + '-' + this.forMartTimes(this.date.getMonth()) + '-' + this.day
+      this.startDate = this.fullYear + '-' + this.month + '-' + this.day
+//      this.minHour = this.hours
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress
       }
@@ -375,6 +389,78 @@
       checkCircle (circle) {
         this.circle = circle
         this.chooseCircle = false
+      },
+//    发送验证码
+      sendCode () {
+        if (this.needBind) {
+          console.log(123)
+          if (!judgmentTel(this.telphone)) {
+            return
+          }
+          let num = 60
+          var timer = null
+          clearInterval(timer)
+          this.isDisabled = true
+          if (this.isDisabled) {
+            this.axios({
+              method: 'get',
+              url: 'sendCode',
+              params: {
+                phoneno: this.telphone
+              }
+            }).then(res => {
+              if (res.data.success) {
+                this.disabled = false
+                var _this = this
+                timer = setInterval(function () {
+                  num--
+                  _this.sendCodeButton = num + 's后发送'
+                  if (num === 0) {
+                    clearInterval(timer)
+                    num = 60
+                    _this.disabled = true
+                    _this.sendCodeButton = '发送验证码'
+                  }
+                }, 1000)
+              } else {
+                Toast(res.data.error.message)
+              }
+            }).catch()
+          }
+        }
+      },
+//    立即绑定
+      bindConfirm () {
+        console.log('bindConfirm')
+        if (this.needBind) {
+          if (!this.telphone) {
+            Toast('手机号码不能为空')
+            return
+          }
+          if (!this.verifyNo) {
+            Toast('验证码不能为空')
+            return
+          }
+          this.axios({
+            method: 'get',
+            url: 'bindPhoneNo',
+            params: {
+              userId: this.$store.state.userId,
+              phoneNo: this.telphone,
+              verifyNo: this.verifyNo
+            }
+          }).then(res => {
+            if (!res.data.success) {
+              Toast(res.data.error.message)
+            } else {
+              this.telphone = ''
+              this.verifyNo = ''
+              this.active = !this.active
+              this.needBind = false
+              this.$store.commit(types.USERPHONENO, this.telphone)
+            }
+          }).catch()
+        }
       }
     }
   }
@@ -385,6 +471,9 @@
     position: relative;
     overflow: hidden;
     height: auto;
+  }
+  .edit-all.active {
+    height: 100%;
   }
   .edit-all > div {
     background: #fff;
@@ -585,6 +674,7 @@
   .dinglian-edit-tel > input {
     height: 0.4rem;
     font-size: 0.14rem;
+    background: #fff;
   }
   .dinglian-edit-tel > span {
     position:absolute;
@@ -637,9 +727,9 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: rgba(0,0,0,0.3);
+    background: rgba(255,255,255,1);
     padding:0;
-    height: 100%;
+    height: 100%  ;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -648,16 +738,17 @@
     visibility: visible;
   }
   .edit-all > .editContent-phone-content.active {
-    background: rgba(0,0,0,0);
+    background: rgba(255,255,255,0);
     visibility: hidden;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix {
-    position: fixed;
-    bottom: 2.32rem;
+    position: absolute;
+    top: 1rem;
     right: 0;
     left: 0;
     margin:auto;
     width: 2.97rem;
+    opacity:1;
     -webkit-border-radius:0.05rem;
     -moz-border-radius:0.05rem;
     border-radius:0.05rem;
@@ -669,7 +760,8 @@
     transition: all 0.5s;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix.active {
-    bottom: -3rem;
+    top: -3rem;
+    opacity:0;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title {
     background: #ffd200;
@@ -737,13 +829,15 @@
     background: url("../../assets/images/yzm.svg") no-repeat left center;
     -webkit-background-size: 0.15rem;
     background-size: 0.15rem;
+    width:60%;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > span {
-    width: 0.87rem;
+    /*width: 0.87rem;*/
     height: 0.29rem;
+    padding:0 0.06rem;
     background: #ffd200;
     color: #333;
-    font-size: 0.13rem;
+    font-size: 0.1rem;
     -webkit-border-radius: 0.05rem;
     -moz-border-radius: 0.05rem;
     border-radius: 0.05rem;
@@ -758,7 +852,7 @@
     color: #999;
     font-size: 0.15rem;
   }
-  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.success {
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.signUpActive {
     background: #ffd200;
     color: #333;
   }
