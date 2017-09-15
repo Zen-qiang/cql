@@ -203,7 +203,7 @@
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
         this.charge = this.currentInfo.charge
-        this.isOpen = this.currentInfo.isOpen
+        this.switchOpen = this.currentInfo.switchOpen
         this.password = this.currentInfo.password
         this.description = this.currentInfo.description
       }
@@ -226,7 +226,7 @@
         this.currentInfo.minCount = this.minCount
         this.currentInfo.maxCount = this.maxCount
         this.currentInfo.charge = this.charge
-        this.currentInfo.isOpen = this.isOpen
+        this.currentInfo.switchOpen = this.switchOpen
         this.currentInfo.password = this.password
         this.currentInfo.description = this.description
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
@@ -318,7 +318,6 @@
           return false
         }
         this.stepTimes = Date.parse(this.times) + ''
-        alert(this.stepTimes)
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
@@ -329,7 +328,7 @@
         formdata.append('gps', this.gps)
         formdata.append('minCount', this.minCount)
         formdata.append('maxCount', this.maxCount)
-        formdata.append('isOpen', this.isOpen)
+        formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
         formdata.append('endTime', this.stepTimes)
@@ -339,7 +338,7 @@
         if (this.phoneNo) {
           formdata.append('phoneNo', this.phoneNo)
         }
-        if (!this.isOpen && this.password) {
+        if (!this.switchOpen && this.password) {
           formdata.append('password', this.password)
         }
         this.axios({
