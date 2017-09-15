@@ -54,6 +54,9 @@ const mutations = {
   },
   [types.CURRENTADDRESS]: (state, currentAddress) => {
     state.currentAddress = currentAddress
+  },
+  [types.CURRENTINFO]: (state, currentInfo) => {
+    state.currentInfo = currentInfo
   }
 }
 export default mutations

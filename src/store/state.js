@@ -21,6 +21,8 @@ const state = {
   paramData: {},
   // 二维码
   qrCode: '',
-  currentAddress: ''
+  currentAddress: {},
+  // 当前的活动信息
+  currentInfo: {}
 }
 export default state

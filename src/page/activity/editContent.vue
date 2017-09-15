@@ -70,7 +70,7 @@
     </div>
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
-      <input type="tel" placeholder="请绑定电话号码" v-model="telphone" disabled>
+      <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
       <span @click="active = !active">绑定</span>
     </div>
     <div class="dinglian-edit-public">
@@ -126,7 +126,6 @@
       return {
         startDate: '',
         endDate: '',
-//        minHour: '',
         times: '',
         date: new Date(),
         fullYear: '',
@@ -164,7 +163,8 @@
         telphone: '',
         verifyNo: '',
         sendCodeButton: '发送验证码',
-        needBind: false
+        needBind: false,
+        currentInfo: {}
       }
     },
     watch: {
@@ -175,15 +175,17 @@
       }
     },
     created () {
+//        获取用户头像
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
 //      绑定手机号
       if (this.$store.state.userPhoneNo && this.$store.state.userPhoneNo !== 'null') {
-        this.telphone = this.$store.state.userPhoneNo
+        this.phoneNo = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
       }
+//      获取圈子选择列表
       this.getMyCircles()
       /* 时间 */
       this.fullYear = this.date.getFullYear().toString()
@@ -193,9 +195,9 @@
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.times = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.month + '-' + this.day
-//      this.minHour = this.hours
       if (this.$store.state.currentAddress) {
-        this.address = this.$store.state.currentAddress
+        this.address = this.$store.state.currentAddress.address
+        this.gps = this.$store.state.currentAddress.position
       }
     },
     methods: {
@@ -203,11 +205,11 @@
         return val < 10 ? '0' + val : val.toString()
       },
       change (value) {
-//        console.log('change', value)
         this.times = value
       },
 //      获取本地的gps
       getLocationGps () {
+        this.$store.commit(types.CURRENTINFO, this.currentInfo)
         this.$router.push({'name': 'ActivityPosition'})
       },
 //      拍照，上传照片
@@ -287,7 +289,7 @@
           Toast('费用不能为空')
           return false
         }
-        if (!judgmentTel(this.telphone)) {
+        if (!judgmentTel(this.phoneNo)) {
           return false
         }
         if (!this.description) {
@@ -311,8 +313,8 @@
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
-        if (this.telphone) {
-          formdata.append('phoneNo', this.telphone)
+        if (this.phoneNo) {
+          formdata.append('phoneNo', this.phoneNo)
         }
         if (!this.isOpen && this.password) {
           formdata.append('password', this.password)
@@ -438,11 +440,11 @@
             if (!res.data.success) {
               Toast(res.data.error.message)
             } else {
+              this.$store.commit(types.USERPHONENO, this.telphone)
               this.telphone = ''
               this.verifyNo = ''
               this.active = !this.active
               this.needBind = false
-              this.$store.commit(types.USERPHONENO, this.telphone)
             }
           }).catch()
         }
