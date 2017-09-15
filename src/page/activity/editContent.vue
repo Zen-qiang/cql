@@ -74,9 +74,9 @@
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
-      <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
+      <mt-switch v-model="switchOpen" class="edit-switch"></mt-switch>
     </div>
-    <div class="dinglian-edit-psw" :class="{'active':!isOpen}">
+    <div class="dinglian-edit-psw" :class="{'active':!switchOpen}">
       <label for="">输入密码</label>
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
@@ -144,6 +144,7 @@
         charge: '',
         phoneNo: '',
         isOpen: true,
+        switchOpen: true,
         password: '',
         description: '',
         pictures: [],
