@@ -3,16 +3,18 @@
     <div class="dinglian-qr-section">
       <div class="dinglian-qr-header">
         <div class="dinglian-qr-header-img">
-          <img src="" alt="">
+          <img :src="qrcodeContent.cover" alt="">
         </div>
         <div class="dinglian-qr-header-body">
-          <p>locking 舞会社团</p>
-          <p><em class="dinglian-qr-activity">活动<i>3</i></em><em class="dinglian-qr-member">成员<i>56</i></em></p>
+          <p>{{qrcodeContent.circleName}}</p>
+          <p>
+            <em class="dinglian-qr-activity">活动<i>{{qrcodeContent.activityCnt}}</i></em>
+            <em class="dinglian-qr-member">成员<i>{{qrcodeContent.membersCnt}}</i></em></p>
         </div>
 
       </div>
       <div class="dinglian-qr-body">
-        <vue-qr :text="qrcodeContent" size="230" dotScale="1" whiteMargin="true" colorLight="red"></vue-qr>
+        <vue-qr :text="qrcodeContent.qrcodeContent" size="230" dotScale="1" whiteMargin="true" colorLight="red"></vue-qr>
       </div>
       <p>扫描二维码快速加入</p>
     </div>
@@ -26,6 +28,7 @@
     },
     created () {
       this.qrcodeContent = this.$store.state.qrCode
+      console.log(this.qrcodeContent)
     },
     data () {
       return {
@@ -70,9 +73,19 @@
     width: 44px;
     height: 44px;
     overflow: hidden;
+    position: relative;
+    border-radius: 2px;
   }
   .dinglian-qr-header-img > img {
+    display: inline-block;
     width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
   }
   .dinglian-qr-header-body {
     padding-left: 12px;
