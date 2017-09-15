@@ -69,7 +69,7 @@
         <li v-for="item in tags">{{item.name}}</li>
       </ul>
     </div>
-    <div class="dinglian-details-types">
+    <div class="dinglian-details-types freeOrAAA">
       <label for="">费用</label>
       <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color:#e63832;font-size:0.14rem;" disabled>
       <input type="text" v-else value="AA制" style="color:#e63832;font-size:0.14rem;" disabled>
@@ -504,6 +504,10 @@
   .dinglian-details-types > input {
     background-color: #ffffff;
   }
+  .dinglian-details-types.freeOrAAA input:disabled {
+    background: #fff;
+    color: #e63832;
+  }
   .remarks {
     border-bottom: none;
   }
@@ -570,6 +574,9 @@
     padding-left: 0.1rem;
     background-color: #fff;
     outline: none;
+  }
+  .dinglian-edit-people > input:disabled {
+    background: #fff;
   }
   .dinglian-details-psd {
     justify-content: space-between;
