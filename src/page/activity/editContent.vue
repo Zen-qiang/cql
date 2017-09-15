@@ -22,27 +22,6 @@
         <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">
       </i>
     </div>
-    <!--上传图片 end-->
-    <!--<mt-datetime-picker
-      ref="picker"
-      type="datetime"
-      year-format="{value}"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      hour-Format="{value} 点"
-      minute-Format="{value} 分"
-      v-model="startTime"
-      :startDate="startDate"
-      :endDate="endDate"
-    >
-    </mt-datetime-picker>-->
-    <!--<div @click="$refs.picker.open()" class="dinglian-edit-time">
-      <label for="">时间</label>
-      <span>{{startTime | moment}}</span>
-      &lt;!&ndash;<input type="text" v-model="startTime">&ndash;&gt;
-    </div>-->
-    <!--test-->
-    <!--:start-date="startDate" :end-date="endDate"-->
     <group>
       <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
         <span>时间</span><span v-text="times"></span>
@@ -131,7 +110,6 @@
         day: '',
         hours: '',
         minutes: '',
-        isEdit: false,
         profilePicture: '',
         circles: [],
         circle: null,
@@ -165,7 +143,8 @@
         currentInfo: {},
         isDisabled: true,
         isBindConfirm: false,
-        isSendCode: false
+        isSendCode: false,
+        stepTimes: ''
       }
     },
     watch: {
@@ -224,7 +203,7 @@
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
         this.charge = this.currentInfo.charge
-        this.isOpen = this.currentInfo.isOpen
+        this.switchOpen = this.currentInfo.switchOpen
         this.password = this.currentInfo.password
         this.description = this.currentInfo.description
       }
@@ -247,7 +226,7 @@
         this.currentInfo.minCount = this.minCount
         this.currentInfo.maxCount = this.maxCount
         this.currentInfo.charge = this.charge
-        this.currentInfo.isOpen = this.isOpen
+        this.currentInfo.switchOpen = this.switchOpen
         this.currentInfo.password = this.password
         this.currentInfo.description = this.description
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
@@ -306,6 +285,7 @@
         this.charge = val
       },
       goNextStep () {
+//        alert(Date.parse(this.times))
         if (this.$store.state.activityTags === 0) {
           Toast('标签不能为空')
           return false
@@ -322,7 +302,7 @@
           Toast('地址不能为空')
           return false
         }
-        if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
+        if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount)) {
           Toast('人数填写错误')
           return false
         }
@@ -337,32 +317,33 @@
           Toast('备注不能为空')
           return false
         }
+        this.stepTimes = Date.parse(this.times) + ''
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
         formdata.append('name', this.activityName)
-        formdata.append('startTime', this.startTime.valueOf())
+        formdata.append('startTime', this.stepTimes)
         formdata.append('charge', this.charge)
         formdata.append('address', this.address)
         formdata.append('gps', this.gps)
         formdata.append('minCount', this.minCount)
         formdata.append('maxCount', this.maxCount)
-        formdata.append('isOpen', this.isOpen)
+        formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', this.startTime.valueOf())
+        formdata.append('endTime', this.stepTimes)
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
         if (this.phoneNo) {
           formdata.append('phoneNo', this.phoneNo)
         }
-        if (!this.isOpen && this.password) {
+        if (!this.switchOpen && this.password) {
           formdata.append('password', this.password)
         }
         this.axios({
           method: 'post',
-          url: this.isEdit ? 'editActivity' : 'launchActivity',
+          url: 'launchActivity',
           data: formdata
         }).then(res => {
           if (!res.data.success) {
@@ -406,6 +387,9 @@
                   this.circle = this.circles[i]
                   break
                 }
+              }
+              if (!this.circle) {
+                this.circle = this.circles[0]
               }
             }
           }).catch()

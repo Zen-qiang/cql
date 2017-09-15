@@ -37,6 +37,7 @@ axios.interceptors.response.use(
     return response
   },
   error => {
+    Indicator.close()
     if (error.response.status === 400) {
       Toast('参数不正确，请检查参数名称及类型')
     }

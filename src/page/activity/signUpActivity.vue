@@ -1,26 +1,5 @@
 <template>
   <div class="dinglian-alone-whole">
-    <!--绑定手机号 start-->
-    <!--<div class="dinglian-alone-cover" v-show="bindPhone">
-      <div class="dinglian-alone-bindtel">
-        <div class="dinglian-alone-bind-header">
-          <h4>
-            绑定手机号
-            <span @click="hiddenBind()"></span>
-          </h4>
-        </div>
-        <div class="dinglian-alone-bind-body clearfix">
-          <input type="text" placeholder="请输入手机号" v-model="telphone">
-          <input type="text" placeholder="请输入验证码" v-model="verifyNo">
-          <span @click="sendCode()">{{sendCodeButton}}</span>
-        </div>
-        <div class="dinglian-alone-bind-footer">
-          <div>
-            <mt-button type="default" class="dinglian-alone-bind-button" :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</mt-button>
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
         <div class="editContent-phone-title">
@@ -56,8 +35,6 @@
         <label for="">性别</label>
         <div class="edit-radio">
           <div>{{userGender}}</div>
-          <!--<label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>-->
-          <!--<label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>-->
         </div>
       </div>
     </div>
@@ -105,7 +82,6 @@
         activity: {},
         friends: [],
         sendCodeButton: '发送验证码',
-        isActivated: true,
         isSignUpActive: false,
         active: true,
         userGender: '男',
@@ -165,38 +141,33 @@
       },
 //      报名过程；成功后跳转成功页面
       confirm (data) {
-        if (this.isActivated) {
-          this.isActivated = false
-          this.axios({
-            method: 'post',
-            url: 'signUp',
-            data: data
-          }).then(res => {
-            this.isActivated = true
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            } else {
-              this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
-              let circleObj = {
-                id: res.data.data.coterie.id,
-                name: res.data.data.coterie.name,
-                cover: res.data.data.coterie.cover,
-                isRelease: false
-              }
-              if (res.data.data.activityMembers) {
-                circleObj.activityMembers = res.data.data.activityMembers
-              }
-              if (res.data.data.userCount) {
-                circleObj.userCount = res.data.data.userCount
-              }
-              this.$store.commit(types.CIRCLE, circleObj)
-              this.$router.push({'path': '/activitySuccess'})
+        this.axios({
+          method: 'post',
+          url: 'signUp',
+          data: data
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.error.message)
+          } else {
+            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+            let circleObj = {
+              id: res.data.data.coterie.id,
+              name: res.data.data.coterie.name,
+              cover: res.data.data.coterie.cover,
+              isRelease: false
             }
-          }).catch(err => {
-            this.isActivated = true
-            console.log(err)
-          })
-        }
+            if (res.data.data.activityMembers) {
+              circleObj.activityMembers = res.data.data.activityMembers
+            }
+            if (res.data.data.userCount) {
+              circleObj.userCount = res.data.data.userCount
+            }
+            this.$store.commit(types.CIRCLE, circleObj)
+            this.$router.replace({'path': '/activitySuccess'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       },
 //      立即报名
       signUp () {
@@ -397,116 +368,6 @@
     color: #ffffff;
     font-size: 0.15rem;
   }
-  /*绑定手机号*/
-  /*.dinglian-alone-cover {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 9;
-    background: #dddddd;
-    !*opacity: 0.1;*!
-  }
-  .dinglian-alone-bindtel {
-    position: absolute;
-    top: 25%;
-    left: 10%;
-    width: 80%;
-    background: #ffffff;
-    border-radius: 4px;
-  }
-  .dinglian-alone-bind-header {
-    font-size: 17px;
-    margin: 0 auto;
-    background: #ffd200;
-    height: 0.45rem;
-  }
-  .dinglian-alone-bind-header > h4 {
-    line-height: 0.45rem;
-    width: 100%;
-    height: 100%;
-    font-weight: 400;
-    text-align: center;
-    position: relative;
-  }
-  .dinglian-alone-bind-header > h4 > span {
-    position: absolute;
-    top: 0.15rem;
-    right: 0.15rem;
-    width: 0.15rem;
-    height: 0.15rem;
-    background: #e63832;
-  }
-  .dinglian-alone-bind-body {
-    height: 1.35rem;
-    background: #f2f2f2;
-    padding: 0.11rem 0.2rem;
-    position: relative;
-
-  }
-  .dinglian-alone-bind-body > span {
-    font-size: 14px;
-    height: 0.3rem;
-    line-height: 0.3rem;
-    width: 0.87rem;
-    position: absolute;
-    bottom: 0.21rem;
-    right: 0.28rem;
-    background: #ffd200;
-    border-radius: 4px;
-
-  }
-  .dinglian-alone-bind-body > input {
-    width: 100%;
-    background: #ffffff;
-    float: left;
-    height: 0.44rem;
-    margin: 0 auto;
-    margin-top: 0.11rem;
-    border-radius: 4px;
-    border: 1px solid #dddddd;
-  }
-  .dinglian-alone-bind-body > input:first-of-type {
-    background: url("../../assets/images/people.svg") no-repeat left center;
-    background-size: 25px;
-    background-position: 5px;
-    background-color: #ffffff;
-    padding: 0 35px;
-  }
-  .dinglian-alone-bind-body > input:last-of-type {
-    background: url("../../assets/images/people.svg") no-repeat left center;
-    background-size: 25px;
-    background-position: 5px;
-    background-color: #ffffff;
-    padding: 0 35px;
-    padding-right: 1.3rem;
-  }
-  .dinglian-alone-bind-footer {
-    height: 0.8rem;
-    background: #f2f2f2;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    padding: 0 0.2rem;
-    padding-top: 0.05rem;
-  }
-  .dinglian-alone-bind-footer > div {
-    border-top: 1px solid #dddddd;
-    height: 100%;
-    position: relative;
-  }
-  .dinglian-alone-bind-button {
-    position: absolute;
-    top: 0.15rem;
-    left: 0;
-    width: 100%;
-    background: #dddddd;
-    color: #999999;
-  }
-  .signUpActive {
-    background: #ffd200;
-  }*/
-
   .dinglian-alone-whole > .editContent-phone-content {
     position: absolute;
     top: 0;
