@@ -131,7 +131,6 @@
         day: '',
         hours: '',
         minutes: '',
-        isEdit: false,
         profilePicture: '',
         circles: [],
         circle: null,
@@ -322,7 +321,7 @@
           Toast('地址不能为空')
           return false
         }
-        if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount) {
+        if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount)) {
           Toast('人数填写错误')
           return false
         }
@@ -362,7 +361,7 @@
         }
         this.axios({
           method: 'post',
-          url: this.isEdit ? 'editActivity' : 'launchActivity',
+          url: 'launchActivity',
           data: formdata
         }).then(res => {
           if (!res.data.success) {
