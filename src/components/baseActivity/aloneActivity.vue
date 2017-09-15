@@ -146,7 +146,7 @@
     background: #ffd200;
     border-radius: 0.04rem;
     padding: 0 0.03rem;
-    width: 0.78rem;
+    max-width: 0.78rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

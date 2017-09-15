@@ -518,7 +518,9 @@
     padding-top: 0;
     background-color: #ffffff;
   }
-
+  .dinglian-details-textarea:disabled {
+    background-color: #ffffff;
+  }
   .edit-switch {
     padding-top: 0.09rem;
   }

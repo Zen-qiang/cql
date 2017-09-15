@@ -321,6 +321,11 @@
   .dinglian-alone-userinfo > input {
     text-align: right;
     background: #fff;
+    color: #333;
+    font-size: 0.14rem;
+  }
+  .dinglian-alone-userinfo > input:disabled {
+    color: #333;
   }
   .dinglian-alone-color > label {
     color: #999999;
@@ -508,7 +513,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: rgba(255,255,255,1);
+    background: rgba(0,0,0,0.7);
     padding:0;
     height: 100%;
     -webkit-transition: all 0.5s;
@@ -520,7 +525,7 @@
     z-index: 9;
   }
   .dinglian-alone-whole > .editContent-phone-content.active {
-    background: rgba(255,225,255,0);
+    background: rgba(0,0,0,0);
     visibility: hidden;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix {

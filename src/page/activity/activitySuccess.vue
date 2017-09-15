@@ -9,11 +9,12 @@
     </div>
     <div class="dinglian-success-title">
       <div>
-        <img :src="circle.cover" alt="" @click="redirectCircleDetails">
+        <!--:src="circle.cover"-->
+        <img src="../../assets/images/QRcode.jpg" alt="" @click="redirectCircleDetails">
       </div>
       <p>街舞圈子</p>
     </div>
-    <div class="dinglian-success-shetuan">
+    <div class="dinglian-success-shetuan" v-show="false">
       <div><img :src="circle.cover"></div>
       <div>
         <p>{{circle.name}}</p>
@@ -22,12 +23,13 @@
     </div>
     <div class="dinglian-success-joinPeople" v-show="!isRelease">
       <div>成员信息</div>
-      <div> <i>{{userCount.currentCount}}</i> /{{userCount.minCount}}~{{userCount.maxCount}}人</div>
+      <div> <i>{{userCount.currentCount}}</i>/{{userCount.minCount}}~{{userCount.maxCount}}人</div>
     </div>
     <div class="dinglian-success-peopleList" v-show="!isRelease" @click="redirectActivityMembers">
       <span :key="index" v-for="(item, index) in circle.activityMembers">
         <img :src="item.picture">
       </span>
+      <i></i>
     </div>
     <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
     <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
@@ -104,10 +106,10 @@
   .dinglian-success-title > div {
     width: 1.2rem;
     height: 1.2rem;
-    border: 1px solid #e6e6e6;
+    /*border: 1px solid #e6e6e6;*/
     margin: 0 auto;
     overflow: hidden;
-    padding:0.06rem;
+    /*padding:0.06rem;*/
   }
   .dinglian-success-title >div img {
     width: 100%;
@@ -129,6 +131,10 @@
     font-size: 0.14rem;
     margin-top: 1px;
   }
+  .dinglian-success-joinPeople i {
+    font-style: normal;
+    color: red;
+  }
   .dinglian-success-peopleList {
     margin-top: 1px;
     height: 0.5rem;
@@ -137,6 +143,7 @@
     display: flex;
     flex-flow: row-reverse nowrap;
     align-items: center;
+    position: relative;
   }
   .dinglian-success-peopleList > span {
     margin-right: 0.1rem;
@@ -149,6 +156,16 @@
     display: block;
     width: 0.4rem;
     border-radius: 50%;
+  }
+  .dinglian-success-peopleList > i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0.16rem;
+    width: 0.08rem;
+    height: 0.08rem;
+    margin: auto;
+    background: url("../../assets/images/jtcy.svg") no-repeat center center;
   }
   /*社团展示*/
   .dinglian-success-shetuan {

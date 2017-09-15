@@ -771,7 +771,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: rgba(255,255,255,1);
+    background: rgba(0,0,0,0.7);
     padding:0;
     height: 100%  ;
     -webkit-transition: all 0.5s;
@@ -782,7 +782,7 @@
     visibility: visible;
   }
   .edit-all > .editContent-phone-content.active {
-    background: rgba(255,255,255,0);
+    background: rgba(0,0,0,0);
     visibility: hidden;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix {
