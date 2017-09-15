@@ -306,6 +306,7 @@
   }
   .dinglian-alone-userinfo > input {
     text-align: right;
+    background: #fff;
   }
   .dinglian-alone-color > label {
     color: #999999;
