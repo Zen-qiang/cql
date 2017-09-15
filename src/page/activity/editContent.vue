@@ -44,7 +44,6 @@
     <!--test-->
     <!--:start-date="startDate" :end-date="endDate"-->
     <group>
-      <!--:min-hour="minHour"-->
       <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
         <span>时间</span><span v-text="times"></span>
       </datetime>
@@ -71,13 +70,12 @@
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
       <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
-      <span @click="active = !active" v-show="phoneNo">绑定</span>
+      <span @click="active = !active" v-show="needBind">绑定</span>
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
       <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
     </div>
-    <!--v-show="!isOpen"-->
     <div class="dinglian-edit-psw" :class="{'active':!isOpen}">
       <label for="">输入密码</label>
       <input type="password" placeholder="请输入密码" v-model="password">
@@ -92,9 +90,9 @@
         </div>
         <div class="editContent-phone-body">
           <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
-          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
+          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click.stop="sendCode()" :class="{sendActive: isSendCode}">{{sendCodeButton}}</span></div>
           <p></p>
-          <div><button :class="{signUpActive: isSignUpActive}" @click.stop="bindConfirm()">立即绑定</button></div>
+          <div><button :class="{signUpActive: isSignUpActive}" @click="bindConfirm()">立即绑定</button></div>
         </div>
       </div>
     </div>
@@ -164,13 +162,23 @@
         verifyNo: '',
         sendCodeButton: '发送验证码',
         needBind: false,
-        currentInfo: {}
+        currentInfo: {},
+        isDisabled: true,
+        isBindConfirm: false,
+        isSendCode: false
       }
     },
     watch: {
       minCount: function (val) {
         if (this.maxCount === '' || val > this.maxCount) {
           this.maxCount = val
+        }
+      },
+      telphone: function (val) {
+        if (val.length > 0) {
+          this.isSignUpActive = true
+        } else {
+          this.isSignUpActive = false
         }
       }
     },
@@ -199,6 +207,24 @@
         this.address = this.$store.state.currentAddress.address
         this.gps = this.$store.state.currentAddress.position
       }
+      this.currentInfo = this.$store.state.currentInfo
+      if (this.currentInfo) {
+        this.activityName = this.currentInfo.activityName
+        this.circle = this.currentInfo.circle
+        if (this.currentInfo.localImgs) {
+          this.localImgs = this.currentInfo.localImgs
+        }
+        if (this.currentInfo.ioslocIds) {
+          this.ioslocIds = this.currentInfo.ioslocIds
+        }
+        this.times = this.currentInfo.times
+        this.minCount = this.currentInfo.minCount
+        this.maxCount = this.currentInfo.maxCount
+        this.charge = this.currentInfo.charge
+        this.isOpen = this.currentInfo.isOpen
+        this.password = this.currentInfo.password
+        this.description = this.currentInfo.description
+      }
     },
     methods: {
       forMartTimes (val) {
@@ -207,8 +233,41 @@
       change (value) {
         this.times = value
       },
-//      获取本地的gps
+//      获取本地的gps 跳转地图
       getLocationGps () {
+        if (this.activityName) {
+          this.currentInfo.activityName = this.activityName
+        }
+        if (this.circle) {
+          this.currentInfo.circle = this.circle
+        }
+        if (this.localImgs) {
+          this.currentInfo.localImgs = this.localImgs
+        }
+        if (this.ioslocIds) {
+          this.currentInfo.ioslocIds = this.ioslocIds
+        }
+        if (this.times) {
+          this.currentInfo.times = this.times
+        }
+        if (this.minCount) {
+          this.currentInfo.minCount = this.minCount
+        }
+        if (this.maxCount) {
+          this.currentInfo.maxCount = this.maxCount
+        }
+        if (this.charge) {
+          this.currentInfo.charge = this.charge
+        }
+        if (this.isOpen) {
+          this.currentInfo.isOpen = this.isOpen
+        }
+        if (this.password) {
+          this.currentInfo.password = this.password
+        }
+        if (this.description) {
+          this.currentInfo.description = this.description
+        }
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
         this.$router.push({'name': 'ActivityPosition'})
       },
@@ -338,6 +397,8 @@
                 isRelease: true
               }
               this.$store.commit(types.CIRCLE, circleObj)
+              this.currentInfo = {}
+              this.$store.commit(types.CURRENTINFO, this.currentInfo)
               this.$router.push({'path': '/activitySuccess'})
             }
           }).catch(err => {
@@ -380,14 +441,13 @@
 //    发送验证码
       sendCode () {
         if (this.needBind) {
-          console.log(123)
           if (!judgmentTel(this.telphone)) {
             return
           }
           let num = 60
           var timer = null
           clearInterval(timer)
-          this.isDisabled = true
+          this.isSendCode = true
           if (this.isDisabled) {
             this.axios({
               method: 'get',
@@ -397,7 +457,7 @@
               }
             }).then(res => {
               if (res.data.success) {
-                this.disabled = false
+                this.isDisabled = false
                 var _this = this
                 timer = setInterval(function () {
                   num--
@@ -405,8 +465,9 @@
                   if (num === 0) {
                     clearInterval(timer)
                     num = 60
-                    _this.disabled = true
+                    _this.isDisabled = true
                     _this.sendCodeButton = '发送验证码'
+                    _this.isSendCode = false
                   }
                 }, 1000)
               } else {
@@ -418,7 +479,6 @@
       },
 //    立即绑定
       bindConfirm () {
-        console.log('bindConfirm')
         if (this.needBind) {
           if (!this.telphone) {
             Toast('手机号码不能为空')
@@ -440,6 +500,7 @@
             if (!res.data.success) {
               Toast(res.data.error.message)
             } else {
+              this.phoneNo = this.telphone
               this.$store.commit(types.USERPHONENO, this.telphone)
               this.telphone = ''
               this.verifyNo = ''
@@ -829,6 +890,9 @@
     -moz-border-radius: 0.05rem;
     border-radius: 0.05rem;
     line-height: 0.29rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div .sendActive {
+    background-color: #DDDDDD;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button {
     width: 100%;
