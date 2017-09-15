@@ -10,7 +10,7 @@
     <!--<button @click="getLocation">获取当前位置</button>-->
     <!--<button @click="getDistance">测距</button>-->
     <b-map ref="bmap" class="dinglian-position-bmap" v-on:getCurrentAddress="getCurrentAddress"></b-map>
-    <div class="footer">
+    <div class="dinglian-position-footer">
       <span>{{address}}</span>
       <span></span>
     </div>
@@ -46,14 +46,13 @@
         alert('距离当前位置：' + this.$refs.bmap.distance + 'm')
       },
       getCurrentAddress (val) {
-        this.address = val
+        this.address = val.address
         this.$store.commit(types.CURRENTADDRESS, val)
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   div {
     font-size: 14px;
@@ -72,17 +71,33 @@
     width: 94%;
     margin: auto;
     height: 0.4rem;
-    /*background-color: #ffffff;*/
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.6);
   }
   .dinglian-position-topInput {
     width: 100%;
     height: 0.4rem;
     padding-left: 0.2rem;
+    background: rgba(255, 255, 255, 0.6);
   }
   .dinglian-position-bmap {
     height: 100%;
+  }
+  .dinglian-position-footer {
+    position: absolute;
+    bottom: 0.2rem;
+    z-index: 8;
+    background-color: #ffffff;
+    width: 76%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    height: 0.4rem;
+  }
+  .dinglian-position-footer > span {
+    height: 0.4rem;
+    display: block;
+    line-height: 0.4rem;
   }
 
 </style>

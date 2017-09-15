@@ -24,4 +24,6 @@ export const PARAMDATA = 'paramData'
 export const QRCODE = 'qrCode'
 // 当前地址
 export const CURRENTADDRESS = 'currentAddress'
+// 当前info
+export const CURRENTINFO = 'currentInfo'
 

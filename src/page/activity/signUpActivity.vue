@@ -283,10 +283,10 @@
               Toast(res.data.error.message)
             } else {
               // this.telphone = ''
+              this.$store.commit(types.USERPHONENO, this.telphone)
               this.verifyNo = ''
               this.needBind = false
               this.active = !this.active
-              this.$store.commit(types.USERPHONENO, this.telphone)
             }
           }).catch()
         }

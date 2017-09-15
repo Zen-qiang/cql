@@ -13,7 +13,8 @@ export default {
       address: '',
       distance: 0,
       initPoint: null,
-      currentPoint: null
+      currentPoint: null,
+      addressPosition: {}
     }
   },
   props: {
@@ -86,7 +87,9 @@ export default {
       var geocoder = new BMap.Geocoder()
       geocoder.getLocation(p, function (result) {
         _this.address = result.address
-        _this.$emit('getCurrentAddress', _this.address)
+        _this.addressPosition.address = _this.address
+        _this.addressPosition.position = _this.position
+        _this.$emit('getCurrentAddress', _this.addressPosition)
       })
     },
     getPosition (p) {
