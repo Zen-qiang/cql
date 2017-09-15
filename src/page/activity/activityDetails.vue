@@ -91,6 +91,7 @@
     </textarea>
     <mt-button v-if="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
     <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-show="activityInfo.status !== '0' && isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
 <script>
@@ -185,6 +186,21 @@
 //      跳转到活动评论界面
       gotoMessage () {
         this.$router.push({'path': '/activityMessage/' + this.topicId})
+      },
+//      取消报名
+      cancelSingnUpActivity () {
+        this.axios({
+          method: 'post',
+          url: '/signOut',
+          data: {
+            userId: this.$store.state.userId,
+            activityId: this.$route.params.aid
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.isSignUp = false
+          }
+        })
       },
 //        获取活动详情
       getActivityInfo (callbackFn) {
