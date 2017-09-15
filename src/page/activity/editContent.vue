@@ -211,8 +211,12 @@
       if (this.currentInfo) {
         this.activityName = this.currentInfo.activityName
         this.circle = this.currentInfo.circle
-        this.localImgs = this.currentInfo.localImgs
-        this.ioslocIds = this.currentInfo.ioslocIds
+        if (this.currentInfo.localImgs) {
+          this.localImgs = this.currentInfo.localImgs
+        }
+        if (this.currentInfo.ioslocIds) {
+          this.ioslocIds = this.currentInfo.ioslocIds
+        }
         this.times = this.currentInfo.times
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
