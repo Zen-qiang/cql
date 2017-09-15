@@ -131,7 +131,6 @@
         day: '',
         hours: '',
         minutes: '',
-        isEdit: false,
         profilePicture: '',
         circles: [],
         circle: null,
@@ -388,7 +387,7 @@
           this.isActivated = false
           this.axios({
             method: 'post',
-            url: this.isEdit ? 'editActivity' : 'launchActivity',
+            url: 'launchActivity',
             data: formdata
           }).then(res => {
             this.isActivated = true
