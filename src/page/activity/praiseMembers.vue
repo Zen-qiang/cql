@@ -16,9 +16,10 @@
         </div>
         <ul class="dinglian-mem-proxy" v-show="item">
           <li :key="idx" v-for="(retinue, idx) in item.retinues">
+            <img src="../../assets/images/circle.jpg">
             <span>{{retinue.name}}</span>
-            <span>{{retinue.gender}}</span>
-            <span>dai</span>
+            <span :class="{'male':retinue.gender == '1','female':retinue.gender == '2'}"></span>
+            <span>代</span>
           </li>
         </ul>
       </li>
@@ -127,7 +128,7 @@
   }
   .dinglian-mem-proxy {
     padding-left: 0.68rem;
-    padding-right: 15px;
+    padding-right: 0.15rem;
     border-bottom: 1px solid #dddddd;
   }
   .dinglian-mem-proxy > li {
@@ -143,12 +144,40 @@
     width: 0.23rem;
     height: 0.23rem;
     border-radius: 50%;
+    margin-right:0.1rem;
   }
   .dinglian-mem-proxy > li > span {
-    display: inline-block;
     line-height: 0.23rem;
-    margin-left: 15px;
-    flex: 1;
+    margin-right: 0.15rem;
+    font-size: 0.14rem;
+    color: #333;
+  }
+  .dinglian-mem-proxy > li > span:nth-of-type(2) {
+    width: 0.15rem;
+  }
+  .dinglian-mem-proxy > li > span.male {
+    background: url("../../assets/images/man.svg") no-repeat left center;
+    -webkit-background-size: 0.12rem;
+    background-size: 0.12rem;
+  }
+  .dinglian-mem-proxy > li > span.female {
+    background: url("../../assets/images/women.svg") no-repeat left center;
+    -webkit-background-size: 0.12rem;
+    background-size: 0.12rem;
+  }
+  .dinglian-mem-proxy > li > span:last-of-type {
+    width: 0.2rem;
+    height: 0.2rem;
+    border: 1px solid #DDD;
+    line-height: 0.2rem;
+    text-align: center;
+    margin-top: 0.02rem;
+    -webkit-border-radius: 0.01rem;
+    -moz-border-radius: 0.01rem;
+    border-radius: 0.01rem;
+    color: #999;
+    font-size: 0.11rem;
+    font-family: "PingFangSc";
   }
   /*拨打电话*/
   .dinglian-mem-phoneNo {
