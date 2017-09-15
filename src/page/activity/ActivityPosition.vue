@@ -12,7 +12,7 @@
     <b-map ref="bmap" class="dinglian-position-bmap" v-on:getCurrentAddress="getCurrentAddress"></b-map>
     <div class="dinglian-position-footer">
       <span>{{address}}</span>
-      <span></span>
+      <em @click="goEditContent">确认</em>
     </div>
   </div>
 </template>
@@ -48,6 +48,9 @@
       getCurrentAddress (val) {
         this.address = val.address
         this.$store.commit(types.CURRENTADDRESS, val)
+      },
+      goEditContent () {
+        this.$router.push({'path': '/editContent'})
       }
     }
   }
@@ -99,6 +102,17 @@
     height: 0.4rem;
     display: block;
     line-height: 0.4rem;
+  }
+  .dinglian-position-footer > em {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    background-color: #ffd200;
+    width: 0.5rem;
+    font-style: normal;
+    border-radius: 4px;
   }
 
 </style>
