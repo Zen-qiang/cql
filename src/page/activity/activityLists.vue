@@ -1,5 +1,5 @@
 <template>
-  <div class="dinglian-activityLists-all">
+  <div class="dinglian-activityLists-all bColor">
     <mt-loadmore :top-method="loadTop"
                  :distanceIndex="2"
                  :maxDistance="100"

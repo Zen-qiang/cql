@@ -292,17 +292,17 @@
     position: relative;
   }
   .dinglian-alone-sign {
-    margin: 10px 0;
+    margin: 0 0 0.1rem;
     background: #ffffff;
   }
   .dinglian-alone-sign > .dinglian-alone-userinfo {
-    font-size: 14px;
+    font-size: 0.14rem;
     height: 0.5rem;
     line-height: 0.5rem;
     border-bottom: 1px solid #dddddd;
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 0.15rem;
   }
   .dinglian-alone-userinfo > input {
     text-align: right;
@@ -318,22 +318,22 @@
   .dinglian-alone-color > span::before {
     position: absolute;
     content: " ";
-    width: 16px;
-    height:16px;
+    width: 0.16rem;
+    height:0.16rem;
     background: url("../../assets/images/add.svg") no-repeat center left;
     top: 50%;
-    margin-top: -8px;
-    left: -26px;
+    margin-top: -0.08rem;
+    left: -0.26rem;
   }
   .dinglian-alone-addUsers {
     background: #ffffff;
-    font-size: 14px;
+    font-size: 0.14rem;
     margin-bottom: 0.5rem;
   }
   .dinglian-alone-addUsers > div {
     height: 0.5rem;
     line-height: 0.5rem;
-    padding: 0 15px;
+    padding: 0 0.15rem;
   }
   .dinglian-alone-addTitle {
     display: flex;
@@ -355,27 +355,27 @@
   }
   .dinglian-alone-users > ul > li:first-of-type {
     height: 100%;
-    width: 15px;
+    width: 0.15rem;
     background: url("../../assets/images/delete.svg") no-repeat center;
   }
   .dinglian-alone-users > ul > li:nth-of-type(2) {
     padding-left: 0.25rem;
     width: 0.55rem;
-    margin-right: 30px;
+    margin-right: 0.3rem;
     background-color: #ffffff;
   }
   .dinglian-alone-users > span {
     display: inline-block;
     background: url("../../assets/images/editBlack.svg") no-repeat center left;
-    width: 28px;
-    padding: 0 5px;
+    width: 0.28rem;
+    padding: 0 0.05rem;
     background-origin: content-box;
     background-clip: content-box;
   }
   .dinglian-alone-button {
     background: #e63832;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 0.15rem;
   }
   /*绑定手机号*/
   /*.dinglian-alone-cover {
@@ -493,7 +493,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: rgba(0,0,0,0.3);
+    background: rgba(255,255,255,1);
     padding:0;
     height: 100%;
     -webkit-transition: all 0.5s;
@@ -502,18 +502,20 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
     visibility: visible;
+    z-index: 9;
   }
   .dinglian-alone-whole > .editContent-phone-content.active {
-    background: rgba(0,0,0,0);
+    background: rgba(255,225,255,0);
     visibility: hidden;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix {
-    position: fixed;
-    bottom: 2.32rem;
+    position: absolute;
+    top: 1rem;
     right: 0;
     left: 0;
     margin:auto;
     width: 2.97rem;
+    opacity:1;
     -webkit-border-radius:0.05rem;
     -moz-border-radius:0.05rem;
     border-radius:0.05rem;
@@ -523,9 +525,11 @@
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+    z-index: 9;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix.active {
-    bottom: -3rem;
+    top: -3rem;
+    opacity:0;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title {
     background: #ffd200;
@@ -593,17 +597,21 @@
     background: url("../../assets/images/yzm.svg") no-repeat left center;
     -webkit-background-size: 0.15rem;
     background-size: 0.15rem;
+    width: 60%;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > span {
-    width: 0.87rem;
+    /*width: 0.87rem;*/
+    width:35%;
     height: 0.29rem;
+    padding:0 0.06rem;
     background: #ffd200;
     color: #333;
-    font-size: 0.13rem;
+    font-size: 0.1rem;
     -webkit-border-radius: 0.05rem;
     -moz-border-radius: 0.05rem;
     border-radius: 0.05rem;
     line-height: 0.29rem;
+    text-align: center;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button {
     width: 100%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-all bColor">
+  <div class="edit-all bColor" :class="{'active':!active}">
     <div class="dinglian-edit-title">
       <img :src="profilePicture" alt="">
       <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
@@ -82,7 +82,7 @@
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
     <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注" v-model="description"></textarea>
-    <mt-button type="default" class="edit-button" @click.native="goNextStep">发布</mt-button>
+    <mt-button type="default" class="edit-button" @click.native="goNextStep" v-show="active">发布</mt-button>
     <!--绑定手机号 start-->
     <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
@@ -386,6 +386,9 @@
     overflow: hidden;
     height: auto;
   }
+  .edit-all.active {
+    height: 100%;
+  }
   .edit-all > div {
     background: #fff;
     margin-bottom: 1px;
@@ -637,9 +640,9 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: rgba(0,0,0,0.3);
+    background: rgba(255,255,255,1);
     padding:0;
-    height: 100%;
+    height: 100%  ;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -648,16 +651,17 @@
     visibility: visible;
   }
   .edit-all > .editContent-phone-content.active {
-    background: rgba(0,0,0,0);
+    background: rgba(255,255,255,0);
     visibility: hidden;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix {
-    position: fixed;
-    bottom: 2.32rem;
+    position: absolute;
+    top: 1rem;
     right: 0;
     left: 0;
     margin:auto;
     width: 2.97rem;
+    opacity:1;
     -webkit-border-radius:0.05rem;
     -moz-border-radius:0.05rem;
     border-radius:0.05rem;
@@ -669,7 +673,8 @@
     transition: all 0.5s;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix.active {
-    bottom: -3rem;
+    top: -3rem;
+    opacity:0;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title {
     background: #ffd200;
@@ -737,13 +742,15 @@
     background: url("../../assets/images/yzm.svg") no-repeat left center;
     -webkit-background-size: 0.15rem;
     background-size: 0.15rem;
+    width:60%;
   }
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > span {
-    width: 0.87rem;
+    /*width: 0.87rem;*/
     height: 0.29rem;
+    padding:0 0.06rem;
     background: #ffd200;
     color: #333;
-    font-size: 0.13rem;
+    font-size: 0.1rem;
     -webkit-border-radius: 0.05rem;
     -moz-border-radius: 0.05rem;
     border-radius: 0.05rem;

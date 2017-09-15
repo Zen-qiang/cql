@@ -453,20 +453,23 @@
     width:1.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .dinglian-details-activityMembers > div {
-    display: flex;
-    flex-flow: row nowrap;
-    width: 0.85rem;
-    align-items: center;
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+    width: 0.9rem;
+    height:0.25rem;
+    /*align-items: center;*/
     overflow: hidden;
   }
   .dinglian-details-activityMembers > div img {
-    display: block;
+    display: inline-block;
     width: 0.25rem;
     height: 0.25rem;
     margin-right: 0.05rem;
     border-radius: 50%;
+    float: right;
   }
   .dinglian-details-activityMembers > span {
     padding-right:0.27rem;

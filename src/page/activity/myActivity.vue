@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dinglian-myActivity-all bColor">
     <mt-navbar v-model="selected">
       <mt-tab-item :id="index+''" v-for="(item, index) in tags" :key="index">{{item}}</mt-tab-item>
     </mt-navbar>
@@ -92,27 +92,55 @@
   .mint-navbar > a{
     position: relative;
   }
-  .mint-navbar .mint-tab-item.is-selected[data-v-485b87ae] {
-    border-width: 0.02rem;
+  @-webkit-keyframes move {
+    from{
+      width: 0;
+    }
+    to{
+      width:0.2rem;
+    }
   }
-  .mint-navbar .mint-tab-item:before {
+  @keyframes move {
+    from{
+      width: 0;
+    }
+    to{
+      width:0.2rem;
+    }
+  }
+  .mint-navbar .mint-tab-item {
+    border-bottom: 0.02rem solid #fff;
+    padding: 0.17rem 0;
+    font-size: 0.15rem;
+  }
+  .mint-navbar .mint-tab-item.is-selected {
+    margin-bottom:0;
+    border-bottom: 0.02rem solid #ffd200;
+  }
+  .mint-navbar .mint-tab-item.is-selected:before {
     content: '';
     display: block;
     position: absolute;
-    bottom: -0.03rem;
+    bottom: -0.02rem;
     left: 0;
-    width: 0.2rem;
-    height: 0.03rem;
+    /*width: 0.2rem;*/
+    height: 0.02rem;
     background: #fff;
+    -webkit-animation: move 0.5s forwards;
+    -o-animation: move 0.5s forwards;
+    animation: move 0.5s forwards;
   }
-  .mint-navbar .mint-tab-item:after {
+  .mint-navbar .mint-tab-item.is-selected:after {
     content: '';
     display: block;
     position: absolute;
-    bottom: -0.03rem;
+    bottom: -0.02rem;
     right: 0;
-    width: 0.2rem;
-    height: 0.03rem;
+    /*width: 0.2rem;*/
+    height: 0.02rem;
     background: #fff;
+    -webkit-animation: move 0.5s forwards;
+    -o-animation: move 0.5s forwards;
+    animation: move 0.5s forwards;
   }
 </style>
