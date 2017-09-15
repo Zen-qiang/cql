@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-all bColor">
+  <div class="edit-all bColor" :class="{'active':!active}">
     <div class="dinglian-edit-title">
       <img :src="profilePicture" alt="">
       <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
@@ -69,7 +69,8 @@
     </div>
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
-      <input type="tel" placeholder="请输入电话号码" v-model="phoneNo">
+      <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
+      <span @click="active = !active">绑定</span>
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
@@ -81,7 +82,22 @@
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
     <textarea name="" id="" cols="30" rows="10" class="dinglian-edit-note" placeholder="活动备注" v-model="description"></textarea>
-    <mt-button type="default" class="edit-button" @click.native="goNextStep">发布</mt-button>
+    <mt-button type="default" class="edit-button" @click.native="goNextStep" v-show="active">发布</mt-button>
+    <!--绑定手机号 start-->
+    <div class="editContent-phone-content" :class="{'active':active}">
+      <div class="editContent-phone-fix" :class="{'active':active}">
+        <div class="editContent-phone-title">
+          <h3>绑定手机号<span @click="active = !active"></span></h3>
+        </div>
+        <div class="editContent-phone-body">
+          <div><input type="tel" placeholder="请输入手机号"></div>
+          <div><input type="text" placeholder="请输入验证码"><span>发送验证码</span></div>
+          <p></p>
+          <div><button>立即绑定</button></div>
+        </div>
+      </div>
+    </div>
+    <!--绑定手机号 end-->
   </div>
 </template>
 <script>
@@ -110,11 +126,12 @@
         startDate: '',
         endDate: '',
         times: '',
-//        fullYear: this.times.getFullYear().toString(),
-//        month: this.forMartTimes(this.times.getMonth()),
-//        day: this.forMartTimes(this.times.getDate()),
+        date: new Date(),
         fullYear: '',
         month: '',
+        day: '',
+        hours: '',
+        minutes: '',
         isEdit: false,
         profilePicture: '',
         circles: [],
@@ -139,7 +156,8 @@
         ioslocIds: [],
         serverIds: [],
         isActivated: true,
-        limitHourValue: ''
+        limitHourValue: '',
+        active: true
       }
     },
     watch: {
@@ -154,6 +172,14 @@
         this.profilePicture = this.$store.state.userPicture
       }
       this.getMyCircles()
+      /* 时间 */
+      this.fullYear = this.date.getFullYear().toString()
+      this.month = this.forMartTimes(this.date.getMonth() + 1)
+      this.day = this.forMartTimes(this.date.getDate())
+      this.hours = this.forMartTimes(this.date.getHours())
+      this.minutes = this.forMartTimes(this.date.getMinutes())
+      this.times = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
+      this.startDate = this.fullYear + '-' + this.forMartTimes(this.date.getMonth()) + '-' + this.day
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress
       }
@@ -165,7 +191,6 @@
       change (value) {
 //        console.log('change', value)
         this.times = value
-//        console.log(this.fullYear)
       },
 //      获取本地的gps
       getLocationGps () {
@@ -361,6 +386,9 @@
     overflow: hidden;
     height: auto;
   }
+  .edit-all.active {
+    height: 100%;
+  }
   .edit-all > div {
     background: #fff;
     margin-bottom: 1px;
@@ -554,9 +582,18 @@
   .dinglian-edit-time > input {
     width: 100%;
   }
+  .dinglian-edit-tel {
+    position: relative;
+  }
   .dinglian-edit-tel > input {
     height: 0.4rem;
     font-size: 0.14rem;
+  }
+  .dinglian-edit-tel > span {
+    position:absolute;
+    right: 0;
+    color: #E63832;
+    width: 0.6rem;
   }
   .dinglian-edit-address {
     position: relative;
@@ -595,5 +632,141 @@
     margin-top: 0.2rem;
     position: absolute;
     bottom: 0;
+  }
+  /*绑定手机号*/
+  .edit-all > .editContent-phone-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: rgba(255,255,255,1);
+    padding:0;
+    height: 100%  ;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    visibility: visible;
+  }
+  .edit-all > .editContent-phone-content.active {
+    background: rgba(255,255,255,0);
+    visibility: hidden;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    left: 0;
+    margin:auto;
+    width: 2.97rem;
+    opacity:1;
+    -webkit-border-radius:0.05rem;
+    -moz-border-radius:0.05rem;
+    border-radius:0.05rem;
+    overflow: hidden;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix.active {
+    top: -3rem;
+    opacity:0;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title {
+    background: #ffd200;
+    height: 0.44rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title > h3 {
+    font-size: 0.17rem;
+    font-family: 'PingFangSc';
+    font-weight: normal;
+    height: 100%;
+    line-height: 0.44rem;
+    position: relative;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title > h3 > span {
+    position:absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 0.44rem;
+    height: 0.44rem;
+    background: url("../../assets/images/添加.svg") no-repeat center center;
+    -webkit-background-size: 0.18rem;
+    background-size: 0.18rem;
+    transform: rotate(45deg);
+    border-radius: 100%;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body {
+    background: #F2F2F2;
+    padding: 0.2rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div {
+    height: 0.44rem;
+    display:flex;
+    padding: 0.075rem;
+    justify-content: space-between;
+    background: #fff;
+    -webkit-border-radius: 0.04rem;
+    -moz-border-radius: 0.04rem;
+    border-radius: 0.04rem;
+    margin-bottom: 0.1rem;
+    border: 1px solid #DDDDDD;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > p {
+    height: 1px;
+    margin-top: 0.15rem;
+    background: #DDDDDD;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div:nth-of-type(3) {
+    margin-top: 0.15rem;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input {
+    font-size: 0.14rem;
+    padding-left: 0.24rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input[type='tel'] {
+    background: url("../../assets/images/people.svg") no-repeat left center;
+    -webkit-background-size: 0.15rem;
+    background-size: 0.15rem;
+    width: 100%;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input[type='text'] {
+    background: url("../../assets/images/yzm.svg") no-repeat left center;
+    -webkit-background-size: 0.15rem;
+    background-size: 0.15rem;
+    width:60%;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > span {
+    /*width: 0.87rem;*/
+    height: 0.29rem;
+    padding:0 0.06rem;
+    background: #ffd200;
+    color: #333;
+    font-size: 0.1rem;
+    -webkit-border-radius: 0.05rem;
+    -moz-border-radius: 0.05rem;
+    border-radius: 0.05rem;
+    line-height: 0.29rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    background: #DDDDDD;
+    color: #999;
+    font-size: 0.15rem;
+  }
+  .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.success {
+    background: #ffd200;
+    color: #333;
   }
 </style>

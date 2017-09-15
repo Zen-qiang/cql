@@ -45,17 +45,18 @@
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
-      <label for="">报名信息</label>
-      <span>
-        {{userCount.currentCount}}/ {{userCount.minCount}} ~ {{userCount.maxCount}}
-      </span>
+      <div>
+        <label for="">报名信息</label>
+        <span>{{userCount.currentCount}}</span><span>/{{userCount.minCount}}-{{userCount.maxCount}}</span>
+      </div>
       <div class="dinglian-details-activityMembers">
-        <img :src="item.picture" alt="" v-for="item in activityMembers">
+        <div><img :src="item.picture" alt="" v-for="item in activityMembers"></div>
+        <span>more</span>
       </div>
     </div>
     <div class="dinglian-edit-people dinglian-details-types">
       <label for="">人数</label>
-      <input type="tel" v-model="minCount" :disabled="disabled">&nbsp;至
+      <input type="tel" v-model="minCount" :disabled="disabled">&nbsp;至&nbsp;
       <input type="tel"v-model="maxCount" :disabled="disabled">&nbsp;人
     </div>
     <div class="dinglian-details-types">
@@ -70,8 +71,8 @@
     </div>
     <div class="dinglian-details-types">
       <label for="">费用</label>
-      <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color: red" disabled>
-      <input type="text" v-else value="AA制" style="color: red" disabled>
+      <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color:#e63832;font-size:0.14rem;" disabled>
+      <input type="text" v-else value="AA制" style="color:#e63832;font-size:0.14rem;" disabled>
     </div>
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
@@ -310,21 +311,22 @@
     top: 0;
     z-index: 10;
     background-color: #ffd200;
-    font-size: 14px;
-    width: 50px;
-    height: 40px;
+    font-size: 0.14rem;
+    width: 0.5rem;
+    height: 0.4rem;
     text-align: center;
     opacity: 0.8;
   }
   div {
-    height: 50px;
-    line-height: 50px;
+    height: 0.5rem;
+    line-height: 0.5rem;
     text-align: left;
   }
   .dinglian-details-all {
-    height: 100%;
+    height: auto;
     background: #f2f2f2;
     position: relative;
+    padding-bottom: 0.6rem;
   }
   .dinglian-details-all > div {
     background: #ffffff;
@@ -334,66 +336,69 @@
 
   }
   .dinglian-details-title > input {
-    font-size: 14px;
+    font-size: 0.15rem;
     height: 100%;
-    padding-left: 15px;
+    padding-left: 0.15rem;
     float: left;
     background-color: #ffffff;
+    color: #333;
   }
   .dinglian-details-title > span {
-    height: 15px;
-    line-height: 15px;
-    font-size: 11px;
+    height: 0.15rem;
+    line-height: 0.15rem;
+    font-size: 0.11rem;
     background: #ffd200;
-    border-radius: 4px;
+    border-radius: 0.04rem;
     float: left;
-    margin-top: 18px;
+    margin-top: 0.18rem;
   }
   .dinglian-details-chat {
-    height: 65px;
-    padding: 10px 15px;
+    height: 0.65rem;
+    padding: 0.1rem 0.15rem;
     margin: 0 auto;
     border-top: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
   }
   .dinglian-details-chat >img {
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    width: 0.45rem;
+    height: 0.45rem;
     float: left;
   }
   .dinglian-details-chatNews {
     height: 100%;
     overflow: hidden;
-    padding-left: 22px;
+    padding-left: 0.22rem;
+    padding-top: 0.04rem;
   }
   .dinglian-details-chatNewsTop {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    height: 14px;
+    height: 0.14rem;
   }
   .dinglian-details-chatNewsTop > h4 {
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 0.14rem;
+    line-height: 0.14rem;
     font-weight: 400;
   }
   .dinglian-details-chatNewsTop > span {
-    font-size: 11px;
-    line-height: 14px;
+    font-size: 0.11rem;
+    line-height: 0.14rem;
     color: #999999;
   }
   .dinglian-details-chatNews > p {
-    margin-top: 12px;
-    height: 12px;
-    font-size: 12px;
-    line-height: 12px;
+    margin-top: 0.1rem;
+    height: 0.12rem;
+    font-size: 0.12rem;
+    line-height: 0.12rem;
+    color: #999;
   }
   .dinglian-details-status {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
-    font-size: 14px;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 0.14rem;
     border-bottom: 1px solid #dddddd;
     /*padding: 16px 15px;*/
     display: flex;
@@ -403,18 +408,20 @@
   .dinglian-details-status >label {
     height: 100%;
     display: inline-block;
-    line-height: 50px;
-    width: 80px;
-    padding-left: 15px;
+    line-height: 0.5rem;
+    width: 0.8rem;
+    padding-left: 0.15rem;
     color: #999999;
   }
   .dinglian-details-status > input {
     background-color: #ffffff;
     flex: 2;
+    font-size: 0.14rem;
+    color: #333;
   }
   .dinglian-details-status > span,.dinglian-details-status > a {
     height: 100%;
-    width: 45px;
+    width: 0.45rem;
     display: inline-block;
   }
   .dinglian-status > span {
@@ -425,35 +432,58 @@
     width: 100%;
     height: 0.5rem;
     line-height: 0.5rem;
-    font-size: 14px;
+    font-size: 0.14rem;
     border-bottom: 1px solid #dddddd;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
   }
-  .dinglian-details-sign > label {
+  .dinglian-details-sign >div label {
     height: 100%;
     display: inline-block;
-    line-height: 50px;
-    width: 80px;
-    padding-left: 15px;
+    line-height: 0.5rem;
+    width: 0.8rem;
+    padding-left: 0.15rem;
     color: #999999;
   }
-  .dinglian-details-activityMembers {
-    display: flex;
-    flex-flow: row nowrap;
+  .dinglian-details-sign >div label + span {
+    color:#E63832;
   }
-  .dinglian-details-activityMembers > img {
-    display: block;
-    width: 0.5rem;
-    height: 0.5rem;
+  .dinglian-details-activityMembers {
+    width:1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dinglian-details-activityMembers > div {
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+    width: 0.9rem;
+    height:0.25rem;
+    /*align-items: center;*/
+    overflow: hidden;
+  }
+  .dinglian-details-activityMembers > div img {
+    display: inline-block;
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-right: 0.05rem;
     border-radius: 50%;
+    float: right;
+  }
+  .dinglian-details-activityMembers > span {
+    padding-right:0.27rem;
+    font-size: 0.11rem;
+    color: #999;
+    background: url("../../assets/images/jtcy.svg") no-repeat 0.32rem center;
+    -webkit-background-size:;
+    background-size: 0.09rem 0.16rem;
   }
   .dinglian-details-types {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
-    font-size: 14px;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 0.14rem;
     border-bottom: 1px solid #dddddd;
     /*padding: 16px 15px;*/
     display: flex;
@@ -463,9 +493,9 @@
   .dinglian-details-types >label {
     height: 100%;
     display: inline-block;
-    line-height: 50px;
-    width: 80px;
-    padding-left: 15px;
+    line-height: 0.5rem;
+    width: 0.8rem;
+    padding-left: 0.15rem;
     color: #999999;
     background-color: #ffffff;
   }
@@ -480,61 +510,62 @@
   }
   .dinglian-details-textarea {
     width: 100%;
-    font-size: 12px;
+    font-size: 0.12rem;
     text-align: left;
-    padding: 15px;
+    padding: 0.15rem;
     padding-top: 0;
     background-color: #ffffff;
   }
 
   .edit-switch {
-    padding-top: 9px;
+    padding-top: 0.09rem;
   }
   .dinglian-details-mobile {
     background: url("../../assets/images/mobile.svg") no-repeat left center;
-    padding: 10px;
+    padding: 0.1rem;
     background-clip: content-box;
     background-origin: content-box;
-    margin-right: 5px;
+    margin-right: 0.05rem;
   }
   .dinglian-details-address {
     background: url("../../assets/images/address.svg") no-repeat left center;
-    padding: 10px;
+    padding: 0.1rem;
     background-clip: content-box;
     background-origin: content-box;
-    margin-right: 5px;
+    margin-right: 0.05rem;
 
   }
   .dinglian-details-tags {
-    width: 100%;
+    /*width: 100%;*/
     display: flex;
     flex-flow: row nowrap;
-    line-height: 50px;
+    line-height: 0.5rem;
     align-items: center;
   }
   .dinglian-details-tags > li {
-    font-size: 11px;
-    height: 18px;
+    font-size: 0.11rem;
+    height: 0.18rem;
     background-color: #999999;
-    line-height: 14px;
-    margin-right: 10px;
-    border-radius: 3px;
-    padding: 2px;
+    line-height: 0.14rem;
+    margin-right: 0.1rem;
+    border-radius: 0.03rem;
+    padding: 0.02rem;
   }
   .dinglian-details-time > span:first-of-type {
     flex: 2;
   }
   .dinglian-edit-people {
-    font-size: 14px;
+    font-size: 0.14rem;
     align-items: center;
   }
   .dinglian-edit-people > input {
-    width: 78px;
-    height: 30px;
+    width: 0.78rem;
+    height: 0.3rem;
     border: 1px solid #dddddd;
-    border-radius: 4px;
-    padding-left: 10px;
-    background-color: #ffffff;
+    border-radius: 0.4rem;
+    padding-left: 0.1rem;
+    background-color: #fff;
+    outline: none;
   }
   .dinglian-details-psd {
     justify-content: space-between;

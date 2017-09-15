@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-alone-whole">
     <!--绑定手机号 start-->
-    <div class="dinglian-alone-cover" v-show="bindPhone">
+    <!--<div class="dinglian-alone-cover" v-show="bindPhone">
       <div class="dinglian-alone-bindtel">
         <div class="dinglian-alone-bind-header">
           <h4>
@@ -18,6 +18,19 @@
           <div>
             <mt-button type="default" class="dinglian-alone-bind-button" :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</mt-button>
           </div>
+        </div>
+      </div>
+    </div>-->
+    <div class="editContent-phone-content" :class="{'active':active}">
+      <div class="editContent-phone-fix" :class="{'active':active}">
+        <div class="editContent-phone-title">
+          <h3>绑定手机号<span @click="active = !active"></span></h3>
+        </div>
+        <div class="editContent-phone-body">
+          <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
+          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
+          <p></p>
+          <div><button :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</button></div>
         </div>
       </div>
     </div>
@@ -37,7 +50,7 @@
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
         <input type="text" v-model="telphone" v-show="!needBind" disabled>
-        <span v-show="needBind" @click="showBind()">绑定手机号</span>
+        <span v-show="needBind" @click="active = !active">绑定手机号</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
@@ -92,7 +105,8 @@
         friends: [],
         sendCodeButton: '发送验证码',
         isActivated: true,
-        isSignUpActive: false
+        isSignUpActive: false,
+        active: true
       }
     },
     created () {
@@ -278,20 +292,21 @@
     position: relative;
   }
   .dinglian-alone-sign {
-    margin: 10px 0;
+    margin: 0 0 0.1rem;
     background: #ffffff;
   }
   .dinglian-alone-sign > .dinglian-alone-userinfo {
-    font-size: 14px;
+    font-size: 0.14rem;
     height: 0.5rem;
     line-height: 0.5rem;
     border-bottom: 1px solid #dddddd;
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 0.15rem;
   }
   .dinglian-alone-userinfo > input {
     text-align: right;
+    background: #fff;
   }
   .dinglian-alone-color > label {
     color: #999999;
@@ -304,22 +319,22 @@
   .dinglian-alone-color > span::before {
     position: absolute;
     content: " ";
-    width: 16px;
-    height:16px;
+    width: 0.16rem;
+    height:0.16rem;
     background: url("../../assets/images/add.svg") no-repeat center left;
     top: 50%;
-    margin-top: -8px;
-    left: -26px;
+    margin-top: -0.08rem;
+    left: -0.26rem;
   }
   .dinglian-alone-addUsers {
     background: #ffffff;
-    font-size: 14px;
+    font-size: 0.14rem;
     margin-bottom: 0.5rem;
   }
   .dinglian-alone-addUsers > div {
     height: 0.5rem;
     line-height: 0.5rem;
-    padding: 0 15px;
+    padding: 0 0.15rem;
   }
   .dinglian-alone-addTitle {
     display: flex;
@@ -341,30 +356,30 @@
   }
   .dinglian-alone-users > ul > li:first-of-type {
     height: 100%;
-    width: 15px;
+    width: 0.15rem;
     background: url("../../assets/images/delete.svg") no-repeat center;
   }
   .dinglian-alone-users > ul > li:nth-of-type(2) {
     padding-left: 0.25rem;
     width: 0.55rem;
-    margin-right: 30px;
+    margin-right: 0.3rem;
     background-color: #ffffff;
   }
   .dinglian-alone-users > span {
     display: inline-block;
     background: url("../../assets/images/editBlack.svg") no-repeat center left;
-    width: 28px;
-    padding: 0 5px;
+    width: 0.28rem;
+    padding: 0 0.05rem;
     background-origin: content-box;
     background-clip: content-box;
   }
   .dinglian-alone-button {
     background: #e63832;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 0.15rem;
   }
   /*绑定手机号*/
-  .dinglian-alone-cover {
+  /*.dinglian-alone-cover {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -372,7 +387,7 @@
     top: 0;
     z-index: 9;
     background: #dddddd;
-    /*opacity: 0.1;*/
+    !*opacity: 0.1;*!
   }
   .dinglian-alone-bindtel {
     position: absolute;
@@ -471,7 +486,146 @@
   }
   .signUpActive {
     background: #ffd200;
-  }
+  }*/
 
+  .dinglian-alone-whole > .editContent-phone-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: rgba(255,255,255,1);
+    padding:0;
+    height: 100%;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    visibility: visible;
+    z-index: 9;
+  }
+  .dinglian-alone-whole > .editContent-phone-content.active {
+    background: rgba(255,225,255,0);
+    visibility: hidden;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    left: 0;
+    margin:auto;
+    width: 2.97rem;
+    opacity:1;
+    -webkit-border-radius:0.05rem;
+    -moz-border-radius:0.05rem;
+    border-radius:0.05rem;
+    overflow: hidden;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    z-index: 9;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix.active {
+    top: -3rem;
+    opacity:0;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title {
+    background: #ffd200;
+    height: 0.44rem;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title > h3 {
+    font-size: 0.17rem;
+    font-family: 'PingFangSc';
+    font-weight: normal;
+    height: 100%;
+    line-height: 0.44rem;
+    position: relative;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-title > h3 > span {
+    position:absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 0.44rem;
+    height: 0.44rem;
+    background: url("../../assets/images/添加.svg") no-repeat center center;
+    -webkit-background-size: 0.18rem;
+    background-size: 0.18rem;
+    transform: rotate(45deg);
+    border-radius: 100%;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body {
+    background: #F2F2F2;
+    padding: 0.2rem;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div {
+    height: 0.44rem;
+    display:flex;
+    padding: 0.075rem;
+    justify-content: space-between;
+    background: #fff;
+    -webkit-border-radius: 0.04rem;
+    -moz-border-radius: 0.04rem;
+    border-radius: 0.04rem;
+    margin-bottom: 0.1rem;
+    border: 1px solid #DDDDDD;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > p {
+    height: 1px;
+    margin-top: 0.15rem;
+    background: #DDDDDD;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div:nth-of-type(3) {
+    margin-top: 0.15rem;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input {
+    font-size: 0.14rem;
+    padding-left: 0.24rem;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input[type='tel'] {
+    background: url("../../assets/images/people.svg") no-repeat left center;
+    -webkit-background-size: 0.15rem;
+    background-size: 0.15rem;
+    width: 100%;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > input[type='text'] {
+    background: url("../../assets/images/yzm.svg") no-repeat left center;
+    -webkit-background-size: 0.15rem;
+    background-size: 0.15rem;
+    width: 60%;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > span {
+    /*width: 0.87rem;*/
+    width:35%;
+    height: 0.29rem;
+    padding:0 0.06rem;
+    background: #ffd200;
+    color: #333;
+    font-size: 0.1rem;
+    -webkit-border-radius: 0.05rem;
+    -moz-border-radius: 0.05rem;
+    border-radius: 0.05rem;
+    line-height: 0.29rem;
+    text-align: center;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    background: #DDDDDD;
+    color: #999;
+    font-size: 0.15rem;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.signUpActive {
+    background: #ffd200;
+    color: #333;
+  }
 
 </style>

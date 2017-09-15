@@ -1,5 +1,5 @@
 <template>
-  <div class="dinglian-activityLists-all">
+  <div class="dinglian-activityLists-all bColor">
     <mt-loadmore :top-method="loadTop"
                  :distanceIndex="2"
                  :maxDistance="100"
@@ -63,7 +63,6 @@
         this.start = 0
         this.allLoaded = false
         this.activityLists = []
-        this.keyword = ''
         this.getActivityList()
         this.$refs.searchInput.blur()
       },
