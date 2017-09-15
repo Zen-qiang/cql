@@ -34,7 +34,7 @@
       </mt-tab-container-item>
     </mt-tab-container>
   </mt-loadmore>
-    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="isJoined">
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="active">
     </button>
   </div>
 </template>
@@ -72,7 +72,8 @@
         uid: this.$store.state.userId,
         qrcodeContent: '',
         showed: false,
-        isJoined: false
+        isJoined: false,
+        active: false
       }
     },
     watch: {
@@ -254,8 +255,10 @@
             // 参与者
             if (circle.isJoined) {
               this.buttonText = '退出'
+              this.active = true
             } else {
               this.buttonText = '加入'
+              this.active = false
             }
           }
           if (circle.status) {
@@ -280,7 +283,7 @@
   /*头部背景*/
   .dinglian-details-background {
     width: 100%;
-    height: 195px;
+    height: 1.95rem;
     background: url("../../assets/images/carousel0.jpg") no-repeat center center;
     position: relative;
   }
@@ -324,10 +327,10 @@
     right: 0;
     top: 0;
     background: url("../../assets/images/edit.svg") no-repeat center;
-    width: 40px;
-    height: 40px;
+    width: 0.4rem;
+    height: 0.4rem;
     z-index: 8;
-    padding: 10px;
+    padding: 0.1rem;
     background-clip: content-box;
     background-origin: content-box;
   }
@@ -367,20 +370,20 @@
   .mint-navbar .mint-tab-item.is-selected {
     border-bottom: 0.02rem solid #f2f2f2;
   }
-  @-webkit-keyframes move {
+  @-webkit-keyframes show {
     from {
-      width: 0;
+      width: 100%;
     }
     to {
-      width: 1.05rem;
+      width: 1rem;
     }
   }
   @keyframes move {
     from {
-      width: 0;
+      width: 100%;
     }
     to {
-      width: 1.05rem;
+      width: 1rem;
     }
   }
   .mint-navbar .mint-tab-item.is-selected::after {
@@ -390,12 +393,12 @@
     left: 0;
     right:0;
     margin:auto;
-    width: 1.05rem;
+    /*width: 1.05rem;*/
     border-bottom: 2px solid #ffd200;
     z-index: 11;
-    -webkit-animation:move 0.5s;
-    -o-animation:move 0.5s;
-    animation:move 0.5s;
+    -webkit-animation:show 0.5s;
+    -o-animation:show 0.5s;
+    animation:show 0.5s;
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;
     -o-animation-fill-mode: forwards;
@@ -414,7 +417,7 @@
     z-index: 14;
     border: 1px solid red;
     top: 0.5rem;
-    height: 202px;
+    height: 2.02rem;
   }
   @-webkit-keyframes move {
     from{
