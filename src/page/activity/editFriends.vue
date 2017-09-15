@@ -4,8 +4,8 @@
     <div class="dinglian-edit-friends" :key="index" v-for="(item, index) in friends">
       <input type="text" value="张三" placeholder="参加者姓名" v-model="item.name">
       <div class="edit-radio">
-        <label for="" @click="checkGender(item, '1')"><input type="radio"  value="1" v-model="item.gender">男</label>
-        <label for="" @click="checkGender(item, '2')"><input type="radio"  value="2" v-model="item.gender">女</label>
+        <label for="" @click="checkGender(item, '1')" :class="{'active':item.gender == '1'}"><input type="radio"  value="1" v-model="item.gender"><span>男</span></label>
+        <label for="" @click="checkGender(item, '2')" :class="{'active':item.gender == '2'}"><input type="radio"  value="2" v-model="item.gender"><span>女</span></label>
       </div>
       <span @click="removeItem(index)"></span>
     </div>
@@ -60,11 +60,11 @@
 <style scoped>
   .dinglian-edit-alternative {
     background: url("../../assets/images/add.svg") no-repeat left center;
-    background-size: 16px;
+    background-size: 0.16rem;
     background-position-x: 1.4rem;
   }
   .dinglian-edit-whole > div {
-    font-size: 14px;
+    font-size: 0.14rem;
     height: 0.5rem;
     border-bottom: 1px solid #dddddd;
     line-height: 0.5rem;
@@ -75,27 +75,66 @@
   .edit-radio > label {
     display: inline-block;
     height: 100%;
-    margin-right: 15px;
-
+    margin-right: 0.2rem;
+    position: relative;
   }
   .edit-radio input[type=radio] {
-    width: 18px;
-    height: 18px;
-    vertical-align:text-top;
-    margin-right: 5px;
+    width: 0.18rem;
+    height: 0.18rem;
+    vertical-align:middle;
+    margin-right: 0.1rem;
+    opacity: 0;
+  }
+  .edit-radio > label > span {
+    display: inline-block;
+    line-height: 0.5rem;
+  }
+  .edit-radio > label:before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 0.18rem;
+    height: 0.18rem;
+    border: 1px solid #e63832;
+    border-radius: 100%;
+  }
+  .edit-radio > label.active:after {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0;
+    left: 0.03rem;
+    bottom: 0;
+    margin: auto;
+    width: 0.12rem;
+    height: 0.12rem;
+    background: #e63832;
+    border-radius: 100%;
   }
   .dinglian-edit-friends {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 0.15rem;
 
+  }
+  .dinglian-edit-friends > input {
+    font-size: 0.14rem;
   }
   .dinglian-edit-friends > span {
     display: inline-block;
-    width: 15px;
+    width: 0.15rem;
     height: 100%;
-    background: url("../../assets/images/delete.svg") no-repeat center left;
+    background: url("../../assets/images/add.svg") no-repeat center left;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 
 
