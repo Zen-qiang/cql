@@ -155,7 +155,6 @@
         localImgs: [],
         ioslocIds: [],
         serverIds: [],
-        isActivated: true,
         limitHourValue: '',
         active: true,
         isSignUpActive: false,
@@ -171,7 +170,7 @@
     },
     watch: {
       minCount: function (val) {
-        if (this.maxCount === '' || val > this.maxCount) {
+        if (this.maxCount === '' && val > this.maxCount) {
           this.maxCount = val
         }
       },
@@ -239,42 +238,18 @@
       },
 //      获取本地的gps 跳转地图
       getLocationGps () {
-        if (this.activityName) {
-          this.currentInfo.activityName = this.activityName
-        }
-        if (this.circle) {
-          this.currentInfo.circle = this.circle
-        }
-        if (this.localImgs) {
-          this.currentInfo.localImgs = this.localImgs
-        }
-        if (this.ioslocIds) {
-          this.currentInfo.ioslocIds = this.ioslocIds
-        }
-        if (this.serverIds) {
-          this.currentInfo.serverIds = this.serverIds
-        }
-        if (this.times) {
-          this.currentInfo.times = this.times
-        }
-        if (this.minCount) {
-          this.currentInfo.minCount = this.minCount
-        }
-        if (this.maxCount) {
-          this.currentInfo.maxCount = this.maxCount
-        }
-        if (this.charge) {
-          this.currentInfo.charge = this.charge
-        }
-        if (this.isOpen) {
-          this.currentInfo.isOpen = this.isOpen
-        }
-        if (this.password) {
-          this.currentInfo.password = this.password
-        }
-        if (this.description) {
-          this.currentInfo.description = this.description
-        }
+        this.currentInfo.activityName = this.activityName
+        this.currentInfo.circle = this.circle
+        this.currentInfo.localImgs = this.localImgs
+        this.currentInfo.ioslocIds = this.ioslocIds
+        this.currentInfo.serverIds = this.serverIds
+        this.currentInfo.times = this.times
+        this.currentInfo.minCount = this.minCount
+        this.currentInfo.maxCount = this.maxCount
+        this.currentInfo.charge = this.charge
+        this.currentInfo.isOpen = this.isOpen
+        this.currentInfo.password = this.password
+        this.currentInfo.description = this.description
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
         this.$router.push({'name': 'ActivityPosition'})
       },
@@ -385,34 +360,29 @@
         if (!this.isOpen && this.password) {
           formdata.append('password', this.password)
         }
-        if (this.isActivated) {
-          this.isActivated = false
-          this.axios({
-            method: 'post',
-            url: this.isEdit ? 'editActivity' : 'launchActivity',
-            data: formdata
-          }).then(res => {
-            this.isActivated = true
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            } else {
-              this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
-              let circleObj = {
-                id: res.data.data.coterieId,
-                name: res.data.data.coterieName,
-                cover: res.data.data.coterieCover,
-                isRelease: true
-              }
-              this.$store.commit(types.CIRCLE, circleObj)
-              this.currentInfo = {}
-              this.$store.commit(types.CURRENTINFO, this.currentInfo)
-              this.$router.push({'path': '/activitySuccess'})
+        this.axios({
+          method: 'post',
+          url: this.isEdit ? 'editActivity' : 'launchActivity',
+          data: formdata
+        }).then(res => {
+          if (!res.data.success) {
+            Toast(res.data.error.message)
+          } else {
+            this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
+            let circleObj = {
+              id: res.data.data.coterieId,
+              name: res.data.data.coterieName,
+              cover: res.data.data.coterieCover,
+              isRelease: true
             }
-          }).catch(err => {
-            this.isActivated = true
-            console.log(err)
-          })
-        }
+            this.$store.commit(types.CIRCLE, circleObj)
+            this.currentInfo = {}
+            this.$store.commit(types.CURRENTINFO, this.currentInfo)
+            this.$router.push({'path': '/activitySuccess'})
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       },
       getMyCircles () {
         // 获取我的圈子列表

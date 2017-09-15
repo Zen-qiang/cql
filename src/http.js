@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import qs from 'querystring'
-import { Toast } from 'mint-ui'
+import { Toast, Indicator } from 'mint-ui'
 axios.defaults.timeout = 30000
 // axios.defaults.baseURL = 'http://106.14.2.158/api/'
 axios.defaults.baseURL = 'http://www.dingliantech.com/api/'
@@ -16,6 +16,9 @@ axios.interceptors.request.use(
     if (config.method === 'post' && !(config.data instanceof FormData)) {
       config.data = qs.stringify(config.data)
     }
+    Indicator.open({
+      spinnerType: 'fading-circle'
+    })
     return config
   },
   error => {
@@ -29,6 +32,7 @@ axios.interceptors.response.use(
     if (response.data) {
       // 当用户ID为空时，需要跳转授权页面
       // Toast('跳转授权')
+      Indicator.close()
     }
     return response
   },
