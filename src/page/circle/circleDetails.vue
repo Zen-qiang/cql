@@ -282,34 +282,38 @@
   }
   .dinglian-details-join {
     position: absolute;
-    width: 180px;
-    height: 100px;
+    width: 1.8rem;
+    height: 1rem;
     left: 50%;
-    margin-left: -90px;
-    top: 90px;
+    margin-left: -0.9rem;
+    top: 0.9rem;
     z-index: 7;
   }
   .dinglian-details-join > h4 {
     color: #ffffff;
-    font-size: 15px;
+    font-size: 0.15rem;
+    height: 0.15rem;
+    line-height: 0.15rem;
   }
   .dinglian-details-join > p {
-    font-size: 12px;
-    margin-top: 12px;
+    font-size: 0.12rem;
+    margin-top: 0.12rem;
     color: #ffffff;
   }
   .dinglian-details-join > span {
     position: absolute;
     text-decoration: none;
-    width: 0.58rem;
+    /*width: 0.58rem;*/
     height: 0.24rem;
-    line-height: 0.24rem;
-    font-size: 12px;
+    line-height: 0.12rem;
+    font-size: 0.12rem;
     background: #ffd200;
-    border-radius: 4px;
+    border-radius: 0.12rem;
     margin-top: 0.22rem;
     right: 50%;
     margin-right: -0.29rem;
+    padding: 0.06rem 0.18rem;
+    color: #333333;
   }
   .dinglian-details-edit,.dinglian-details-qrcode {
     position: absolute;
@@ -341,15 +345,65 @@
   }
   header > p {
     width: 100%;
-    padding: 15px;
+    padding: 0.15rem;
     text-align: left;
-    font-size: 12px;
+    font-size: 0.12rem;
+    height: 0.5rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
   /*二维码*/
   header {
     position: relative;
     width: 100%;
   }
+  .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 0.02rem solid #f2f2f2;
+  }
+  @-webkit-keyframes move {
+    from {
+      width: 0;
+    }
+    to {
+      width: 1.05rem;
+    }
+  }
+  @keyframes move {
+    from {
+      width: 0;
+    }
+    to {
+      width: 1.05rem;
+    }
+  }
+  .mint-navbar .mint-tab-item.is-selected::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right:0;
+    margin:auto;
+    width: 1.05rem;
+    border-bottom: 2px solid #ffd200;
+    z-index: 11;
+    -webkit-animation:move 0.5s;
+    -o-animation:move 0.5s;
+    animation:move 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+  .mint-navbar .mint-tab-item {
+    position: relative;
+  }
+
+
+
   .dinglian-vueqr {
     position: absolute;
     left: 50%;
