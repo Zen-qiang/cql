@@ -20,7 +20,7 @@
             <span v-if="activity.status === '1'"><em class="dinglian-lists-status-processing"></em>进行中</span>
             <span v-else-if="activity.status === '2'"><em class="dinglian-lists-status-IsRegistering"></em>正在报名</span>
             <span v-else><em class="dinglian-lists-status-over"></em>已结束</span>
-            <span> <i>{{activity.userCount.currentCount}}</i> /{{activity.userCount.minCount}}~{{activity.userCount.maxCount}}人</span>
+            <span> <i>{{activity.userCount.currentCount}}</i>/{{activity.userCount.minCount}}~{{activity.userCount.maxCount}}人</span>
           </div>
           <div class="dinglian-lists-people dinglian-lists-address clearfix">
             <span>{{activity.address}}</span>
@@ -95,73 +95,87 @@
 </script>
 <style scoped>
   .dinglian-lists-con {
-    height: 140px;
+    height: 1.4rem;
     border-bottom: 1px solid #dddddd;
+    padding: 0.15rem;
   }
   /*左边区域*/
   .dinglian-lists-con-left {
     float: left;
-    width: 31%;
-    padding: 15px 0;
-    padding-left: 15px;
+    width: 0.9rem;
+    height: 1.1rem;
+    overflow: hidden;
+    margin-right: 0.12rem;
+    /*padding: 0.15rem 0;*/
+    /*padding-left: 0.15rem;*/
   }
   .dinglian-lists-con-left > img {
-    display: block;
-    width: 100px;
-    height: 100px;
-    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
   }
   /*右边区域*/
   .dinglian-lists-con-right {
     float: left;
     width: 69%;
-    height: 100%;
-    padding-top: 14px;
-    padding-left: 13px;
-    padding-right: 18px;
+    height: 1.1rem;
+    overflow: hidden;
+    /*padding-top: 0.15rem;*/
+    /*padding-left: 0.13rem;*/
+    /*padding-right: 0.18rem;*/
   }
   .dinglian-lists-title {
 
   }
   .dinglian-lists-title > h3 {
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
-    height: 15px;
-    line-height: 15px;
+    height: 0.15rem;
+    line-height: 0.15rem;
     float: left;
+    font-family: 'PingFangSc';
+    font-weight: 400;
+    width: 1.58rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .dinglian-lists-title > span {
     float: right;
-    font-size: 11px;
+    font-size: 0.11rem;
     background: #ffd200;
-    border-radius: 4px;
-    padding: 0 3px;
+    border-radius: 0.04rem;
+    padding: 0 0.03rem;
+    width: 0.78rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .dinglian-lists-tags {
     text-align: left;
-    height: 18px;
-    line-height: 18px;
-    margin-top: 7px;
+    height: 0.18rem;
+    line-height: 0.18rem;
+    margin-top: 0.02rem;
 
   }
   .dinglian-lists-tags > span {
     display: inline-block;
     float: left;
-    border-radius: 4px;
+    border-radius: 0.04rem;
     background: #f2f2f2;
-    margin-right: 7px;
-    padding: 2px;
+    margin-right: 0.07rem;
+    padding: 0.02rem;
   }
   .dinglian-lists-cost {
     color: #e63832;
-    font-size: 14px;
+    font-size: 0.14rem;
     text-align: left;
-    margin-top: 9px;
+    margin-top: 0.09rem;
   }
   .dinglian-lists-people {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     text-align: left;
-    font-size: 11px;
+    font-size: 0.11rem;
   }
   .dinglian-lists-people span:first-child {
     float: left;
@@ -169,29 +183,37 @@
   .dinglian-lists-people span:last-child {
     float: right;
   }
+  .dinglian-lists-people span:last-child i {
+    color: red;
+    font-style: normal;
+  }
   .dinglian-lists-address {
-    margin-top: 9px;
+    margin-top: 0.02rem;
+  }
+  .dinglian-lists-address > span {
+    color: #999;
+    font-size: 0.11rem;
   }
   /*底部点赞*/
   .dinglian-lists-footer {
     width: 100%;
-    height: 35px;
-    line-height: 35px;
+    height: 0.35rem;
+    line-height: 0.35rem;
     border-bottom: 1px solid #dddddd;
     text-align: left;
   }
   .dinglian-lists-footer span {
-    font-size: 11px;
+    font-size: 0.11rem;
     color: #999999;
     display: inline-block;
     height: 100%;
     float: left;
   }
   .dinglian-lists-footer span:first-of-type {
-    margin-left: 41px;
+    margin-left: 0.22rem;
     background: url("../../assets/images/comment.svg") no-repeat left center;
-    background-size: 14px 14px;
-    padding-left: 19px;
+    background-size: 0.14rem 0.14rem;
+    padding-left: 0.19rem;
   }
   /*.dinglian-lists-footer span:last-of-type {*/
     /*margin-left: 75px;*/
@@ -200,25 +222,25 @@
     /*padding-left: 19px;*/
   /*}*/
   .dinglian-lists-footer-like {
-    margin-left: 75px;
+    margin-left: 0.6rem;
     background: url("../../assets/images/like.svg") no-repeat left center;
-    background-size: 14px 14px;
-    padding-left: 19px;
+    background-size: 0.14rem 0.14rem;
+    padding-left: 0.19rem;
   }
   .dinglian-lists-footer .dinglian-lists-footer-likeActive {
-    margin-left: 75px;
+    margin-left: 0.75rem;
     background: url("../../assets/images/likeActive.svg") no-repeat left center;
-    background-size: 14px 14px;
-    padding-left: 19px;
+    background-size: 0.14rem 0.14rem;
+    padding-left: 0.19rem;
   }
   /*状态点*/
   .dinglian-lists-status {
-    width: 8px;
-    height: 8px;
+    width: 0.08rem;
+    height: 0.08rem;
     display: inline-block;
     border-radius: 50%;
     background: #ffd200;
-    margin-right: 5px;
+    margin-right: 0.05rem;
   }
   em[class^='dinglian-lists-status'] {
     width: 0.08rem;
