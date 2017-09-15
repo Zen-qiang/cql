@@ -82,6 +82,7 @@
   }
   .dinglian-position-bmap {
     height: 100%;
+    position: relative;
   }
   .dinglian-position-footer {
     position: absolute;
