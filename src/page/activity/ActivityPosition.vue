@@ -102,6 +102,7 @@
     height: 0.4rem;
     display: block;
     line-height: 0.4rem;
+    text-align: left;
   }
   .dinglian-position-footer > em {
     position: absolute;
