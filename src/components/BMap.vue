@@ -69,7 +69,9 @@ export default {
     geolocationControl () {
       var _this = this
       // 定位当前位置控件
-      var geolocationControl = new BMap.GeolocationControl()
+      var geolocationControl = new BMap.GeolocationControl({
+        showAddressBar: false
+      })
       geolocationControl.addEventListener('locationSuccess', function (e) {
         // 定位成功事件
         _this.map.clearOverlays()

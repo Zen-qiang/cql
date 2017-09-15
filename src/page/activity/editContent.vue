@@ -217,6 +217,9 @@
         if (this.currentInfo.ioslocIds) {
           this.ioslocIds = this.currentInfo.ioslocIds
         }
+        if (this.currentInfo.serverIds) {
+          this.serverIds = this.currentInfo.serverIds
+        }
         this.times = this.currentInfo.times
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
@@ -246,6 +249,9 @@
         }
         if (this.ioslocIds) {
           this.currentInfo.ioslocIds = this.ioslocIds
+        }
+        if (this.serverIds) {
+          this.currentInfo.serverIds = this.serverIds
         }
         if (this.times) {
           this.currentInfo.times = this.times
