@@ -9,7 +9,7 @@
     <!--标题-->
     <div class="dinglian-details-title clearfix">
       <input type="text" v-model="activityInfo.name" disabled>
-      <span @click="goCircleDetail(activityInfo.coterie.id)">{{activityInfo.coterie.name}}</span>
+      <span @click="goCircleDetail(activityInfo.coterie.id)">{{circleName}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
       <img src="../../assets/images/circle.jpg" alt="">
@@ -136,7 +136,8 @@
         mobileHref: '',
         userCount: '',
         isSignUp: false,
-        isActivated: true
+        isActivated: true,
+        circleName: ''
       }
     },
     created () {
@@ -196,6 +197,7 @@
           }
         }).then(res => {
           this.activityInfo = res.data.data
+          this.circleName = res.data.data.coterie.name
           this.isSignUp = res.data.data.isSignUp
           this.userCount = res.data.data.userCount
           this.activityMembers = res.data.data.activityMembers

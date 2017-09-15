@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>-->
-    <div class="editContent-phone-content" :class="{'active':avtive}">
+    <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
         <div class="editContent-phone-title">
           <h3>绑定手机号<span @click="active = !active"></span></h3>
@@ -55,8 +55,9 @@
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
         <div class="edit-radio">
-          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>
-          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>
+          <div>男</div>
+          <!--<label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>-->
+          <!--<label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>-->
         </div>
       </div>
     </div>

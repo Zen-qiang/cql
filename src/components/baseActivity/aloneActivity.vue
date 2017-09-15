@@ -10,7 +10,7 @@
             <span class="dinglian-lists-circleTag" @click="redirectActivityDetails(activity.coterie.id)">{{activity.coterie.name}}</span>
           </div>
           <div class="dinglian-lists-tags clearfix">
-            <span class="fs_11" :key="tagName" v-for="tagName of activity.tags">{{tagName.name}}</span>
+            <span class="fs_11" :key="index" v-for="(tagName, index) of activity.tags">{{tagName.name}}</span>
           </div>
           <div class="dinglian-lists-cost">
             <span v-if="activity.charge === 'free'">免费</span>

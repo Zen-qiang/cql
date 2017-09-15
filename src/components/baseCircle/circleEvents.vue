@@ -37,7 +37,7 @@
 
         <div class="dinglian-lists-footer clearfix">
           <span>{{item.commentCnt}}</span>
-          <span @click="praiseTopic(item)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">{{item.praiseCnt}}</span>
+          <span @click.stop="praiseTopic(item)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">{{item.praiseCnt}}</span>
         </div>
       </li>
     </ul>
