@@ -38,7 +38,7 @@ export default {
     /*transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
   }
   .slide-enter, .slide-leave {
-    transform: translateX(-3.7rem);
+    transform: translateX(3.7rem);
     opacity: 0;
   }
 

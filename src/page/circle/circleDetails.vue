@@ -12,7 +12,7 @@
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle()" v-show="isCreator"></span>
         <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
@@ -63,7 +63,6 @@
         coverStyle: {
           width: '100%',
           height: '1.95rem',
-//          background: 'url(' + require('../../assets/images/carousel0.jpg') + ')',
           backgroundPositionX: 'center',
           backgroundPositionY: 'center',
           backgroundSize: 'cover',
@@ -194,7 +193,6 @@
           } else {
             this.allLoaded = true
           }
-//          this.topicList = res.data.data
         }).catch()
       },
       joinCircle () {
@@ -310,17 +308,17 @@
   .dinglian-details-join > span {
     position: absolute;
     text-decoration: none;
-    /*width: 0.58rem;*/
     height: 0.24rem;
     line-height: 0.12rem;
     font-size: 0.12rem;
     background: #ffd200;
     border-radius: 0.12rem;
     margin-top: 0.22rem;
-    right: 50%;
     margin-right: -0.29rem;
     padding: 0.06rem 0.18rem;
     color: #333333;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .dinglian-details-edit,.dinglian-details-qrcode {
     position: absolute;
@@ -360,7 +358,7 @@
     border-bottom: 1px solid #dddddd;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
   /*二维码*/

@@ -1,12 +1,13 @@
 <template>
+  <!--点赞列表-->
   <div class="dinglian-mem-whole">
     <ul>
       <li :key="index" v-for="(item, index) in TopicPraiseList">
         <div class="dinglian-mem-firstMember">
           <img :src="item.picture">
           <div class="clearfix">
-            <h4 v-if="item.gender === 1">{{item.nickName}} 男</h4>
-            <h4 v-else>{{item.nickName}} 女</h4>
+            <h4 v-if="item.gender === 1"><em class="dinglian-mem">{{item.nickName}}</em></h4>
+            <h4 v-else><em class="dinglian-womem">{{item.nickName}}</em></h4>
             <span>{{item.createTime | formatDate}}</span>
           </div>
         </div>
@@ -60,6 +61,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 12px;
+    border-bottom: 0.01rem solid #DDDDDD;
   }
   .dinglian-mem-firstMember > img {
     width: 0.44rem;
@@ -121,5 +123,25 @@
     display: inline-block;
     line-height: 0.23rem;
     margin-left: 15px;
+  }
+  .dinglian-mem, .dinglian-womem {
+    font-style: normal;
+    position: relative;
+  }
+  .dinglian-mem::after {
+    position: absolute;
+    content: '';
+    width: 0.11rem;
+    height: 0.11rem;
+    background: url("../assets/images/man.svg") no-repeat left center;
+    right: -0.15rem;
+  }
+  .dinglian-womem::after {
+    position: absolute;
+    content: '';
+    width: 0.11rem;
+    height: 0.11rem;
+    background: url("../assets/images/women.svg") no-repeat left center;
+    right: -0.15rem;
   }
 </style>

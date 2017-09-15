@@ -33,7 +33,7 @@ if (window.sessionStorage.getItem('userId')) {
   store.commit(types.USERPHONENO, window.sessionStorage.getItem('userPhoneNo'))
 }
 
-// store.commit(types.USERID, 24)
+// store.commit(types.USERID, 3)
 // store.commit(types.USERNAME, 'frank')
 // store.commit(types.USERPICTURE, '')
 // store.commit(types.USERPHONENO, '15221545361')
