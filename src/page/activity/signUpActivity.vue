@@ -28,7 +28,7 @@
         </div>
         <div class="editContent-phone-body">
           <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
-          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
+          <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()" :class="{sendActive: isSendCode}">{{sendCodeButton}}</span></div>
           <p></p>
           <div><button :class="{signUpActive: isSignUpActive}" @click="bindConfirm()">立即绑定</button></div>
         </div>
@@ -108,7 +108,9 @@
         isActivated: true,
         isSignUpActive: false,
         active: true,
-        userGender: '男'
+        userGender: '男',
+        isSendCode: false,
+        isDisabled: true
       }
     },
     created () {
@@ -144,17 +146,19 @@
         }
       }
     },
+    watch: {
+      telphone: function (val) {
+        if (val.length > 0) {
+          this.isSignUpActive = true
+        } else {
+          this.isSignUpActive = false
+        }
+      }
+    },
     methods: {
       removeItem (index) {
         this.friends.splice(index, 1)
       },
-//      显示和关闭绑定手机号
-      // showBind () {
-      //   this.bindPhone = true
-      // },
-      // hiddenBind () {
-      //   this.bindPhone = false
-      // },
 //      检查男女
       checkGender (val) {
         this.gender = val
@@ -230,7 +234,7 @@
           let num = 60
           var timer = null
           clearInterval(timer)
-          this.isDisabled = true
+          this.isSendCode = true
           if (this.isDisabled) {
             this.axios({
               method: 'get',
@@ -240,7 +244,7 @@
               }
             }).then(res => {
               if (res.data.success) {
-                this.disabled = false
+                this.isDisabled = false
                 var _this = this
                 timer = setInterval(function () {
                   num--
@@ -248,8 +252,9 @@
                   if (num === 0) {
                     clearInterval(timer)
                     num = 60
-                    _this.disabled = true
+                    _this.isDisabled = true
                     _this.sendCodeButton = '发送验证码'
+                    _this.isSendCode = false
                   }
                 }, 1000)
               } else {
@@ -622,6 +627,9 @@
     border-radius: 0.05rem;
     line-height: 0.29rem;
     text-align: center;
+  }
+  .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div .sendActive {
+    background-color: #DDDDDD;
   }
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button {
     width: 100%;
