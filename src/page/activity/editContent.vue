@@ -71,7 +71,7 @@
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
       <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
-      <span @click="active = !active">绑定</span>
+      <span @click="active = !active" v-show="phoneNo">绑定</span>
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
@@ -94,7 +94,7 @@
           <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
           <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
           <p></p>
-          <div><button :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</button></div>
+          <div><button :class="{signUpActive: isSignUpActive}" @click.stop="bindConfirm()">立即绑定</button></div>
         </div>
       </div>
     </div>
