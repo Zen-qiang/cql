@@ -42,6 +42,10 @@ const mutations = {
     sessionStorage.setItem('userName', userName)
     state.userName = userName
   },
+  [types.USERGENDER]: (state, userGender) => {
+    sessionStorage.setItem('userGender', userGender)
+    state.userGender = userGender
+  },
   [types.PARAMDATA]: (state, paramData) => {
     state.paramData = paramData
   },

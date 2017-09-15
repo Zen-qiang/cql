@@ -31,6 +31,7 @@ if (window.sessionStorage.getItem('userId')) {
   store.commit(types.USERNAME, window.sessionStorage.getItem('userName'))
   store.commit(types.USERPICTURE, window.sessionStorage.getItem('userPicture'))
   store.commit(types.USERPHONENO, window.sessionStorage.getItem('userPhoneNo'))
+  store.commit(types.USERGENDER, window.sessionStorage.getItem('userGender'))
 }
 
 // store.commit(types.USERID, 3)

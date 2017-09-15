@@ -17,6 +17,7 @@ export default {
     }
   },
   created () {
+    alert(this.$store.state.userGender)
   },
   mounted () {
     var _this = this

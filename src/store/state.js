@@ -16,6 +16,7 @@ const state = {
   userName: '',
   userPicture: '',
   userPhoneNo: '',
+  userGender: 1,
   // 参数
   paramData: {},
   // 二维码
