@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>-->
-    <div class="editContent-phone-content" :class="{'active':active}">
+    <div class="editContent-phone-content" :class="{'active':avtive}">
       <div class="editContent-phone-fix" :class="{'active':active}">
         <div class="editContent-phone-title">
           <h3>绑定手机号<span @click="active = !active"></span></h3>
@@ -239,8 +239,8 @@
                   if (num === 0) {
                     clearInterval(timer)
                     num = 60
-                    this.disabled = true
-                    this.sendCodeButton = '发送验证码'
+                    _this.disabled = true
+                    _this.sendCodeButton = '发送验证码'
                   }
                 }, 1000)
               } else {
