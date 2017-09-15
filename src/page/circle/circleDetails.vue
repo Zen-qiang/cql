@@ -12,7 +12,7 @@
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle()" v-show="isCreator"></span>
         <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
