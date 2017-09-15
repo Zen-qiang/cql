@@ -74,9 +74,9 @@
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
-      <mt-switch v-model="isOpen" class="edit-switch"></mt-switch>
+      <mt-switch v-model="switchOpen" class="edit-switch"></mt-switch>
     </div>
-    <div class="dinglian-edit-psw" :class="{'active':!isOpen}">
+    <div class="dinglian-edit-psw" :class="{'active':!switchOpen}">
       <label for="">输入密码</label>
       <input type="password" placeholder="请输入密码" v-model="password">
     </div>
@@ -131,7 +131,6 @@
         day: '',
         hours: '',
         minutes: '',
-        isEdit: false,
         profilePicture: '',
         circles: [],
         circle: null,
@@ -144,6 +143,7 @@
         charge: '',
         phoneNo: '',
         isOpen: true,
+        switchOpen: true,
         password: '',
         description: '',
         pictures: [],
@@ -321,7 +321,7 @@
           Toast('地址不能为空')
           return false
         }
-        if (!(this.minCount >= 1 && this.maxCount >= this.minCount)) {
+        if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount)) {
           Toast('人数填写错误')
           return false
         }
@@ -361,7 +361,7 @@
         }
         this.axios({
           method: 'post',
-          url: this.isEdit ? 'editActivity' : 'launchActivity',
+          url: 'launchActivity',
           data: formdata
         }).then(res => {
           if (!res.data.success) {
