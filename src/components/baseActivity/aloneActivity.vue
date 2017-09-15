@@ -12,7 +12,10 @@
           <div class="dinglian-lists-tags clearfix">
             <span class="fs_11" :key="tagName" v-for="tagName of activity.tags">{{tagName.name}}</span>
           </div>
-          <div class="dinglian-lists-cost">{{activity.charge}}</div>
+          <div class="dinglian-lists-cost">
+            <span v-if="activity.charge === 'free'">免费</span>
+            <span v-else>AA制</span>
+          </div>
           <div class="dinglian-lists-people clearfix">
             <span v-if="activity.status === '1'"><em class="dinglian-lists-status-processing"></em>进行中</span>
             <span v-else-if="activity.status === '2'"><em class="dinglian-lists-status-IsRegistering"></em>正在报名</span>

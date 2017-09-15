@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     initUserMarker (p) {
-      var userIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/ditu4.svg', new BMap.Size(25, 58))
+      var userIcon = new BMap.Icon('http://langlang2go.oss-cn-shanghai.aliyuncs.com/icon/its_me.svg', new BMap.Size(25, 58))
       this.userMarker = new BMap.Marker(p, {
         icon: userIcon
       })
