@@ -388,6 +388,9 @@
                   break
                 }
               }
+              if (!this.circle) {
+                this.circle = this.circles[0]
+              }
             }
           }).catch()
         }
