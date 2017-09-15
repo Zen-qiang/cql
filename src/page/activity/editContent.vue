@@ -322,7 +322,7 @@
           Toast('地址不能为空')
           return false
         }
-        if (this.minCount < 1 || this.maxCount < this.minCount) {
+        if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount) {
           Toast('人数填写错误')
           return false
         }
