@@ -10,9 +10,10 @@
     <div class="dinglian-success-title">
       <div>
         <!--:src="circle.cover"-->
-        <img src="../../assets/images/QRcode.jpg" alt="" @click="redirectCircleDetails">
+        <!--@click="redirectCircleDetails"-->
+        <img src="../../assets/images/QRcode.jpg" alt="">
       </div>
-      <p>街舞圈子</p>
+      <p></p>
     </div>
     <div class="dinglian-success-shetuan" v-show="false">
       <div><img :src="circle.cover"></div>
