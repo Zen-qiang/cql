@@ -1,7 +1,7 @@
 <template>
   <div class="bColor">
     <div class="dinglian-circle-search">
-      <input type="search" placeholder="请输入圈子关键词" @focus="moveIcon" @blur="refreshIcon" v-model="inputSearchValue" :class="{'active':active}">
+      <input type="search" placeholder="请输入圈子关键词" @search="searchMyCircle" ref="myCircle" @focus="moveIcon" @blur="refreshIcon" v-model="inputSearchValue" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </div>
     <mt-navbar v-model="selected" class="dinglian-myCircle-navbar">
@@ -58,7 +58,7 @@
     data () {
       return {
         selected: '1',
-        addCoterieImageUrl: require('../../assets/images/my_circle3.jpg'),
+        addCoterieImageUrl: require('../../assets/images/add999.svg'),
         coteries: [],
         uid: this.$store.state.userId,
         active: false,
@@ -87,7 +87,8 @@
         if (this.$store.state.userId) {
           let param = {
             userId: this.$store.state.userId,
-            dataType: dataType
+            dataType: dataType,
+            keyword: this.inputSearchValue
           }
           this.axios({
             method: 'get',
@@ -112,6 +113,14 @@
       clearSearchContent () {
         this.inputSearchValue = ''
         this.active = false
+        this.coteries = []
+        this.getMyCircles(this.selected)
+      },
+      // 搜索圈子
+      searchMyCircle () {
+        this.$refs.myCircle.blur()
+        this.coteries = []
+        this.getMyCircles(this.selected)
       }
     }
   }
@@ -171,22 +180,30 @@
   /*圈子列表*/
   .dinglian-myCircle-lists {
     padding: 0.1rem 0;
-    padding-left: 4%;
+    padding-left: 0.15rem;
     display: flex;
     flex-flow: row wrap;
   }
+  .dinglian-myCircle-lists > li:last-of-type {
+    background-color: #ffffff;
+    color: #999999;
+  }
+  .dinglian-myCircle-lists > li:last-of-type > img {
+    padding: 0.3rem;
+    padding-bottom: 0.22rem;
+  }
   .dinglian-myCircle-info {
-    width: 1.09rem;
-    height: 1.28rem;
-    margin-right: 0.09rem;
+    /*width: 1.09rem;*/
+    /*height: 1.28rem;*/
+    margin-right: 0.1rem;
     border: 1px solid #dddddd;
     border-radius: 0.04rem;
     margin-bottom: 0.1rem;
   }
   .dinglian-myCircle-info > img {
     display: block;
-    width: 100%;
-    height: 80%;
+    width: 1.08rem;
+    height: 0.98rem;
     border: 0;
     border-top-left-radius: 0.04rem;
     border-top-right-radius: 0.04rem;
@@ -194,9 +211,9 @@
   }
   .dinglian-myCircle-info > span {
     font-size: 0.11rem;
-    height: 20%;
+    height: 0.3rem;
     display: block;
-    line-height: 0.25rem;
+    line-height: 0.3rem;
   }
   /*标签点击切换样式*/
   @-webkit-keyframes move {

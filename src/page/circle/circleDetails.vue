@@ -12,13 +12,12 @@
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle()"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle()" v-show="isCreator"></span>
         <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
-      <!--<vue-qr :text="qrcodeContent" size="200" dotScale="1" whiteMargin="true" colorLight="red" v-show="showed" class="dinglian-vueqr"></vue-qr>-->
     </header>
     <mt-navbar v-model="selected">
       <mt-tab-item id="all">所有活动</mt-tab-item>
@@ -63,7 +62,6 @@
         coverStyle: {
           width: '100%',
           height: '1.95rem',
-//          background: 'url(' + require('../../assets/images/carousel0.jpg') + ')',
           backgroundPositionX: 'center',
           backgroundPositionY: 'center',
           backgroundSize: 'cover',
@@ -194,7 +192,6 @@
           } else {
             this.allLoaded = true
           }
-//          this.topicList = res.data.data
         }).catch()
       },
       joinCircle () {
@@ -293,7 +290,7 @@
     height: 1rem;
     left: 50%;
     margin-left: -0.9rem;
-    top: 0.9rem;
+    top: 0.8rem;
     z-index: 7;
   }
   .dinglian-details-join > h4 {
@@ -304,23 +301,23 @@
   }
   .dinglian-details-join > p {
     font-size: 0.12rem;
-    margin-top: 0.12rem;
+    margin-top: 0.07rem;
     color: #ffffff;
   }
   .dinglian-details-join > span {
     position: absolute;
     text-decoration: none;
-    /*width: 0.58rem;*/
     height: 0.24rem;
     line-height: 0.12rem;
     font-size: 0.12rem;
     background: #ffd200;
     border-radius: 0.12rem;
     margin-top: 0.22rem;
-    right: 50%;
     margin-right: -0.29rem;
     padding: 0.06rem 0.18rem;
     color: #333333;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .dinglian-details-edit,.dinglian-details-qrcode {
     position: absolute;
@@ -345,22 +342,21 @@
     position: absolute;
     left: 0;
     top: 0;
-    background: gainsboro;
-    opacity: 0.3;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
   }
   header > p {
     width: 100%;
     padding: 0.15rem;
     text-align: left;
     font-size: 0.12rem;
-    height: 0.5rem;
+    /*height: 0.5rem;*/
     background-color: #ffffff;
     border-bottom: 1px solid #dddddd;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
   /*二维码*/

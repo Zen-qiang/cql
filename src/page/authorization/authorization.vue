@@ -62,6 +62,7 @@
             this.$store.commit(types.USERNAME, res.data.data.nickName)
             this.$store.commit(types.USERPICTURE, res.data.data.picture)
             this.$store.commit(types.USERPHONENO, res.data.data.phoneNo)
+            this.$store.commit(types.USERGENDER, res.data.data.gender)
             // this.$router.push({'path': cookie.readCookie('redirectUrl')})
             location.assign(location.origin + '#' + cookie.readCookie('redirectUrl'))
           }

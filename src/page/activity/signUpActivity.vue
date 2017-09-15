@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>-->
-    <div class="editContent-phone-content" :class="{'active':avtive}">
+    <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
         <div class="editContent-phone-title">
           <h3>绑定手机号<span @click="active = !active"></span></h3>
@@ -30,7 +30,7 @@
           <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
           <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click="sendCode()">{{sendCodeButton}}</span></div>
           <p></p>
-          <div><button :class="{signUpActive: isSignUpActive}" @click.native="bindConfirm()">立即绑定</button></div>
+          <div><button :class="{signUpActive: isSignUpActive}" @click="bindConfirm()">立即绑定</button></div>
         </div>
       </div>
     </div>
@@ -55,8 +55,9 @@
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
         <div class="edit-radio">
-          <label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>
-          <label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>
+          <div>{{userGender}}</div>
+          <!--<label for="" @click="checkGender('1')"><input type="radio" name="gender" value="1" v-model="gender" disabled>男</label>-->
+          <!--<label for="" @click="checkGender('2')"><input type="radio" name="gender" value="2" v-model="gender" disabled>女</label>-->
         </div>
       </div>
     </div>
@@ -97,7 +98,7 @@
         gender: '1',
         userName: '',
         needBind: false,
-        bindPhone: false,
+        // bindPhone: false,
         telphone: '',
         verifyNo: '',
         password: '',
@@ -106,7 +107,8 @@
         sendCodeButton: '发送验证码',
         isActivated: true,
         isSignUpActive: false,
-        active: true
+        active: true,
+        userGender: '男'
       }
     },
     created () {
@@ -116,6 +118,13 @@
         this.telphone = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
+      }
+      if (this.$store.state.userGender && this.$store.state.userGender !== 'null') {
+        if (this.$store.state.userGender === '1') {
+          this.userGender = '男'
+        } else if (this.$store.state.userGender === '2') {
+          this.userGender = '女'
+        }
       }
       if (this.activity.signUpInfo) {
         this.userName = this.activity.signUpInfo.realName
@@ -130,7 +139,7 @@
         this.isEditSignUp = this.activity.isEditSignUp
       }
       if (this.$store.state.paramData) {
-        if (this.$store.state.paramData.friends.length > 0) {
+        if (this.$store.state.paramData.friends) {
           this.friends = this.$store.state.paramData.friends
         }
       }
@@ -140,12 +149,12 @@
         this.friends.splice(index, 1)
       },
 //      显示和关闭绑定手机号
-      showBind () {
-        this.bindPhone = true
-      },
-      hiddenBind () {
-        this.bindPhone = false
-      },
+      // showBind () {
+      //   this.bindPhone = true
+      // },
+      // hiddenBind () {
+      //   this.bindPhone = false
+      // },
 //      检查男女
       checkGender (val) {
         this.gender = val
@@ -273,10 +282,10 @@
             if (!res.data.success) {
               Toast(res.data.error.message)
             } else {
-              this.telphone = ''
+              // this.telphone = ''
               this.verifyNo = ''
-              this.hiddenBind()
               this.needBind = false
+              this.active = !this.active
               this.$store.commit(types.USERPHONENO, this.telphone)
             }
           }).catch()

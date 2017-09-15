@@ -1,15 +1,18 @@
 <template>
+  <!--报名成员列表-->
   <div class="dinglian-mem-whole">
     <ul>
       <li :key="index" v-for="(item, index) in activityMembers">
         <div class="dinglian-mem-firstMember">
-          <img :src="item.picture">
+          <i class="dinglian-mem-avatar">
+            <img :src="item.picture">
+          </i>
           <div class="clearfix">
-            <h4 v-if="item.gender === 1">{{item.name}} 男</h4>
-            <h4 v-else>{{item.name}} 女</h4>
+            <h4 v-if="item.gender === 1"><em class="dinglian-mem">{{item.name}}</em></h4>
+            <h4 v-else><em class="dinglian-womem">{{item.name}}</em></h4>
             <span>报名时间: {{item.signUpTime | formatDate}}</span>
           </div>
-          <span class="dinglian-mem-phoneNo"><a :href="'tel:' + item.phoneNo"></a></span>
+          <span class="dinglian-mem-phoneNo" v-show="item.phoneNo"><a :href="'tel:' + item.phoneNo"></a></span>
         </div>
         <ul class="dinglian-mem-proxy" v-show="item">
           <li :key="idx" v-for="(retinue, idx) in item.retinues">
@@ -59,7 +62,7 @@
 </script>
 <style scoped>
   .dinglian-mem-whole {
-    font-size: 14px;
+    font-size: 0.14rem;
   }
   .dinglian-mem-firstMember {
     width: 100%;
@@ -68,16 +71,31 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 12px;
+    padding: 0.12rem;
   }
-  .dinglian-mem-firstMember > img {
+  .dinglian-mem-firstMember .dinglian-mem-avatar {
+    display: block;
     width: 0.44rem;
     height: 0.44rem;
     border-radius: 50%;
+    border: 0.01rem solid #DDDDDD;
+    position: relative;
+  }
+  .dinglian-mem-firstMember img {
+    width: 0.36rem;
+    height: 0.36rem;
+    border: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
   }
   .dinglian-mem-firstMember > span {
     display: inline-block;
-    width: 0.17rem;
+    width: 0.4rem;
   }
   .dinglian-mem-firstMember > div {
     flex: 2;
@@ -90,8 +108,8 @@
     font-weight: 400;
     display: inline-block;
     width: 100%;
-    height: 16px;
-    line-height: 16px;
+    height: 0.11rem;
+    line-height: 0.11rem;
     float: left;
   }
   .dinglian-mem-firstMember > div > span {
@@ -130,14 +148,43 @@
     display: inline-block;
     line-height: 0.23rem;
     margin-left: 15px;
+    flex: 1;
   }
   /*拨打电话*/
+  .dinglian-mem-phoneNo {
+    width: 0.4rem;
+    height: 0.4rem;
+    padding-right: 0.1rem;
+  }
   .dinglian-mem-phoneNo > a {
-    list-style: none;
-    background: url("../../assets/images/mobile.svg") no-repeat left center;
-    padding: 10px;
+    display: block;
+    background-color: #ffd200;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: url("../../assets/images/mobile999.svg") no-repeat left center;
+    padding: 0.1rem;
     background-clip: content-box;
     background-origin: content-box;
     margin-right: 5px;
+  }
+  .dinglian-mem, .dinglian-womem {
+    font-style: normal;
+    position: relative;
+  }
+  .dinglian-mem::after {
+    position: absolute;
+    content: '';
+    width: 0.11rem;
+    height: 0.11rem;
+    background: url("../../assets/images/man.svg") no-repeat left center;
+    right: -0.15rem;
+  }
+  .dinglian-womem::after {
+    position: absolute;
+    content: '';
+    width: 0.11rem;
+    height: 0.11rem;
+    background: url("../../assets/images/women.svg") no-repeat left center;
+    right: -0.15rem;
   }
 </style>
