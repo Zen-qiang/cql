@@ -24,7 +24,7 @@
         <div v-show="ioslocIds.length" v-for="ioslocId in ioslocIds">
           <img :src="ioslocId" alt="选择图片">
         </div>
-        <div v-show="ioslocIds.length || localImgs.length" v-for="localId in localImgs">
+        <div v-show="!ioslocIds.length" v-for="localId in localImgs">
           <img :src="localId" alt="选择图片">
         </div>
         <div @click="takePictures"></div>
