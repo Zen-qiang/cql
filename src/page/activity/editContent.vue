@@ -273,6 +273,8 @@
                     var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
                     localData = localData.replace('jgp', 'jpeg')
                     _this.ioslocIds.push(localData)
+                    alert(_this.ioslocIds)
+                    alert(_this.ioslocIds.length)
                   }
                 })
               }
@@ -283,6 +285,8 @@
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverIds.push(res.serverId)
+                  alert(_this.serverId)
+                  alert(_this.serverId.length)
                 }
               })
             }
