@@ -12,8 +12,9 @@
     </div>
     <div class="dinglian-edit-circleLists" :class="{'active':chooseCircle}">
     <ul>
-        <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>
-      </ul>
+        <!--<li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>-->
+      <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)" :class="{'active': switchCircle == item.name || item.name == circle.name}">{{item.name}}</li>
+    </ul>
     </div>
     <!--上传图片 start-->
     <div class="dinglian-edit-photo">
@@ -57,8 +58,8 @@
     <div class="dinglian-edit-cost">
       <label for="">费用</label>
       <div class="edit-radio">
-        <label for="" @click="checkCharge('free',1)"><span :class="{'active':charge=='free'}"></span><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
-        <label for="" @click="checkCharge('dutch')"><span :class="{'active':charge=='dutch'}"></span><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
+        <!--<label for="" @click="checkCharge('free',1)"><span :class="{'active':charge=='free'}"></span><input type="radio" name="charge" value="free" v-model="charge">我请客</label>-->
+        <!--<label for="" @click="checkCharge('dutch')"><span :class="{'active':charge=='dutch'}"></span><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>-->
         <label for="" @click="checkCharge('free',1)" :class="{'active':charge=='free'}"><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
         <label for="" @click="checkCharge('dutch')" :class="{'active':charge=='dutch'}"><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
       </div>
