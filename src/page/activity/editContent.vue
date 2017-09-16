@@ -161,7 +161,7 @@
     },
     watch: {
       minCount: function (val) {
-        if (this.maxCount === '' && val > this.maxCount) {
+        if (this.maxCount === '' || val > this.maxCount) {
           this.maxCount = val
         }
       },
@@ -211,11 +211,12 @@
         if (this.currentInfo.serverIds) {
           this.serverIds = this.currentInfo.serverIds
         }
-//        this.startTimes = this.currentInfo.startTimes
+        this.startTimes = this.currentInfo.startTimes
+        this.endTimes = this.currentInfo.endTimes
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
         this.charge = this.currentInfo.charge
-//        this.switchOpen = this.currentInfo.switchOpen
+        this.switchOpen = this.currentInfo.switchOpen
         this.password = this.currentInfo.password
         this.description = this.currentInfo.description
       }
@@ -238,7 +239,8 @@
         this.currentInfo.localImgs = this.localImgs
         this.currentInfo.ioslocIds = this.ioslocIds
         this.currentInfo.serverIds = this.serverIds
-        this.currentInfo.times = this.times
+        this.currentInfo.startTimes = this.startTimes
+        this.currentInfo.endTimes = this.endTimes
         this.currentInfo.minCount = this.minCount
         this.currentInfo.maxCount = this.maxCount
         this.currentInfo.charge = this.charge
@@ -340,7 +342,7 @@
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
         formdata.append('name', this.activityName)
-        formdata.append('startTime', this.times)
+        formdata.append('startTime', this.startTimes)
         formdata.append('charge', this.charge)
         formdata.append('address', this.address)
         formdata.append('gps', this.gps)
