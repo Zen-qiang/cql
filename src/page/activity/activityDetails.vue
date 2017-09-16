@@ -35,7 +35,7 @@
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">时间</label>
-      <span>{{activityInfo.startTime | moment}}</span>
+      <span>{{activityInfo.startTime | moment}} ~ {{activityInfo.endTime | moment}}</span>
       <span></span>
     </div>
     <div class="dinglian-details-status">
