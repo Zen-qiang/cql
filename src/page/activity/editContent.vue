@@ -273,17 +273,8 @@
             _this.localImgs = _this.localImgs.concat(res.localIds)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
-              this.isIos = true
-              for (var i = 0; i < res.localIds.length; i++) {
-                wx.getLocalImgData({
-                  localId: res.localIds[i], // 图片的localID
-                  success: function (res) {
-                    var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
-                    localData = localData.replace('jgp', 'jpeg')
-                    _this.ioslocIds.push(localData)
-                  }
-                })
-              }
+              _this.isIos = true
+              _this.getLocationImg(res.localIds, 0)
             }
             for (var l = 0; l < res.localIds.length; l++) {
               wx.uploadImage({
@@ -296,6 +287,20 @@
             }
           }
         })
+      },
+      getLocationImg (ids, index) {
+        var _this = this
+        if (index <= (ids.length - 1)) {
+          wx.getLocalImgData({
+            localId: ids[index], // 图片的localID
+            success: function (res) {
+              var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
+              localData = localData.replace('jgp', 'jpeg')
+              _this.ioslocIds.push(localData)
+              _this.getLocationImg(ids, (index + 1))
+            }
+          })
+        }
       },
 //        选择圈子
       belongCircle () {
