@@ -59,6 +59,8 @@
       <div class="edit-radio">
         <label for="" @click="checkCharge('free',1)"><span :class="{'active':charge=='free'}"></span><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
         <label for="" @click="checkCharge('dutch')"><span :class="{'active':charge=='dutch'}"></span><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
+        <label for="" @click="checkCharge('free',1)" :class="{'active':charge=='free'}"><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
+        <label for="" @click="checkCharge('dutch')" :class="{'active':charge=='dutch'}"><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
       </div>
     </div>
     <div class="dinglian-edit-tel">
@@ -160,7 +162,7 @@
         isDisabled: true,
         isBindConfirm: false,
         isSendCode: false,
-        stepTimes: ''
+        switchCircle: ''
       }
     },
     watch: {
@@ -433,6 +435,7 @@
       checkCircle (circle) {
         this.circle = circle
         this.chooseCircle = false
+        this.switchCircle = circle.name
       },
 //    发送验证码
       sendCode () {
@@ -589,6 +592,10 @@
   .edit-all .dinglian-edit-circleLists {
     height: 0;
     margin-bottom: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
   }
   .edit-all .dinglian-edit-circleLists.active {
@@ -606,11 +613,21 @@
     font-size: 0.11rem;
     color: #333333;
     float: left;
-    background: #ffd200;
+    background: #f2f2f2;
     border-radius: 0.02rem;
     margin-right: 0.07rem;
     margin-bottom: 0.1rem;
     padding: 0 0.09rem;
+  }
+  .dinglian-edit-circleLists > ul > li.active {
+    background: #ffd200;
+  }
+  .dinglian-edit-circleLists > ul > li:first-of-type {
+    border: 1px dashed #ddd;
+    background: #fff;
+    padding-left: 0.2rem;
+    background: url("../../assets/images/add999.svg") no-repeat 0.05rem center;
+    background-size: 0.12rem;
   }
 /*上传图片*/
   .edit-all .dinglian-edit-photo {
@@ -680,6 +697,36 @@
   /*费用*/
   .dinglian-edit-cost > div > label {
     position: relative;
+  }
+  .dinglian-edit-cost > div > label:before {
+    position: absolute;
+    display: block;
+    content: '';
+    top:0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 0.18rem;
+    height: 0.18rem;
+    border: 1px solid #e63832;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .dinglian-edit-cost > div > label.active:after {
+    position: absolute;
+    display: block;
+    content: '';
+    top:0;
+    bottom: 0;
+    left: 0.03rem;
+    margin: auto;
+    width: 0.12rem;
+    height: 0.12rem;
+    background: #e63832;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
   }
   .dinglian-edit-cost > div > label [type="radio"] {
     opacity: 0;

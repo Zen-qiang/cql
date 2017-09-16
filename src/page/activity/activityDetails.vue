@@ -84,8 +84,10 @@
     </div>
     <div class="dinglian-details-types freeOrAAA">
       <label for="">费用</label>
-      <input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color:#e63832;font-size:0.14rem;" disabled>
-      <input type="text" v-else value="AA制" style="color:#e63832;font-size:0.14rem;" disabled>
+      <!--<input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color:#e63832;font-size:0.14rem;" disabled>
+      <input type="text" v-else value="AA制" style="color:#e63832;font-size:0.14rem;" disabled>-->
+      <p v-if="activityInfo.charge === 'free'" style="color:#e63832;font-size:0.14rem;">免费</p>
+      <p v-else value="AA制" style="color:#e63832;font-size:0.14rem;">AA制</p>
     </div>
     <div class="dinglian-details-types dinglian-details-psd">
       <label for="">密码权限</label>
@@ -391,6 +393,7 @@
     margin-top: 0.17rem;
     margin-left: 0.1rem;
     max-width: 30%;
+    padding: 0 0.05rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -554,7 +557,7 @@
     border-bottom: none;
   }
   .remarks > label {
-    color: #333;
+    color: #999;
   }
   .dinglian-details-textarea {
     width: 100%;

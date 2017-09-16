@@ -81,6 +81,7 @@
 </script>
 <style scoped>
   .dinglian-success-all {
+    height:6.67rem;
     overflow: hidden;
   }
   .dinglian-success-all > div{
