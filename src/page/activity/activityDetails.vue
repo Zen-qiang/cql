@@ -554,7 +554,7 @@
     border-bottom: none;
   }
   .remarks > label {
-    color: #333333;
+    color: #333;
   }
   .dinglian-details-textarea {
     width: 100%;
@@ -577,7 +577,7 @@
     display: block;
     content: '';
     background: #fff;
-    z-index:99;
+    z-index:6;
   }
   .dinglian-details-textarea:disabled {
     background-color: #ffffff;
