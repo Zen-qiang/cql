@@ -340,6 +340,14 @@
     border-bottom: 1px solid #dddddd;
     background-color: #ffffff;
   }
+  .dinglian-alone-users input {
+    background: #ffffff;
+    color: #333333;
+  }
+  .dinglian-alone-users input:disabled {
+    background: #ffffff;
+    color: #333333;
+  }
   .dinglian-alone-users > ul {
     display: flex;
     flex-flow: row nowrap;
