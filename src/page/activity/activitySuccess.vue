@@ -139,34 +139,39 @@
   .dinglian-success-peopleList {
     margin-top: 1px;
     height: 0.5rem;
-    line-height: 0.5rem;
     font-size: 0.14rem;
-    display: flex;
-    flex-flow: row-reverse nowrap;
-    align-items: center;
     position: relative;
+    text-align: left;
+    padding: 0 0.15rem 0.125rem;
+    overflow: hidden;
   }
   .dinglian-success-peopleList > span {
-    margin-right: 0.1rem;
+    margin-right: 0.05rem;
     display: inline-block;
-    width: 0.4rem;
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-top: 0.125rem;
     border-radius: 50%;
     background-color: #dddddd;
+    overflow: hidden;
   }
   .dinglian-success-peopleList > span > img {
-    display: block;
-    width: 0.4rem;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius:50%;
+    vertical-align: top;
   }
   .dinglian-success-peopleList > i {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0.16rem;
-    width: 0.08rem;
-    height: 0.08rem;
+    width: 0.36rem;
+    height: 0.3rem;
     margin: auto;
-    background: url("../../assets/images/jtcy.svg") no-repeat center center;
+    background: #fff url("../../assets/images/jtcy.svg") no-repeat center center;
+    -webkit-background-size:;
+    background-size: 0.1rem;
   }
   /*社团展示*/
   .dinglian-success-shetuan {
