@@ -219,7 +219,7 @@
                 var _this = this
                 timer = setInterval(function () {
                   num--
-                  _this.sendCodeButton = num + 's后发送'
+                  _this.sendCodeButton = num + 's后重新发送'
                   if (num === 0) {
                     clearInterval(timer)
                     num = 60
