@@ -47,9 +47,14 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
+<<<<<<< HEAD
       <!--<input type="text" v-model="address" disabled>-->
       <p v-text="address"></p>
       <span class="dinglian-details-address"></span>
+=======
+      <input type="text" v-model="address" disabled>
+      <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
+>>>>>>> 5212f2f549936e4f323d8da52b98c3baad8bb390
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
@@ -126,6 +131,7 @@
       return {
         carouselList: [],
         address: '',
+        gps: '',
         activityInfo: {},
         isOpen: '',
         status: '',
@@ -197,6 +203,9 @@
       gotoMessage () {
         this.$router.push({'path': '/activityMessage/' + this.topicId})
       },
+      showActivityMap () {
+        this.$router.push({'path': '/activityMap/' + this.gps})
+      },
 //      取消报名
       cancelSingnUpActivity () {
         this.axios({
@@ -237,6 +246,7 @@
           this.isCreator = res.data.data.isCreator
           this.topic = res.data.data.topic
           this.address = res.data.data.address
+          this.gps = res.data.data.gps
           this.mobileHref = 'tel:' + res.data.data.organizer.phoneNo
           if (this.topic) {
             this.topicId = res.data.data.topic.topicId

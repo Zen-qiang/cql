@@ -21,8 +21,12 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-if=" !ioslocIds.length " v-for="localId in localImgs"><img :src="localId" alt="选择图片"></div>
-        <div v-else v-for="ioslocId in ioslocIds"><img :src="ioslocId" alt="选择图片"></div>
+        <div v-if="isIos" v-for="ioslocId in ioslocIds">
+          <img :src="ioslocId" alt="选择图片">
+        </div>
+        <div v-else v-for="localId in localImgs" class="ssjssk">
+          <img :src="localId" alt="选择图片">
+        </div>
         <div @click="takePictures"></div>
       </div>
     </div>
@@ -156,7 +160,8 @@
         isDisabled: true,
         isBindConfirm: false,
         isSendCode: false,
-        stepTimes: ''
+        stepTimes: '',
+        isIos: false
       }
     },
     watch: {
@@ -262,6 +267,7 @@
             _this.localImgs = _this.localImgs.concat(res.localIds)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
+              this.isIos = true
               for (var i = 0; i < res.localIds.length; i++) {
                 wx.getLocalImgData({
                   localId: res.localIds[i], // 图片的localID
