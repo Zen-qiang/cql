@@ -16,7 +16,7 @@
       <div class="dinglian-details-chatNews">
         <div class="dinglian-details-chatNewsTop">
           <h4>留言板</h4>
-          <span>{{topic.lastCommentTime | moment}}</span>
+          <span v-show="topic.lastCommentTime">{{topic.lastCommentTime | moment}}</span>
         </div>
         <p>[{{topic.commentCount}}条] {{topic.lastComment}}</p>
       </div>
@@ -34,8 +34,13 @@
       <a :href="mobileHref" class="dinglian-details-mobile"></a>
     </div>
     <div class="dinglian-details-status dinglian-details-time">
-      <label for="">时间</label>
-      <span>{{activityInfo.startTime | moment}} ~ {{activityInfo.endTime | moment}}</span>
+      <label for="">开始时间</label>
+      <span>{{activityInfo.startTime | moment}}</span>
+      <span></span>
+    </div>
+    <div class="dinglian-details-status dinglian-details-time">
+      <label for="">结束时间</label>
+      <span>{{activityInfo.endTime | moment}}</span>
       <span></span>
     </div>
     <div class="dinglian-details-status">
