@@ -377,7 +377,7 @@
             this.$store.commit(types.CIRCLE, circleObj)
             this.currentInfo = {}
             this.$store.commit(types.CURRENTINFO, this.currentInfo)
-            this.$router.push({'path': '/activitySuccess'})
+            this.$router.replace({'path': '/activitySuccess'})
           }
         }).catch(err => {
           console.log(err)
