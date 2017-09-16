@@ -146,9 +146,7 @@
           url: 'signUp',
           data: data
         }).then(res => {
-          if (!res.data.success) {
-            Toast(res.data.error.message)
-          } else {
+          if (res.data.success) {
             this.$store.commit(types.ACTIVITYID, res.data.data.activityId)
             let circleObj = {
               id: res.data.data.coterie.id,
@@ -164,6 +162,8 @@
             }
             this.$store.commit(types.CIRCLE, circleObj)
             this.$router.replace({'path': '/activitySuccess'})
+          } else {
+            Toast(res.data.error.message)
           }
         }).catch(err => {
           console.log(err)
