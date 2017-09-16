@@ -22,10 +22,10 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-if="isIos" v-for="ioslocId in ioslocIds">
+        <div v-show="isIos" v-for="ioslocId in ioslocIds">
           <img :src="ioslocId" alt="选择图片">
         </div>
-        <div v-else v-for="localId in localImgs" class="ssjssk">
+        <div v-show="!isIos && !ioslocIds.length" v-for="localId in localImgs">
           <img :src="localId" alt="选择图片">
         </div>
         <div @click="takePictures"></div>
@@ -209,13 +209,13 @@
       if (JSON.stringify(this.currentInfo) !== '{}') {
         this.activityName = this.currentInfo.activityName
         this.circle = this.currentInfo.circle
-        if (this.currentInfo.localImgs) {
+        if (this.currentInfo.localImgs.length > 0) {
           this.localImgs = this.currentInfo.localImgs
         }
-        if (this.currentInfo.ioslocIds) {
+        if (this.currentInfo.ioslocIds.length > 0) {
           this.ioslocIds = this.currentInfo.ioslocIds
         }
-        if (this.currentInfo.serverIds) {
+        if (this.currentInfo.serverIds.length > 0) {
           this.serverIds = this.currentInfo.serverIds
         }
         this.startTimes = this.currentInfo.startTimes
@@ -243,9 +243,15 @@
       getLocationGps () {
         this.currentInfo.activityName = this.activityName
         this.currentInfo.circle = this.circle
-        this.currentInfo.localImgs = this.localImgs
-        this.currentInfo.ioslocIds = this.ioslocIds
-        this.currentInfo.serverIds = this.serverIds
+        if (this.localImgs.length > 0) {
+          this.currentInfo.localImgs = this.localImgs
+        }
+        if (this.ioslocIds.length > 0) {
+          this.currentInfo.ioslocIds = this.ioslocIds
+        }
+        if (this.serverIds.length > 0) {
+          this.currentInfo.serverIds = this.serverIds
+        }
         this.currentInfo.startTimes = this.startTimes
         this.currentInfo.endTimes = this.endTimes
         this.currentInfo.minCount = this.minCount
@@ -269,17 +275,8 @@
             _this.localImgs = _this.localImgs.concat(res.localIds)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
-              this.isIos = true
-              for (var i = 0; i < res.localIds.length; i++) {
-                wx.getLocalImgData({
-                  localId: res.localIds[i], // 图片的localID
-                  success: function (res) {
-                    var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
-                    localData = localData.replace('jgp', 'jpeg')
-                    _this.ioslocIds.push(localData)
-                  }
-                })
-              }
+              _this.isIos = true
+              _this.getLocationImg(res.localIds, 0)
             }
             for (var l = 0; l < res.localIds.length; l++) {
               wx.uploadImage({
@@ -292,6 +289,20 @@
             }
           }
         })
+      },
+      getLocationImg (ids, index) {
+        var _this = this
+        if (index < ids.length) {
+          wx.getLocalImgData({
+            localId: ids[index], // 图片的localID
+            success: function (res) {
+              var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
+              localData = localData.replace('jgp', 'jpeg')
+              _this.ioslocIds.push(localData)
+              _this.getLocationImg(ids, (index + 1))
+            }
+          })
+        }
       },
 //        选择圈子
       belongCircle () {
