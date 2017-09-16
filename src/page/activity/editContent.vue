@@ -317,13 +317,12 @@
           Toast('备注不能为空')
           return false
         }
-        this.stepTimes = Date.parse(this.times) + ''
-        alert(this.stepTimes)
+//        this.stepTimes = Date.parse(this.times) + ''
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
         formdata.append('name', this.activityName)
-        formdata.append('startTime', this.stepTimes)
+        formdata.append('startTime', Date.parse(this.times))
         formdata.append('charge', this.charge)
         formdata.append('address', this.address)
         formdata.append('gps', this.gps)
@@ -332,7 +331,7 @@
         formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', this.stepTimes)
+        formdata.append('endTime', Date.parse(this.times))
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
