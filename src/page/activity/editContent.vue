@@ -349,7 +349,7 @@
         formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', this.times)
+        formdata.append('endTime', this.endTimes)
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
