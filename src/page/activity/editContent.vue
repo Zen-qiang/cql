@@ -284,16 +284,7 @@
       checkCharge (val) {
         this.charge = val
       },
-      // 处理时间
-      strtoTimes (time) {
-        var newStr = time.replace(/:/g, '-')
-        newStr = newStr.replace(/ /g, '-')
-        var arr = newStr.split('-')
-        var datum = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3] - 8, arr[4]))
-        return datum.getTime() / 1000
-      },
       goNextStep () {
-//        alert(this.strtoTimes(this.times) + 'shijian')
         if (this.$store.state.activityTags === 0) {
           Toast('标签不能为空')
           return false
@@ -325,12 +316,11 @@
           Toast('备注不能为空')
           return false
         }
-        this.stepTimes = this.strtoTimes(this.times)
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
         formdata.append('name', this.activityName)
-        formdata.append('startTime', this.stepTimes)
+        formdata.append('startTime', this.times)
         formdata.append('charge', this.charge)
         formdata.append('address', this.address)
         formdata.append('gps', this.gps)
@@ -339,7 +329,7 @@
         formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', this.stepTimes)
+        formdata.append('endTime', this.times)
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
