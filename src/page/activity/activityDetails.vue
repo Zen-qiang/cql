@@ -47,14 +47,14 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
-<<<<<<< HEAD
+
       <!--<input type="text" v-model="address" disabled>-->
       <p v-text="address"></p>
       <span class="dinglian-details-address"></span>
-=======
-      <input type="text" v-model="address" disabled>
-      <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
->>>>>>> 5212f2f549936e4f323d8da52b98c3baad8bb390
+
+      <!--<input type="text" v-model="address" disabled>-->
+      <!--<span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>-->
+
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
