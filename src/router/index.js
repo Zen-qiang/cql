@@ -107,6 +107,7 @@ import QrCode from '@/page/circle/qrCode.vue'
 
 // 地图
 import ActivityPosition from '@/page/activity/activityPosition.vue'
+import ActivityMap from '@/page/activity/ActivityMap.vue'
 
 // 点赞列表
 const PointList = r => require.ensure([], () => r(require('@/components/pointList')), 'pointList')
@@ -218,6 +219,11 @@ export default new Router({
       meta: {
         requireAuth: requireAuth
       }
+    },
+    {
+      path: '/activityMap/:gps',
+      name: 'ActivityMap',
+      component: ActivityMap
     },
     {
       path: '/chooseActivityTags',
