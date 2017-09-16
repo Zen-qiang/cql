@@ -50,10 +50,10 @@
 
       <!--<input type="text" v-model="address" disabled>-->
       <p v-text="address"></p>
-      <span class="dinglian-details-address"></span>
+      <!--<span class="dinglian-details-address"></span>-->
 
       <!--<input type="text" v-model="address" disabled>-->
-      <!--<span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>-->
+      <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
 
     </div>
 
