@@ -318,6 +318,7 @@
           return false
         }
         this.stepTimes = Date.parse(this.times) + ''
+        alert(this.stepTimes)
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
