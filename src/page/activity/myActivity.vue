@@ -7,7 +7,7 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item :id="index+''" v-for="(item, index) in tags" :key="index">
-        <activity-info-lists style="margin-top: 10px" :footer="footer" :activityLists="activityLists"
+        <activity-info-lists style="margin-top: 0.1rem; margin-bottom: 0.4rem" :footer="footer" :activityLists="activityLists"
                              v-on:pullUpActivity="pullUpActivity"
                              :allLoaded="allLoaded"></activity-info-lists>
       </mt-tab-container-item>

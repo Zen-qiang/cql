@@ -187,7 +187,7 @@
         this.gps = this.$store.state.currentAddress.position
       }
       this.currentInfo = this.$store.state.currentInfo
-      if (this.currentInfo) {
+      if (JSON.stringify(this.currentInfo) !== '{}') {
         this.activityName = this.currentInfo.activityName
         this.circle = this.currentInfo.circle
         if (this.currentInfo.localImgs) {
