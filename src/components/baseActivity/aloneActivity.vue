@@ -60,6 +60,7 @@
       }
     },
     created () {
+      console.log(this.activity)
       this.topic.topicId = this.activity.topicId
       this.topic.hasPraise = this.activity.hasPraise
       this.topic.praiseCnt = this.activity.praiseCnt
