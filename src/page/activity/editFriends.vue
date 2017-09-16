@@ -49,7 +49,7 @@
           if (this.friends[i].name !== '') {
             this.paramData.friends.push(this.friends[i])
           }
-          this.friends[i].gender = this.friends[i].gender + ''
+          this.friends[i].gender = parseInt(this.friends[i].gender)
         }
 //        this.paramData.friends = this.friends
         this.$store.commit(types.PARAMDATA, this.paramData)

@@ -50,7 +50,7 @@
           <li @click="removeItem(index)"></li>
           <li><input type="text" v-model="item.name" disabled></li>
           <li>
-            <span v-if="item.gender === '1'">男</span>
+            <span v-if="item.gender === 1">男</span>
             <span v-else>女</span>
           </li>
         </ul>

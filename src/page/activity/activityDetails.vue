@@ -91,7 +91,7 @@
     </textarea>
     <mt-button v-if="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
     <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
-    <mt-button v-show="activityInfo.status !== '0' && isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
+    <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
 <script>

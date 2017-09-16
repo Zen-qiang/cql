@@ -349,7 +349,7 @@
         formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', this.times)
+        formdata.append('endTime', this.endTimes)
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
@@ -377,7 +377,7 @@
             this.$store.commit(types.CIRCLE, circleObj)
             this.currentInfo = {}
             this.$store.commit(types.CURRENTINFO, this.currentInfo)
-            this.$router.push({'path': '/activitySuccess'})
+            this.$router.replace({'path': '/activitySuccess'})
           }
         }).catch(err => {
           console.log(err)
