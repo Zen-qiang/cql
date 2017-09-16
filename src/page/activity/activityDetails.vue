@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-details-all">
     <!--右上角编辑按钮-->
-    <span class="dinglian-details-editIcon" @click="editActivityInfo"  v-show="isCreator">
+    <span class="dinglian-details-editIcon" @click="editActivityInfo"  v-show="isCreator && activityInfo.status !== '0'">
       {{edit}}
     </span>
     <!--轮播图-->
@@ -143,7 +143,6 @@
         mobileHref: '',
         userCount: '',
         isSignUp: false,
-        isActivated: true,
         circleName: ''
       }
     },
@@ -252,9 +251,8 @@
       },
 //      参加活动
       singnUpActivity () {
-        if (this.isActivated) {
-          this.isActivated = false
-          if (this.isCreator) {
+        if (this.isCreator) {
+          MessageBox.confirm('确定执行此操作?').then(() => {
             this.axios({
               method: 'get',
               url: '/closeActivity',
@@ -262,22 +260,20 @@
                 activityId: this.$route.params.aid
               }
             }).then(res => {
-              this.isActivated = true
               if (res.data.success) {
                 this.$router.push({'path': '/activityLists'})
               }
             }).catch()
+          })
+        } else {
+          this.activityInfo.cover = this.activityInfo.pictures[0]
+          this.$store.commit(types.ACTIVITY, this.activityInfo)
+          if (!this.isOpen) {
+            MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
+              this.validPassword(this.activityId, value)
+            })
           } else {
-            this.activityInfo.cover = this.activityInfo.pictures[0]
-            this.$store.commit(types.ACTIVITY, this.activityInfo)
-            if (!this.isOpen) {
-              MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
-                this.validPassword(this.activityId, value)
-              })
-            } else {
-              this.isActivated = true
-              this.$router.push({'path': '/signUpActivity'})
-            }
+            this.$router.push({'path': '/signUpActivity'})
           }
         }
       },
@@ -290,7 +286,6 @@
             password: password
           }
         }).then(res => {
-          this.isActivated = true
           if (res.data.success) {
             this.$router.push({'path': '/signUpActivity'})
           } else {
