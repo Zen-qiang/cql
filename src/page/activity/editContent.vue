@@ -21,11 +21,11 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-show=" !ioslocIds.length " v-for="localId in localImgs">
-          <img :src="localId" alt="选择图片">
-        </div>
-        <div v-for="ioslocId in ioslocIds">
+        <div v-if="isIos" v-for="ioslocId in ioslocIds">
           <img :src="ioslocId" alt="选择图片">
+        </div>
+        <div v-else v-for="localId in localImgs" class="ssjssk">
+          <img :src="localId" alt="选择图片">
         </div>
         <div @click="takePictures"></div>
       </div>
@@ -160,7 +160,8 @@
         isDisabled: true,
         isBindConfirm: false,
         isSendCode: false,
-        stepTimes: ''
+        stepTimes: '',
+        isIos: false
       }
     },
     watch: {
@@ -266,6 +267,7 @@
             _this.localImgs = _this.localImgs.concat(res.localIds)
             // 判断ios是不是用的 wkwebview 内核
             if (window.__wxjs_is_wkwebview) {
+              this.isIos = true
               for (var i = 0; i < res.localIds.length; i++) {
                 wx.getLocalImgData({
                   localId: res.localIds[i], // 图片的localID
@@ -273,8 +275,6 @@
                     var localData = res.localData  // localData是图片的base64数据，可以用img标签显示
                     localData = localData.replace('jgp', 'jpeg')
                     _this.ioslocIds.push(localData)
-                    alert(_this.ioslocIds)
-                    alert(_this.ioslocIds.length)
                   }
                 })
               }
@@ -285,8 +285,6 @@
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                   _this.serverIds.push(res.serverId)
-                  alert(_this.serverId)
-                  alert(_this.serverId.length)
                 }
               })
             }
