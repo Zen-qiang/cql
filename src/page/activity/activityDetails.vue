@@ -46,7 +46,7 @@
     <div class="dinglian-details-status">
       <label for="">地址</label>
       <input type="text" v-model="address" disabled>
-      <span class="dinglian-details-address"></span>
+      <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
@@ -120,6 +120,7 @@
       return {
         carouselList: [],
         address: '',
+        gps: '',
         activityInfo: {},
         isOpen: '',
         status: '',
@@ -191,6 +192,9 @@
       gotoMessage () {
         this.$router.push({'path': '/activityMessage/' + this.topicId})
       },
+      showActivityMap () {
+        this.$router.push({'path': '/activityMap/' + this.gps})
+      },
 //      取消报名
       cancelSingnUpActivity () {
         this.axios({
@@ -231,6 +235,7 @@
           this.isCreator = res.data.data.isCreator
           this.topic = res.data.data.topic
           this.address = res.data.data.address
+          this.gps = res.data.data.gps
           this.mobileHref = 'tel:' + res.data.data.organizer.phoneNo
           if (this.topic) {
             this.topicId = res.data.data.topic.topicId
