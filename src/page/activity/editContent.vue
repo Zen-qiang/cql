@@ -293,8 +293,7 @@
         return datum.getTime() / 1000
       },
       goNextStep () {
-        alert(this.strtoTimes(this.times) + 'shijian')
-        alert(this.times + 'times')
+//        alert(this.strtoTimes(this.times) + 'shijian')
         if (this.$store.state.activityTags === 0) {
           Toast('标签不能为空')
           return false
@@ -326,12 +325,12 @@
           Toast('备注不能为空')
           return false
         }
-//        this.stepTimes = Date.parse(this.times) + ''
+        this.stepTimes = this.strtoTimes(this.times)
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
         formdata.append('name', this.activityName)
-        formdata.append('startTime', Date.parse(this.times))
+        formdata.append('startTime', this.stepTimes)
         formdata.append('charge', this.charge)
         formdata.append('address', this.address)
         formdata.append('gps', this.gps)
@@ -340,7 +339,7 @@
         formdata.append('isOpen', this.switchOpen)
         formdata.append('description', this.description)
         formdata.append('serverIds', this.serverIds)
-        formdata.append('endTime', Date.parse(this.times))
+        formdata.append('endTime', this.stepTimes)
         if (this.circle) {
           formdata.append('coterieId', this.circle.id)
         }
