@@ -284,8 +284,16 @@
       checkCharge (val) {
         this.charge = val
       },
+      // 处理时间
+      strtoTimes (time) {
+        var newStr = time.replace(/:/g, '-')
+        newStr = newStr.replace(/ /g, '-')
+        var arr = newStr.split('-')
+        var datum = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3] - 8, arr[4]))
+        return datum.getTime() / 1000
+      },
       goNextStep () {
-        alert(Date.parse(this.times) + 'shijian')
+        alert(this.strtoTimes(this.times) + 'shijian')
         alert(this.times + 'times')
         if (this.$store.state.activityTags === 0) {
           Toast('标签不能为空')
