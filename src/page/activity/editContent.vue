@@ -285,7 +285,8 @@
         this.charge = val
       },
       goNextStep () {
-//        alert(Date.parse(this.times))
+        alert(Date.parse(this.times) + 'shijian')
+        alert(this.times + 'times')
         if (this.$store.state.activityTags === 0) {
           Toast('标签不能为空')
           return false
