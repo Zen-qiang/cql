@@ -17,14 +17,25 @@
     </div>
     <!--上传图片 start-->
     <div class="dinglian-edit-photo" @click="takePictures">
-      <i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">
-        <img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">
-        <img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">
-      </i>
+      <!--<i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">-->
+        <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
+        <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
+      <div class="dinglian-edit-photoShow">
+        <!--<div><img src="../../assets/images/circle.jpg" alt="选择图片"></div>-->
+        <!--<div><img src="../../assets/images/circle.jpg" alt="选择图片"></div>-->
+        <div></div>
+      </div>
     </div>
+    <!--开始时间-->
     <group>
-      <datetime v-model="limitHourValue" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="change">
-        <span>时间</span><span v-text="times"></span>
+      <datetime v-model="startTimes" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="changeStar">
+        <span>开始时间</span><span v-text="startTimes"></span>
+      </datetime>
+    </group>
+    <!--结束时间-->
+    <group>
+      <datetime v-model="endTimes" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="changeEnd">
+        <span>结束时间</span><span v-text="endTimes" :class="{'nullTimes':endTimes == '请选择结束时间'}"></span>
       </datetime>
     </group>
     <!--test-->
@@ -103,7 +114,8 @@
       return {
         startDate: '',
         endDate: '',
-        times: '',
+        startTimes: '',
+        endTimes: '请选择结束时间',
         date: new Date(),
         fullYear: '',
         month: '',
@@ -180,7 +192,7 @@
       this.day = this.forMartTimes(this.date.getDate())
       this.hours = this.forMartTimes(this.date.getHours())
       this.minutes = this.forMartTimes(this.date.getMinutes())
-      this.times = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
+      this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.month + '-' + this.day
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress.address
@@ -199,11 +211,11 @@
         if (this.currentInfo.serverIds) {
           this.serverIds = this.currentInfo.serverIds
         }
-        this.times = this.currentInfo.times
+//        this.startTimes = this.currentInfo.startTimes
         this.minCount = this.currentInfo.minCount
         this.maxCount = this.currentInfo.maxCount
         this.charge = this.currentInfo.charge
-        this.switchOpen = this.currentInfo.switchOpen
+//        this.switchOpen = this.currentInfo.switchOpen
         this.password = this.currentInfo.password
         this.description = this.currentInfo.description
       }
@@ -212,8 +224,12 @@
       forMartTimes (val) {
         return val < 10 ? '0' + val : val.toString()
       },
-      change (value) {
-        this.times = value
+      changeStar (value) {
+        this.startTimes = value
+        this.endTimes = value
+      },
+      changeEnd (value) {
+        this.endTimes = value
       },
 //      获取本地的gps 跳转地图
       getLocationGps () {
@@ -295,6 +311,10 @@
         }
         if (this.serverIds.length === 0) {
           Toast('图片不能为空')
+          return false
+        }
+        if (this.endTimes === '请选择结束时间') {
+          Toast('结束时间不能为空')
           return false
         }
         if (!this.address) {
@@ -481,6 +501,7 @@
   }
   .edit-all.active {
     height: 100%;
+    overflow: hidden;
   }
   .edit-all > div {
     background: #fff;
@@ -578,8 +599,9 @@
   .edit-all .dinglian-edit-photo {
     height: 1.1rem;
     position: relative;
-    background: url("../../assets/images/upload.png") no-repeat left center;
-    background-size: 100% 110px;
+  }
+  .edit-all .dinglian-edit-photo.tips {
+
   }
   .dinglian-edit-photo > input[type=file] {
     position: absolute;
@@ -597,10 +619,11 @@
   .dinglian-edit-photoShow {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    /*display: flex;*/
+    /*flex-flow: row nowrap;*/
+    /*align-items: center;*/
     background-color: #ffffff;
+    overflow: hidden;
   }
   .dinglian-edit-photoShow > img {
     display: block;
@@ -865,5 +888,8 @@
   .edit-all > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.signUpActive {
     background: #ffd200;
     color: #333;
+  }
+  .edit-all .weui-cell > span:nth-of-type(2).nullTimes {
+    color: #999!important;
   }
 </style>
