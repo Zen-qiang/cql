@@ -16,14 +16,14 @@
       </ul>
     </div>
     <!--上传图片 start-->
-    <div class="dinglian-edit-photo" @click="takePictures">
+    <div class="dinglian-edit-photo">
       <!--<i class="dinglian-edit-photoShow" v-show="localImgs.length ||  ioslocIds.length">-->
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <!--<div><img src="../../assets/images/circle.jpg" alt="选择图片"></div>-->
-        <!--<div><img src="../../assets/images/circle.jpg" alt="选择图片"></div>-->
-        <div></div>
+        <div v-if="ioslocIds.length" v-for="ioslocId in ioslocIds"><img :src="ioslocId" alt="选择图片"></div>
+        <div v-else v-for="localId in localImgs"><img :src="localId" alt="选择图片"></div>
+        <div @click="takePictures"></div>
       </div>
     </div>
     <!--开始时间-->
@@ -601,8 +601,9 @@
   .edit-all .dinglian-edit-photo {
     height: 1.1rem;
     position: relative;
+    padding: 0.15rem;
   }
-  .edit-all .dinglian-edit-photo.tips {
+  .edit-all .dinglian-edit-photo.prompt {
 
   }
   .dinglian-edit-photo > input[type=file] {
@@ -620,12 +621,29 @@
   }
   .dinglian-edit-photoShow {
     width: 100%;
-    height: 100%;
+    height: 100%!important;
     /*display: flex;*/
     /*flex-flow: row nowrap;*/
     /*align-items: center;*/
     background-color: #ffffff;
     overflow: hidden;
+  }
+  .dinglian-edit-photoShow > div {
+    width: 0.8rem;
+    height: 0.8rem;
+    float: left;
+    margin: 0 0.175rem;
+  }
+  .dinglian-edit-photoShow > div:last-of-type {
+    border: 1px solid #999;
+    border-radius: 0.04rem;
+    background: url("../../assets/images/add999.svg") no-repeat center;
+    -webkit-background-size: 0.33rem;
+    background-size: 0.33rem;
+  }
+  .dinglian-edit-photoShow > div > img {
+    width: 100%;
+    height: 100%;
   }
   .dinglian-edit-photoShow > img {
     display: block;
