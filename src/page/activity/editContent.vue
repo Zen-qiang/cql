@@ -209,15 +209,9 @@
       if (JSON.stringify(this.currentInfo) !== '{}') {
         this.activityName = this.currentInfo.activityName
         this.circle = this.currentInfo.circle
-        if (this.currentInfo.localImgs.length > 0) {
-          this.localImgs = this.currentInfo.localImgs
-        }
-        if (this.currentInfo.ioslocIds.length > 0) {
-          this.ioslocIds = this.currentInfo.ioslocIds
-        }
-        if (this.currentInfo.serverIds.length > 0) {
-          this.serverIds = this.currentInfo.serverIds
-        }
+        this.localImgs = this.currentInfo.localImgs
+        this.ioslocIds = this.currentInfo.ioslocIds
+        this.serverIds = this.currentInfo.serverIds
         this.startTimes = this.currentInfo.startTimes
         this.endTimes = this.currentInfo.endTimes
         this.minCount = this.currentInfo.minCount
@@ -243,15 +237,9 @@
       getLocationGps () {
         this.currentInfo.activityName = this.activityName
         this.currentInfo.circle = this.circle
-        if (this.localImgs.length > 0) {
-          this.currentInfo.localImgs = this.localImgs
-        }
-        if (this.ioslocIds.length > 0) {
-          this.currentInfo.ioslocIds = this.ioslocIds
-        }
-        if (this.serverIds.length > 0) {
-          this.currentInfo.serverIds = this.serverIds
-        }
+        this.currentInfo.localImgs = this.localImgs
+        this.currentInfo.ioslocIds = this.ioslocIds
+        this.currentInfo.serverIds = this.serverIds
         this.currentInfo.startTimes = this.startTimes
         this.currentInfo.endTimes = this.endTimes
         this.currentInfo.minCount = this.minCount
@@ -260,6 +248,7 @@
         this.currentInfo.switchOpen = this.switchOpen
         this.currentInfo.password = this.password
         this.currentInfo.description = this.description
+        console.log(this.currentInfo)
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
         this.$router.push({'name': 'ActivityPosition'})
       },
