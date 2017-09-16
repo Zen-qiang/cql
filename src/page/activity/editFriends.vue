@@ -9,7 +9,7 @@
       </div>
       <span @click="removeItem(index)"></span>
     </div>
-    <mt-button type="default" @click.native="confirm" style="margin-top: 10px" class="dinglian-button">添加完成</mt-button>
+    <mt-button type="default" @click.native="confirm" style="margin-top: 10px" class="dinglian-button">确定</mt-button>
   </div>
 
 </template>

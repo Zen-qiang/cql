@@ -358,6 +358,7 @@
     color: #999;
     border-radius: 0.04rem;
     line-height: 0.2rem;
+    height: 0.2rem;
     padding: 0 0.1rem;
     margin: 0 0.1rem 0.1rem 0;
   }

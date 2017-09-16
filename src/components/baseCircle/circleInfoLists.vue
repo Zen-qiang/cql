@@ -15,7 +15,7 @@
           <h3>{{item.name}}</h3>
           <div class="dinglian-lists-statistics clearfix">
             <span class="fs_11">成员&nbsp;{{item.membersCnt}}</span>
-            <span class="fs_11">话题&nbsp;{{item.activityCnt}}</span>
+            <span class="fs_11">活动&nbsp;{{item.activityCnt}}</span>
           </div>
           <div class="dinglian-lists-tags clearfix">
             <span class="fs_11" :key="tagName" v-for="tagName of item.tags">{{tagName}}</span>

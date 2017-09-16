@@ -8,7 +8,8 @@
     <carousel :carouselList="carouselList"></carousel>
     <!--标题-->
     <div class="dinglian-details-title clearfix">
-      <input type="text" v-model="activityInfo.name" disabled>
+      <!--<input type="text" v-model="activityInfo.name" disabled>-->
+      <p v-text="activityInfo.name"></p>
       <span @click="goCircleDetail(activityInfo.coterie.id)">{{circleName}}</span>
     </div>
     <div class="dinglian-details-chat clearfix" @click="gotoMessage">
@@ -30,7 +31,8 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
-      <input type="text" v-model="nickName" disabled>
+      <!--<input type="text" v-model="nickName" disabled>-->
+      <p v-text="nickName"></p>
       <a :href="mobileHref" class="dinglian-details-mobile"></a>
     </div>
     <div class="dinglian-details-status dinglian-details-time">
@@ -45,7 +47,8 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
-      <input type="text" v-model="address" disabled>
+      <!--<input type="text" v-model="address" disabled>-->
+      <p v-text="address"></p>
       <span class="dinglian-details-address"></span>
     </div>
 
@@ -91,9 +94,12 @@
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
+    <!--<textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
       {{activityInfo.description}}
-    </textarea>
+    </textarea>-->
+    <p class="dinglian-details-textarea">
+      {{activityInfo.description}}
+    </p>
     <mt-button v-if="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
     <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
@@ -351,15 +357,19 @@
   }
   .dinglian-details-title {
     background-color: #ffffff;
-
+    overflow: hidden;
   }
-  .dinglian-details-title > input {
+  .dinglian-details-title > p {
     font-size: 0.15rem;
     height: 100%;
     padding-left: 0.15rem;
     float: left;
     background-color: #ffffff;
     color: #333;
+    max-width: 60%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .dinglian-details-title > span {
     height: 0.15rem;
@@ -368,7 +378,12 @@
     background: #ffd200;
     border-radius: 0.04rem;
     float: left;
-    margin-top: 0.18rem;
+    margin-top: 0.17rem;
+    margin-left: 0.1rem;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .dinglian-details-chat {
     height: 0.65rem;
@@ -431,7 +446,7 @@
     padding-left: 0.15rem;
     color: #999999;
   }
-  .dinglian-details-status > input {
+  .dinglian-details-status > p {
     background-color: #ffffff;
     flex: 2;
     font-size: 0.14rem;
@@ -494,7 +509,7 @@
     font-size: 0.11rem;
     color: #999;
     background: url("../../assets/images/jtcy.svg") no-repeat 0.32rem center;
-    -webkit-background-size:;
+    -webkit-background-size: 0.09rem 0.16rem;
     background-size: 0.09rem 0.16rem;
   }
   .dinglian-details-types {
@@ -507,6 +522,7 @@
     display: flex;
     flex-flow: row nowrap;
     /*justify-content: space-between;*/
+    position: relative;
   }
   .dinglian-details-types >label {
     height: 100%;
@@ -532,11 +548,26 @@
   }
   .dinglian-details-textarea {
     width: 100%;
+    height: 1.45rem;
     font-size: 0.12rem;
-    text-align: left;
-    padding: 0.15rem;
-    padding-top: 0;
+    /*text-align: left;*/
+    padding: 0 0.15rem 0.15rem;
     background-color: #ffffff;
+    overflow-y: scroll;
+    text-indent: 2em;
+    line-height: 0.18rem;
+    position: relative;
+  }
+  .dinglian-details-types.remarks:after {
+    position: absolute;
+    top: 1.8rem;
+    left: 0;
+    height: 0.15rem;
+    width: 100%;
+    display: block;
+    content: '';
+    background: #fff;
+    z-index:99;
   }
   .dinglian-details-textarea:disabled {
     background-color: #ffffff;
@@ -569,7 +600,8 @@
   .dinglian-details-tags > li {
     font-size: 0.11rem;
     height: 0.18rem;
-    background-color: #999999;
+    background-color: #f2f2f2;
+    color: #333;
     line-height: 0.14rem;
     margin-right: 0.1rem;
     border-radius: 0.03rem;

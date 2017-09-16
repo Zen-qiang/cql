@@ -178,12 +178,12 @@
     border-radius: 0.04rem;
   }
   /*圈子列表*/
-  .dinglian-myCircle-lists {
-    padding: 0.1rem 0;
-    padding-left: 0.15rem;
-    display: flex;
-    flex-flow: row wrap;
-  }
+  /*.dinglian-myCircle-lists {*/
+    /*padding: 0.1rem 0;*/
+    /*padding-left: 0.15rem;*/
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+  /*}*/
   .dinglian-myCircle-lists > li:last-of-type {
     background-color: #ffffff;
     color: #999999;
@@ -192,10 +192,42 @@
     padding: 0.3rem;
     padding-bottom: 0.22rem;
   }
+  /*.dinglian-myCircle-info {*/
+    /*!*width: 1.09rem;*!*/
+    /*!*height: 1.28rem;*!*/
+    /*margin-right: 0.1rem;*/
+    /*border: 1px solid #dddddd;*/
+    /*border-radius: 0.04rem;*/
+    /*margin-bottom: 0.1rem;*/
+  /*}*/
+  /*.dinglian-myCircle-info > img {*/
+    /*display: block;*/
+    /*width: 1.08rem;*/
+    /*height: 0.98rem;*/
+    /*border: 0;*/
+    /*border-top-left-radius: 0.04rem;*/
+    /*border-top-right-radius: 0.04rem;*/
+
+  /*}*/
+  .dinglian-myCircle-info > span {
+    font-size: 0.11rem;
+    height: 0.3rem;
+    display: block;
+    line-height: 0.3rem;
+  }
+  .dinglian-myCircle-lists {
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    justify-content: space-between;
+    padding: 0.1rem 0.15rem;
+    align-content: flex-start;
+  }
   .dinglian-myCircle-info {
-    /*width: 1.09rem;*/
-    /*height: 1.28rem;*/
-    margin-right: 0.1rem;
+    width: 32%;
+    overflow: hidden;
+    height: 1.28rem;
     border: 1px solid #dddddd;
     border-radius: 0.04rem;
     margin-bottom: 0.1rem;
@@ -207,13 +239,6 @@
     border: 0;
     border-top-left-radius: 0.04rem;
     border-top-right-radius: 0.04rem;
-
-  }
-  .dinglian-myCircle-info > span {
-    font-size: 0.11rem;
-    height: 0.3rem;
-    display: block;
-    line-height: 0.3rem;
   }
   /*标签点击切换样式*/
   @-webkit-keyframes move {

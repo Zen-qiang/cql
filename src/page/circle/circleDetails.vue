@@ -298,9 +298,15 @@
   }
   .dinglian-details-join > h4 {
     color: #ffffff;
+    font-family: "PingFangSc";
+    font-weight: 400;
     font-size: 0.15rem;
     height: 0.15rem;
     line-height: 0.15rem;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .dinglian-details-join > p {
     font-size: 0.12rem;
