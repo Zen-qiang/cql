@@ -21,10 +21,10 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-if="isIos" v-for="ioslocId in ioslocIds">
+        <div v-show="isIos" v-for="ioslocId in ioslocIds">
           <img :src="ioslocId" alt="选择图片">
         </div>
-        <div v-else v-for="localId in localImgs" class="ssjssk">
+        <div v-show="!isIos && !ioslocIds.length" v-for="localId in localImgs">
           <img :src="localId" alt="选择图片">
         </div>
         <div @click="takePictures"></div>
