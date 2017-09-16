@@ -290,7 +290,7 @@
       },
       getLocationImg (ids, index) {
         var _this = this
-        if (index <= (ids.length - 1)) {
+        if (index < ids.length) {
           wx.getLocalImgData({
             localId: ids[index], // 图片的localID
             success: function (res) {
