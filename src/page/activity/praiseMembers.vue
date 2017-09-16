@@ -16,7 +16,7 @@
         </div>
         <ul class="dinglian-mem-proxy" v-show="item">
           <li :key="idx" v-for="(retinue, idx) in item.retinues">
-            <img src="../../assets/images/circle.jpg">
+            <!--<img src="../../assets/images/circle.jpg">-->
             <span>{{retinue.name}}</span>
             <span :class="{'male':retinue.gender == '1','female':retinue.gender == '2'}"></span>
             <span>代</span>
@@ -139,6 +139,7 @@
     flex-flow: row nowrap;
     padding: 11px 0;
     border-top: 1px solid #dddddd;
+    padding-left: 0.1rem;
   }
   .dinglian-mem-proxy > li > img {
     width: 0.23rem;
