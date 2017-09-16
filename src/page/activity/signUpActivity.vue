@@ -48,7 +48,8 @@
       <div class="dinglian-alone-users"  :key="index" v-for="(item, index) in friends">
         <ul>
           <li @click="removeItem(index)"></li>
-          <li><input type="text" v-model="item.name" disabled></li>
+          <!--<li><input type="text" v-model="item.name" disabled></li>-->
+          <li><span v-text="item.name"></span></li>
           <li>
             <span v-if="item.gender === 1">男</span>
             <span v-else>女</span>
@@ -359,9 +360,19 @@
   }
   .dinglian-alone-users > ul > li:nth-of-type(2) {
     padding-left: 0.25rem;
-    width: 0.55rem;
-    margin-right: 0.3rem;
+    width: 1rem;
     background-color: #ffffff;
+  }
+  .dinglian-alone-users > ul > li:nth-of-type(2) > span {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dinglian-alone-users > ul > li:nth-of-type(3) {
+    margin-left: 0.1rem;
   }
   .dinglian-alone-users > span {
     display: inline-block;

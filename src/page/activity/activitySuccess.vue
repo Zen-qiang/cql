@@ -80,6 +80,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-success-all {
+    overflow: hidden;
+  }
   .dinglian-success-all > div{
     background: #fff;
   }
