@@ -300,12 +300,13 @@
       },
       // 上传图片到微信服务器，获取serversId
       getServerIds (lists) {
+        var _this = this
         for (var l = 0; l < lists.length; l++) {
           wx.uploadImage({
             localId: lists[l], // 需要上传的图片的本地ID，由chooseImage接口获得
             isShowProgressTips: 0, // 默认为1，显示进度提示
             success: function (res) {
-              this.serverIds.push(res.serverId)
+              _this.serverIds.push(res.serverId)
             }
           })
         }
