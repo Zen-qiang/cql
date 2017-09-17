@@ -297,7 +297,7 @@
       },
       // 移除照片
       removeImage (index, lists) {
-        this.localImgs = lists.slice(index, 1)
+        this.localImgs = lists.splice(index, 1)
       },
 //        选择圈子
       belongCircle () {
