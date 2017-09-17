@@ -268,15 +268,7 @@
             if (window.__wxjs_is_wkwebview) {
               _this.getLocationImg(res.localIds, 0)
             }
-            for (var l = 0; l < res.localIds.length; l++) {
-              wx.uploadImage({
-                localId: res.localIds[l], // 需要上传的图片的本地ID，由chooseImage接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
-                success: function (res) {
-                  _this.serverIds.push(res.serverId)
-                }
-              })
-            }
+            _this.getServerIds(res.localIds)
           }
         })
       },
@@ -299,8 +291,23 @@
       removeImage (index) {
         if (window.__wxjs_is_wkwebview) {
           this.ioslocIds.splice(index, 1)
+          this.localImgs = this.ioslocIds
         } else {
           this.localImgs.splice(index, 1)
+        }
+        this.serverIds = []
+        this.getServerIds(this.localImgs)
+      },
+      // 上传图片到微信服务器，获取serversId
+      getServerIds (lists) {
+        for (var l = 0; l < lists.length; l++) {
+          wx.uploadImage({
+            localId: lists[l], // 需要上传的图片的本地ID，由chooseImage接口获得
+            isShowProgressTips: 0, // 默认为1，显示进度提示
+            success: function (res) {
+              this.serverIds.push(res.serverId)
+            }
+          })
         }
       },
 //        选择圈子
