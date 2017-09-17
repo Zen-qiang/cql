@@ -22,11 +22,11 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-show="ioslocIds.length" v-for="(ioslocId, index) in ioslocIds" class="dinglian-edit-photoShow-alone">
+        <div v-show="ioslocIds.length" v-for="(ioslocId, index) in ioslocIds" :key="index" class="dinglian-edit-photoShow-alone">
           <img :src="ioslocId" alt="选择图片">
           <span @click="removeImage(index, ioslocIds)"></span>
         </div>
-        <div v-show="!ioslocIds.length" v-for="(localId, key) in localImgs" class="dinglian-edit-photoShow-alone">
+        <div v-show="!ioslocIds.length" v-for="(localId, key) in localImgs" :key="key" class="dinglian-edit-photoShow-alone">
           <img :src="localId" alt="选择图片">
           <span @click="removeImage(key, localImgs)"></span>
         </div>
