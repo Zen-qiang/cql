@@ -22,11 +22,13 @@
         <!--<img :src="ioslocId" alt="选择图片" v-for="ioslocId in ioslocIds">-->
         <!--<img :src="localId" alt="选择图片" v-for="localId in localImgs" v-show="!ioslocIds.length">-->
       <div class="dinglian-edit-photoShow">
-        <div v-show="ioslocIds.length" v-for="ioslocId in ioslocIds">
+        <div v-show="ioslocIds.length" v-for="(ioslocId, index) in ioslocIds" class="dinglian-edit-photoShow-alone">
           <img :src="ioslocId" alt="选择图片">
+          <span @click="removeImage(index, ioslocIds)"></span>
         </div>
-        <div v-show="!ioslocIds.length" v-for="localId in localImgs">
+        <div v-show="!ioslocIds.length" v-for="(localId, key) in localImgs" class="dinglian-edit-photoShow-alone">
           <img :src="localId" alt="选择图片">
+          <span @click="removeImage(key, localImgs)"></span>
         </div>
         <div @click="takePictures"></div>
       </div>
@@ -278,6 +280,7 @@
           }
         })
       },
+//      获取本地图片
       getLocationImg (ids, index) {
         var _this = this
         if (index < ids.length) {
@@ -291,6 +294,10 @@
             }
           })
         }
+      },
+      // 移除照片
+      removeImage (index, lists) {
+        this.localImgs = lists.slice(index, 1)
       },
 //        选择圈子
       belongCircle () {
@@ -672,6 +679,18 @@
     width: 0.8rem;
     height: 0.8rem;
     margin-left: 0.1rem;
+  }
+  .dinglian-edit-photoShow-alone {
+    position: relative;
+  }
+  .dinglian-edit-photoShow-alone > span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #ffd200;
+    z-index: 8;
   }
 
   .dinglian-edit-people > input {
