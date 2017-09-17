@@ -24,11 +24,11 @@
       <div class="dinglian-edit-photoShow">
         <div v-show="ioslocIds.length" v-for="(ioslocId, index) in ioslocIds" :key="index" class="dinglian-edit-photoShow-alone">
           <img :src="ioslocId" alt="选择图片">
-          <span @click="removeImage(index, ioslocIds)"></span>
+          <span @click="removeImage(index)"></span>
         </div>
         <div v-show="!ioslocIds.length" v-for="(localId, key) in localImgs" :key="key" class="dinglian-edit-photoShow-alone">
           <img :src="localId" alt="选择图片">
-          <span @click="removeImage(key, localImgs)"></span>
+          <span @click="removeImage(key)"></span>
         </div>
         <div @click="takePictures"></div>
       </div>
@@ -296,8 +296,12 @@
         }
       },
       // 移除照片
-      removeImage (index, lists) {
-        this.localImgs = lists.splice(index, 1)
+      removeImage (index) {
+        if (window.__wxjs_is_wkwebview) {
+          this.ioslocIds.splice(index, 1)
+        } else {
+          this.localImgs.splice(index, 1)
+        }
       },
 //        选择圈子
       belongCircle () {
