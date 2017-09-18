@@ -151,9 +151,13 @@
   }
   .dinglian-lists-title > span {
     float: right;
+    width: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 0.11rem;
     background: #ffd200;
-    border-radius: 2px;
+    border-radius: 0.02rem;
     padding: 0 0.015rem;
   }
   .dinglian-lists-tags {
@@ -167,7 +171,7 @@
     display: inline-block;
     height: 0.18rem;
     float: left;
-    border-radius: 2px;
+    border-radius: 0.02rem;
     background: #f2f2f2;
     margin-right: 0.07rem;
     font-size: 0.11rem;
@@ -189,12 +193,14 @@
     color: #333333;
     height: 0.11rem;
     line-height: 0.11rem;
+    overflow: hidden;
   }
   .dinglian-lists-people span:first-child {
     float: left;
   }
   .dinglian-lists-people span:last-child {
     float: right;
+    text-align: right;
   }
   .dinglian-lists-people span:last-child > i {
     font-style: normal;
@@ -203,6 +209,18 @@
   .dinglian-lists-address {
     margin-top: 0.09rem;
     color: #999999;
+  }
+  .dinglian-lists-address span:first-child {
+    width: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dinglian-lists-address span:last-child {
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   /*底部点赞*/
   .dinglian-lists-footer {

@@ -50,7 +50,7 @@
       <label for="">地址</label>
 
       <!--<input type="text" v-model="address" disabled>-->
-      <p v-text="address"></p>
+      <p class="dinglian-details-status-address" v-text="address"></p>
       <!--<span class="dinglian-details-address"></span>-->
 
       <!--<input type="text" v-model="address" disabled>-->
@@ -469,6 +469,12 @@
     flex: 2;
     font-size: 0.14rem;
     color: #333;
+  }
+  .dinglian-details-status > .dinglian-details-status-address {
+    width: 2.4rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .dinglian-details-status > span,.dinglian-details-status > a {
     height: 100%;
