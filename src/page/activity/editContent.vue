@@ -31,6 +31,7 @@
           <span @click="removeImage(key)"></span>
         </div>
         <div @click="takePictures"></div>
+        <p v-show="!localImgs.length"><span>请从我的相册选择封面~</span></p>
       </div>
     </div>
     <!--开始时间-->
@@ -673,7 +674,14 @@
     width: 0.8rem;
     height: 0.8rem;
     float: left;
-    margin: 0 0.175rem;
+    margin-right: 0.1rem;
+  }
+  .dinglian-edit-photoShow > p {
+    color: #999;
+    font-size: 0.14rem;
+    height: 0.8rem;
+    display: table-cell;
+    vertical-align: middle;
   }
   .dinglian-edit-photoShow > div:last-of-type {
     border: 1px solid #999;
