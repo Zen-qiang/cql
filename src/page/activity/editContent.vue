@@ -697,10 +697,10 @@
   }
   .dinglian-edit-photoShow-alone > span {
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 0.2rem;
-    height: 0.2rem;
+    right: 0.02rem;
+    top: 0.02rem;
+    width: 0.18rem;
+    height: 0.18rem;
     background: url("../../assets/images/delete222.svg") no-repeat center center;
     z-index: 8;
   }
