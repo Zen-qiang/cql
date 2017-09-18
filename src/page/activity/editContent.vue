@@ -1,5 +1,6 @@
 <template>
   <div class="edit-all bColor" :class="{'active':!active}">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div class="dinglian-edit-title">
       <img :src="profilePicture" alt="">
       <input type="text" placeholder="输入活动名称" v-model="activityName" state="success">
@@ -108,10 +109,12 @@
   import wx from 'weixin-js-sdk'
   import { judgmentTel } from '../../assets/js/tools'
   import { Datetime, Group } from 'vux'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
     components: {
       Datetime,
-      Group
+      Group,
+      DingLianHeader
     },
     filters: {
       moment (val) {
@@ -122,6 +125,7 @@
     },
     data () {
       return {
+        headerName: '编辑内容',
         startDate: '',
         endDate: '',
         startTimes: '',
