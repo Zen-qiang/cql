@@ -261,23 +261,24 @@
     color: #e63832;
     font-style: normal;
   }
-  .dinglian-lists-people span:first-child {
-    float: left;
-  }
-  .dinglian-lists-people span:last-child {
-    float: right;
-  }
-  .dinglian-lists-address {
-    margin-top: 0.1rem;
-  }
   .dinglian-lists-address > span {
     color: #999999;
     height: 0.14rem;
     line-height: 0.14rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 40%;
+    width: 38%;
     white-space: nowrap;
+  }
+  .dinglian-lists-people span:first-child {
+    float: left;
+    width: 60%;
+  }
+  .dinglian-lists-people span:last-child {
+    float: right;
+  }
+  .dinglian-lists-address {
+    margin-top: 0.1rem;
   }
   /*底部点赞*/
   .dinglian-lists-footer {
