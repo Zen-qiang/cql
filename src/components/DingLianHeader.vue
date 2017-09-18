@@ -1,6 +1,6 @@
 <template>
   <mt-header :title="headerName" fixed>
-    <mt-button slot="left" icon="back" @click="historyBack">返回</mt-button>
+    <mt-button slot="left" icon="back" @click="historyBack"></mt-button>
   </mt-header>
 </template>
 <script>

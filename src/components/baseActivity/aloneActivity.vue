@@ -132,7 +132,7 @@
     font-size: 0.14rem;
     text-align: left;
     height: 0.15rem;
-    line-height: 0.15rem;
+    line-height: 0.16rem;
     float: left;
     font-family: 'PingFangSc';
     font-weight: 400;

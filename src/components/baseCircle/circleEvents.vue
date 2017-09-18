@@ -5,8 +5,8 @@
                ref="loadmore">
   <div class="dinglian-lists-whole">
     <ul class="dinglian-lists-ul">
-      <li :key="item.topicId" v-for="item of topicList" @click="redirectActivityInfo(item.activity.activityId)">
-        <div class="clearfix dinglian-lists-con">
+      <li :key="item.topicId" v-for="item of topicList">
+        <div class="clearfix dinglian-lists-con" @click="redirectActivityInfo(item.activity.activityId)">
           <div class="dinglian-lists-con-left">
             <img :src="item.activity.cover" alt="">
           </div>
@@ -30,14 +30,14 @@
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
               <span>{{item.activity.address}}</span>
-              <span>5.6km</span>
+              <span></span>
             </div>
           </div>
         </div>
 
         <div class="dinglian-lists-footer clearfix">
-          <span>{{item.commentCnt}}</span>
-          <span @click.stop="praiseTopic(item)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">{{item.praiseCnt}}</span>
+          <span @click="gotoChatroom(item.topicId)">{{item.commentCnt}}</span>
+          <span @click="praiseTopic(item)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': item.hasPraise}]">{{item.praiseCnt}}</span>
         </div>
       </li>
     </ul>
@@ -46,7 +46,6 @@
 
 </template>
 <script>
-//  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   export default {
     name: 'CircleEvents',
@@ -57,6 +56,10 @@
     },
     props: ['topicList', 'allLoaded'],
     methods: {
+        // 跳转活动评论
+      gotoChatroom (id) {
+        this.$router.push({'path': '/activityMessage/' + id})
+      },
 //        跳转圈子详情
       goCircleDetails (id) {
         this.$router.push({'path': '/circleDetails/' + id})

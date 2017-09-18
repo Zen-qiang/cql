@@ -53,6 +53,10 @@
       }
     },
     methods: {
+      goRefresh () {
+        this.activityLists = []
+        this.getMyActivityList()
+      },
       goNextStep () {
         this.$router.push({'path': '/chooseActivityTags'})
       },
@@ -73,7 +77,6 @@
               pageSize: this.pageSize
             }
           }).then(res => {
-//            this.activityLists = res.data.data
             if (res.data.data.length > 0) {
               for (let item in res.data.data) {
                 this.activityLists.push(res.data.data[item])

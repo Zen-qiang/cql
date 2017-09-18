@@ -29,7 +29,7 @@
       <div class="dinglian-alone-userinfo">
         <label for="">手机</label>
         <input type="text" v-model="telphone" v-show="!needBind" disabled>
-        <span v-show="needBind" @click="active = !active">绑定手机号</span>
+        <span v-show="needBind" @click="active = !active" class="dinglian-alone-bindPhoneNumber">绑定手机号</span>
       </div>
       <div class="dinglian-alone-userinfo">
         <label for="">性别</label>
@@ -532,6 +532,9 @@
   .dinglian-alone-whole > .editContent-phone-content > .editContent-phone-fix > .editContent-phone-body > div > button.signUpActive {
     background: #ffd200;
     color: #333;
+  }
+  .dinglian-alone-bindPhoneNumber {
+    color: #999999;
   }
 
 </style>

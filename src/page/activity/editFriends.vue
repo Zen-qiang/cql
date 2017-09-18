@@ -15,11 +15,13 @@
 </template>
 <script>
   import * as types from '../../store/mutation-types'
+  import { Toast } from 'mint-ui'
   export default {
     data () {
       return {
         paramData: {},
-        friends: []
+        friends: [],
+        isPerfect: true
       }
     },
     created () {
@@ -45,15 +47,20 @@
       },
       confirm () {
         this.paramData.friends = []
+        this.isPerfect = true
         for (let i in this.friends) {
-          if (this.friends[i].name !== '') {
-            this.paramData.friends.push(this.friends[i])
+          if (this.friends[i].name === '') {
+            Toast('请填写代报名人员名字')
+            this.isPerfect = false
+            return
           }
+          this.paramData.friends.push(this.friends[i])
           this.friends[i].gender = parseInt(this.friends[i].gender)
         }
-//        this.paramData.friends = this.friends
         this.$store.commit(types.PARAMDATA, this.paramData)
-        this.$router.push({'path': '/signUpActivity'})
+        if (this.isPerfect) {
+          this.$router.push({'path': '/signUpActivity'})
+        }
       }
     }
   }

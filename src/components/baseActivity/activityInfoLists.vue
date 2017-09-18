@@ -39,7 +39,7 @@
           <span v-if="item.isSignUp">已报名</span>
           <span v-else-if="!item.isSignUp">已取消</span>
           <div class="dinglian-lists-changeButton">
-            <span v-if="item.isSignUp && item.status === '2'" @click="signOut(item)">取消报名</span>
+            <span v-if="item.isSignUp && item.status === '2'" @click="signOut(item)">{{item.isCreator ? '解散活动' : '取消报名'}}</span>
             <span v-if="item.isSignUp && item.status === '2'" @click="updateSignInfo(item)">修改信息</span>
             <span v-else-if="!item.isSignUp && item.status === '2'" @click="updateSignInfo(item)">重新报名</span>
           </div>
@@ -132,25 +132,44 @@
       },
 //      取消报名
       signOut (activity) {
-        MessageBox.confirm('确定取消报名?').then(action => {
-          this.axios({
-            method: 'post',
-            url: 'signOut',
-            data: {
-              userId: this.$store.state.userId,
-              activityId: activity.activityId
-            }
-          }).then(res => {
-            if (!res.data.success) {
-              Toast(res.data.error.message)
-            } else {
-              activity.isSignUp = false
-              Toast('取消成功')
-            }
-          }).catch(err => {
-            console.log(err)
+        console.log(activity.activityId)
+        if (activity.isCreator) {
+          MessageBox.confirm('确定解散活动?').then(action => {
+            this.axios({
+              method: 'get',
+              url: '/closeActivity',
+              params: {
+                activityId: activity.activityId
+              }
+            }).then(res => {
+              if (res.data.success) {
+                Toast('解散成功')
+              } else {
+                Toast(res.data.error.message)
+              }
+            })
           })
-        })
+        } else {
+          MessageBox.confirm('确定取消报名?').then(action => {
+            this.axios({
+              method: 'post',
+              url: 'signOut',
+              data: {
+                userId: this.$store.state.userId,
+                activityId: activity.activityId
+              }
+            }).then(res => {
+              if (!res.data.success) {
+                Toast(res.data.error.message)
+              } else {
+                activity.isSignUp = false
+                Toast('取消成功')
+              }
+            }).catch(err => {
+              console.log(err)
+            })
+          })
+        }
       }
     }
   }
@@ -203,7 +222,7 @@
     font-size: 0.14rem;
     text-align: left;
     height: 0.14rem;
-    line-height: 0.14rem;
+    line-height: 0.16rem;
     float: left;
     font-weight: 400;
     color: #333333;
