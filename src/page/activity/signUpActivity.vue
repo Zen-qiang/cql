@@ -273,12 +273,12 @@
 </script>
 <style scoped>
   .dinglian-alone-whole {
-    height: auto;
+    height: 100vh;
     background: #f2f2f2;
     position: relative;
   }
   .dinglian-alone-whole.active {
-    height: 100vh;
+    /*height: 100vh;*/
     overflow: hidden;
   }
   .dinglian-alone-sign {
