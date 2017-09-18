@@ -39,16 +39,16 @@
   </div>
 </template>
 <script>
-  // import TagsLists from '../../components/tagsLists.vue'
   import CircleInfoLists from '../../components/baseCircle/circleInfoLists.vue'
   import Carousel from '../../components/carousel.vue'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   // import { Toast } from 'mint-ui'
 //  import wx from 'weixin-js-sdk'
   export default {
     components: {
-      // TagsLists,
       CircleInfoLists,
-      Carousel
+      Carousel,
+      DingLianHeader
     },
     data () {
       return {
@@ -79,11 +79,6 @@
     mounted () {
     },
     watch: {
-//      keyword: function (val) {
-//        if (val === '') {
-//          this.active = false
-//        }
-//      }
     },
     methods: {
       resetListData () {
@@ -238,35 +233,9 @@
   }
 </script>
 <style scoped>
-  /*!*搜索框*!
-  .dinglian-circle-search {
-    width: 100%;
-    height: 0.44rem;
-    background: #f2f2f2;
-    padding: 0.1rem 0.15rem;
-    position: relative;
+  .dinglian-circle-all {
+    padding-top: 0;
   }
-  .dinglian-circle-search > input[type^=search] {
-    margin: 0 auto;
-    height: 0.24rem;
-    line-height: 0.24rem;
-    width: 3.45rem;
-    border-radius: 0.04rem;
-    font-size: 0.12rem;
-    color: #999999;
-    text-align: center;
-    float: left;
-    padding-right: 0.1rem;
-  }
-  .dinglian-circle-search > span {
-    position: absolute;
-    background: url("../../assets/images/magnifier.svg") no-repeat center center;
-    background-size: 0.14rem 0.14rem;
-    left: 1.15rem;
-    top: 0.15rem;
-    width: 0.14rem;
-    height: 0.14rem;
-  }*/
   /*搜索框*/
   .dinglian-circle-search {
     height: 0.44rem;

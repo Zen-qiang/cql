@@ -34,7 +34,7 @@
       </mt-tab-container-item>
     </mt-tab-container>
   </mt-loadmore>
-    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="active">
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="isJoined">
     </button>
   </div>
 </template>

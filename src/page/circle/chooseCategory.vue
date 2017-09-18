@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-choose-all">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <h3>选择分类</h3>
     <p>选择分类，让别人更好的找到你</p>
     <mt-navbar v-model="selected">
@@ -28,10 +29,15 @@
 </template>
 <script>
   import * as types from '../../store/mutation-types'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   import { Toast } from 'mint-ui'
   export default {
+    components: {
+      DingLianHeader
+    },
     data () {
       return {
+        headerName: '创建圈子',
         selected: '1',
         isEdit: false,
         circle: {},
@@ -40,7 +46,6 @@
         selectedTags: [],
         isUnlimited: false,
         tagImgs: [require('../../assets/images/dancing.svg'), require('../../assets/images/table.svg'), require('../../assets/images/basketball.svg')]
-        // circleName: ''
       }
     },
     created () {

@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-qr-whole">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div class="dinglian-qr-section">
       <div class="dinglian-qr-header">
         <div class="dinglian-qr-header-img">
@@ -22,9 +23,11 @@
 </template>
 <script>
   import VueQr from 'vue-qr'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
     components: {
-      VueQr
+      VueQr,
+      DingLianHeader
     },
     created () {
       this.qrcodeContent = this.$store.state.qrCode
@@ -32,6 +35,7 @@
     },
     data () {
       return {
+        headerName: '二维码',
         qrcodeContent: ''
       }
     }
