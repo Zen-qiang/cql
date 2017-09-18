@@ -365,10 +365,10 @@
         if (!judgmentTel(this.phoneNo)) {
           return false
         }
-        if (!this.description) {
-          Toast('备注不能为空')
-          return false
-        }
+//        if (!this.description) {
+//          Toast('备注不能为空')
+//          return false
+//        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
@@ -714,7 +714,7 @@
     width: 0.18rem;
     height: 0.18rem;
     background: url("../../assets/images/delete222.svg") no-repeat center center;
-    z-index: 8;
+    z-index: 0;
   }
 
   .dinglian-edit-people > input {

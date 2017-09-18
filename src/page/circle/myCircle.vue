@@ -50,7 +50,7 @@
         </ul>
       </mt-tab-container-item>
     </mt-tab-container>
-    <button class="dinglian-myCircle-createCircle"><span>创建圈子</span></button>
+    <button class="dinglian-myCircle-createCircle" @click="goCreateCircle"><span>创建圈子</span></button>
   </div>
 
 </template>
@@ -81,6 +81,9 @@
       }
     },
     methods: {
+      goCreateCircle () {
+        this.$router.push({'path': '/createCircle'})
+      },
       redirectCircleInfo (id) {
         this.$router.push({'path': '/circleDetails/' + id})
       },

@@ -108,7 +108,7 @@
     <p class="dinglian-details-textarea">
       {{activityInfo.description}}
     </p>
-    <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
+    <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">解散活动</mt-button>
     <mt-button v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
@@ -153,7 +153,7 @@
         password: '',
         allowSignUp: '',
         topicId: '',
-        activityId: '',
+        activityId: this.$route.params.aid,
         activityMembers: '',
         uid: this.$store.state.userId,
         mobileHref: '',
@@ -308,7 +308,9 @@
           } else {
             Toast('活动密码错误')
           }
-        }).catch()
+        }).catch(error => {
+          console.log(error)
+        })
       },
 //      编辑活动信息
       editActivityInfo () {

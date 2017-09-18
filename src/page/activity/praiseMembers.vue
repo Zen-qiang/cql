@@ -24,6 +24,9 @@
         </ul>
       </li>
     </ul>
+    <!--一键发送信息 start-->
+    <mt-button type="default" v-show="!notified && isCreator" class="dinglian-button" @click.native="">一键发送短信</mt-button>
+    <!--一键发送信息 end-->
   </div>
 </template>
 <script>
@@ -38,7 +41,9 @@
     data () {
       return {
         activityId: '',
-        activityMembers: []
+        activityMembers: [],
+        notified: '',
+        isCreator: ''
       }
     },
     created () {
@@ -55,7 +60,9 @@
             activityId: this.activityId
           }
         }).then(res => {
-          this.activityMembers = res.data.data
+          this.activityMembers = res.data.data.members
+          this.notified = res.data.data.notified
+          this.isCreator = res.data.data.isCreator
         }).catch()
       }
     }
