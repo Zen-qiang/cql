@@ -142,6 +142,10 @@
   }
 </script>
 <style scoped>
+  .dinglian-choose-all {
+    height: 6.67rem;
+    background: #fff;
+  }
   img {
     width: 50%;
   }

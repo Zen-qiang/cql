@@ -59,6 +59,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-edit-whole {
+    background: #fff;
+  }
   .dinglian-edit-alternative {
     background: url("../../assets/images/add.svg") no-repeat left center;
     background-size: 0.16rem;

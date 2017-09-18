@@ -79,11 +79,11 @@
     mounted () {
     },
     watch: {
-      keyword: function (val) {
-        if (val === '') {
-          this.active = false
-        }
-      }
+//      keyword: function (val) {
+//        if (val === '') {
+//          this.active = false
+//        }
+//      }
     },
     methods: {
       resetListData () {

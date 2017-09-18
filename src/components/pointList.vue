@@ -51,7 +51,9 @@
 </script>
 <style scoped>
   .dinglian-mem-whole {
-    font-size: 14px;
+    font-size: 0.14rem;
+    /*height: 6.67rem;*/
+    background: #fff;
   }
   .dinglian-mem-firstMember {
     width: 100%;

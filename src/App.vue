@@ -28,9 +28,13 @@ export default {
   text-align: center;
   color: #333333;
 }
-  html,body,#app {
-    height: 100%;
-  }
+  /*html,body,#app {*/
+    /*height: 100%;*/
+  /*}*/
+html {
+  height: auto;
+  background: #f2f2f2;
+}
   .slide-enter-active {
     transition: all .3s ease;
   }
@@ -41,6 +45,9 @@ export default {
     transform: translateX(3.7rem);
     opacity: 0;
   }
-
+/*加载动画颜色*/
+.circle-color-11 > div::before {
+  background-color: #ffd200!important;
+}
 
 </style>
