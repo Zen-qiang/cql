@@ -33,7 +33,7 @@
       <label for="">组织者</label>
       <!--<input type="text" v-model="nickName" disabled>-->
       <p v-text="nickName"></p>
-      <a :href="mobileHref" class="dinglian-details-mobile"></a>
+      <a :href="mobileHref" class="dinglian-details-mobile" v-show="isSignUp"></a>
     </div>
     <div class="dinglian-details-status dinglian-details-time">
       <label for="">开始时间</label>
@@ -50,10 +50,10 @@
 
       <!--<input type="text" v-model="address" disabled>-->
       <p v-text="address"></p>
-      <span class="dinglian-details-address"></span>
+      <!--<span class="dinglian-details-address"></span>-->
 
       <!--<input type="text" v-model="address" disabled>-->
-      <!--<span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>-->
+      <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
 
     </div>
 
@@ -107,8 +107,8 @@
     <p class="dinglian-details-textarea">
       {{activityInfo.description}}
     </p>
-    <mt-button v-if="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
-    <mt-button v-else v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">取消活动</mt-button>
+    <mt-button v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
