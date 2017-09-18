@@ -58,6 +58,18 @@ ul, ol, li {
   background: #F2F2F2;
   height: auto;
   padding-top: 0.4rem;
+  position: relative;
+}
+.bColor:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 0.4rem;
+  width: 100%;
+  background: #fff;
+
 }
 /*搜索框*/
 .dinglian-circle-all .mint-searchbar {

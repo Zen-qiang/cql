@@ -83,6 +83,7 @@
   .dinglian-success-all {
     height: 100%;
     overflow: hidden;
+    padding-top: 0;
   }
   .dinglian-success-all > div{
     background: #fff;

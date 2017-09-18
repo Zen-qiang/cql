@@ -20,12 +20,14 @@
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
         <span>共有{{messageLists.praiseCnt}}人点过赞</span>
-        <ul @click="goPointList(messageLists.praiseCnt)">
-          <li v-for="item in messageLists.praise">
-            <img :src="item.picture">
-          </li>
-          <li class="dinglian-message-comment-order-more">more</li>
-        </ul>
+        <div @click="goPointList(messageLists.praiseCnt)">
+          <ul>
+            <li v-for="item in messageLists.praise">
+              <img :src="item.picture">
+            </li>
+          </ul>
+          <p class="dinglian-message-comment-order-more">more</p>
+        </div>
       </div>
       <div class="dinglian-message-comment-tit">全部评论</div>
       <div class="dinglian-message-avatar-comment" v-for="topics in topicCommentList">
@@ -224,15 +226,16 @@
     padding: 0 0.15rem;
     color: #999999;
   }
-  .dinglian-message-comment-order > ul {
+  .dinglian-message-comment-order > div {
     /*display: flex;*/
     /*flex-flow: row nowrap;*/
     /*align-items: center;*/
     overflow: hidden;
     position: relative;
     width: 1.45rem;
+    padding-right: 0.55rem;
   }
-  .dinglian-message-comment-order > ul > li.dinglian-message-comment-order-more {
+  .dinglian-message-comment-order > div > p.dinglian-message-comment-order-more {
     position: absolute;
     right: 0;
     top: 0;
@@ -245,11 +248,15 @@
     padding-left:0.1rem;
     text-align: left;
   }
-  .dinglian-message-comment-order > ul > li {
+  .dinglian-message-comment-order > div > ul {
+    overflow: hidden;
+    float: right;
+  }
+  .dinglian-message-comment-order > div > ul > li {
     margin-right: 0.05rem;
     float: left;
   }
-  .dinglian-message-comment-order > ul > li img {
+  .dinglian-message-comment-order > div > ul > li img {
     width: 0.25rem;
     height: 0.25rem;
     vertical-align: middle;

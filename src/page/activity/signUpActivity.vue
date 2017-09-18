@@ -1,5 +1,5 @@
 <template>
-  <div class="dinglian-alone-whole">
+  <div class="dinglian-alone-whole" :class="{'active':!active}">
     <div class="editContent-phone-content" :class="{'active':active}">
       <div class="editContent-phone-fix" :class="{'active':active}">
         <div class="editContent-phone-title">
@@ -273,9 +273,13 @@
 </script>
 <style scoped>
   .dinglian-alone-whole {
-    height: 100%;
+    height: auto;
     background: #f2f2f2;
     position: relative;
+  }
+  .dinglian-alone-whole.active {
+    height: 100vh;
+    overflow: hidden;
   }
   .dinglian-alone-sign {
     margin: 0 0 0.1rem;

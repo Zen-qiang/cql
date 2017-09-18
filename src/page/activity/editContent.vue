@@ -37,7 +37,7 @@
     </div>
     <!--开始时间-->
     <group>
-      <datetime v-model="startTimes" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="changeStar">
+      <datetime v-model="startTimes" :start-date="startDate" :end-date="endDate" :min-hour="numHours" format="YYYY-MM-DD HH:mm" @on-change="changeStar">
         <span>开始时间</span><span v-text="startTimes"></span>
       </datetime>
     </group>
@@ -71,7 +71,7 @@
     <div class="dinglian-edit-tel">
       <label for="">联系方式</label>
       <input type="tel" placeholder="请绑定电话号码" v-model="phoneNo" disabled>
-      <span @click="active = !active" v-show="needBind">绑定</span>
+      <span @click="changeFocus" v-show="needBind">绑定</span>
     </div>
     <div class="dinglian-edit-public">
       <label for="">公开</label>
@@ -90,7 +90,7 @@
           <h3>绑定手机号<span @click="active = !active"></span></h3>
         </div>
         <div class="editContent-phone-body">
-          <div><input type="tel" placeholder="请输入手机号" v-model="telphone"></div>
+          <div><input type="tel" placeholder="请输入手机号" v-model="telphone" id="inputFocus"></div>
           <div><input type="text" placeholder="请输入验证码" v-model="verifyNo"><span @click.stop="sendCode()" :class="{sendActive: isSendCode}">{{sendCodeButton}}</span></div>
           <p></p>
           <div><button :class="{signUpActive: isSignUpActive}" @click="bindConfirm()">立即绑定</button></div>
@@ -135,6 +135,7 @@
         month: '',
         day: '',
         hours: '',
+        numHours: null,
         minutes: '',
         profilePicture: '',
         circles: [],
@@ -208,6 +209,7 @@
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.month + '-' + this.day
+      this.numHours = this.hours * 1
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress.address
         this.gps = this.$store.state.currentAddress.position
@@ -230,6 +232,18 @@
       }
     },
     methods: {
+//    自动获取焦点
+      changeFocus () {
+        this.active = !this.active
+//        this.$refs.inputFocus.focus()
+        setTimeout(function () {
+          try {
+            var t = document.getElementById('inputFocus')
+            t.focus()
+            t.select()
+          } catch (e) {}
+        }, 200)
+      },
       forMartTimes (val) {
         return val < 10 ? '0' + val : val.toString()
       },
@@ -534,7 +548,7 @@
     height: auto;
   }
   .edit-all.active {
-    height: 100%;
+    height: 100vh;
     overflow: hidden;
   }
   .edit-all > div {
@@ -648,6 +662,7 @@
     height: 1.1rem;
     position: relative;
     padding: 0.15rem;
+    overflow: hidden;
   }
   .edit-all .dinglian-edit-photo.prompt {
 
@@ -672,13 +687,14 @@
     /*flex-flow: row nowrap;*/
     /*align-items: center;*/
     background-color: #ffffff;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
   .dinglian-edit-photoShow > div {
     width: 0.8rem;
     height: 0.8rem;
     float: left;
     margin-right: 0.1rem;
+    margin-bottom: 0.2rem;
   }
   .dinglian-edit-photoShow > p {
     color: #999;
@@ -709,8 +725,8 @@
   }
   .dinglian-edit-photoShow-alone > span {
     position: absolute;
-    right: 0.02rem;
-    top: 0.02rem;
+    right: -0.05rem;
+    top: -0.05rem;
     width: 0.18rem;
     height: 0.18rem;
     background: url("../../assets/images/delete222.svg") no-repeat center center;
@@ -874,13 +890,15 @@
     margin: auto;
     background: rgba(0,0,0,0.7);
     padding:0;
-    height: 100%  ;
+    height: 6.67rem;
+    overflow: hidden;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
     visibility: visible;
+    z-index: 10;
   }
   .edit-all > .editContent-phone-content.active {
     background: rgba(0,0,0,0);

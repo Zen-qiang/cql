@@ -88,6 +88,7 @@
     height: 0.44rem;
     border-radius: 50%;
     border: 0.01rem solid #DDDDDD;
+    overflow: hidden;
     position: relative;
   }
   .dinglian-mem-firstMember img {
