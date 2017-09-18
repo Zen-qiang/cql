@@ -63,7 +63,7 @@
   .dinglian-position-whole {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
   }
   .dinglian-position-header {
     position: absolute;
@@ -84,7 +84,7 @@
     background: rgba(255, 255, 255, 0.6);
   }
   .dinglian-position-bmap {
-    height: 6.67rem;
+    height: 100vh;
     position: relative;
   }
   .dinglian-position-footer {

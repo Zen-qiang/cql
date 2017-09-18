@@ -1,5 +1,6 @@
 <template>
   <div class="bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div class="dinglian-circle-search">
       <input type="search" placeholder="请输入圈子关键词" @search="searchMyCircle" ref="myCircle" @focus="moveIcon" @blur="refreshIcon" v-model="inputSearchValue" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
@@ -54,9 +55,14 @@
 
 </template>
 <script>
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
+    components: {
+      DingLianHeader
+    },
     data () {
       return {
+        headerName: '我的圈子',
         selected: '1',
         addCoterieImageUrl: require('../../assets/images/add999.svg'),
         coteries: [],

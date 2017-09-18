@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-upload-all bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div class="dinglian-createCirclePhoto-uploadPhoto">
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
@@ -13,9 +14,6 @@
     </div>
     <p>简介</p>
     <textarea class="dinglian-upload-con" rows="4" v-model="introduction" placeholder="选择分类让别人更好的找到你"></textarea>
-    <!--<div v-if="introduction.length>400"><span>0</span>字</div>-->
-    <!--<div v-else><span>{{num - introduction.length}}</span>字</div>-->
-    <!--<div><span>{{introduction.length>400?0:num-introduction.length}}</span>字</div>-->
     <div><span v-text="num"></span>字</div>
     <p>我同意<a>《出趣浪服务条款》</a></p>
     <mt-button type="default" @click.native="createCircle" style="margin-top: 10px" class="dinglian-button">完成</mt-button>
@@ -25,9 +23,14 @@
 <script>
   import { Toast } from 'mint-ui'
   import wx from 'weixin-js-sdk'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
+    components: {
+      DingLianHeader
+    },
     data () {
       return {
+        headerName: '创建圈子',
         circle: {},
         isEdit: false,
         circleTags: '',

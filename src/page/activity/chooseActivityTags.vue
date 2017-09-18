@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-choose-all bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div>
       <h3>选择分类</h3>
       <p>选择分类，让别人更好的找到你</p>
@@ -31,9 +32,14 @@
 <script>
   import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
+    components: {
+      DingLianHeader
+    },
     data () {
       return {
+        headerName: '发起活动',
         selected: '1',
         isEdit: false,
         activity: null,

@@ -1,6 +1,6 @@
 <template>
   <div class="dinglian-activityLists-all bColor">
-    <ding-lian-header :headerName="headerName"></ding-lian-header>
+    <!--<ding-lian-header :headerName="headerName"></ding-lian-header>-->
     <mt-loadmore :top-method="loadTop"
                  :distanceIndex="2"
                  :maxDistance="100"
@@ -113,6 +113,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-activityLists-all {
+    padding-top: 0;
+  }
   /*搜索框*/
   .dinglian-circle-search {
     height: 0.44rem;

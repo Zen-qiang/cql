@@ -26,5 +26,6 @@
   .mint-header {
     background-color: #ffd200;
     height: 0.4rem;
+    color: #333333;
   }
 </style>

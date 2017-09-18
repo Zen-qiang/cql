@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-create-all">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <h3>创建圈子名称</h3>
     <input type="text" placeholder="请输入圈子的名称,不得超过12字" class="fs_11" v-model="circleName">
     <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">下一步</mt-button>
@@ -8,11 +9,16 @@
 
 <script>
   import * as types from '../../store/mutation-types'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   import { Toast } from 'mint-ui'
   export default {
+    components: {
+      DingLianHeader
+    },
     name: 'createCircle',
     data () {
       return {
+        headerName: '创建圈子',
         circle: null,
         circleName: null
       }
@@ -46,12 +52,11 @@
 </script>
 <style scoped>
   .dinglian-create-all {
-    height: 6.67rem;
+    height: 100vh;
     padding-top: 0.9rem;
     background: #fff;
   }
   .dinglian-create-all > h3 {
-    /*margin-top: 154px;*/
     color: #666666;
     font-weight: 200;
     font-size: 0.24rem;
