@@ -84,7 +84,7 @@
     background: rgba(255, 255, 255, 0.6);
   }
   .dinglian-position-bmap {
-    height: 100%;
+    height: 6.67rem;
     position: relative;
   }
   .dinglian-position-footer {

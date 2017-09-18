@@ -701,7 +701,7 @@
     top: 0;
     width: 0.2rem;
     height: 0.2rem;
-    background-color: #ffd200;
+    background: url("../../assets/images/delete222.svg") no-repeat center center;
     z-index: 8;
   }
 
