@@ -27,6 +27,7 @@
     },
     methods: {
       redirect (redirectUrl) {
+        this.redUrl = []
         for (let i in this.carouselList) {
           this.redUrl.push(this.carouselList[i].url)
         }

@@ -56,7 +56,8 @@ ul, ol, li {
 /*背景颜色#F2F2F2*/
 .bColor {
   background: #F2F2F2;
-  height: 100%;
+  height: auto;
+  padding-top: 0.4rem;
 }
 /*搜索框*/
 .dinglian-circle-all .mint-searchbar {

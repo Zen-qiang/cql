@@ -1,5 +1,6 @@
 <template>
-  <div class="dinglian-message-whole">
+  <div class="dinglian-message-whole bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div class="dinglian-message-header">
       <div class="dinglian-message-avatar">
         <div>
@@ -46,6 +47,7 @@
 </template>
 <script>
   import AloneActivity from '../../components/baseActivity/aloneActivity.vue'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   import {Toast} from 'mint-ui'
@@ -57,7 +59,8 @@
       }
     },
     components: {
-      AloneActivity
+      AloneActivity,
+      DingLianHeader
     },
     created () {
       this.getActivityTopic()
@@ -69,7 +72,8 @@
         messageLists: '',
         topicCommentList: '',
         description: '',
-        topic: ''
+        topic: '',
+        headerName: '活动评论'
       }
     },
     methods: {

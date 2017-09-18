@@ -1,5 +1,6 @@
 <template>
-  <div class="dinglian-details-all">
+  <div class="dinglian-details-all bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <!--右上角编辑按钮-->
     <span class="dinglian-details-editIcon" @click="editActivityInfo"  v-show="isCreator && activityInfo.status !== '0'">
       {{edit}}
@@ -115,6 +116,7 @@
 <script>
   import { MessageBox, Toast } from 'mint-ui'
   import Carousel from '../../components/carousel.vue'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
@@ -127,7 +129,8 @@
       }
     },
     components: {
-      Carousel
+      Carousel,
+      DingLianHeader
     },
     data () {
       return {
@@ -156,7 +159,8 @@
         mobileHref: '',
         userCount: '',
         isSignUp: false,
-        circleName: ''
+        circleName: '',
+        headerName: '活动详情'
       }
     },
     created () {

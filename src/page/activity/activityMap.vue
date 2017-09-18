@@ -1,12 +1,17 @@
 <template>
-  <div class="hello">
+  <div class="hello bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <div id="allmap" :style="style"></div>
   </div>
 </template>
 
 <script>
 import BMap from 'BMap'
+import DingLianHeader from '../../components/DingLianHeader.vue'
 export default {
+  components: {
+    DingLianHeader
+  },
   data () {
     return {
       map: null,
@@ -14,6 +19,7 @@ export default {
       activityPoint: null,
       userMarker: null,
       activityMarker: null,
+      headerName: '活动地图',
       style: {
         width: '100%',
         height: document.querySelector('html').clientHeight + 'px'
