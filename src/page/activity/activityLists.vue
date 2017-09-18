@@ -1,5 +1,6 @@
 <template>
   <div class="dinglian-activityLists-all bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <mt-loadmore :top-method="loadTop"
                  :distanceIndex="2"
                  :maxDistance="100"
@@ -7,7 +8,7 @@
     <form class="dinglian-circle-search" onsubmit="return false;">
       <!--<input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" ref="searchInput">
       <span v-show="!keyword"></span>-->
-      <input type="search" placeholder="请输入活动关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}" @search="searchActivity" ref="searchInput">
+      <input type="text" placeholder="请输入活动关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}" @search="searchActivity" ref="searchInput">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>
@@ -19,10 +20,12 @@
 </template>
 <script>
   import ActivityInfoLists from '../../components/baseActivity/activityInfoLists.vue'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   import { Indicator } from 'mint-ui'
   export default {
     components: {
-      ActivityInfoLists
+      ActivityInfoLists,
+      DingLianHeader
     },
     data () {
       return {
@@ -32,7 +35,8 @@
         activityLists: [],
         page: 1,
         allLoaded: false,
-        active: false
+        active: false,
+        headerName: '活动列表'
       }
     },
     created () {
@@ -109,35 +113,6 @@
   }
 </script>
 <style scoped>
-  /*!*搜索框*!
-  .dinglian-circle-search {
-    width: 100%;
-    height: 0.44rem;
-    background: #f2f2f2;
-    padding: 0.1rem 0.15rem;
-    position: relative;
-  }
-  .dinglian-circle-search > input[type^=search] {
-    margin: 0 auto;
-    height: 0.24rem;
-    line-height: 0.24rem;
-    width: 3.45rem;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #999999;
-    text-align: center;
-    float: left;
-    padding-right: 0.1rem;
-  }
-  .dinglian-circle-search > span {
-    position: absolute;
-    background: url("../../assets/images/magnifier.svg") no-repeat center center;
-    background-size: 0.14rem 0.14rem;
-    left: 1.15rem;
-    top: 0.15rem;
-    width: 0.14rem;
-    height: 0.14rem;
-  }*/
   /*搜索框*/
   .dinglian-circle-search {
     height: 0.44rem;
@@ -166,7 +141,7 @@
     right: 0.18rem;
     opacity: 1;
   }
-  .dinglian-circle-search > input[type^=search] {
+  .dinglian-circle-search > input[type^=text] {
     /*margin: 0 auto;*/
     margin: 0 0.15rem 0 0.15rem;
     height: 0.24rem;
@@ -183,7 +158,7 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
-  .dinglian-circle-search > input[type^=search].active {
+  .dinglian-circle-search > input[type^=text].active {
     background-position-x: 0.05rem;
     padding-left: 0.2rem;
     margin: 0 0.6rem 0 0.15rem;
