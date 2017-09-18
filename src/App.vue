@@ -28,9 +28,13 @@ export default {
   text-align: center;
   color: #333333;
 }
-  html,body,#app {
-    height: 100%;
-  }
+  /*html,body,#app {*/
+    /*height: 100%;*/
+  /*}*/
+html {
+  height: 100%;
+  background: #f2f2f2;
+}
   .slide-enter-active {
     transition: all .3s ease;
   }

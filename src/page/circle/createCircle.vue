@@ -46,9 +46,10 @@
 </script>
 <style scoped>
   .dinglian-create-all {
+    height: 6.67rem;
     padding-top: 0.9rem;
+    background: #fff;
   }
-
   .dinglian-create-all > h3 {
     /*margin-top: 154px;*/
     color: #666666;
