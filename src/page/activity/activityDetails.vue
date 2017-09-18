@@ -350,6 +350,7 @@
     font-size: 0.14rem;
     width: 0.5rem;
     height: 0.4rem;
+    line-height: 0.4rem;
     text-align: center;
     opacity: 0.8;
   }
