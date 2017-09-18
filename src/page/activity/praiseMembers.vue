@@ -64,6 +64,7 @@
 <style scoped>
   .dinglian-mem-whole {
     font-size: 0.14rem;
+    background: #fff;
   }
   .dinglian-mem-firstMember {
     width: 100%;

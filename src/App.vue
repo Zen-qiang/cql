@@ -32,7 +32,7 @@ export default {
     /*height: 100%;*/
   /*}*/
 html {
-  height: 100%;
+  height: auto;
   background: #f2f2f2;
 }
   .slide-enter-active {
@@ -45,6 +45,9 @@ html {
     transform: translateX(3.7rem);
     opacity: 0;
   }
-
+/*加载动画颜色*/
+.circle-color-11 > div::before {
+  background-color: #ffd200!important;
+}
 
 </style>

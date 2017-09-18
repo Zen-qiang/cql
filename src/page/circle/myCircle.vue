@@ -220,12 +220,14 @@
     display: -webkit-flex;
     flex-flow: row wrap;
     overflow: hidden;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0.1rem 0.15rem;
     align-content: flex-start;
   }
   .dinglian-myCircle-info {
-    width: 32%;
+    width: 31.33%;
+    margin-right: 1%;
+    margin-left:1%;
     overflow: hidden;
     height: 1.28rem;
     border: 1px solid #dddddd;
