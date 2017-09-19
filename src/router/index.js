@@ -2,13 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { Indicator } from 'mint-ui'
 import Hello from '@/components/Hello'
-// import CreateCircle from '@/page/circle/createCircle.vue'
-// import ChooseCategory from '@/page/circle/chooseCategory.vue'
-// import UploadCircleCover from '@/page/circle/uploadCircleCover.vue'
-// import CircleLists from '@/page/circle/circleLists.vue'
-// import CircleDetails from '@/page/circle/circleDetails.vue'
-// import MyCircle from '@/page/circle/myCircle.vue'
-
 // 圈子
 const CreateCircle = r => {
   Indicator.open()
@@ -52,12 +45,6 @@ const MyCircle = r => {
     Indicator.close()
   }, 'myCircle')
 }
-// import ActivityLists from '@/page/activity/activityLists.vue'
-// import ActivityDetails from '@/page/activity/activityDetails.vue'
-// import MyActivity from '@/page/activity/myActivity.vue'
-// import EditContent from '@/page/activity/editContent.vue'
-// import ActivitySuccess from '@/page/activity/ActivitySuccess.vue'
-
 // 活动
 const MyActivity = r => {
   Indicator.open()
@@ -94,6 +81,37 @@ const ActivityDetails = r => {
     Indicator.close()
   }, 'activityDetails')
 }
+// 编辑圈子 start
+const CircleInformation = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/circle/circleInformation.vue'], () => {
+    r(require('@/page/circle/circleInformation.vue'))
+    Indicator.close()
+  }, 'circleInformation')
+}
+const EditCircleInformation = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/circle/editCircleInformation.vue'], () => {
+    r(require('@/page/circle/editCircleInformation.vue'))
+    Indicator.close()
+  }, 'editCircleInformation')
+}
+const EditCategory = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/circle/editCategory.vue'], () => {
+    r(require('@/page/circle/editCategory.vue'))
+    Indicator.close()
+  }, 'editCategory')
+}
+const EditIntroduction = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/circle/editIntroduction.vue'], () => {
+    r(require('@/page/circle/editIntroduction.vue'))
+    Indicator.close()
+  }, 'editIntroduction')
+}
+// 编辑圈子 end
+
 import ChooseActivityTags from '@/page/activity/chooseActivityTags.vue'
 import ActivityMessage from '@/page/activity/activityMessage.vue'
 // 报名活动
@@ -289,6 +307,28 @@ export default new Router({
       name: 'ActivityPosition',
       component: ActivityPosition
     },
+    // 编辑圈子 start
+    {
+      path: '/circleInformation',
+      name: 'CircleInformation',
+      component: CircleInformation
+    },
+    {
+      path: '/editCircleInformation',
+      name: 'EditCircleInformation',
+      component: EditCircleInformation
+    },
+    {
+      path: '/editCategory',
+      name: 'EditCategory',
+      component: EditCategory
+    },
+    {
+      path: '/editIntroduction',
+      name: 'EditIntroduction',
+      component: EditIntroduction
+    },
+    // 编辑圈子 end
     {
       path: '*',
       name: '404',
