@@ -130,8 +130,6 @@
         endDate: '',
         startTimes: '',
         endTimes: '请选择结束时间',
-        startT: null,
-        endT: null,
         date: new Date(),
         fullYear: '',
         month: '',
@@ -210,7 +208,6 @@
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.month + '-' + this.day
-      this.startT = this.stringToNumber(this.startTimes)
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress.address
         this.gps = this.$store.state.currentAddress.position
@@ -252,26 +249,11 @@
         return Number(val.replace(/\D/g, ''))
       },
       changeStar (value) {
-//        this.startTimes = this.stringToNumber(this.startTimes)
-//        if (this.startTimes > this.stringToNumber(value)) {
-//          Toast('不能选择更早的时间')
-//          console.log(this.startTimes)
-//          this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
-//        }
-//        if (this.startTimes < this.stringToNumber(value)) {
-//          Toast('ahha')
-//          this.startTimes = value
-//          this.endTimes = value
-//          this.startT = this.stringToNumber(value)
-//        }
         this.startTimes = value
         this.endTimes = value
-        this.startT = this.stringToNumber(value)
-        this.endT = this.stringToNumber(value)
       },
       changeEnd (value) {
         this.endTimes = value
-        this.endT = this.stringToNumber(value)
       },
 //      获取本地的gps 跳转地图
       getLocationGps () {
@@ -383,7 +365,7 @@
           Toast('结束时间不能为空')
           return false
         }
-        if (this.startT >= this.endT) {
+        if (this.stringToNumber(this.startTimes) >= this.stringToNumber(this.endTimes)) {
           Toast('请选择有效的起止时间')
           return false
         }
@@ -400,10 +382,6 @@
           return false
         }
         if (!judgmentTel(this.phoneNo)) {
-          return false
-        }
-        if (!this.description) {
-          Toast('备注不能为空')
           return false
         }
         let formdata = new FormData()
