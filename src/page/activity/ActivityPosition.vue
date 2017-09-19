@@ -34,6 +34,7 @@
     created () {
     },
     mounted () {
+      document.body.scrollTop = 0
     },
     methods: {
       getAddress () {
@@ -58,11 +59,11 @@
 
 <style scoped>
   div {
-    font-size: 14px;
+    font-size: 0.14rem;
   }
   .dinglian-position-whole {
     position: relative;
-    width: 100%;
+    /*width: 100%;*/
     height: 100vh;
   }
   .dinglian-position-header {
@@ -91,7 +92,7 @@
     position: absolute;
     bottom: 0.2rem;
     z-index: 8;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     width: 76%;
     left: 50%;
     transform: translateX(-50%);
@@ -113,7 +114,7 @@
     background-color: #ffd200;
     width: 0.5rem;
     font-style: normal;
-    border-radius: 4px;
+    border-radius: 0.04rem;
   }
 
 </style>

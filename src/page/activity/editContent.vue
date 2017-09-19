@@ -404,10 +404,10 @@
         if (!judgmentTel(this.phoneNo)) {
           return false
         }
-//        if (!this.description) {
-//          Toast('备注不能为空')
-//          return false
-//        }
+        if (!this.description) {
+          Toast('备注不能为空')
+          return false
+        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)

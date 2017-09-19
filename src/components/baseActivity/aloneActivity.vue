@@ -195,6 +195,13 @@
     color: #999;
     font-size: 0.11rem;
   }
+  .dinglian-lists-address > span:nth-of-type(1) {
+    width: 100%;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   /*底部点赞*/
   .dinglian-lists-footer {
     width: 100%;
