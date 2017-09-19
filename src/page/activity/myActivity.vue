@@ -53,10 +53,6 @@
       }
     },
     methods: {
-      goRefresh () {
-        this.activityLists = []
-        this.getMyActivityList()
-      },
       goNextStep () {
         this.$router.push({'path': '/chooseActivityTags'})
       },
@@ -91,6 +87,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-myActivity-all {
+    padding-top: 0;
+  }
   /*分类底部黄色条*/
   .mint-navbar > a{
     position: relative;
