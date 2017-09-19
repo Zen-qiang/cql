@@ -15,7 +15,7 @@
     </div>
     <!--绑定手机号 end-->
 
-    <alone-activity :footer="false" style="background: #ffffff" :activity="activity"></alone-activity>
+    <alone-activity :footer="false" style="background: #fff" :activity="activity"></alone-activity>
 
     <div class="dinglian-alone-sign">
       <div class="dinglian-alone-userinfo dinglian-alone-color">
@@ -273,12 +273,12 @@
 </script>
 <style scoped>
   .dinglian-alone-whole {
-    height: auto;
+    height: 100vh;
     background: #f2f2f2;
     position: relative;
   }
   .dinglian-alone-whole.active {
-    height: 100vh;
+    /*height: 100vh;*/
     overflow: hidden;
   }
   .dinglian-alone-sign {

@@ -68,6 +68,7 @@
 <style scoped>
   .dinglian-edit-whole {
     background: #fff;
+    padding-bottom: 0.5rem;
   }
   .dinglian-edit-alternative {
     background: url("../../assets/images/add.svg") no-repeat left center;

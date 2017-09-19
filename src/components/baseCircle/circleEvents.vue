@@ -212,13 +212,13 @@
     margin-top: 0.09rem;
     color: #999999;
   }
-  .dinglian-lists-address span:first-child {
+  .dinglian-lists-address span:nth-of-type(1) {
     width: 75%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .dinglian-lists-address span:last-child {
+  .dinglian-lists-address span:nth-of-type(2) {
     width: 25%;
     overflow: hidden;
     text-overflow: ellipsis;

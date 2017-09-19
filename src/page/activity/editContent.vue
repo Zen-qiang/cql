@@ -37,7 +37,7 @@
     </div>
     <!--开始时间-->
     <group>
-      <datetime v-model="startTimes" :start-date="startDate" :end-date="endDate" :min-hour="numHours" format="YYYY-MM-DD HH:mm" @on-change="changeStar">
+      <datetime v-model="startTimes" :start-date="startDate" :end-date="endDate" format="YYYY-MM-DD HH:mm" @on-change="changeStar">
         <span>开始时间</span><span v-text="startTimes"></span>
       </datetime>
     </group>
@@ -130,12 +130,13 @@
         endDate: '',
         startTimes: '',
         endTimes: '请选择结束时间',
+        startT: null,
+        endT: null,
         date: new Date(),
         fullYear: '',
         month: '',
         day: '',
         hours: '',
-        numHours: null,
         minutes: '',
         profilePicture: '',
         circles: [],
@@ -209,7 +210,7 @@
       this.minutes = this.forMartTimes(this.date.getMinutes())
       this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
       this.startDate = this.fullYear + '-' + this.month + '-' + this.day
-      this.numHours = this.hours * 1
+      this.startT = this.stringToNumber(this.startTimes)
       if (this.$store.state.currentAddress) {
         this.address = this.$store.state.currentAddress.address
         this.gps = this.$store.state.currentAddress.position
@@ -247,12 +248,29 @@
       forMartTimes (val) {
         return val < 10 ? '0' + val : val.toString()
       },
+      stringToNumber (val) {
+        return parseInt(val.replace(/\D/g, ''))
+      },
       changeStar (value) {
+//        this.startTimes = this.stringToNumber(this.startTimes)
+//        if (this.startTimes > this.stringToNumber(value)) {
+//          Toast('不能选择更早的时间')
+//          console.log(this.startTimes)
+//          this.startTimes = this.fullYear + '-' + this.month + '-' + this.day + ' ' + this.hours + ':' + this.minutes
+//        }
+//        if (this.startTimes < this.stringToNumber(value)) {
+//          Toast('ahha')
+//          this.startTimes = value
+//          this.endTimes = value
+//          this.startT = this.stringToNumber(value)
+//        }
         this.startTimes = value
         this.endTimes = value
+        this.startT = this.stringToNumber(value)
       },
       changeEnd (value) {
         this.endTimes = value
+        this.endT = this.stringToNumber(value)
       },
 //      获取本地的gps 跳转地图
       getLocationGps () {
@@ -360,8 +378,15 @@
           Toast('图片不能为空')
           return false
         }
+//        if (this.startTimes === '请选择开始时间') {
+//          Toast('开始时间不能为空')
+//          return false
+//        } else
         if (this.endTimes === '请选择结束时间') {
           Toast('结束时间不能为空')
+          return false
+        } else if (this.startT >= this.endT) {
+          Toast('请选择有效的起止时间')
           return false
         }
         if (!this.address) {
@@ -379,10 +404,10 @@
         if (!judgmentTel(this.phoneNo)) {
           return false
         }
-//        if (!this.description) {
-//          Toast('备注不能为空')
-//          return false
-//        }
+        if (!this.description) {
+          Toast('备注不能为空')
+          return false
+        }
         let formdata = new FormData()
         formdata.append('userId', this.$store.state.userId)
         formdata.append('tags', this.$store.state.activityTags)
