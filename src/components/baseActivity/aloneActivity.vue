@@ -68,7 +68,6 @@
     },
     methods: {
       redirectActivityDetails (id) {
-//        this.$store.commit(types.ACTIVITYID, id)
         this.$router.push({'path': '/activityDetails/' + id})
       },
       praiseTopic (topic) {

@@ -31,11 +31,11 @@
             </div>
             <div class="dinglian-lists-people dinglian-lists-address clearfix">
               <span>{{item.address}}</span>
-              <span v-show="item.distance">5.6km</span>
+              <span v-show="item.distance"></span>
             </div>
           </div>
         </div>
-        <div class="dinglian-lists-footer" v-show="footer">
+        <div class="dinglian-lists-footer" v-show="footer && item.status !== '0' ">
           <span v-if="item.isSignUp">已报名</span>
           <span v-else-if="!item.isSignUp">已取消</span>
           <div class="dinglian-lists-changeButton">
@@ -74,12 +74,12 @@
       }
     },
     methods: {
-//      下拉加载
+      // 下拉加载
       loadBottom () {
         this.$emit('pullUpActivity')
         this.$refs.loadmore.onBottomLoaded()
       },
-//      判断房间密码
+      // 判断房间密码
       validPassword (activity, password) {
         this.axios({
           method: 'get',
@@ -96,7 +96,7 @@
           }
         }).catch()
       },
-//      跳转到参加活动页面
+      // 跳转到参加活动页面
       goSingUp (activity) {
         this.axios({
           method: 'get',
@@ -112,7 +112,7 @@
           this.$router.push({'path': '/signUpActivity'})
         }).catch()
       },
-//      修改信息和重新报名
+      // 修改信息和重新报名
       updateSignInfo (activity) {
         if (!activity.isOpen) {
           MessageBox.prompt('当前活动未公开，请输入密码').then(({ value, action }) => {
@@ -122,17 +122,16 @@
           this.goSingUp(activity)
         }
       },
-//      跳转到活动详情
+      // 跳转到活动详情
       redirectActivityDetails (id) {
         this.$router.push({'path': '/activityDetails/' + id})
       },
-//      跳转到圈子详情
+      // 跳转到圈子详情
       redirectCircleDetails (id) {
         this.$router.push({'path': '/circleDetails/' + id})
       },
-//      取消报名
+      // 取消报名
       signOut (activity) {
-        console.log(activity.activityId)
         if (activity.isCreator) {
           MessageBox.confirm('确定解散活动?').then(action => {
             this.axios({
@@ -143,6 +142,7 @@
               }
             }).then(res => {
               if (res.data.success) {
+                activity.status = '0'
                 Toast('解散成功')
               } else {
                 Toast(res.data.error.message)

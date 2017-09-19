@@ -1,7 +1,7 @@
 <template>
   <mt-loadmore :bottom-method="loadBottom"
                :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
-               :distanceIndex="1"
+               :distanceIndex="2" :maxDistance="maxDistance"
                ref="loadmore">
   <div class="dinglian-lists-whole">
     <ul class="dinglian-lists-ul">
@@ -51,7 +51,8 @@
     name: 'CircleEvents',
     data () {
       return {
-        autoLill: false
+        autoLill: false,
+        maxDistance: 80
       }
     },
     props: ['topicList', 'allLoaded'],
@@ -66,13 +67,11 @@
       },
 //      上拉加载
       loadBottom () {
-        console.log('加载')
         this.$emit('pullUpEvents')
         this.$refs.loadmore.onBottomLoaded()
       },
       redirectActivityInfo (activityId) {
         // 跳转到活动详情
-//        this.$store.commit(types.ACTIVITYID, activityId)
         this.$router.push({'path': '/activityDetails/' + activityId})
       },
       praiseTopic (topic) {
@@ -154,7 +153,7 @@
   }
   .dinglian-lists-title > span {
     float: right;
-    width: 0.75rem;
+    /*width: 0.75rem;*/
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

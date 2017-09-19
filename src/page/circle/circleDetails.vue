@@ -1,8 +1,6 @@
 <template>
   <div class="dinglian-details-whole">
-  <mt-loadmore :top-method="loadTop"
-               :distanceIndex="3"
-               ref="loadTop">
+  <mt-loadmore :top-method="loadTop" :distanceIndex="3" ref="loadTop" :maxDistance="maxDistance" >
     <header>
       <div class="coverStyle" :style="coverStyle">
         <div class="dinglian-details-join">
@@ -30,7 +28,7 @@
         <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded"></circle-events>
       </mt-tab-container-item>
       <mt-tab-container-item id="histroy">
-        <circle-events :topicList="topicList"></circle-events>
+        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded"></circle-events>
       </mt-tab-container-item>
     </mt-tab-container>
   </mt-loadmore>
@@ -51,6 +49,7 @@
     },
     data () {
       return {
+        maxDistance: 80,
         selected: 'all',
         circleId: this.$route.params.cid,
         circle: '',
@@ -79,6 +78,9 @@
     watch: {
       selected: function (val, oldVal) {
         this.topicList = []
+        this.page = 1
+        this.start = 0
+        this.allLoaded = false
         this.getTopicList(val)
       }
     },
@@ -109,6 +111,11 @@
       },
 //        下拉刷新
       loadTop () {
+        this.topicList = []
+        this.page = 1
+        this.start = 0
+        this.allLoaded = false
+        this.getTopicList(this.selected)
         this.$refs.loadTop.onTopLoaded()
       },
 //      上拉加载

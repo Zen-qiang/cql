@@ -1,6 +1,7 @@
 <template>
   <!--报名成员列表-->
-  <div class="dinglian-mem-whole">
+  <div class="dinglian-mem-whole bColor">
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <ul>
       <li :key="index" v-for="(item, index) in activityMembers">
         <div class="dinglian-mem-firstMember">
@@ -16,7 +17,6 @@
         </div>
         <ul class="dinglian-mem-proxy" v-show="item">
           <li :key="idx" v-for="(retinue, idx) in item.retinues">
-            <!--<img src="../../assets/images/circle.jpg">-->
             <span>{{retinue.name}}</span>
             <span :class="{'male':retinue.gender == '1','female':retinue.gender == '2'}"></span>
             <span>代</span>
@@ -25,12 +25,14 @@
       </li>
     </ul>
     <!--一键发送信息 start-->
-    <mt-button type="default" v-show="!notified && isCreator" class="dinglian-button" @click.native="">一键发送短信</mt-button>
+    <mt-button type="default" v-show="!notified && isCreator && activityMembersCnt > 1" class="dinglian-button" @click.native="sendTextMessage">一键发送短信</mt-button>
     <!--一键发送信息 end-->
   </div>
 </template>
 <script>
   import { formatDate } from '../../utils/date.js'
+  import { Toast, MessageBox } from 'mint-ui'
+  import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
     filters: {
       formatDate (time) {
@@ -38,19 +40,51 @@
         return formatDate(date, 'yyyy-MM-dd hh:mm')
       }
     },
+    components: {
+      DingLianHeader
+    },
     data () {
       return {
         activityId: '',
         activityMembers: [],
         notified: '',
-        isCreator: ''
+        isCreator: '',
+        activityMembersCnt: ''
       }
     },
     created () {
       this.activityId = this.$route.params.id
       this.getActivityMembers()
     },
+    computed: {
+      headerName: function () {
+        return '成员详情' + '(' + this.activityMembersCnt + ')'
+      }
+    },
     methods: {
+      // 一键发送短信
+      sendTextMessage () {
+        if (!this.notified && this.isCreator) {
+          MessageBox.confirm('确定执行此操作?').then(action => {
+            this.axios({
+              method: 'get',
+              url: 'sendActivityNotification',
+              params: {
+                userId: this.$store.state.userId,
+                activityId: this.activityId
+              }
+            }).then(res => {
+              if (res.data.success) {
+                Toast('一键发送短信成功！')
+                this.notified = true
+              } else {
+                Toast(res.data.error.message)
+              }
+            })
+          })
+        }
+      },
+      // 获取我的活动内部的报名人员
       getActivityMembers () {
         this.axios({
           method: 'get',
@@ -60,9 +94,14 @@
             activityId: this.activityId
           }
         }).then(res => {
-          this.activityMembers = res.data.data.members
-          this.notified = res.data.data.notified
-          this.isCreator = res.data.data.isCreator
+          if (res.data.success) {
+            this.activityMembers = res.data.data.members
+            this.notified = res.data.data.notified
+            this.isCreator = res.data.data.isCreator
+            this.activityMembersCnt = res.data.data.activityMembersCnt
+          } else {
+            Toast(res.data.error.message)
+          }
         }).catch()
       }
     }

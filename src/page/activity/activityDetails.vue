@@ -85,8 +85,6 @@
     </div>
     <div class="dinglian-details-types freeOrAAA">
       <label for="">费用</label>
-      <!--<input type="text" v-if="activityInfo.charge === 'free'" value="免费" style="color:#e63832;font-size:0.14rem;" disabled>
-      <input type="text" v-else value="AA制" style="color:#e63832;font-size:0.14rem;" disabled>-->
       <p v-if="activityInfo.charge === 'free'" style="color:#e63832;font-size:0.14rem;">免费</p>
       <p v-else value="AA制" style="color:#e63832;font-size:0.14rem;">AA制</p>
     </div>
@@ -102,14 +100,11 @@
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <!--<textarea id="" cols="30" rows="10" class="dinglian-details-textarea" :disabled="disabled">
-      {{activityInfo.description}}
-    </textarea>-->
     <p class="dinglian-details-textarea">
       {{activityInfo.description}}
     </p>
     <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">解散活动</mt-button>
-    <mt-button v-show="allowSignUp && !isSignUp" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-show="allowSignUp && !isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
