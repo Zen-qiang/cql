@@ -249,7 +249,7 @@
         return val < 10 ? '0' + val : val.toString()
       },
       stringToNumber (val) {
-        return parseInt(val.replace(/\D/g, ''))
+        return Number(val.replace(/\D/g, ''))
       },
       changeStar (value) {
 //        this.startTimes = this.stringToNumber(this.startTimes)
@@ -267,6 +267,7 @@
         this.startTimes = value
         this.endTimes = value
         this.startT = this.stringToNumber(value)
+        this.endT = this.stringToNumber(value)
       },
       changeEnd (value) {
         this.endTimes = value
@@ -378,14 +379,11 @@
           Toast('图片不能为空')
           return false
         }
-//        if (this.startTimes === '请选择开始时间') {
-//          Toast('开始时间不能为空')
-//          return false
-//        } else
         if (this.endTimes === '请选择结束时间') {
           Toast('结束时间不能为空')
           return false
-        } else if (this.startT >= this.endT) {
+        }
+        if (this.startT >= this.endT) {
           Toast('请选择有效的起止时间')
           return false
         }
