@@ -122,6 +122,10 @@ a {
   border-color: #60ce5e;
   background-color: #60ce5e;
 }
+.dinglian-circleInformation-disturb .mint-switch-input:checked + .mint-switch-core {
+  border-color: #DDDDDD;
+  background-color: #DDDDDD;
+}
 /*选择性别*/
 .edit-radio {
   display: inline-block;
@@ -210,3 +214,4 @@ a {
   color: #333!important;
   font-size: 0.14rem!important;
 }
+
