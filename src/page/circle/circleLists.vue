@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">
-      <input type="text" placeholder="请输入圈子关键词" @search="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
+      <input type="text" placeholder="请输入圈子关键词" @keyup.enter="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
