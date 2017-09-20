@@ -227,6 +227,7 @@
             this.circle.isJoined = isJoin
             if (isJoin) {
               this.circle.membersCnt++
+              Toast('加入圈子成功')
             } else {
               this.circle.membersCnt--
             }
