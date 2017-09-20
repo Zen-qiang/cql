@@ -27,10 +27,9 @@
         <div>所有成员</div>
         <div class="dinglian-circleInformation-allPeople">
           <ul>
-            <li>34人</li>
-            <li><img src="../../assets/images/people.svg" alt=""></li>
-            <li></li>
-            <li></li>
+            <li>{{coterieMembersCnt + 1}}人</li>
+            <li><img :src="managePicture" alt="组织者"></li>
+            <li v-for="item in membersPic"><img :src="item" alt="成员"></li>
           </ul>
         </div>
       </li>
@@ -38,7 +37,7 @@
         <div>圈子二维码</div>
         <div class="dinglian-circleInformation-code"></div>
       </li>
-      <li>
+      <li @click="goEditCircle($route.params.cid)">
         <div>编辑圈子资料</div>
         <div class="dinglian-circleInformation-info"></div>
       </li>
@@ -66,17 +65,40 @@
     },
     created () {
       this.circle = this.$store.state.circle
-      this.getCoterieMembers(this.circle.coterieId)
+      if (!this.circle.name) {
+        this.getCoterieInfo()
+      }
+      this.getCoterieMembers(this.$route.params.cid)
     },
     data () {
       return {
         headerName: '圈子资料',
         circle: {},
         coterieMembers: {},
-        disturb: true
+        disturb: true,
+        coterieMembersCnt: 0,
+        managePicture: '',
+        membersPic: []
       }
     },
     methods: {
+      // 获取圈子信息
+      getCoterieInfo () {
+        this.axios({
+          method: 'get',
+          url: 'getCoterieInfo',
+          params: {
+            coterieId: this.$route.params.cid,
+            userId: this.$store.state.userId
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.circle = res.data.data
+          } else {
+            Toast(res.data.error.message)
+          }
+        })
+      },
       // 获取圈子成员
       getCoterieMembers (coterieId) {
         this.axios({
@@ -87,7 +109,17 @@
           }
         }).then(res => {
           if (res.data.success) {
+            this.membersPic = []
             this.coterieMembers = res.data.data
+            this.coterieMembersCnt = res.data.data.coterieMembersCnt
+            this.managePicture = res.data.data.manager.picture
+            this.members = res.data.data.members
+            console.log(this.coterieMembers)
+            if (this.members.length) {
+              for (let i = 0; i < 2; i++) {
+                this.membersPic.push(this.members[i].picture)
+              }
+            }
           } else {
             Toast(res.data.error.message)
           }
@@ -97,13 +129,18 @@
       goCircleCode () {
         this.$router.push({'path': '/qrCode'})
       },
+      // 跳转到编辑圈子
+      goEditCircle (id) {
+        this.$router.push({'path': '/editCircleInformation/' + id})
+      },
+      // 消息推送
       changeCoteriePush () {
         this.axios({
           method: 'get',
           url: 'changeCoteriePush',
           params: {
             userId: this.$store.state.userId,
-            coterieId: this.circle.coterieId,
+            coterieId: this.$route.params.cid,
             allowPush: this.disturb
           }
         }).then(res => {
@@ -245,6 +282,12 @@
     border-radius: 50%;
     line-height: 0.25rem;
     margin-right: 0.05rem;
+  }
+  .dinglian-circleInformation-allPeople > ul > li > img {
+    display: block;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
   }
   .dinglian-circleInformation-allPeople > ul > li:first-of-type {
     font-size: 0.11rem;

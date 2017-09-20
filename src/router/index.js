@@ -309,12 +309,12 @@ export default new Router({
     },
     // 编辑圈子 start
     {
-      path: '/circleInformation',
+      path: '/circleInformation/:cid',
       name: 'CircleInformation',
       component: CircleInformation
     },
     {
-      path: '/editCircleInformation',
+      path: '/editCircleInformation/:cid',
       name: 'EditCircleInformation',
       component: EditCircleInformation
     },
