@@ -231,6 +231,7 @@
               this.circle.membersCnt--
             }
             this.initLayout(this.circle)
+            Toast('加入圈子成功')
           }
         }).catch(err => {
           console.log(err)
