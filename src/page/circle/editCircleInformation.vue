@@ -1,7 +1,7 @@
 <!--编辑圈子详情-->
 <template>
   <div class="dinglian-editCircleinformation-all bColor">
-    <ding-lian-header :headerName="headerName" :cancel="cancel"></ding-lian-header>
+    <ding-lian-header :headerName="headerName"></ding-lian-header>
     <!--编辑圈子封面-->
     <div class="dinglian-createCirclePhoto-uploadPhoto">
       <label v-show="!cover" v-on:click.stop="takePictures"></label>
@@ -20,7 +20,7 @@
       <input type="text" value="LOOKING 街舞">
     </div>
     <!--编辑圈子分类-->
-    <div class="dinglian-editCircleinformation-classify container">
+    <div class="dinglian-editCircleinformation-classify container" @click="goEditCategory">
       <span>分类</span>
       <p>街舞</p>
     </div>
@@ -34,10 +34,11 @@
       </ul>
     </div>
     <!--编辑圈子介绍-->
-    <div class="dinglian-editCircleinformation-introduce">
+    <div class="dinglian-editCircleinformation-introduce" @click="goEditIntroduction">
       <p>圈子介绍</p>
       <div>Lorem ipsum dolor sit amet, consectetur 中国有嘻哈</div>
     </div>
+    <button>保存修改</button>
   </div>
 </template>
 <script>
@@ -108,8 +109,13 @@
           }
         })
       },
-      alertLog () {
-        console.log(12345)
+//      跳转到分类界面
+      goEditCategory () {
+        this.$router.push({'path': '/editCategory'})
+      },
+//      跳转到圈子介绍界面
+      goEditIntroduction () {
+        this.$router.push({'path': '/editIntroduction'})
       }
     }
   }
@@ -229,5 +235,19 @@
     margin-top: 0.08rem;
     font-size: 0.12rem;
     text-indent: 2em;
+  }
+  .dinglian-editCircleinformation-all > button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #DDDDDD;
+    text-align: center;
+    height: 0.49rem;
+    font-size: 0.15rem;
+    color: #333;
+    line-height: 0.49rem;
+    width: 100%;
+    border: none;
+    outline: none;
   }
 </style>

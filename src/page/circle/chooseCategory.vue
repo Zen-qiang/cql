@@ -148,7 +148,7 @@
 </script>
 <style scoped>
   .dinglian-choose-all {
-    height: 6.67rem;
+    height: 100vh;
     background: #fff;
   }
   img {
@@ -293,7 +293,7 @@
     overflow: hidden;
 
   }
-  @-webkit-keyfarmes show {
+  @-webkit-keyframes show {
     from{
       opacity: 0;
       -webkit-transform: translateY(0.05rem);
