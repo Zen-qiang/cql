@@ -93,7 +93,28 @@
       exitCircle () {
         console.log(this.circle.isCreator)
         if (this.circle.isCreator) {
-          this.axios().then()
+          this.axios({
+            method: 'get',
+            url: 'dismissCoterie',
+            params: {
+              userId: this.$store.state.userId,
+              coterieId: this.$route.params.cid
+            }
+          }).then(res => {
+            res.data.success ? Toast('解散圈子成功！') : Toast(res.data.error.message)
+          })
+        } else {
+          this.axios({
+            method: 'post',
+            url: 'joinCoterie',
+            data: {
+              userId: this.$store.state.userId,
+              coterieId: this.$route.params.cid,
+              isJoin: false
+            }
+          }).then(res => {
+            res.data.success ? Toast('退出圈子成功！') : Toast(res.data.error.message)
+          })
         }
       },
       // 切换是否退出圈子

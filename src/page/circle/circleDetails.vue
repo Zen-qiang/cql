@@ -10,7 +10,7 @@
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle(circleId)" v-show="isCreator"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle(circleId)" v-show="isJoined"></span>
         <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
@@ -210,6 +210,7 @@
         }).catch()
       },
       joinCircle () {
+        this.isJoined = !this.isJoined
         // 加入圈子，当已加入时变成退出
         let isJoin = !this.circle.isJoined
         this.axios({

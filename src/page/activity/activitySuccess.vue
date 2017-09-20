@@ -33,7 +33,7 @@
       <i></i>
     </div>
     <mt-button v-show="!isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看活动</mt-button>
-    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectMyActivity">查看我的活动</mt-button>
+    <mt-button v-show="isRelease" type="default" class="edit-button" @click.native="redirectActivityDetails">查看我的活动</mt-button>
   </div>
 
 </template>
@@ -67,9 +67,9 @@
       redirectActivityMembers () {
         this.$router.push({'path': '/praiseMembers/' + this.activityId})
       },
-      redirectMyActivity () {
-        this.$router.push({'path': '/myActivity'})
-      },
+//      redirectMyActivity () {
+//        this.$router.push({'path': '/myActivity'})
+//      },
       redirectCircleDetails () {
         this.$router.push({'path': '/circleDetails/' + this.circle.id})
       },
