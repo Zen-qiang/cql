@@ -9,7 +9,6 @@
     <carousel :carouselList="carouselList"></carousel>
     <!--标题-->
     <div class="dinglian-details-title clearfix">
-      <!--<input type="text" v-model="activityInfo.name" disabled>-->
       <p v-text="activityInfo.name"></p>
       <span @click="goCircleDetail(activityInfo.coterie.id)">{{circleName}}</span>
     </div>
@@ -28,11 +27,10 @@
       <span v-if="activityInfo.status === '1'">进行中</span>
       <span v-else-if="activityInfo.status === '2'">正在报名</span>
       <span v-else>已结束</span>
-      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
+      <!--<mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>-->
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
-      <!--<input type="text" v-model="nickName" disabled>-->
       <p v-text="nickName"></p>
       <a :href="mobileHref" class="dinglian-details-mobile" v-show="isSignUp"></a>
     </div>
@@ -48,14 +46,8 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
-
-      <!--<input type="text" v-model="address" disabled>-->
       <p class="dinglian-details-status-address" v-text="address"></p>
-      <!--<span class="dinglian-details-address"></span>-->
-
-      <!--<input type="text" v-model="address" disabled>-->
       <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
-
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
@@ -95,16 +87,17 @@
     </div>
     <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
-      <input type="password" placeholder="请输入密码" v-model="password">
+      <input type="password" placeholder="******" v-model="password" :disabled="disabled">
     </div>
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <p class="dinglian-details-textarea">
-      {{activityInfo.description}}
-    </p>
+    <!--<p class="dinglian-details-textarea">-->
+      <!--{{activityInfo.description}}-->
+    <!--</p>-->
+    <textarea class="dinglian-details-textarea" cols="30" rows="10" v-model="description" :disabled="disabled"></textarea>
     <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">解散活动</mt-button>
-    <mt-button v-show="allowSignUp && !isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-show="!isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
@@ -242,6 +235,7 @@
           this.nickName = res.data.data.organizer.nickName
           this.minCount = res.data.data.userCount.minCount
           this.maxCount = res.data.data.userCount.maxCount
+          this.description = res.data.data.description
           this.typesTags = res.data.data.tags[0]
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
@@ -324,7 +318,9 @@
               activityId: this.$route.params.aid,
               minCount: this.minCount,
               maxCount: this.maxCount,
-              allowSignUp: this.isOpen
+              allowSignUp: this.isOpen,
+              password: this.password,
+              description: this.description
             }
           }).then(res => {
             if (res.data.success) {

@@ -9,7 +9,7 @@
       </div>
       <div class="dinglian-circleInformation-name">
         <h3>{{circle.name}}</h3>
-        <p>创建于 2018-9-15</p>
+        <p>创建于 {{circle.creationDate}}</p>
       </div>
     </div>
     <!--圈子头部 end-->
@@ -23,16 +23,16 @@
 
     <!--圈子功能 start-->
     <ul class="dinglian-circleInformation-features">
-      <li>
+      <router-link :to="{name: 'CircleMembers', params: {cid: $route.params.cid}}" tag="li">
         <div>所有成员</div>
         <div class="dinglian-circleInformation-allPeople">
           <ul>
             <li>{{coterieMembersCnt + 1}}人</li>
-            <li><img :src="managePicture" alt="组织者"></li>
+            <li><img :src="managePicture" alt=""></li>
             <li v-for="item in membersPic"><img :src="item" alt="成员"></li>
           </ul>
         </div>
-      </li>
+      </router-link>
       <li @click="goCircleCode">
         <div>圈子二维码</div>
         <div class="dinglian-circleInformation-code"></div>
@@ -44,14 +44,21 @@
       <li>
         <div>消息免打扰</div>
         <div class="dinglian-circleInformation-disturb">
-          <mt-switch v-model="disturb" @change="changeCoteriePush">{{disturb}}</mt-switch>
+          <mt-switch v-model="disturb" @change="changeCoteriePush"></mt-switch>
         </div>
       </li>
     </ul>
     <!--圈子功能 end-->
     <!--退出圈子 start-->
-    <div class="dinglian-circleInformation-dropOut">
+    <div class="dinglian-circleInformation-dropOut" @click="cancelCircle">
       退出圈子
+    </div>
+    <div v-show="sheetVisible" class="dinglian-circleInformation-sheet" @click.stop="cancelCircle">
+      <ul class="dinglian-circleInformation-cancel">
+        <li class="dinglian-circleInformation-creator">你是创建者，退出将解散该圈子！</li>
+        <li @click.stop="exitCircle" class="dinglian-circleInformation-exit">退出圈子</li>
+        <li @click.stop="cancelCircle">取消</li>
+      </ul>
     </div>
     <!--退出圈子 end-->
   </div>
@@ -78,10 +85,21 @@
         disturb: true,
         coterieMembersCnt: 0,
         managePicture: '',
-        membersPic: []
+        membersPic: [],
+        sheetVisible: false
       }
     },
     methods: {
+      exitCircle () {
+        console.log(this.circle.isCreator)
+        if (this.circle.isCreator) {
+          this.axios().then()
+        }
+      },
+      // 切换是否退出圈子
+      cancelCircle () {
+        this.sheetVisible = !this.sheetVisible
+      },
       // 获取圈子信息
       getCoterieInfo () {
         this.axios({
@@ -114,7 +132,6 @@
             this.coterieMembersCnt = res.data.data.coterieMembersCnt
             this.managePicture = res.data.data.manager.picture
             this.members = res.data.data.members
-            console.log(this.coterieMembers)
             if (this.members.length) {
               for (let i = 0; i < 2; i++) {
                 this.membersPic.push(this.members[i].picture)
@@ -151,6 +168,9 @@
   }
 </script>
 <style scoped>
+  .dinglian-circleInformation-whole {
+    position: relative;
+  }
   /*圈子头部 start*/
   .dinglian-circleInformation-header {
     height: 0.64rem;
@@ -311,6 +331,41 @@
     font-size: 0.14rem;
     background-color: #ffffff;
     padding-left: 0.15rem;
+  }
+  .dinglian-circleInformation-sheet {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    font-size: 0.14rem;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+  .dinglian-circleInformation-cancel {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(235, 235, 236, 1);
+    z-index: 3;
+  }
+  .dinglian-circleInformation-cancel > li {
+    height: 0.49rem;
+    line-height: 0.49rem;
+    background-color: #ffffff;
+  }
+  .dinglian-circleInformation-cancel .dinglian-circleInformation-creator {
+    height: 0.26rem;
+    line-height: 0.26rem;
+    margin-bottom: 1px;
+    font-size: 0.11rem;
+    color: #999999;
+  }
+  .dinglian-circleInformation-exit {
+    color: #e63832;
+    margin-bottom: 0.09rem;
   }
   /*退出圈子 end*/
 </style>
