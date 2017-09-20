@@ -1,6 +1,7 @@
 <template>
   <mt-header :title="headerName" fixed>
     <mt-button slot="left" icon="back" @click="historyBack"></mt-button>
+    <!--<mt-button slot="right" @click="$parent.alertLog">{{cancel}}</mt-button>-->
   </mt-header>
 </template>
 <script>
@@ -10,10 +11,15 @@
       headerName: {
         type: String,
         default: '出趣浪'
+      },
+      cancel: {
+        type: String,
+        default: ''
       }
     },
     data () {
-      return {}
+      return {
+      }
     },
     methods: {
       historyBack () {
