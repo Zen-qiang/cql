@@ -98,7 +98,8 @@
           this.$router.push({'path': '/chooseActivityTags'})
         }
       },
-      showQRCode () {
+      // 获取二维码信息，并提交
+      getQrCode () {
         let qrcode = {
           qrcodeContent: this.qrcodeContent,
           circleName: this.circle.name,
@@ -107,9 +108,13 @@
           membersCnt: this.circle.membersCnt
         }
         this.$store.commit(types.QRCODE, qrcode)
+      },
+      // 展示二维码
+      showQRCode () {
+        this.getQrCode()
         this.$router.push({'path': '/qrCode'})
       },
-//        下拉刷新
+      // 下拉刷新
       loadTop () {
         this.topicList = []
         this.page = 1
@@ -118,15 +123,17 @@
         this.getTopicList(this.selected)
         this.$refs.loadTop.onTopLoaded()
       },
-//      上拉加载
+      // 上拉加载
       pullUpEvents () {
         this.page ++
         this.start = (this.page - 1) * this.pageSize
         this.getTopicList()
       },
+      // 跳转到编辑圈子
       redirectEditCircle () {
+        this.getQrCode()
         this.$store.commit(types.CIRCLE, this.circle)
-        this.$router.push({'path': '/createCircle'})
+        this.$router.push({'path': '/circleInformation'})
       },
       loadCircleInfo (circleId) {
         // 获取圈子详情
@@ -150,7 +157,7 @@
       sharePeople () {
         var _this = this
         wx.ready(function () {
-//        朋友圈
+          // 朋友圈
           wx.onMenuShareTimeline({
             title: _this.circle.name, // 分享标题
             link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
@@ -162,7 +169,7 @@
               // 用户取消分享后执行的回调函数
             }
           })
-//        朋友
+          // 朋友
           wx.onMenuShareAppMessage({
             title: _this.circle.name, // 分享标题
             desc: _this.circle.description, // 分享描述

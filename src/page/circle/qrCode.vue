@@ -31,7 +31,6 @@
     },
     created () {
       this.qrcodeContent = this.$store.state.qrCode
-      console.log(this.qrcodeContent)
     },
     data () {
       return {

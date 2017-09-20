@@ -8,7 +8,7 @@
     <form class="dinglian-circle-search" onsubmit="return false;">
       <!--<input type="search" placeholder="请输入活动关键词" v-model="keyword" @search="searchActivity" ref="searchInput">
       <span v-show="!keyword"></span>-->
-      <input type="text" placeholder="请输入活动关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}" @search="searchActivity" ref="searchInput">
+      <input type="text" placeholder="请输入活动关键词" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}" @keycode.enter="searchActivity" ref="searchInput">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <activity-info-lists :footer="false" :activityLists="activityLists" v-on:pullUpActivity="pullUpActivity" :allLoaded="allLoaded"></activity-info-lists>

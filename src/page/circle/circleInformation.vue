@@ -5,20 +5,22 @@
     <!--圈子头部 start-->
     <div class="dinglian-circleInformation-header">
       <div class="dinglian-circleInformation-avatar">
-        <img src="../../assets/images/people.svg" alt="">
+        <img :src="circle.cover" alt="圈子封面">
       </div>
       <div class="dinglian-circleInformation-name">
-        <h3>locking 舞会社团</h3>
+        <h3>{{circle.name}}</h3>
         <p>创建于 2018-9-15</p>
       </div>
     </div>
     <!--圈子头部 end-->
+
     <!--圈子介绍 start-->
     <div class="dinglian-circleInformation-introduction">
       <h4>圈子介绍</h4>
-      <p>我们的圈子是建立在xx社区的一圈子，相信会有很多的人参与进来，和我们一起共同的维护这个大家庭，大家周末的6:00-9:00是活动时间哦</p>
+      <p>{{circle.description}}</p>
     </div>
     <!--圈子介绍 end-->
+
     <!--圈子功能 start-->
     <ul class="dinglian-circleInformation-features">
       <li>
@@ -32,7 +34,7 @@
           </ul>
         </div>
       </li>
-      <li>
+      <li @click="goCircleCode">
         <div>圈子二维码</div>
         <div class="dinglian-circleInformation-code"></div>
       </li>
@@ -43,7 +45,7 @@
       <li>
         <div>消息免打扰</div>
         <div class="dinglian-circleInformation-disturb">
-          <mt-switch></mt-switch>
+          <mt-switch v-model="disturb" @change="changeCoteriePush">{{disturb}}</mt-switch>
         </div>
       </li>
     </ul>
@@ -56,14 +58,57 @@
   </div>
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
     components: {
       DingLianHeader
     },
+    created () {
+      this.circle = this.$store.state.circle
+      this.getCoterieMembers(this.circle.coterieId)
+    },
     data () {
       return {
-        headerName: '圈子资料'
+        headerName: '圈子资料',
+        circle: {},
+        coterieMembers: {},
+        disturb: true
+      }
+    },
+    methods: {
+      // 获取圈子成员
+      getCoterieMembers (coterieId) {
+        this.axios({
+          method: 'get',
+          url: 'getCoterieMembers',
+          params: {
+            coterieId: coterieId
+          }
+        }).then(res => {
+          if (res.data.success) {
+            this.coterieMembers = res.data.data
+          } else {
+            Toast(res.data.error.message)
+          }
+        })
+      },
+      // 圈子二维码
+      goCircleCode () {
+        this.$router.push({'path': '/qrCode'})
+      },
+      changeCoteriePush () {
+        this.axios({
+          method: 'get',
+          url: 'changeCoteriePush',
+          params: {
+            userId: this.$store.state.userId,
+            coterieId: this.circle.coterieId,
+            allowPush: this.disturb
+          }
+        }).then(res => {
+          res.data.success ? Toast('消息推送切换成功') : Toast(res.data.error.message)
+        })
       }
     }
   }
@@ -83,6 +128,14 @@
   .dinglian-circleInformation-avatar {
     width: 0.44rem;
     height: 0.44rem;
+  }
+  .dinglian-circleInformation-avatar > img {
+    display: block;
+    width: 0.44rem;
+    height: 0.44rem;
+  }
+  .dinglian-circleInformation-name {
+    padding-left: 0.15rem;
   }
   .dinglian-circleInformation-name > h3 {
     font-family: ﻿PingFangSC-Light;
@@ -129,7 +182,6 @@
     padding-top: 0.11rem;
     line-height: 0.2rem;
     letter-spacing: -0.5px;
-    height: 0.7rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
