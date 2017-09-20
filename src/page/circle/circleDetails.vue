@@ -10,7 +10,7 @@
           <span v-else @click="joinCircle()">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle()" v-show="isCreator"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle(circleId)" v-show="isCreator"></span>
         <!--二维码-->
         <span class="dinglian-details-qrcode" @click="showQRCode"></span>
         <div class="dinglian-details-gray"></div>
@@ -130,10 +130,10 @@
         this.getTopicList()
       },
       // 跳转到编辑圈子
-      redirectEditCircle () {
+      redirectEditCircle (id) {
         this.getQrCode()
         this.$store.commit(types.CIRCLE, this.circle)
-        this.$router.push({'path': '/circleInformation'})
+        this.$router.push({'path': '/circleInformation/' + id})
       },
       loadCircleInfo (circleId) {
         // 获取圈子详情
@@ -227,6 +227,7 @@
             this.circle.isJoined = isJoin
             if (isJoin) {
               this.circle.membersCnt++
+              Toast('加入圈子成功')
             } else {
               this.circle.membersCnt--
             }
