@@ -7,7 +7,7 @@
       <textarea v-model="introduction"></textarea>
       <p><span v-text="num"></span>字</p>
     </div>
-    <button>确定</button>
+    <button @click="goEditCircleInformation">确定</button>
   </div>
 </template>
 <script>
@@ -32,6 +32,11 @@
           this.introduction = val.substr(0, 400)
           this.num = 0
         }
+      }
+    },
+    methods: {
+      goEditCircleInformation () {
+        this.$router.push({'path': '/editCircleInformation'})
       }
     }
   }
