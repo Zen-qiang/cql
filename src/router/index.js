@@ -226,7 +226,7 @@ export default new Router({
       component: ActivityLists,
       meta: {
         requireAuth: requireAuth,
-        keepAlive: true
+        keepAlive: false
       }
     },
     {

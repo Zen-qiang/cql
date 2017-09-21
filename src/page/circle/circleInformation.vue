@@ -98,7 +98,12 @@
               coterieId: this.$route.params.cid
             }
           }).then(res => {
-            res.data.success ? Toast('解散圈子成功！') : Toast(res.data.error.message)
+            if (res.data.success) {
+              Toast('解散圈子成功！')
+              this.$router.replace({'path': '/circleDetails/' + this.$route.params.cid})
+            } else {
+              Toast(res.data.error.message)
+            }
           })
         } else {
           this.axios({
@@ -110,7 +115,12 @@
               isJoin: false
             }
           }).then(res => {
-            res.data.success ? Toast('退出圈子成功！') : Toast(res.data.error.message)
+            if (res.data.success) {
+              Toast('退出圈子成功！')
+              this.$router.replace({'path': '/circleDetails/' + this.$route.params.cid})
+            } else {
+              Toast(res.data.error.message)
+            }
           })
         }
       },
