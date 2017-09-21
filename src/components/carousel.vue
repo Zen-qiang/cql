@@ -16,13 +16,16 @@
     data () {
       return {
         indicators: true,
-        redUrl: []
+        redUrl: [],
+        listsLength: 0
       }
     },
     props: ['carouselList'],
-    created () {
-      if (this.carouselList.length === 1) {
-        this.indicators = false
+    watch: {
+      carouselList: function (val) {
+        if (val.length === 1) {
+          this.indicators = false
+        }
       }
     },
     methods: {
