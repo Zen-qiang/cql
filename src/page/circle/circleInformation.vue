@@ -131,7 +131,6 @@
           if (res.data.success) {
             this.circle = res.data.data
             this.disturb = !res.data.data.allowPush
-            console.log(this.disturb + '请求')
           } else {
             Toast(res.data.error.message)
           }

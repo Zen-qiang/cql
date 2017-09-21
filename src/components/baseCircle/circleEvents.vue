@@ -153,7 +153,7 @@
   }
   .dinglian-lists-title > span {
     float: right;
-    /*width: 0.75rem;*/
+    max-width: 0.75rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
