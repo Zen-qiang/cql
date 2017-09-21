@@ -53,7 +53,7 @@
     <div class="dinglian-details-sign" @click="registerInformation">
       <div>
         <label for="">报名信息</label>
-        <span>{{userCount.currentCount}}</span><span>/{{userCount.minCount}}-{{userCount.maxCount}}</span>
+        <span :class="{'red': userCount.currentCount >= userCount.maxCount }">{{userCount.currentCount}}</span><span>/{{userCount.minCount}}-{{userCount.maxCount}}</span>
       </div>
       <div class="dinglian-details-activityMembers">
         <div><img :src="item.picture" alt="" v-for="item in activityMembers"></div>
@@ -92,10 +92,10 @@
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <!--<p class="dinglian-details-textarea">-->
-      <!--{{activityInfo.description}}-->
-    <!--</p>-->
-    <textarea class="dinglian-details-textarea" cols="30" rows="10" v-model="description" :disabled="disabled"></textarea>
+    <p class="dinglian-details-textarea" v-if="disabled">
+      {{description}}
+    </p>
+    <textarea v-else class="dinglian-details-textarea" cols="30" rows="10" v-model="description" :disabled="disabled"></textarea>
     <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">解散活动</mt-button>
     <mt-button v-show="!isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
@@ -148,7 +148,8 @@
         userCount: '',
         isSignUp: false,
         circleName: '',
-        headerName: '活动详情'
+        headerName: '活动详情',
+        description: ''
       }
     },
     created () {
@@ -339,7 +340,7 @@
 <style scoped>
   /*编辑图标*/
   .dinglian-details-editIcon {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     z-index: 10;
@@ -497,6 +498,9 @@
     color: #999999;
   }
   .dinglian-details-sign >div label + span {
+    color: green;
+  }
+  .dinglian-details-sign .red {
     color:#E63832;
   }
   .dinglian-details-activityMembers {
@@ -569,7 +573,7 @@
     font-size: 0.12rem;
     /*text-align: left;*/
     padding: 0 0.15rem 0.15rem;
-    background-color: #ffffff;
+    background-color: #ffffff!important;
     overflow-y: scroll;
     text-indent: 2em;
     line-height: 0.18rem;

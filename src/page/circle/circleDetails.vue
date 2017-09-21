@@ -95,6 +95,8 @@
 //      发布活动
       redirectCreateActivity () {
         if (this.isJoined) {
+          // 将圈子信息传递
+          this.$store.commit(types.CURRENTCIRCLE, this.circle)
           this.$router.push({'path': '/chooseActivityTags'})
         }
       },
