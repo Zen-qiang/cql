@@ -7,6 +7,10 @@ export const CIRCLENAME = 'circleName'
 export const CIRCLETAGS = 'circleTags'
 export const CIRCLEID = 'circleId'
 
+// 编辑圈子
+export const CIRCLEDESCIPTION = 'circleDesciption'
+export const ACTIVITYTYPENAME = 'activityTypeName'
+export const SELECTEDTAGS = 'selectedTags'
 // 活动
 export const ACTIVITY = 'activity'
 export const ACTIVITYID = 'activityId'

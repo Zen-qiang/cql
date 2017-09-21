@@ -42,8 +42,11 @@
         isEdit: false,
         circle: {},
         activityType: [],
+        activityTypeName: '',
         tagsList: [],
         selectedTags: [],
+        selectedTagsList: [],
+        selectedTagsName: [],
         isUnlimited: false,
         tagImgs: [require('../../assets/images/dancing.svg'), require('../../assets/images/table.svg'), require('../../assets/images/basketball.svg')]
       }
@@ -57,9 +60,31 @@
     },
     methods: {
       goNextStep () {
+        this.getSelectTags()
         this.$store.commit(types.CIRCLE, this.circle)
         this.$store.commit(types.CIRCLETAGS, this.convertToStr(this.selectedTags))
-        this.$router.push({'path': '/editCircleinformation'})
+        this.$store.commit(types.ACTIVITYTYPENAME, this.activityType[this.selectedTags[0] - 1].name)
+        this.$store.commit(types.SELECTEDTAGS, this.selectedTagsName)
+        this.$router.go(-1)
+      },
+      getSelectTags () {
+        this.axios({
+          method: 'get',
+          url: 'getTagList',
+          params: {
+            parentId: this.selectedTags[0]
+          }
+        }).then(res => {
+          this.selectedTagsList = res.data.data
+          var arr = this.selectedTags.slice(1)
+          for (var i in arr) {
+            for (var j in this.selectedTagsList) {
+              if (this.selectedTagsList[j].id === arr[i]) {
+                this.selectedTagsName.push(this.selectedTagsList[j].name)
+              }
+            }
+          }
+        }).catch()
       },
       getActivityType () {
         // 获取一级标签

@@ -319,12 +319,12 @@ export default new Router({
       component: EditCircleInformation
     },
     {
-      path: '/editCategory',
+      path: '/editCategory/:cid',
       name: 'EditCategory',
       component: EditCategory
     },
     {
-      path: '/editIntroduction',
+      path: '/editIntroduction/:cid',
       name: 'EditIntroduction',
       component: EditIntroduction
     },

@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+  import * as types from '../../store/mutation-types'
   import { Toast } from 'mint-ui'
   import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
@@ -36,7 +37,8 @@
     },
     methods: {
       goEditCircleInformation () {
-        this.$router.push({'path': '/editCircleInformation'})
+        this.$store.commit(types.CIRCLEDESCIPTION, this.introduction)
+        this.$router.go(-1)
       }
     }
   }
