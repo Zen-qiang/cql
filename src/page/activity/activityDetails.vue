@@ -321,7 +321,7 @@
               activityId: this.$route.params.aid,
               minCount: this.minCount,
               maxCount: this.maxCount,
-              allowSignUp: this.isOpen,
+              isOpen: this.isOpen,
               password: this.password,
               description: this.description
             }

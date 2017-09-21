@@ -134,7 +134,6 @@
       // 跳转到编辑圈子
       redirectEditCircle (id) {
         this.getQrCode()
-        this.$store.commit(types.CIRCLE, this.circle)
         this.$router.push({'path': '/circleInformation/' + id})
       },
       loadCircleInfo (circleId) {

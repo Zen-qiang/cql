@@ -72,10 +72,7 @@
       DingLianHeader
     },
     created () {
-      this.circle = this.$store.state.circle
-      if (!this.circle.name) {
-        this.getCoterieInfo()
-      }
+      this.getCoterieInfo()
       this.getCoterieMembers(this.$route.params.cid)
     },
     data () {
@@ -83,7 +80,7 @@
         headerName: '圈子资料',
         circle: {},
         coterieMembers: {},
-        disturb: true,
+        disturb: '',
         coterieMembersCnt: 0,
         managePicture: '',
         membersPic: [],
@@ -92,7 +89,6 @@
     },
     methods: {
       exitCircle () {
-        console.log(this.circle.isCreator)
         if (this.circle.isCreator) {
           this.axios({
             method: 'get',
@@ -135,6 +131,7 @@
           if (res.data.success) {
             this.circle = res.data.data
             this.disturb = !res.data.data.allowPush
+            console.log(this.disturb + '请求')
           } else {
             Toast(res.data.error.message)
           }
