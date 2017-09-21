@@ -6,13 +6,13 @@
         <div class="dinglian-details-join">
           <h4>{{circle.name}}</h4>
           <p>已有&nbsp;{{circle.membersCnt}}&nbsp;人参加</p>
-          <span v-if="isCreator" @click="dismissCircle()">{{buttonText}}</span>
-          <span v-else @click="joinCircle()">{{buttonText}}</span>
+          <span v-show="!isCreator && !isJoined && !isDismissed" @click="joinCircle()">{{buttonText}}</span>
+          <span v-show="isDismissed">{{buttonText}}</span>
         </div>
         <!--编辑按钮-->
-        <span class="dinglian-details-edit" @click="redirectEditCircle(circleId)" v-show="isCreator"></span>
+        <span class="dinglian-details-edit" @click="redirectEditCircle(circleId)" v-show="isJoined && !isDismissed"></span>
         <!--二维码-->
-        <span class="dinglian-details-qrcode" @click="showQRCode"></span>
+        <span class="dinglian-details-qrcode" @click="showQRCode" v-show="!isDismissed"></span>
         <div class="dinglian-details-gray"></div>
       </div>
       <p>{{circle.description}}</p>
@@ -25,14 +25,14 @@
     <!-- tab-container -->
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="all">
-        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded"></circle-events>
+        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded" :isDismissed="isDismissed"></circle-events>
       </mt-tab-container-item>
       <mt-tab-container-item id="histroy">
-        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded"></circle-events>
+        <circle-events :topicList="topicList" v-on:pullUpEvents="pullUpEvents" :allLoaded="allLoaded" :isDismissed="isDismissed"></circle-events>
       </mt-tab-container-item>
     </mt-tab-container>
   </mt-loadmore>
-    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="isJoined">
+    <button class="dinglian-activityLists-release" @click="redirectCreateActivity()" v-show="isJoined && !isDismissed">
     </button>
   </div>
 </template>
@@ -72,7 +72,7 @@
         qrcodeContent: '',
         showed: false,
         isJoined: false,
-        active: false
+        isDismissed: false
       }
     },
     watch: {
@@ -95,6 +95,8 @@
 //      发布活动
       redirectCreateActivity () {
         if (this.isJoined) {
+          // 将圈子信息传递
+          this.$store.commit(types.CURRENTCIRCLE, this.circle)
           this.$router.push({'path': '/chooseActivityTags'})
         }
       },
@@ -132,7 +134,6 @@
       // 跳转到编辑圈子
       redirectEditCircle (id) {
         this.getQrCode()
-        this.$store.commit(types.CIRCLE, this.circle)
         this.$router.push({'path': '/circleInformation/' + id})
       },
       loadCircleInfo (circleId) {
@@ -147,7 +148,13 @@
           params: param
         }).then(res => {
           this.circle = res.data.data
+          this.isCreator = res.data.data.isCreator
           this.isJoined = res.data.data.isJoined
+          if (res.data.data.status !== 1) {
+            this.isDismissed = true
+          } else {
+            this.isDismissed = false
+          }
           this.sharePeople(res.data.data)
           this.coverStyle.backgroundImage = 'url(' + this.circle.cover + ')'
           this.initLayout(this.circle)
@@ -210,6 +217,7 @@
         }).catch()
       },
       joinCircle () {
+        this.isJoined = !this.isJoined
         // 加入圈子，当已加入时变成退出
         let isJoin = !this.circle.isJoined
         this.axios({
@@ -261,20 +269,9 @@
       initLayout (circle) {
         // 初始化界面
         if (circle) {
-          this.isCreator = circle.isCreator
-          if (circle.isCreator) {
-            if (circle.status && circle.status === 1) {
-              this.buttonText = '解散圈子'
-            }
-          } else {
-            // 参与者
-            if (circle.isJoined) {
-              this.buttonText = '退出'
-              this.active = true
-            } else {
-              this.buttonText = '加入'
-              this.active = false
-            }
+          // 陌生人
+          if (!circle.isJoined && !circle.isCreator) {
+            this.buttonText = '加入'
           }
           if (circle.status) {
             if (circle.status === 2) {

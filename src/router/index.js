@@ -110,6 +110,13 @@ const EditIntroduction = r => {
     Indicator.close()
   }, 'editIntroduction')
 }
+const CircleMembers = r => {
+  Indicator.open('加载中...')
+  require.ensure(['@/page/circle/circleMembers.vue'], () => {
+    r(require('@/page/circle/circleMembers.vue'))
+    Indicator.close()
+  }, 'circleMembers')
+}
 // 编辑圈子 end
 
 import ChooseActivityTags from '@/page/activity/chooseActivityTags.vue'
@@ -219,7 +226,7 @@ export default new Router({
       component: ActivityLists,
       meta: {
         requireAuth: requireAuth,
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -327,6 +334,11 @@ export default new Router({
       path: '/editIntroduction/:cid',
       name: 'EditIntroduction',
       component: EditIntroduction
+    },
+    {
+      path: '/circleMembers/:cid',
+      name: 'CircleMembers',
+      component: CircleMembers
     },
     // 编辑圈子 end
     {

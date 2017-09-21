@@ -30,4 +30,6 @@ export const QRCODE = 'qrCode'
 export const CURRENTADDRESS = 'currentAddress'
 // 当前info
 export const CURRENTINFO = 'currentInfo'
+// 圈子详情页面，携带当前圈子
+export const CURRENTCIRCLE = 'currentCircle'
 

@@ -68,6 +68,9 @@ const mutations = {
   },
   [types.CURRENTINFO]: (state, currentInfo) => {
     state.currentInfo = currentInfo
+  },
+  [types.CURRENTCIRCLE]: (state, currentCircle) => {
+    state.currentCircle = currentCircle
   }
 }
 export default mutations

@@ -25,8 +25,10 @@ const state = {
   paramData: {},
   // 二维码
   qrCode: '',
+  // 当前的活动信息 用于编辑活动页面
   currentAddress: {},
-  // 当前的活动信息
-  currentInfo: {}
+  currentInfo: {},
+  // 圈子详情页面，携带当前圈子
+  currentCircle: {}
 }
 export default state

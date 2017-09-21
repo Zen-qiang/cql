@@ -9,7 +9,6 @@
     <carousel :carouselList="carouselList"></carousel>
     <!--标题-->
     <div class="dinglian-details-title clearfix">
-      <!--<input type="text" v-model="activityInfo.name" disabled>-->
       <p v-text="activityInfo.name"></p>
       <span @click="goCircleDetail(activityInfo.coterie.id)">{{circleName}}</span>
     </div>
@@ -28,11 +27,10 @@
       <span v-if="activityInfo.status === '1'">进行中</span>
       <span v-else-if="activityInfo.status === '2'">正在报名</span>
       <span v-else>已结束</span>
-      <mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>
+      <!--<mt-switch v-model="allowSignUp" class="edit-switch" v-show="isCreator && !disabled"></mt-switch>-->
     </div>
     <div class="dinglian-details-status">
       <label for="">组织者</label>
-      <!--<input type="text" v-model="nickName" disabled>-->
       <p v-text="nickName"></p>
       <a :href="mobileHref" class="dinglian-details-mobile" v-show="isSignUp"></a>
     </div>
@@ -48,20 +46,14 @@
     </div>
     <div class="dinglian-details-status">
       <label for="">地址</label>
-
-      <!--<input type="text" v-model="address" disabled>-->
       <p class="dinglian-details-status-address" v-text="address"></p>
-      <!--<span class="dinglian-details-address"></span>-->
-
-      <!--<input type="text" v-model="address" disabled>-->
       <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
-
     </div>
 
     <div class="dinglian-details-sign" @click="registerInformation">
       <div>
         <label for="">报名信息</label>
-        <span>{{userCount.currentCount}}</span><span>/{{userCount.minCount}}-{{userCount.maxCount}}</span>
+        <span :class="{'red': userCount.currentCount >= userCount.maxCount }">{{userCount.currentCount}}</span><span>/{{userCount.minCount}}-{{userCount.maxCount}}</span>
       </div>
       <div class="dinglian-details-activityMembers">
         <div><img :src="item.picture" alt="" v-for="item in activityMembers"></div>
@@ -95,16 +87,17 @@
     </div>
     <div class="dinglian-details-types" v-show="!isOpen && isCreator">
       <label for="">输入密码</label>
-      <input type="password" placeholder="请输入密码" v-model="password">
+      <input type="password" placeholder="******" v-model="password" :disabled="disabled">
     </div>
     <div class="dinglian-details-types remarks">
       <label for="">活动备注</label>
     </div>
-    <p class="dinglian-details-textarea">
-      {{activityInfo.description}}
+    <p class="dinglian-details-textarea" v-if="disabled">
+      {{description}}
     </p>
+    <textarea v-else class="dinglian-details-textarea" cols="30" rows="10" v-model="description" :disabled="disabled"></textarea>
     <mt-button v-show="isCreator && activityInfo.status !== '0' " type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">解散活动</mt-button>
-    <mt-button v-show="allowSignUp && !isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
+    <mt-button v-show="!isSignUp && !isCreator && activityInfo.status !== '0'" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="singnUpActivity">参加活动</mt-button>
     <mt-button v-show="activityInfo.status !== '0' && isSignUp && !isCreator" type="default" style="margin-top: 10px" class="dinglian-button" @click.native="cancelSingnUpActivity">取消报名</mt-button>
   </div>
 </template>
@@ -112,6 +105,7 @@
   import { MessageBox, Toast } from 'mint-ui'
   import Carousel from '../../components/carousel.vue'
   import DingLianHeader from '../../components/DingLianHeader.vue'
+  import cookie from '../../utils/cookie'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
@@ -155,7 +149,8 @@
         userCount: '',
         isSignUp: false,
         circleName: '',
-        headerName: '活动详情'
+        headerName: '活动详情',
+        description: ''
       }
     },
     created () {
@@ -242,6 +237,7 @@
           this.nickName = res.data.data.organizer.nickName
           this.minCount = res.data.data.userCount.minCount
           this.maxCount = res.data.data.userCount.maxCount
+          this.description = res.data.data.description
           this.typesTags = res.data.data.tags[0]
           this.tags = res.data.data.tags.splice(1)
           this.isCreator = res.data.data.isCreator
@@ -273,7 +269,8 @@
               }
             }).then(res => {
               if (res.data.success) {
-                this.$router.push({'path': '/activityLists'})
+                this.$router.replace({'path': cookie.readCookie('previousPage')})
+                // this.$router.push({'path': '/activityLists'})
               }
             }).catch()
           })
@@ -324,7 +321,9 @@
               activityId: this.$route.params.aid,
               minCount: this.minCount,
               maxCount: this.maxCount,
-              allowSignUp: this.isOpen
+              isOpen: this.isOpen,
+              password: this.password,
+              description: this.description
             }
           }).then(res => {
             if (res.data.success) {
@@ -343,7 +342,7 @@
 <style scoped>
   /*编辑图标*/
   .dinglian-details-editIcon {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     z-index: 10;
@@ -501,6 +500,9 @@
     color: #999999;
   }
   .dinglian-details-sign >div label + span {
+    color: green;
+  }
+  .dinglian-details-sign .red {
     color:#E63832;
   }
   .dinglian-details-activityMembers {
@@ -573,7 +575,7 @@
     font-size: 0.12rem;
     /*text-align: left;*/
     padding: 0 0.15rem 0.15rem;
-    background-color: #ffffff;
+    background-color: #ffffff!important;
     overflow-y: scroll;
     text-indent: 2em;
     line-height: 0.18rem;

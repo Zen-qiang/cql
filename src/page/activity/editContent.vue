@@ -270,7 +270,6 @@
         this.currentInfo.switchOpen = this.switchOpen
         this.currentInfo.password = this.password
         this.currentInfo.description = this.description
-        console.log(this.currentInfo)
         this.$store.commit(types.CURRENTINFO, this.currentInfo)
         this.$router.push({'name': 'ActivityPosition'})
       },
@@ -427,8 +426,6 @@
             this.$store.commit(types.CURRENTINFO, this.currentInfo)
             this.$router.replace({'path': '/activitySuccess'})
           }
-        }).catch(err => {
-          console.log(err)
         })
       },
       getMyCircles () {
@@ -445,17 +442,23 @@
             params: param
           }).then(res => {
             this.circles = res.data.data
-            if (this.circles.length === 1) {
-              this.circle = this.circles[0]
-            } else {
-              for (var i in this.circles) {
-                if (this.circles[i].isLastCoterie) {
-                  this.circle = this.circles[i]
-                  break
-                }
+            if (JSON.stringify(this.$store.state.currentInfo) === '{}') {
+              if (JSON.stringify(this.$store.state.currentCircle) !== '{}') {
+                this.circle = this.$store.state.currentCircle
+                return
               }
-              if (!this.circle) {
+              if (this.circles.length === 1) {
                 this.circle = this.circles[0]
+              } else {
+                for (var i in this.circles) {
+                  if (this.circles[i].isLastCoterie) {
+                    this.circle = this.circles[i]
+                    break
+                  }
+                }
+                if (!this.circle) {
+                  this.circle = this.circles[0]
+                }
               }
             }
           }).catch()
