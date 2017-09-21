@@ -44,7 +44,7 @@
       <li>
         <div>消息免打扰</div>
         <div class="dinglian-circleInformation-disturb">
-          {{disturb ? '免打扰' : '接收信息'}}
+          {{disturb ? '免打扰' : '接收信息'}}&nbsp;&nbsp;
           <mt-switch v-model="disturb" @change="changeCoteriePush"></mt-switch>
         </div>
       </li>
@@ -134,6 +134,7 @@
         }).then(res => {
           if (res.data.success) {
             this.circle = res.data.data
+            this.disturb = !res.data.data.allowPush
           } else {
             Toast(res.data.error.message)
           }
