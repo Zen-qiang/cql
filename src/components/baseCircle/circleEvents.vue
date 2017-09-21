@@ -55,7 +55,7 @@
         maxDistance: 80
       }
     },
-    props: ['topicList', 'allLoaded'],
+    props: ['topicList', 'allLoaded', 'isDismissed'],
     methods: {
         // 跳转活动评论
       gotoChatroom (id) {
@@ -76,7 +76,7 @@
       },
       praiseTopic (topic) {
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
-        if (!topic.hasPraise) {
+        if (!topic.hasPraise && !this.isDismissed) {
           this.axios({
             method: 'get',
             url: 'praiseTopic',

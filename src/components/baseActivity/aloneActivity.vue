@@ -47,6 +47,9 @@
       },
       activity: {
         type: Object
+      },
+      isDismissed: {
+        type: Boolean
       }
     },
     data () {
@@ -72,7 +75,7 @@
       },
       praiseTopic (topic) {
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
-        if (!topic.hasPraise) {
+        if (!topic.hasPraise && !this.isDismissed) {
           this.axios({
             method: 'get',
             url: 'praiseTopic',
