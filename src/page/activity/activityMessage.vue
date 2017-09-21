@@ -15,7 +15,7 @@
       <!--<p>快来报名呀，一起触发</p>-->
     </div>
 
-    <alone-activity :footer="true" :activity="activity"></alone-activity>
+    <alone-activity :footer="true" :activity="activity" :isDismissed="isDismissed"></alone-activity>
 
     <div class="dinglian-message-comment">
       <div class="dinglian-message-comment-order">
@@ -75,7 +75,8 @@
         topicCommentList: '',
         description: '',
         topic: '',
-        headerName: '活动评论'
+        headerName: '活动评论',
+        isDismissed: false
       }
     },
     methods: {
@@ -87,6 +88,10 @@
       },
 //        发送评论
       createActivityTopic () {
+        if (this.isDismissed) {
+          Toast('该活动所在圈子已解散')
+          return
+        }
         this.axios({
           method: 'post',
           url: '/commentTopic',
@@ -121,6 +126,11 @@
           this.activity.hasPraise = res.data.data.hasPraise
           this.activity.praiseCnt = res.data.data.praiseCnt
           this.activity.commentCnt = res.data.data.commentCnt
+          if (res.data.data.activity.coterie.status === 3) {
+            this.isDismissed = true
+          } else {
+            this.isDismissed = false
+          }
         }).catch()
       },
 //      获取评论列表
