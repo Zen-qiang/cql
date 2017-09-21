@@ -82,6 +82,8 @@ router.beforeEach((to, from, next) => {
       console.log(error)
     })
   }
+  // 记录上一个页面
+  cookie.setCookie('previousPage', from.fullPath)
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.userId) {
       next()

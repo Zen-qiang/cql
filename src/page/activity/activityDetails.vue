@@ -105,6 +105,7 @@
   import { MessageBox, Toast } from 'mint-ui'
   import Carousel from '../../components/carousel.vue'
   import DingLianHeader from '../../components/DingLianHeader.vue'
+  import cookie from '../../utils/cookie'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
@@ -267,7 +268,8 @@
               }
             }).then(res => {
               if (res.data.success) {
-                this.$router.push({'path': '/activityLists'})
+                this.$router.replace({'path': cookie.readCookie('previousPage')})
+                // this.$router.push({'path': '/activityLists'})
               }
             }).catch()
           })
