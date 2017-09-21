@@ -37,13 +37,14 @@
         <div>圈子二维码</div>
         <div class="dinglian-circleInformation-code"></div>
       </li>
-      <li @click="goEditCircle($route.params.cid)">
+      <li @click="goEditCircle($route.params.cid)" v-show="circle.isCreator">
         <div>编辑圈子资料</div>
         <div class="dinglian-circleInformation-info"></div>
       </li>
       <li>
         <div>消息免打扰</div>
         <div class="dinglian-circleInformation-disturb">
+          {{disturb ? '免打扰' : '接收信息'}}
           <mt-switch v-model="disturb" @change="changeCoteriePush"></mt-switch>
         </div>
       </li>
@@ -55,7 +56,7 @@
     </div>
     <div v-show="sheetVisible" class="dinglian-circleInformation-sheet" @click.stop="cancelCircle">
       <ul class="dinglian-circleInformation-cancel">
-        <li class="dinglian-circleInformation-creator">你是创建者，退出将解散该圈子！</li>
+        <li class="dinglian-circleInformation-creator" v-show="circle.isCreator">你是创建者，退出将解散该圈子！</li>
         <li @click.stop="exitCircle" class="dinglian-circleInformation-exit">退出圈子</li>
         <li @click.stop="cancelCircle">取消</li>
       </ul>
@@ -179,7 +180,7 @@
           params: {
             userId: this.$store.state.userId,
             coterieId: this.$route.params.cid,
-            allowPush: this.disturb
+            allowPush: !this.disturb
           }
         }).then(res => {
           res.data.success ? Toast('消息推送切换成功') : Toast(res.data.error.message)
