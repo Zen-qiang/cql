@@ -269,7 +269,11 @@
               }
             }).then(res => {
               if (res.data.success) {
-                this.$router.replace({'path': cookie.readCookie('previousPage')})
+                if (cookie.readCookie('previousPage') === '/activitySuccess') {
+                  this.$router.push({'path': '/activityLists'})
+                } else {
+                  this.$router.replace({'path': cookie.readCookie('previousPage')})
+                }
                 // this.$router.push({'path': '/activityLists'})
               }
             }).catch()
