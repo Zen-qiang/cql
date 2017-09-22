@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">
-      <input type="text" placeholder="请输入圈子关键词" @keyup.enter="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
+      <input type="search" placeholder="请输入圈子关键词" @keyup.enter="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
@@ -264,7 +264,7 @@
     right: 0.18rem;
     opacity: 1;
   }
-  .dinglian-circle-search > input[type^=text] {
+  .dinglian-circle-search > input[type^=search] {
     /*margin: 0 auto;*/
     margin: 0 0.15rem 0 0.15rem;
     height: 0.24rem;
@@ -281,13 +281,16 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
-  .dinglian-circle-search > input[type^=text].active {
+  .dinglian-circle-search > input[type^=search].active {
     background-position-x: 0.05rem;
     padding-left: 0.2rem;
     margin: 0 0.6rem 0 0.15rem;
     -webkit-border-radius: 0.04rem;
     -moz-border-radius: 0.04rem;
     border-radius: 0.04rem;
+  }
+  input[type=search]::-webkit-search-cancel-button{
+    -webkit-appearance: none;
   }
   /**/
   .mint-search {
