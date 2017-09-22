@@ -11,8 +11,8 @@
       <span v-else></span>
       <p :class="{'active':chooseCircle}"></p>
     </div>
-    <div class="dinglian-edit-circleLists" :class="{'active':chooseCircle}">
-    <ul>
+    <div class="dinglian-edit-circleLists" :class="{'active':chooseCircle}" ref="outHeight">
+    <ul ref="inHeight">
         <!--<li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)">{{item.name}}</li>-->
       <li :key="item.id" v-for="item of circles" @click.stop="checkCircle(item)" :class="{'active': switchCircle == item.name || item.name == circle.name}">{{item.name}}</li>
     </ul>
@@ -334,8 +334,10 @@
       belongCircle () {
         if (!this.chooseCircle) {
           this.chooseCircle = true
+          this.$refs.outHeight.style.height = this.$refs.inHeight.offsetHeight + 'px'
         } else {
           this.chooseCircle = false
+          this.$refs.outHeight.style.height = '0px'
         }
       },
       openPicker () {
@@ -468,6 +470,7 @@
         this.circle = circle
         this.chooseCircle = false
         this.switchCircle = circle.name
+        this.$refs.outHeight.style.height = '0px'
       },
 //    发送验证码
       sendCode () {
@@ -631,7 +634,7 @@
     transition: all 0.3s;
   }
   .edit-all .dinglian-edit-circleLists.active {
-    height: 1.2rem;
+    /*height: 1.2rem;*/
     overflow: hidden;
     margin-bottom: 1px;
   }

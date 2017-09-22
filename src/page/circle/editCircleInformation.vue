@@ -194,9 +194,9 @@
         }).then(res => {
           if (res.data.success) {
             Toast('保存成功')
+            this.$router.push({'path': '/circleInformation/' + id})
           }
         })
-        this.$router.push({'path': '/circleInformation/' + id})
       }
     }
   }
@@ -225,7 +225,9 @@
     margin: 0 auto;
   }
   .dinglian-createCirclePhoto-background > img {
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .dinglian-createCirclePhoto-cover {
     position: absolute;
