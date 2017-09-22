@@ -312,6 +312,7 @@
   }
   .dinglian-circleInformation-allPeople {
     width: 1.5rem;
+    line-height: 1.5rem;
     font-size: 0.11rem;
     color: #999999;
   }
@@ -379,6 +380,7 @@
     left: 0;
     background-color: rgba(235, 235, 236, 1);
     z-index: 3;
+    animation: bounceInUp 0.1s;
   }
   .dinglian-circleInformation-cancel > li {
     height: 0.49rem;
@@ -397,4 +399,13 @@
     margin-bottom: 0.09rem;
   }
   /*退出圈子 end*/
+  @keyframes bounceInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 3000px, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 </style>

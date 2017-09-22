@@ -2,7 +2,7 @@
   <div class="dinglian-create-all">
     <ding-lian-header :headerName="headerName"></ding-lian-header>
     <h3>创建圈子名称</h3>
-    <input type="text" placeholder="请输入圈子的名称,不得超过12字" class="fs_11" v-model="circleName">
+    <input type="text" placeholder="请输入圈子的名称,不得超过12字" class="fs_11" :class="{'changeText': isChangeText}" v-model="circleName" @focus="changeTextAlign" @blur="restoreText">
     <mt-button type="default" @click.native="goNextStep" style="margin-top: 10px" class="dinglian-button">下一步</mt-button>
   </div>
 </template>
@@ -20,7 +20,8 @@
       return {
         headerName: '创建圈子',
         circle: null,
-        circleName: null
+        circleName: null,
+        isChangeText: false
       }
     },
     created () {
@@ -46,6 +47,14 @@
         } else {
           Toast('圈子的名称不能为空！')
         }
+      },
+      // 改变输入框的光标
+      changeTextAlign () {
+        this.isChangeText = true
+        console.log(this.isChangeText)
+      },
+      restoreText () {
+        this.isChangeText = false
       }
     }
   }
@@ -76,5 +85,8 @@
     padding-bottom: 0.09rem;
     border-bottom: 1px solid #ffd200;
     border-radius: 0;
+  }
+  .dinglian-create-all .changeText {
+    text-align: left;
   }
 </style>

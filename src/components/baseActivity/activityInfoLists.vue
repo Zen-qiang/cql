@@ -2,7 +2,7 @@
   <div>
     <mt-loadmore :bottom-method="loadBottom"
                  :auto-fill="autoLill" :bottom-all-loaded="allLoaded"
-                 :distanceIndex="1"
+                 :distanceIndex="2"
                  ref="loadmore">
     <ul class="dinglian-lists-ul">
       <li :id="item.activityId" :key="item.activityId" v-for="item in activityLists">

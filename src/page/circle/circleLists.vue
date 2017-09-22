@@ -5,7 +5,7 @@
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">
-      <input type="text" placeholder="请输入圈子关键词" @keyup.enter="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
+      <input type="search" placeholder="请输入圈子关键词" @keyup.enter="searchCircle" ref="circleSearch" @focus="moveIcon" @blur="refreshIcon" v-model="keyword" :class="{'active':active}">
       <span :class="{'active':active}" @click="clearSearchContent">取消</span>
     </form>
     <carousel :carouselList="carouselList"></carousel>
@@ -17,10 +17,6 @@
     <!-- tab-container -->
     <mt-tab-container v-model="tagIndex">
       <mt-tab-container-item id="0">
-        <!--<ul class="dinglian-tagsLists-all clearfix">
-          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
-          <span></span>
-        </ul>-->
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
@@ -43,7 +39,6 @@
   import Carousel from '../../components/carousel.vue'
   import DingLianHeader from '../../components/DingLianHeader.vue'
   // import { Toast } from 'mint-ui'
-//  import wx from 'weixin-js-sdk'
   export default {
     components: {
       CircleInfoLists,
@@ -89,6 +84,8 @@
 //        下拉刷新
       loadTop () {
         this.resetListData()
+        this.keyword = ''
+        this.active = false
         this.getCoterieList()
         this.$refs.loadTop.onTopLoaded()
       },
@@ -264,7 +261,7 @@
     right: 0.18rem;
     opacity: 1;
   }
-  .dinglian-circle-search > input[type^=text] {
+  .dinglian-circle-search > input[type^=search] {
     /*margin: 0 auto;*/
     margin: 0 0.15rem 0 0.15rem;
     height: 0.24rem;
@@ -281,13 +278,16 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
-  .dinglian-circle-search > input[type^=text].active {
+  .dinglian-circle-search > input[type^=search].active {
     background-position-x: 0.05rem;
     padding-left: 0.2rem;
     margin: 0 0.6rem 0 0.15rem;
     -webkit-border-radius: 0.04rem;
     -moz-border-radius: 0.04rem;
     border-radius: 0.04rem;
+  }
+  input[type=search]::-webkit-search-cancel-button{
+    -webkit-appearance: none;
   }
   /**/
   .mint-search {
@@ -318,7 +318,8 @@
     transition: all 0.5s;
   }
   .dinglian-tagsLists-all.active {
-    height: 1.1rem;
+    /*height: 1.1rem;*/
+    height: auto;
   }
   .dinglian-tagsLists-all > li {
     float: left;
