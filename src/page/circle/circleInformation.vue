@@ -312,6 +312,7 @@
   }
   .dinglian-circleInformation-allPeople {
     width: 1.5rem;
+    line-height: 1.5rem;
     font-size: 0.11rem;
     color: #999999;
   }

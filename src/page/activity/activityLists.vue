@@ -1,7 +1,7 @@
 <template>
   <div class="dinglian-activityLists-all bColor">
     <mt-loadmore :top-method="loadTop"
-                 :distanceIndex="2"
+                 :distanceIndex="3"
                  :maxDistance="100"
                  ref="loadTop">
     <form class="dinglian-circle-search" onsubmit="return false;">
@@ -38,12 +38,14 @@
       this.getActivityList()
     },
     methods: {
-      //        下拉刷新
+      // 下拉刷新
       loadTop () {
         this.activityLists = []
         this.page = 1
         this.start = 0
+        this.active = false
         Indicator.open()
+        this.keyword = ''
         this.getActivityList()
         this.$refs.loadTop.onTopLoaded()
       },
@@ -64,7 +66,6 @@
         this.activityLists = []
         this.getActivityList()
         this.$refs.searchInput.blur()
-        this.active = false
       },
 //      获取活动列表
       getActivityList () {

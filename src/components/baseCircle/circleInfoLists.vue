@@ -91,7 +91,7 @@
     font-size: 14px;
     text-align: left;
     height: 0.15rem;
-    line-height: 0.15rem;
+    line-height: 0.17rem;
     width: 80%;
     overflow: hidden;
     white-space: nowrap;

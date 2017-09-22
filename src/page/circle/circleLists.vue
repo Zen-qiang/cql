@@ -17,10 +17,6 @@
     <!-- tab-container -->
     <mt-tab-container v-model="tagIndex">
       <mt-tab-container-item id="0">
-        <!--<ul class="dinglian-tagsLists-all clearfix">
-          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
-          <span></span>
-        </ul>-->
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
@@ -43,7 +39,6 @@
   import Carousel from '../../components/carousel.vue'
   import DingLianHeader from '../../components/DingLianHeader.vue'
   // import { Toast } from 'mint-ui'
-//  import wx from 'weixin-js-sdk'
   export default {
     components: {
       CircleInfoLists,
@@ -89,6 +84,8 @@
 //        下拉刷新
       loadTop () {
         this.resetListData()
+        this.keyword = ''
+        this.active = false
         this.getCoterieList()
         this.$refs.loadTop.onTopLoaded()
       },
@@ -321,7 +318,8 @@
     transition: all 0.5s;
   }
   .dinglian-tagsLists-all.active {
-    height: 1.1rem;
+    /*height: 1.1rem;*/
+    height: auto;
   }
   .dinglian-tagsLists-all > li {
     float: left;
