@@ -7,6 +7,10 @@ const state = {
   circleName: '',
   circleTags: '',
   circleId: '',
+  // 编辑圈子
+  circleDescription: '',
+  activityTypeName: '',
+  selectedTags: '',
   // 活动属性
   activity: {},
   activityId: '',

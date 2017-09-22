@@ -17,6 +17,17 @@ const mutations = {
   [types.CIRCLEID]: (state, circleId) => {
     state.circleId = circleId
   },
+  // 编辑圈子
+  [types.CIRCLEDESCIPTION]: (state, circleDesciption) => {
+    state.circleDescription = circleDesciption
+    // console.log('保存', state.circleDescription)
+  },
+  [types.ACTIVITYTYPENAME]: (state, activityTypeName) => {
+    state.activityTypeName = activityTypeName
+  },
+  [types.SELECTEDTAGS]: (state, selectedTags) => {
+    state.selectedTags = selectedTags
+  },
   [types.ACTIVITY]: (state, activity) => {
     state.activity = activity
   },

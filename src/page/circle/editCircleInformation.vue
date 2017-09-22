@@ -4,11 +4,11 @@
     <ding-lian-header :headerName="headerName"></ding-lian-header>
     <!--编辑圈子封面-->
     <div class="dinglian-createCirclePhoto-uploadPhoto">
-      <label v-show="!cover" v-on:click.stop="takePictures"></label>
+      <label v-on:click.stop="takePictures"></label>
       <i class="dinglian-createCirclePhoto-background">
-        <img :src="previewImg" alt="" v-show="previewImg">
+        <img :src="circleCover" alt="">
       </i>
-      <div class="dinglian-createCirclePhoto-cover" v-show="cover">
+      <div class="dinglian-createCirclePhoto-cover">
         <label v-on:click.stop="takePictures">
           <img src="../../assets/images/modify.png" alt="">
         </label>
@@ -17,32 +17,31 @@
     <!--编辑圈子名称-->
     <div class="dinglian-editCircleinformation-name container">
       <span>圈子名称</span>
-      <input type="text" value="LOOKING 街舞">
+      <input type="text" v-model="circleName" :value="circleName">
     </div>
     <!--编辑圈子分类-->
-    <div class="dinglian-editCircleinformation-classify container" @click="goEditCategory">
+    <div class="dinglian-editCircleinformation-classify container" @click="goEditCategory($route.params.cid)">
       <span>分类</span>
-      <p>街舞</p>
+      <p v-text="circleTagsType"></p>
     </div>
     <!--编辑圈子标签-->
     <div class="dinglian-editCircleinformation-tags container">
       <span>标签</span>
       <ul>
-        <li>桌游</li>
-        <li>街舞</li>
-        <li>其它</li>
+        <li v-for="tags in circleTags" v-if="flag">{{tags.name}}</li>
+        <li v-for="tags in newCircleTags" v-if="!flag">{{tags}}</li>
       </ul>
     </div>
     <!--编辑圈子介绍-->
-    <div class="dinglian-editCircleinformation-introduce" @click="goEditIntroduction">
+    <div class="dinglian-editCircleinformation-introduce" @click="goEditIntroduction($route.params.cid)">
       <p>圈子介绍</p>
-      <div>Lorem ipsum dolor sit amet, consectetur 中国有嘻哈</div>
+      <div v-text="newCircleDescription"></div>
     </div>
-    <button>保存修改</button>
+    <button @click="goCircleInformation($route.params.cid)">保存修改</button>
   </div>
 </template>
 <script>
-//  import { Toast } from 'mint-ui'
+  import { Toast } from 'mint-ui'
   import wx from 'weixin-js-sdk'
   import DingLianHeader from '../../components/DingLianHeader.vue'
   export default {
@@ -54,26 +53,21 @@
         headerName: '圈子资料',
         cancel: '完成',
         circle: {},
-        isEdit: false,
-        circleTags: '',
-        isBlock: true,
-        introduction: '',
-        cover: false,
-        lists: [],
-        serverId: '',
-        isActivated: true,
-        previewImg: ''
+        circleTags: [],
+        newCircleTags: [],
+        circleTagsType: '',
+        circleName: '',
+        circleDescription: '',
+        circleCover: '',
+        newCircleDescription: '',
+        flag: false
       }
     },
     created () {
-      this.circle = this.$store.state.circle
-      this.circleTags = this.$store.state.circleTags
-      if (this.circle.coterieId) {
-        this.isEdit = true
-        this.introduction = this.circle.description
-        this.previewImg = this.circle.cover
-        this.cover = true
-      }
+      this.getCircle()
+      this.getCircleDescription()
+      this.getCircleTags()
+      this.getCircleSelectTags()
     },
     methods: {
 //      上传图片
@@ -92,30 +86,117 @@
               wx.getLocalImgData({
                 localId: localId, // 图片的localID
                 success: function (res) {
-                  _this.previewImg = res.localData
+                  _this.circleCover = res.localData
                 }
               })
             } else {
-              _this.previewImg = localId
+              _this.circleCover = localId
             }
             wx.uploadImage({
               localId: localId, // 需要上传的图片的本地ID，由chooseImage接口获得
               isShowProgressTips: 1, // 默认为1，显示进度提示
               success: function (res) {
-                _this.serverId = res.serverId
-                _this.cover = true
               }
             })
           }
         })
       },
+//      获取圈子详情
+      getCircle () {
+        this.axios({
+          method: 'get',
+          url: '/getCoterieInfo',
+          params: {
+            coterieId: this.$route.params.cid,
+            userId: this.$store.state.userId
+          }
+        }).then(res => {
+          this.circle = res.data.data
+          this.circleName = this.circle.name
+          this.circleCover = this.circle.cover
+        })
+      },
+//      获取圈子标签类型
+      getCircleTags () {
+        if (this.$store.state.activityTypeName === '') {
+          this.axios({
+            method: 'get',
+            url: '/getCoterieInfo',
+            params: {
+              coterieId: this.$route.params.cid,
+              userId: this.$store.state.userId
+            }
+          }).then(res => {
+            this.circleTagsType = res.data.data.tags[0].name
+          })
+        } else {
+          this.circleTagsType = this.$store.state.activityTypeName
+        }
+      },
+//      获取圈子标签
+      getCircleSelectTags () {
+//        this.circleTags = this.$store.state.selectedTags
+        if (this.$store.state.selectedTags === '') {
+          this.axios({
+            method: 'get',
+            url: '/getCoterieInfo',
+            params: {
+              coterieId: this.$route.params.cid,
+              userId: this.$store.state.userId
+            }
+          }).then(res => {
+            this.circleTags = res.data.data.tags.slice(1)
+            this.flag = true
+          })
+        } else {
+          this.newCircleTags = this.$store.state.selectedTags
+          this.flag = false
+        }
+      },
+//      获取圈子描述
+      getCircleDescription () {
+        if (this.$store.state.circleDescription === '') {
+          this.axios({
+            method: 'get',
+            url: '/getCoterieInfo',
+            params: {
+              coterieId: this.$route.params.cid,
+              userId: this.$store.state.userId
+            }
+          }).then(res => {
+            this.newCircleDescription = res.data.data.description
+          })
+        } else {
+          this.newCircleDescription = this.$store.state.circleDescription
+        }
+      },
 //      跳转到分类界面
-      goEditCategory () {
-        this.$router.push({'path': '/editCategory'})
+      goEditCategory (id) {
+        this.$router.push({'path': '/editCategory/' + id})
       },
 //      跳转到圈子介绍界面
-      goEditIntroduction () {
-        this.$router.push({'path': '/editIntroduction'})
+      goEditIntroduction (id) {
+        this.$router.push({'path': '/editIntroduction/' + id})
+      },
+//      保存按钮跳转到圈子编辑页面
+      goCircleInformation (id) {
+        this.axios({
+          method: 'post',
+          url: '/editCoterie',
+          params: {
+            coterieId: this.$route.params.cid,
+            userId: this.$store.state.userId,
+            name: this.circleName,
+            tags: this.$store.state.circleTags,
+            description: this.newCircleDescription,
+            file: this.circleCover
+          }
+        }).then(res => {
+          if (res.data.success) {
+            Toast('保存成功')
+          }
+        })
+        this.$router.push({'path': '/circleInformation/' + id})
       }
     }
   }
@@ -240,7 +321,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    background: #DDDDDD;
+    background: #FFD200;
     text-align: center;
     height: 0.49rem;
     font-size: 0.15rem;
