@@ -17,7 +17,7 @@
     <!--编辑圈子名称-->
     <div class="dinglian-editCircleinformation-name container">
       <span>圈子名称</span>
-      <input type="text" :value="circleName">
+      <input type="text" v-model="circleName" :value="circleName">
     </div>
     <!--编辑圈子分类-->
     <div class="dinglian-editCircleinformation-classify container" @click="goEditCategory($route.params.cid)">
@@ -28,7 +28,7 @@
     <div class="dinglian-editCircleinformation-tags container">
       <span>标签</span>
       <ul>
-        <li v-for="(tags, index) in circleTags" v-if="flag || index != 0">{{tags.name}}</li>
+        <li v-for="tags in circleTags" v-if="flag">{{tags.name}}</li>
         <li v-for="tags in newCircleTags" v-if="!flag">{{tags}}</li>
       </ul>
     </div>
@@ -145,7 +145,7 @@
               userId: this.$store.state.userId
             }
           }).then(res => {
-            this.circleTags = res.data.data.tags
+            this.circleTags = res.data.data.tags.slice(1)
             this.flag = true
           })
         } else {
