@@ -96,6 +96,7 @@
       redirectCreateActivity () {
         if (this.isJoined) {
           // 将圈子信息传递
+          this.circle.id = this.circle.coterieId
           this.$store.commit(types.CURRENTCIRCLE, this.circle)
           this.$router.push({'path': '/chooseActivityTags'})
         }
