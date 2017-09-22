@@ -20,10 +20,12 @@
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
       <mt-tab-container-item :id="item.id" :key="item.id" v-for="item in activityType">
-        <ul class="dinglian-tagsLists-all clearfix" :class="{'active':!temp}">
-          <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
-          <span @click="temp = !temp" :class="{'active':!temp}"></span>
-        </ul>
+        <div ref="outGetTags" class="dinglian-choose-outGetTags">
+          <ul class="dinglian-tagsLists-all clearfix" :class="{'active':!temp}" ref="getTags">
+            <li class="fs_9" :key="item.id" v-for="item of tagsList" :class="{ 'dinglian-choose-tags-li': isSelected(item.id)}" @click="checkTag(item.id, item.name)">{{item.name}}</li>
+            <span @click="changeTags(item.id)" :class="{'active':!temp}"></span>
+          </ul>
+        </div>
         <circle-info-lists :coterieList="coterieList" @pullUpCircle="pullUpCircle" :allLoaded="allLoaded"></circle-info-lists>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -76,6 +78,16 @@
     watch: {
     },
     methods: {
+      changeTags (id) {
+        this.temp = !this.temp
+        id = id - 1
+        if (!this.temp) {
+          this.$refs.outGetTags[id].style.height = this.$refs.getTags[id].offsetHeight + 'px'
+        } else {
+          this.$refs.outGetTags[id].style.height = '0.4rem'
+        }
+        console.log(this.$refs.getTags)
+      },
       resetListData () {
         this.page = 1
         this.allLoaded = false
@@ -306,16 +318,20 @@
     object-fit: cover;
   }
   /*标签*/
-  .dinglian-tagsLists-all {
-    padding: 0.1rem 0.3rem 0.01rem 0.15rem;
+  .dinglian-choose-outGetTags {
     height: 0.4rem;
     overflow: hidden;
-    position: relative;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+  }
+  .dinglian-tagsLists-all {
+    padding: 0.1rem 0.3rem 0.01rem 0.15rem;
+    /*height: 0.4rem;*/
+    /*overflow: hidden;*/
+    position: relative;
   }
   .dinglian-tagsLists-all.active {
     /*height: 1.1rem;*/
