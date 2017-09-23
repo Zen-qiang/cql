@@ -28,6 +28,9 @@ const mutations = {
   [types.SELECTEDTAGS]: (state, selectedTags) => {
     state.selectedTags = selectedTags
   },
+  [types.EDITCIRCLENAME]: (state, editcirclename) => {
+    state.editcirclename = editcirclename
+  },
   [types.ACTIVITY]: (state, activity) => {
     state.activity = activity
   },

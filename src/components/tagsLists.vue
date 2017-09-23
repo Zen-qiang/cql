@@ -20,18 +20,18 @@
 </script>
 <style scoped>
   .dinglian-tagsLists-all {
-    padding: 15px;
+    padding: 0.15rem;
   }
   .dinglian-tagsLists-all > li {
     display: inline-block;
     float: left;
     border: 1px solid #999999;
-    border-radius: 4px;
-    height: 22px;
-    line-height: 20px;
-    padding: 0 10px;
-    margin: 10px 0;
-    margin-right: 10px;
+    border-radius: 0.04rem;
+    height: 0.22rem;
+    line-height: 0.2rem;
+    padding: 0 0.1rem;
+    margin: 0.1rem 0;
+    margin-right: 0.1rem;
   }
   .dinglian-tagsLists-active {
     background: #ffd200;

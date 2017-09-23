@@ -124,7 +124,8 @@
     display: block;
     width: 0.9rem;
     height: 1.1rem;
-    /*border-radius: 4px;*/
+    border-radius: 0.02rem;
+    object-fit: cover;
   }
   /*右边区域*/
   .dinglian-lists-con-right {
