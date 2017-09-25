@@ -344,14 +344,14 @@
   }
   /*进行中*/
   .dinglian-lists-status-processing {
-    background: #5dcf58;
+    background: #FFD200;
   }
   /*报名中*/
   .dinglian-lists-status-IsRegistering {
-    background: #2f8efa;
+    background: #5dcf58;
   }
   /*已结束*/
   .dinglian-lists-status-over {
-    background: #ffd200;
+    background: #E63832;
   }
 </style>

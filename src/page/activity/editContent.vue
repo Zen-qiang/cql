@@ -56,14 +56,12 @@
     </div>
     <div class="dinglian-edit-people">
       <label for="">人数</label>
-      <input type="tel" v-model="minCount">&nbsp;至
-      <input type="tel" v-model="maxCount">&nbsp;人
+      <input type="tel" v-model="minCount" @keyup="minCount = minCount.replace(/\D/g, '')" @afterpaste="minCount = minCount.replace(/\D/g, '')">&nbsp;至
+      <input type="tel" v-model="maxCount" @keyup="maxCount = maxCount.replace(/\D/g, '')" @afterpaste="maxCount = maxCount.replace(/\D/g, '')">&nbsp;人
     </div>
     <div class="dinglian-edit-cost">
       <label for="">费用</label>
       <div class="edit-radio">
-        <!--<label for="" @click="checkCharge('free',1)"><span :class="{'active':charge=='free'}"></span><input type="radio" name="charge" value="free" v-model="charge">我请客</label>-->
-        <!--<label for="" @click="checkCharge('dutch')"><span :class="{'active':charge=='dutch'}"></span><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>-->
         <label for="" @click="checkCharge('free',1)" :class="{'active':charge=='free'}"><input type="radio" name="charge" value="free" v-model="charge">我请客</label>
         <label for="" @click="checkCharge('dutch')" :class="{'active':charge=='dutch'}"><input type="radio" name="charge" value="dutch" v-model="charge">现场AA</label>
       </div>
@@ -121,8 +119,6 @@
         return moment(val).format('YYYY-MM-DD HH:mm')
       }
     },
-    computed: {
-    },
     data () {
       return {
         headerName: '编辑内容',
@@ -142,7 +138,7 @@
         activityName: '',
         startTime: null,
         address: '',
-        gps: ' ',
+        gps: '',
         minCount: '',
         maxCount: '',
         charge: '',
@@ -175,8 +171,10 @@
     },
     watch: {
       minCount: function (val) {
-        if (this.maxCount === '' || val > this.maxCount) {
-          this.maxCount = val
+        if (parseInt(val) > 0) {
+          if (this.maxCount === '' || parseInt(val) > parseInt(this.maxCount)) {
+            this.maxCount = val
+          }
         }
       },
       telphone: function (val) {
@@ -188,17 +186,17 @@
       }
     },
     created () {
-//        获取用户头像
+      // 获取用户头像
       if (this.$store.state.userPicture) {
         this.profilePicture = this.$store.state.userPicture
       }
-//      绑定手机号
+      // 绑定手机号
       if (this.$store.state.userPhoneNo && this.$store.state.userPhoneNo !== 'null') {
         this.phoneNo = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
       }
-//      获取圈子选择列表
+      // 获取圈子选择列表
       this.getMyCircles()
       /* 时间 */
       this.fullYear = this.date.getFullYear().toString()
@@ -230,7 +228,7 @@
       }
     },
     methods: {
-//    自动获取焦点
+      // 自动获取焦点
       changeFocus () {
         this.active = !this.active
 //        this.$refs.inputFocus.focus()
@@ -255,7 +253,7 @@
       changeEnd (value) {
         this.endTimes = value
       },
-//      获取本地的gps 跳转地图
+      // 获取本地的gps 跳转地图
       getLocationGps () {
         this.currentInfo.activityName = this.activityName
         this.currentInfo.circle = this.circle
@@ -351,35 +349,66 @@
       },
       goNextStep () {
         if (this.$store.state.activityTags === 0) {
-          Toast('标签不能为空')
+          Toast({
+            message: '标签不能为空！',
+            duration: 500
+          })
           return false
         }
         if (!this.activityName) {
-          Toast('标题不能为空')
+          Toast({
+            message: '标题不能为空！',
+            duration: 500
+          })
           return false
         }
         if (this.serverIds.length === 0) {
-          Toast('图片不能为空')
+          Toast({
+            message: '图片不能为空！',
+            duration: 500
+          })
           return false
         }
         if (this.endTimes === '请选择结束时间') {
-          Toast('结束时间不能为空')
+          Toast({
+            message: '结束时间不能为空！',
+            duration: 500
+          })
           return false
         }
         if (this.stringToNumber(this.startTimes) >= this.stringToNumber(this.endTimes)) {
-          Toast('请选择有效的起止时间')
+          Toast({
+            message: '请选择有效的起止时间！',
+            duration: 500
+          })
           return false
         }
         if (!this.address) {
-          Toast('地址不能为空')
+          Toast({
+            message: '地址不能为空！',
+            duration: 500
+          })
           return false
         }
         if (parseInt(this.minCount) < 1 || parseInt(this.maxCount) < parseInt(this.minCount)) {
-          Toast('人数填写错误')
+          Toast({
+            message: '人数填写错误！',
+            duration: 500
+          })
+          return false
+        }
+        if (parseInt(this.maxCount) > 10000) {
+          Toast({
+            message: '最大人数不能超过10000人！',
+            duration: 500
+          })
           return false
         }
         if (!this.charge) {
-          Toast('费用不能为空')
+          Toast({
+            message: '费用不能为空！',
+            duration: 500
+          })
           return false
         }
         if (!judgmentTel(this.phoneNo)) {

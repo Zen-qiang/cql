@@ -86,7 +86,6 @@
         } else {
           this.$refs.outGetTags[id].style.height = '0.4rem'
         }
-        console.log(this.$refs.getTags)
       },
       resetListData () {
         this.page = 1
