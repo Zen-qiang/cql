@@ -250,7 +250,9 @@
       },
       changeStar (value) {
         this.startTimes = value
-        this.endTimes = value
+        if (this.endTimes === '请选择结束时间' || this.stringToNumber(this.endTimes) <= this.stringToNumber(value)) {
+          this.endTimes = value
+        }
       },
       changeEnd (value) {
         this.endTimes = value
