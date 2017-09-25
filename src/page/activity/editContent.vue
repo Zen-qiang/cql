@@ -166,7 +166,8 @@
         isDisabled: true,
         isBindConfirm: false,
         isSendCode: false,
-        switchCircle: ''
+        switchCircle: '',
+        num: 400
       }
     },
     watch: {
@@ -182,6 +183,14 @@
           this.isSignUpActive = true
         } else {
           this.isSignUpActive = false
+        }
+      },
+      description: function (val) {
+        this.num = 400 - parseInt(val.length)
+        if (parseInt(val.length) > 400) {
+          Toast('不允许超过400个字')
+          this.description = val.substr(0, 400)
+          this.num = 0
         }
       }
     },

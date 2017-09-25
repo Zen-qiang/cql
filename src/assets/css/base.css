@@ -68,7 +68,7 @@ ul, ol, li {
   left: 0;
   height: 0.4rem;
   width: 100%;
-  background: #fff;
+  background: transparent;
 
 }
 /*搜索框*/
