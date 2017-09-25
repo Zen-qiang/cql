@@ -758,8 +758,8 @@
   }
   .dinglian-edit-cost > div > label:before {
     position: absolute;
-    display: block;
-    content: '';
+    /* display: block; */
+    content: ' ';
     top:0;
     bottom: 0;
     left: 0;
@@ -773,8 +773,8 @@
   }
   .dinglian-edit-cost > div > label.active:after {
     position: absolute;
-    display: block;
-    content: '';
+    /* display: block; */
+    content: ' ';
     top:0;
     bottom: 0;
     left: 0.03rem;
