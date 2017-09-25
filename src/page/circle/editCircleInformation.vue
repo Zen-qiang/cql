@@ -69,6 +69,11 @@
       this.getCircleTags()
       this.getCircleSelectTags()
     },
+    watch: {
+      circleName: function (val) {
+        this.$store.state.editcirclename = val
+      }
+    },
     methods: {
 //      上传图片
       takePictures () {
@@ -114,6 +119,11 @@
           this.circle = res.data.data
           this.circleName = this.circle.name
           this.circleCover = this.circle.cover
+          if (!this.$store.state.editcirclename) {
+            this.circleName = this.circle.name
+          } else {
+            this.circleName = this.$store.state.editcirclename
+          }
         })
       },
 //      获取圈子标签类型

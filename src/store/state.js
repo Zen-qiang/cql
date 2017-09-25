@@ -11,6 +11,7 @@ const state = {
   circleDescription: '',
   activityTypeName: '',
   selectedTags: '',
+  editcirclename: '',
   // 活动属性
   activity: {},
   activityId: '',

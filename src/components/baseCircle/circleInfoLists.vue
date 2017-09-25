@@ -70,13 +70,14 @@
     display: block;
     width: 1rem;
     height: 1rem;
-    border-radius: 4px;
+    border-radius: 0.02rem;
+    object-fit: cover;
   }
   image[lazy=loading] {
     display: block;
     width: 1rem;
     height: 1rem;
-    border-radius: 4px;
+    border-radius: 0.04rem;
   }
   /*右边区域*/
   .dinglian-lists-con-right {
