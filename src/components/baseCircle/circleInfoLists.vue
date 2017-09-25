@@ -149,10 +149,5 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*width: 80%;*/
-   /* display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;*/
   }
 </style>

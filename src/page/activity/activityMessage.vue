@@ -4,9 +4,9 @@
     <div class="dinglian-message-header">
       <div class="dinglian-message-avatar">
         <div>
-          <div><img :src="messageLists.user.picture" alt=""></div>
+          <div><img :src="user.picture" alt=""></div>
           <div class="dinglian-message-title">
-            <h3>{{messageLists.user.nickName}}</h3>
+            <h3>{{user.nickName}}</h3>
             <p>223</p>
           </div>
         </div>
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="dinglian-message-chat">
-      <input type="text" v-model="description">
+      <input type="text" v-model="description" @keyup.enter="createActivityTopic">
       <span class="dinglian-message-chat-button" @click="createActivityTopic">发送</span>
     </div>
   </div>
@@ -71,7 +71,8 @@
     data () {
       return {
         activity: {},
-        messageLists: '',
+        messageLists: {},
+        user: {},
         topicCommentList: '',
         description: '',
         topic: '',
@@ -92,24 +93,27 @@
           Toast('该活动所在圈子已解散')
           return
         }
-        this.axios({
-          method: 'post',
-          url: '/commentTopic',
-          data: {
-            userId: this.$store.state.userId,
-            topicId: this.$route.params.id,
-            comment: this.description
-          }
-        }).then(res => {
-          if (res.data.success) {
-            this.topicCommentList = []
-            this.getTopicCommentList()
-            Toast('评论成功！')
-            this.description = ''
-          } else {
-            Toast(res.data.error.message)
-          }
-        })
+        this.description = this.description.replace(/(^\s*)|(\s*$)/g, '')
+        if (this.description && this.description.length > 0) {
+          this.axios({
+            method: 'post',
+            url: '/commentTopic',
+            data: {
+              userId: this.$store.state.userId,
+              topicId: this.$route.params.id,
+              comment: this.description
+            }
+          }).then(res => {
+            if (res.data.success) {
+              this.topicCommentList = []
+              this.getTopicCommentList()
+              Toast('评论成功！')
+              this.description = ''
+            } else {
+              Toast(res.data.error.message)
+            }
+          })
+        }
       },
       getActivityTopic () {
         this.axios({
@@ -121,6 +125,7 @@
           }
         }).then(res => {
           this.messageLists = res.data.data
+          this.user = res.data.data.user
           this.activity = res.data.data.activity
           this.activity.topicId = res.data.data.topicId
           this.activity.hasPraise = res.data.data.hasPraise
@@ -361,5 +366,8 @@
   .dinglian-message-avatar-comment > span {
     font-size: 0.11rem;
     color: #999;
+  }
+  .dinglian-message-comment {
+    margin-bottom: 0.6rem;
   }
 </style>
