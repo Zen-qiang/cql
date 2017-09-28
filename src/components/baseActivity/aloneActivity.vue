@@ -52,11 +52,20 @@
         type: Boolean
       }
     },
+    data () {
+      return {
+        coterie: {}
+      }
+    },
+    created () {
+//      this.coterie = this.activity.coterie
+    },
     methods: {
       redirectActivityDetails (id) {
         this.$router.push({'path': '/activityDetails/' + id})
       },
       praiseTopic (topic) {
+        console.log(topic)
         // 话题点赞，如果该话题hasPraise=true,则不能点赞，点赞图标变红
         if (!topic.hasPraise && !this.isDismissed) {
           this.axios({

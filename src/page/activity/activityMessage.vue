@@ -7,7 +7,7 @@
           <div><img :src="user.picture" alt=""></div>
           <div class="dinglian-message-title">
             <h3>{{user.nickName}}</h3>
-            <p>223</p>
+            <p>{{city}}</p>
           </div>
         </div>
         <span>{{messageLists.topicCreateTime | moment}}</span>
@@ -54,6 +54,7 @@
   import 'moment/locale/zh-cn'
   import {Toast} from 'mint-ui'
   moment.locale('zh-cn')
+  import BMap from 'BMap'
   export default {
     filters: {
       moment (val) {
@@ -67,6 +68,7 @@
     created () {
       this.getActivityTopic()
       this.getTopicCommentList()
+      this.getCity()
     },
     data () {
       return {
@@ -77,10 +79,20 @@
         description: '',
         topic: '',
         headerName: '活动评论',
-        isDismissed: false
+        isDismissed: false,
+        city: ''
       }
     },
     methods: {
+      // 获取当前城市
+      getCity () {
+        var _this = this
+        var myCity = new BMap.LocalCity()
+        myCity.get(function (result) {
+          _this.city = result.name
+        })
+//        console.log(myCity)
+      },
 //      跳转到点赞列表
       goPointList (num) {
         if (num > 0) {
