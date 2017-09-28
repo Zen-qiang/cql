@@ -29,7 +29,7 @@
               <span v-else><em class="dinglian-lists-status-over"></em>已结束</span>
               <span> <i>{{item.userCount.currentCount}}</i> /{{item.userCount.minCount}}~{{item.userCount.maxCount}}人</span>
             </div>
-            <div class="dinglian-lists-people dinglian-lists-address clearfix">
+            <div class="dinglian-lists-people dinglian-lists-address clearfix" @click="redirectActivityDetails(item.activityId)">
               <span>{{item.address}}</span>
               <span v-show="item.distance"></span>
             </div>

@@ -29,9 +29,9 @@
         </div>
       </div>
     <div class="dinglian-lists-footer clearfix" v-show="footer">
-      <span>{{topic.commentCnt}}</span>
-      <span @click="praiseTopic(topic)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': topic.hasPraise}]">
-        {{topic.praiseCnt}}
+      <span>{{activity.commentCnt}}</span>
+      <span @click="praiseTopic(activity)" :class="['dinglian-lists-footer-like', {'dinglian-lists-footer-likeActive': activity.hasPraise}]">
+        {{activity.praiseCnt}}
       </span>
     </div>
   </div>
@@ -51,22 +51,6 @@
       isDismissed: {
         type: Boolean
       }
-    },
-    data () {
-      return {
-        topic: {
-          topicId: '',
-          hasPraise: '',
-          praiseCnt: '',
-          commentCnt: ''
-        }
-      }
-    },
-    created () {
-      this.topic.topicId = this.activity.topicId
-      this.topic.hasPraise = this.activity.hasPraise
-      this.topic.praiseCnt = this.activity.praiseCnt
-      this.topic.commentCnt = this.activity.commentCnt
     },
     methods: {
       redirectActivityDetails (id) {
