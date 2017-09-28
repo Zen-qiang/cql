@@ -76,6 +76,10 @@
     mounted () {
     },
     watch: {
+      tagIndex: function (val) {
+        this.temp = true
+        this.$refs.outGetTags[val - 1].style.height = '0.4rem'
+      }
     },
     methods: {
       changeTags (id) {
