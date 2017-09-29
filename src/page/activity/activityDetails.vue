@@ -160,7 +160,8 @@
           wx.onMenuShareTimeline({
             title: data.name, // 分享标题
             link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+//            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            imgUrl: data.pictures[0],
             success: function () {
               // 用户确认分享后执行的回调函数
             },
@@ -171,9 +172,10 @@
           //        朋友
           wx.onMenuShareAppMessage({
             title: data.name, // 分享标题
-            desc: data.description, // 分享描述
+            desc: '活动地址：' + data.address + '，开始时间：' + data.startTime, // 分享描述
             link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+//            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
+            imgUrl: data.pictures[0],
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
@@ -187,22 +189,22 @@
       })
     },
     methods: {
-//      跳转到圈子详情界面
+      // 跳转到圈子详情界面
       goCircleDetail (id) {
         this.$router.push({'path': '/circleDetails/' + id})
       },
-//      跳转到查看报名人数
+      // 跳转到查看报名人数
       registerInformation () {
         this.$router.push({'path': '/praiseMembers/' + this.activityInfo.activityId})
       },
-//      跳转到活动评论界面
+      // 跳转到活动评论界面
       gotoMessage () {
         this.$router.push({'path': '/activityMessage/' + this.topicId})
       },
       showActivityMap () {
         this.$router.push({'path': '/activityMap/' + this.gps})
       },
-//      取消报名
+      // 取消报名
       cancelSingnUpActivity () {
         this.axios({
           method: 'post',
@@ -274,7 +276,6 @@
                 } else {
                   this.$router.replace({'path': cookie.readCookie('previousPage')})
                 }
-                // this.$router.push({'path': '/activityLists'})
               }
             }).catch()
           })
@@ -308,7 +309,7 @@
           console.log(error)
         })
       },
-//      编辑活动信息
+      // 编辑活动信息
       editActivityInfo () {
         if (this.edit === '编辑') {
           this.disabled = false
