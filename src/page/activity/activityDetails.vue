@@ -49,7 +49,6 @@
       <p class="dinglian-details-status-address" v-text="address"></p>
       <span class="dinglian-details-address" v-show="gps" @click="showActivityMap"></span>
     </div>
-
     <div class="dinglian-details-sign" @click="registerInformation">
       <div>
         <label for="">报名信息</label>
@@ -473,9 +472,11 @@
   }
   .dinglian-details-status > .dinglian-details-status-address {
     width: 2.4rem;
-    text-overflow: ellipsis;
+    font-size: 12px;
+    line-height: 12px;
     overflow: hidden;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
   }
   .dinglian-details-status > span,.dinglian-details-status > a {
     height: 100%;
@@ -660,5 +661,4 @@
   .dinglian-details-psd > span {
     flex: 2;
   }
-
 </style>
