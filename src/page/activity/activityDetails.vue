@@ -156,7 +156,7 @@
       this.getActivityInfo(function (data) {
         wx.ready(function () {
           //        朋友圈
-          var shareTitle = '[点击报名]'
+          var shareTitle = '【点击报名】'
           shareTitle += data.name
           wx.onMenuShareTimeline({
             title: shareTitle, // 分享标题

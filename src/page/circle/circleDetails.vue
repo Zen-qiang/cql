@@ -164,7 +164,7 @@
       },
       sharePeople () {
         var _this = this
-        var shareTitle = '[点击加入]'
+        var shareTitle = '【点击加入】'
         shareTitle += _this.circle.name
         wx.ready(function () {
           // 朋友圈
