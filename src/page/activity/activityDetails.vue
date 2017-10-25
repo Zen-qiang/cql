@@ -156,8 +156,10 @@
       this.getActivityInfo(function (data) {
         wx.ready(function () {
           //        朋友圈
+          var shareTitle = '[点击报名]'
+          shareTitle += data.name
           wx.onMenuShareTimeline({
-            title: '[点击报名]' + data.name, // 分享标题
+            title: shareTitle, // 分享标题
             link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 //            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
             imgUrl: data.pictures[0],
