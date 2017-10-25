@@ -167,7 +167,7 @@
         wx.ready(function () {
           // 朋友圈
           wx.onMenuShareTimeline({
-            title: _this.circle.name, // 分享标题
+            title: '[点击加入]' + _this.circle.name, // 分享标题
             link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 //            imgUrl: 'http://langlang2go.oss-cn-shanghai.aliyuncs.com/logo/logo_64x64.png', // 分享图标
             imgUrl: _this.circle.cover,

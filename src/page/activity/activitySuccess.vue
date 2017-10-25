@@ -4,14 +4,14 @@
       <img src="../../assets/images/success.svg" alt="">
     </div>
     <div>
-      <h3>{{title}}</h3>
-      <p>长按关注我们，以便及时获取最新动态</p>
+      <h3>关注我们<br/>及时获取报名信息</h3>
+      <p>{{title}}</p>
     </div>
     <div class="dinglian-success-title">
       <div>
         <!--:src="circle.cover"-->
         <!--@click="redirectCircleDetails"-->
-        <img src="../../assets/images/QRcode.jpg" alt="">
+        <img src="../../assets/images/QRcode.png" alt="">
       </div>
       <p></p>
     </div>
@@ -91,7 +91,7 @@
   .dinglian-success-icon {
     box-sizing: content-box;
     height: 0.42rem;
-    padding: 0.52rem 0 0.25rem;
+    padding: 0.42rem 0 0.25rem;
   }
   .dinglian-success-icon > img {
     width: 0.42rem;
@@ -107,17 +107,18 @@
   .dinglian-success-all > div > p {
     font-size: 0.11rem;
     color: #999999;
-    padding: 0.1rem 0 0.5rem;
+    padding: 0.1rem 0 0.3rem;
   }
   .dinglian-success-title > div {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.67rem;
     /*border: 1px solid #e6e6e6;*/
     margin: 0 auto;
     overflow: hidden;
     /*padding:0.06rem;*/
   }
   .dinglian-success-title >div img {
+    display: inline-block;
     width: 100%;
     height: 100%;
     vertical-align: top;

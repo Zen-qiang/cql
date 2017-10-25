@@ -200,7 +200,7 @@
         this.profilePicture = this.$store.state.userPicture
       }
       // 绑定手机号
-      if (this.$store.state.userPhoneNo && this.$store.state.userPhoneNo !== 'null') {
+      if (this.$store.state.userPhoneNo && (this.$store.state.userPhoneNo !== 'null')) {
         this.phoneNo = this.$store.state.userPhoneNo
       } else {
         this.needBind = true
