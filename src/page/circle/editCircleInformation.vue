@@ -17,7 +17,7 @@
     <!--编辑圈子名称-->
     <div class="dinglian-editCircleinformation-name container">
       <span>圈子名称</span>
-      <input type="text" v-model="circleName" :value="circleName">
+      <input type="text" v-model="circleName">
     </div>
     <!--编辑圈子分类-->
     <div class="dinglian-editCircleinformation-classify container" @click="goEditCategory($route.params.cid)">

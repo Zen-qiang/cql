@@ -7,7 +7,8 @@ import { Toast, Indicator } from 'mint-ui'
 axios.defaults.timeout = 30000
 // axios.defaults.baseURL = 'http://106.14.2.158/api/'
 // axios.defaults.baseURL = 'http://www.dingliantech.com/api/'
-axios.defaults.baseURL = 'http://sit.dingliantech.com/api/'
+// axios.defaults.baseURL = 'http://sit.dingliantech.com/api/';
+axios.defaults.baseURL = 'http://mp.dingliantech.com/api/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 // http请求拦截器
 axios.interceptors.request.use(
